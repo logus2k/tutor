@@ -1,0 +1,11 @@
+{
+  "packages": [
+    {
+      "id": "ai-901-core",
+      "title": "Azure AI Fundamentals Concepts and Implementation",
+      "file": "ai-901-core.json",
+      "description": "This package covers fundamental AI concepts, including fairness, safety, privacy, and explainability, along with matching AI tasks to relevant Azure AI models.",
+      "questions": 135
+    }
+  ]
+}

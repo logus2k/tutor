@@ -111,12 +111,12 @@ frontend control is unambiguous for every question.
 }
 ```
 
-**Live progress for the admin UI.** Beyond the polled status above, the backend
-exposes incremental progress so the admin area can render a real-time view
-(`GET /etl/jobs/{id}` for polling, plus a stream — SSE/WebSocket — emitting
-stage transitions and within-stage counters such as "concepts 12/40",
-"questions accepted 130/160"). The journey shown to the admin is exactly:
-**upload → extracting → transforming → loading → published in Catalog**.
+**Live progress for the admin UI (socket.io).** Real-time progress is pushed over
+**socket.io** — the project-wide convention for live communication (same as
+`agent_server`'s `Chat`/`RunStarted`/`ChatChunk` events). `GET /etl/jobs/{id}`
+remains for polling/late-join reconciliation, but the admin area renders the live
+**upload → extracting → transforming → loading → published in Catalog** journey
+from the socket.io event stream defined in §3.5.
 
 ### 3.4 Job state machine
 ```
@@ -137,6 +137,53 @@ Two quality gates:
   balance, redundancy, difficulty spread) before LOAD — see §5.5. This is in
   addition to the per-question `question_judge` (§5.3); both may run on the same
   active model.
+
+### 3.5 Real-time progress events (socket.io)
+
+The orchestrator emits a socket.io event at every meaningful transition, on a
+per-job channel (`job:{jobId}`). The admin UI joins that channel on upload and
+renders the whole journey live. Event names use a `noun.verb` scheme:
+
+| Event | Payload | Meaning |
+|---|---|---|
+| `job.queued` | `{ jobId, documents }` | Upload accepted; job created |
+| `stage.started` / `stage.done` | `{ jobId, stage }` (`extract`\|`transform`\|`load`) | Stage boundaries |
+| `extract.progress` | `{ jobId, page, totalPages }` | Per-page extraction (vision path) |
+| `concept.gated` | `{ jobId, objective, title, action }` | A chunk passed the gate |
+| `concept.skipped` / `concept.merged` / `concept.cached` | `{ jobId, objective, … }` | Gate remediation / resume |
+| `question.judged` | `{ jobId, qid, accepted }` | One question accepted/rejected |
+| `transform.progress` | `{ jobId, conceptsDone, questionsAccepted }` | Rolling counters |
+| `package.judged` | `{ jobId, score, publishable }` | Package-quality verdict |
+| `job.held` | `{ jobId, reason, score? }` | Awaiting human review (extraction or low judge score) |
+| `job.published` | `{ jobId, packageId, catalogEntry }` | **Package live in the Catalog** (UI's "done") |
+| `job.failed` | `{ jobId, stage, error }` | Terminal failure |
+
+The orchestrator is already instrumented with these (an `emit(event, …)` seam,
+see `etl/orchestrator.py`); the service layer binds `emit` to a socket.io
+broadcast on `job:{jobId}`. Because state is also persisted (job record + work
+dir), a client that connects late calls `GET /etl/jobs/{id}` once to catch up,
+then follows the live stream — no events are lost.
+
+### 3.6 Implementation status
+
+The pipeline and service are implemented and tested end-to-end on AI-901:
+
+| File | Role |
+|---|---|
+| `etl/service.py` | FastAPI + socket.io service: `POST /etl/jobs`, `GET /etl/jobs[/{id}]`, `GET /etl/health`, socket.io at `/etl/socket.io` (join room `job:{jobId}`, `job.snapshot` on join) |
+| `etl/extract.py` | docling extraction (in `noted-graph`) + markdown cleanup → md + DoclingDocument JSON |
+| `etl/clean_markdown.py` | re-levels headings, strips furniture, escapes loose code |
+| `etl/orchestrator.py` | segment → gate → author → judge → assemble → package-judge → validate → write (env-parameterized; emits `EVENT` lines bridged to socket.io) |
+| `etl/catalog.py` | maintains `data/packages/index.json` (Catalog) and `data/documents/index.json` |
+| `schema/package.schema.json` | the package contract (hard-validated; a missing/broken validator fails loudly — no silent fallback) |
+
+Verified end-to-end (live socket.io lifecycle `job.queued → stage.* → concept.gated → question.judged → dedup.done → package.judged → job.published → catalog.updated`):
+- **Re-build path** (`directive.sourceMd`/`sourceJson`) — re-package an existing extraction without re-extracting.
+- **Upload path** (`files[]`) — PDF → docling → full pipeline → publish.
+
+**Catalog hygiene:** only `published` packages enter `data/packages/index.json`; `held`/`failed` packages are kept out of the student-facing Catalog.
+
+**Remaining for production:** containerize the service (it currently shells `docker exec noted-graph` for docling — fine on the host, needs a network/extraction-service call from inside a container); multi-document-per-package jobs; a review area for `held` packages; generic (non-numbered) document segmentation; bloom-balance tuning of the author.
 
 ---
 
@@ -249,11 +296,21 @@ A question is **accepted** only if it passes, in order:
 4. **Distractor quality** — distractors are plausible and mutually exclusive; no
    "all/none of the above" unless intended.
 5. **Difficulty/Bloom sanity** — label matches the item's actual demand.
-6. **Dedup** — near-duplicate stems within the concept/package are dropped
-   (normalized-text + embedding similarity).
+6. **Dedup** — near-duplicate stems across the package are dropped. Implemented as
+   **lexical token-set Jaccard** (≥ 0.82); embedding-based semantic dedup is a
+   future upgrade.
 
 Rejected items are either **auto-repaired** (one bounded regeneration attempt
 with the judge's feedback) or **dropped with a warning** recorded in the report.
+
+Before the LLM judge, a **deterministic sanitize guardrail** runs on every
+authored question: it coerces `type`/`render` to the valid enums, reconciles them
+with the actual `correct`-option count (e.g. a single-choice with two keys becomes
+`mcq_multi`+checkbox), defaults an out-of-range `difficulty`/`bloom`, and **drops**
+anything unsalvageable (no options, no correct answer). This guarantees the
+assembled package is always schema-valid even when the model emits a stray field —
+a real case caught in testing (a `bloom` value leaked into `type`). The package is
+also validated against `schema/package.schema.json` at the end of Load.
 
 ### 5.4 Concurrency & context
 - All LLM calls share **one active model** on `agent_server` → run with **bounded
@@ -273,11 +330,17 @@ evaluates the *assembled package as a whole* before publish:
 - **Internal consistency** — each question's `render`/`type` is valid and its
   keyed answer is well-formed.
 
-It emits a **quality score + findings**. On a low score (below a configurable
-threshold) the job goes to **held** with the findings attached, so the
-out-of-band reviewer can decide to publish anyway, regenerate, or discard. For
-now this runs on the **same active model** (Gemma 4 E4B); it can move to a
-stronger/dedicated judge model later without changing the contract.
+It emits a **quality score + findings** (each finding tagged
+`info`/`warn`/`error`). **Publishability is decided deterministically in code,
+not by the model's own boolean** — testing showed the model returned
+`publishable=false` even with only `warn` findings, violating its own rubric. The
+orchestrator publishes when there are **no `error`-severity findings AND score ≥
+threshold** (default 60); otherwise the job goes to **held** with the score +
+findings attached as advisory `quality` metadata on the package, so the
+out-of-band reviewer can publish anyway, regenerate, or discard. The score/findings
+are advisory; the gate is deterministic — same philosophy as deterministic
+grading. Runs on the active model for now; can move to a stronger judge model
+later without changing the contract.
 
 ---
 
@@ -421,8 +484,8 @@ All are job-level (request) overrides on top of system defaults.
 | 5 | **Source retention** | **Keep** original uploads + extracted artifacts long-term — enables out-of-band review, deterministic re-builds (checksum cache), and future RAG indexing. |
 
 ### Still to refine (non-blocking)
-- **Progress transport** for the live job view — SSE vs WebSocket vs polling;
-  match whatever convention Tutor's frontend already uses.
+- **Progress transport** — **resolved: socket.io** (project-wide convention; event
+  contract in §3.5), with `GET /etl/jobs/{id}` for late-join reconciliation.
 - **Question-volume targets** per concept/package (defaults in §3.2 are
   placeholders to tune against the first real runs).
 - **`package_judge` threshold** that flips a job to *held* — calibrate on the

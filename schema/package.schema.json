@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tutor/schema/package.schema.json",
+  "title": "Tutor Package",
+  "description": "Canonical question-bank package (see documents/technical_architecture.md §5).",
+  "type": "object",
+  "required": ["schema_version", "id", "title", "sources", "source_ids", "taxonomy", "concepts", "questions"],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "generated_by": { "type": "string" },
+    "generated_at": { "type": "string" },
+
+    "sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "kind"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "kind": { "type": "string" },
+          "extractor": { "type": "string" },
+          "extracted_at": { "type": "string" },
+          "checksum": { "type": "string" },
+          "uri": { "type": "string" }
+        }
+      }
+    },
+
+    "source_ids": { "type": "array", "items": { "type": "string" } },
+
+    "taxonomy": {
+      "type": "object",
+      "required": ["domains"],
+      "properties": {
+        "domains": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "title"],
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "weight": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        }
+      }
+    },
+
+    "concepts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "domain"],
+        "properties": {
+          "id": { "type": "string" },
+          "domain": { "type": "string" },
+          "objective": { "type": "string" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "prerequisites": { "type": "array", "items": { "type": "string" } },
+          "grounding": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source_id", "locator"],
+              "properties": {
+                "source_id": { "type": "string" },
+                "locator": { "type": "string" },
+                "text": { "type": "string" },
+                "citation": { "type": "string" }
+              }
+            }
+          },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "questions": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "concept_ids", "type", "stem", "options", "difficulty"],
+        "properties": {
+          "id": { "type": "string" },
+          "concept_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "type": { "enum": ["mcq_single", "mcq_multi", "true_false"] },
+          "render": { "enum": ["radio", "checkbox", "dropdown"] },
+          "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "bloom": { "enum": ["recall", "understand", "apply", "analyze"] },
+          "stem": { "type": "string", "minLength": 1 },
+          "options": {
+            "type": "array", "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["id", "text", "correct"],
+              "properties": {
+                "id": { "type": "string" },
+                "text": { "type": "string" },
+                "correct": { "type": "boolean" },
+                "rationale": { "type": "string" }
+              }
+            }
+          },
+          "explanation": { "type": "string" },
+          "hints": { "type": "array", "items": { "type": "string" } },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source_id"],
+              "properties": {
+                "source_id": { "type": "string" },
+                "locator": { "type": "string" }
+              }
+            }
+          },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

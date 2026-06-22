@@ -1,8 +1,8 @@
-# Tutor — static ES6 frontend served by nginx, fronted by the domain proxy.
+# Tutor — static ES6 frontend + ETL backend (FastAPI/socket.io) + docling, one
+# container fronted by the domain proxy (reaches it at host.docker.internal:4930).
 #
-# Pure static site: the browser reaches agent_server via the proxy's public
-# /llm/ path (same origin), so this container needs no backend network — the
-# domain proxy reaches it at host.docker.internal:4930.
+# The browser reaches agent_server via the proxy's /llm/ path; the in-container
+# ETL backend reaches agent_server at host.docker.internal:7701.
 services:
   tutor:
     build:
@@ -12,7 +12,16 @@ services:
     ports:
       - "4930:80"
     volumes:
-      # Live-mounted so packages/content can change without an image rebuild.
-      # Served at the web root as /data/ (app.js fetches /data/packages/...).
-      - ./data:/usr/share/nginx/html/data:ro
+      # Runtime content (packages/documents/jobs) — read-WRITE so the ETL backend
+      # can publish packages and update the indexes without an image rebuild.
+      - ./data:/app/data
+      # docling models, shared with noted-graph (read-only).
+      - /home/logus/env/assets/noted/data/models:/data/models:ro
+    environment:
+      - ETL_API=http://host.docker.internal:7701/v1/chat/completions
+      - ETL_DOCLING_MODE=local
+      - DOCLING_MODELS=/data/models/docling/models
+      - ETL_DOCLING_DEVICE=auto      # CPU build → cpu; see README for the GPU upgrade
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped

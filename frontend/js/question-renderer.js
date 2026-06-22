@@ -21,6 +21,8 @@ export class QuestionPanel {
    * @param {object} [callbacks]
    * @param {(q, pkg, state) => void} [callbacks.onAskTutor]  "Ask the tutor" pressed.
    * @param {(q, result) => void}     [callbacks.onAnswered]  fired once per question on submit.
+   * @param {(info) => void}          [callbacks.onQuestionChange]  fired on every render
+   *        (navigation + answer): { question, index, total, answered, correct, selectedIds }.
    */
   constructor(container, pkg, callbacks = {}) {
     this.container = container;
@@ -52,6 +54,16 @@ export class QuestionPanel {
     this._render();
   }
 
+  /** Progress across the package: { total, answered, correct }. */
+  getProgress() {
+    let answered = 0;
+    let correct = 0;
+    for (const st of this.state.values()) {
+      if (st.answered) { answered++; if (st.correct) correct++; }
+    }
+    return { total: this.pkg.questionCount, answered, correct };
+  }
+
   // ---- rendering --------------------------------------------------------
 
   _render() {
@@ -76,6 +88,14 @@ export class QuestionPanel {
     if (st.answered) this._renderFeedback(q, st);
 
     this.container.appendChild(this._footer(q));
+
+    // Publish the current question + state so the assistant stays aware.
+    if (this.cb.onQuestionChange) {
+      this.cb.onQuestionChange({
+        question: q, index: this.index, total: this.pkg.questionCount,
+        answered: st.answered, correct: st.correct, selectedIds: [...st.selected],
+      });
+    }
   }
 
   _header(q) {
