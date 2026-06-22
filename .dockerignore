@@ -1,0 +1,10 @@
+.venv_tutor/
+.git/
+documents/
+data/
+Dockerfile
+docker-compose.yml
+.dockerignore
+.gitignore
+**/.DS_Store
+frontend/dev_server.py

@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "id": "ai-901-core",
+  "title": "Azure AI Fundamentals (AI-901)",
+  "description": "Sample question bank for the AI-901 certification. Used to develop and exercise the Tutor frontend before the authoring pipeline produces real packages.",
+  "generated_by": "tutor-author sample v0.1 (hand-authored mock)",
+  "generated_at": "2026-06-22T00:00:00Z",
+
+  "sources": [
+    {
+      "id": "src-ai901-cheatsheet",
+      "title": "Microsoft Certified: Azure AI Fundamentals (AI-901) Master Cheat Sheet",
+      "kind": "pdf",
+      "extractor": "docling+enrich",
+      "extracted_at": "2026-06-22T00:00:00Z",
+      "checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": "materials/AI-901.pdf"
+    }
+  ],
+
+  "source_ids": ["src-ai901-cheatsheet"],
+
+  "taxonomy": {
+    "domains": [
+      { "id": "d1", "title": "Identify AI concepts and capabilities", "weight": 0.42 },
+      { "id": "d2", "title": "Implement AI solutions using Microsoft Foundry", "weight": 0.58 }
+    ]
+  },
+
+  "concepts": [
+    {
+      "id": "c-fairness",
+      "domain": "d1",
+      "objective": "1.1.1",
+      "title": "Fairness in responsible AI",
+      "summary": "An AI system should treat all people equitably, without bias.",
+      "prerequisites": [],
+      "grounding": [
+        {
+          "source_id": "src-ai901-cheatsheet",
+          "locator": "p.2 §1.1.1",
+          "text": "Fairness means that an AI system treats all people equitably and does not introduce or amplify bias against any group.",
+          "citation": "AI-901 Cheat Sheet, p.2"
+        }
+      ]
+    },
+    {
+      "id": "c-responsible-ai-principles",
+      "domain": "d1",
+      "objective": "1.1",
+      "title": "Microsoft's responsible AI principles",
+      "summary": "The six guiding principles: fairness, reliability & safety, privacy & security, inclusiveness, transparency, and accountability.",
+      "prerequisites": [],
+      "grounding": [
+        {
+          "source_id": "src-ai901-cheatsheet",
+          "locator": "p.2 §1.1",
+          "text": "Microsoft defines six responsible AI principles: fairness, reliability and safety, privacy and security, inclusiveness, transparency, and accountability.",
+          "citation": "AI-901 Cheat Sheet, p.2"
+        }
+      ]
+    },
+    {
+      "id": "c-ml-types",
+      "domain": "d1",
+      "objective": "1.2",
+      "title": "Types of machine learning",
+      "summary": "Supervised (labelled data), unsupervised (unlabelled data), and reinforcement learning (reward-driven).",
+      "prerequisites": [],
+      "grounding": [
+        {
+          "source_id": "src-ai901-cheatsheet",
+          "locator": "p.3 §1.2",
+          "text": "Supervised learning trains on labelled data; unsupervised learning finds structure in unlabelled data; reinforcement learning learns from rewards and penalties.",
+          "citation": "AI-901 Cheat Sheet, p.3"
+        }
+      ]
+    },
+    {
+      "id": "c-cognitive-services",
+      "domain": "d2",
+      "objective": "2.3",
+      "title": "Azure AI services categories",
+      "summary": "Prebuilt Azure AI services span vision, speech, language, and decision capabilities.",
+      "prerequisites": ["c-ml-types"],
+      "grounding": [
+        {
+          "source_id": "src-ai901-cheatsheet",
+          "locator": "p.6 §2.3",
+          "text": "Azure AI services are grouped into vision, speech, language, and decision categories, each exposing prebuilt models via REST and SDKs.",
+          "citation": "AI-901 Cheat Sheet, p.6"
+        }
+      ]
+    }
+  ],
+
+  "questions": [
+    {
+      "id": "q-0001",
+      "concept_ids": ["c-fairness"],
+      "type": "mcq_single",
+      "difficulty": 2,
+      "bloom": "understand",
+      "stem": "An AI loan-approval model denies loans more often to one demographic group. Which responsible-AI principle is violated?",
+      "options": [
+        { "id": "a", "text": "Reliability and safety", "correct": false, "rationale": "That concerns consistent, safe behaviour, not equitable treatment across groups." },
+        { "id": "b", "text": "Fairness", "correct": true, "rationale": "Disparate outcomes across demographic groups is the defining fairness violation." },
+        { "id": "c", "text": "Transparency", "correct": false, "rationale": "Transparency is about explainability and disclosure, not equitable outcomes." },
+        { "id": "d", "text": "Privacy and security", "correct": false, "rationale": "That concerns protecting data, not outcome equity." }
+      ],
+      "explanation": "Fairness requires equitable treatment across groups; biased denial rates are the textbook fairness violation.",
+      "hints": ["Which principle is specifically about equitable outcomes across people?"],
+      "source_refs": [{ "source_id": "src-ai901-cheatsheet", "locator": "p.2 §1.1.1" }],
+      "tags": ["responsible-ai", "fairness"]
+    },
+    {
+      "id": "q-0002",
+      "concept_ids": ["c-responsible-ai-principles"],
+      "type": "mcq_multi",
+      "difficulty": 3,
+      "bloom": "recall",
+      "stem": "Which of the following are among Microsoft's six responsible AI principles? (Select all that apply.)",
+      "options": [
+        { "id": "a", "text": "Inclusiveness", "correct": true, "rationale": "Inclusiveness is one of the six principles — AI should empower everyone." },
+        { "id": "b", "text": "Accountability", "correct": true, "rationale": "Accountability is one of the six — people are answerable for AI systems." },
+        { "id": "c", "text": "Profitability", "correct": false, "rationale": "Profitability is a business concern, not a responsible-AI principle." },
+        { "id": "d", "text": "Transparency", "correct": true, "rationale": "Transparency is one of the six — systems should be understandable." },
+        { "id": "e", "text": "Scalability", "correct": false, "rationale": "Scalability is an engineering property, not a responsible-AI principle." }
+      ],
+      "explanation": "The six principles are fairness, reliability & safety, privacy & security, inclusiveness, transparency, and accountability. Profitability and scalability are not among them.",
+      "hints": ["There are exactly six principles — three of these five belong."],
+      "source_refs": [{ "source_id": "src-ai901-cheatsheet", "locator": "p.2 §1.1" }],
+      "tags": ["responsible-ai", "principles"]
+    },
+    {
+      "id": "q-0003",
+      "concept_ids": ["c-ml-types"],
+      "type": "true_false",
+      "difficulty": 1,
+      "bloom": "recall",
+      "stem": "Unsupervised learning trains a model using data that has been labelled with the correct answers.",
+      "options": [
+        { "id": "true", "text": "True", "correct": false, "rationale": "That describes supervised learning. Unsupervised learning uses unlabelled data." },
+        { "id": "false", "text": "False", "correct": true, "rationale": "Correct — unsupervised learning works on unlabelled data and discovers structure on its own." }
+      ],
+      "explanation": "Labelled training data is the hallmark of supervised learning; unsupervised learning finds patterns in unlabelled data.",
+      "hints": ["Which kind of learning needs the answers provided up front?"],
+      "source_refs": [{ "source_id": "src-ai901-cheatsheet", "locator": "p.3 §1.2" }],
+      "tags": ["machine-learning", "supervised", "unsupervised"]
+    },
+    {
+      "id": "q-0004",
+      "concept_ids": ["c-cognitive-services"],
+      "type": "mcq_single",
+      "difficulty": 2,
+      "bloom": "understand",
+      "render": "dropdown",
+      "stem": "You need a prebuilt API that converts spoken audio into text. Which Azure AI services category should you use?",
+      "options": [
+        { "id": "a", "text": "Vision", "correct": false, "rationale": "Vision handles images and video, not audio." },
+        { "id": "b", "text": "Speech", "correct": true, "rationale": "The Speech category provides speech-to-text (and text-to-speech)." },
+        { "id": "c", "text": "Language", "correct": false, "rationale": "Language analyses text that already exists; it does not transcribe audio." },
+        { "id": "d", "text": "Decision", "correct": false, "rationale": "Decision services (e.g. Anomaly Detector, Content Moderator) do not transcribe audio." }
+      ],
+      "explanation": "Speech-to-text lives in the Speech category of Azure AI services. (Rendered as a dropdown to exercise that control type.)",
+      "hints": ["Match the modality of the input — audio — to the service category."],
+      "source_refs": [{ "source_id": "src-ai901-cheatsheet", "locator": "p.6 §2.3" }],
+      "tags": ["azure-ai-services", "speech"]
+    }
+  ]
+}

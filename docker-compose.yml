@@ -1,0 +1,18 @@
+# Tutor — static ES6 frontend served by nginx, fronted by the domain proxy.
+#
+# Pure static site: the browser reaches agent_server via the proxy's public
+# /llm/ path (same origin), so this container needs no backend network — the
+# domain proxy reaches it at host.docker.internal:4930.
+services:
+  tutor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tutor
+    ports:
+      - "4930:80"
+    volumes:
+      # Live-mounted so packages/content can change without an image rebuild.
+      # Served at the web root as /data/ (app.js fetches /data/packages/...).
+      - ./data:/usr/share/nginx/html/data:ro
+    restart: unless-stopped

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tutor</title>
+  <link rel="stylesheet" href="css/tutor.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">🎓</span>
+      <div class="brand-text">
+        <div id="pkg-title" class="brand-title">Tutor</div>
+        <div id="pkg-sub" class="brand-sub">loading package…</div>
+      </div>
+    </div>
+    <div class="cfg">
+      <label>agent
+        <select id="cfg-agent">
+          <option value="tutor">tutor</option>
+        </select>
+      </label>
+      <button id="cfg-save" type="button">Apply</button>
+    </div>
+  </header>
+
+  <main id="split" class="split">
+    <section id="left" class="pane pane-left">
+      <div id="questions" class="questions"></div>
+    </section>
+    <div id="splitter" class="splitter" title="Drag to resize · double-click to reset"></div>
+    <section id="right" class="pane pane-right">
+      <div id="chat" class="chat"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
