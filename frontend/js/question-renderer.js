@@ -54,6 +54,24 @@ export class QuestionPanel {
     this._render();
   }
 
+  /**
+   * Restore previously-saved answers (from a study session): mark those
+   * questions answered with their selection + correctness, then re-render.
+   * @param {Array<{question_id, selected_ids, correct}>} answers
+   */
+  applySaved(answers) {
+    for (const a of answers || []) {
+      if (!a || !a.question_id) continue;
+      this.state.set(a.question_id, {
+        selected: new Set(a.selected_ids || []),
+        answered: true,
+        correct: a.correct == null ? null : !!a.correct,
+        hintsShown: 0,
+      });
+    }
+    this._render();
+  }
+
   /** Progress across the package: { total, answered, correct }. */
   getProgress() {
     let answered = 0;

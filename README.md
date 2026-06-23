@@ -141,18 +141,32 @@ is vendored at `frontend/vendor/socket.io.min.js`.
 
 ## Run / develop
 
+The image is **layered**: a stable **base** (`tutor-etl-base`, carrying CPU
+torch + docling + apt deps) and a thin **app** image (`Dockerfile`, code only)
+that is `FROM` it. Build the base **once** (slow — pulls the CPU torch wheel);
+after that, code rebuilds are seconds and never re-touch torch.
+
 ```bash
-# build + (re)start the container (first build pulls docling/torch — slow)
 cd ~/env/assets/tutor
+
+# 1. base image — build once, and only when etl/requirements.txt changes
+#    (bump the tag to match the docling version; keep it in sync with Dockerfile's FROM):
+docker build -f Dockerfile.base -t tutor-etl-base:2.105.0 .
+
+# 2. app image — fast (re)build + (re)start; re-COPYs code only, no pip/torch.
+#    Run this after editing frontend/ OR etl/ code:
 docker compose up -d --build
 
 # editing data/ (packages, indexes) needs NO rebuild — it's bind-mounted rw.
-# editing frontend/ OR etl/ code DOES need a rebuild (baked into the image):
-docker compose up -d --build
 
 # quick backend check:
 curl -s http://localhost:4930/etl/health        # {"status":"ok"}
 ```
+
+> torch/torchvision are pinned to the **CPU wheels** in `etl/requirements.txt`
+> (the default CUDA build made the image 6.13 GB → ~2 GB on CPU). docling runs
+> on CPU; startup stays instant because torch is only imported inside the
+> per-job docling CLI, never at boot.
 
 Open **https://logus2k.com/tutor/**.
 

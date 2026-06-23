@@ -29,12 +29,13 @@ export class ChatPanel {
    * @param {boolean} [opts.showReasoning]   display reasoning (Settings-driven).
    */
   constructor(root, { baseUrl = '', agent = 'tutor', io = null, thinking = true, showReasoning = false,
-                      onStatus = null, context = null, mcpBase = '/mcp', mcpApp = 'tutor', clientTools = {} } = {}) {
+                      onStatus = null, context = null, mcpBase = '/mcp', mcpApp = 'tutor', clientTools = {}, onHide = null } = {}) {
     this.root = root;
     this.baseUrl = baseUrl.replace(/\/$/, '');
     this.agent = agent;
     this.io = io;
     this.onStatus = onStatus;   // (text, state) => void ; state: 'ready'|'busy'|'error'
+    this.onHide = onHide;       // () => void ; the title-bar ✕ (hide the chat pane)
     this.context = context;     // observable TutorContext (live package/question)
     this.thinking = thinking;          // generate <think> (per-request)
     this.showReasoning = showReasoning; // display reasoning panels
@@ -100,7 +101,14 @@ export class ChatPanel {
     this.led = el('span', 'chat-led');
     this.led.title = 'Ready';
     this.statusWrap.append(this.statusText, this.led);   // "Ready" then the LED
-    header.append(el('div', 'chat-title', '🎓 Tutor'), this.statusWrap);
+    const closeBtn = el('button', 'chat-close', '✕');
+    closeBtn.type = 'button';
+    closeBtn.title = 'Hide chat';
+    closeBtn.setAttribute('aria-label', 'Hide chat');
+    closeBtn.addEventListener('click', () => { if (this.onHide) this.onHide(); });
+    const right = el('div', 'chat-headright');
+    right.append(this.statusWrap, closeBtn);
+    header.append(el('div', 'chat-title', '🎓 Tutor'), right);
 
     // Awareness strip — shows what the assistant currently "sees" (live context).
     this.contextEl = el('div', 'chat-context');

@@ -14,6 +14,7 @@ import { ChatPanel } from './chat.js';
 import { initSplitter } from './splitter.js';
 import { TutorContext } from './context.js';
 import { IngestPanel } from './ingest.js';
+import { SessionsPanel } from './sessions.js';
 
 const LS = {
   agent: 'tutor.agent',
@@ -37,6 +38,8 @@ const boolPref = (key, dflt) => { const v = localStorage.getItem(key); return v 
 let chat = null;
 let questionPanel = null;   // current package's panel (null until one is opened)
 let packageIndex = [];      // catalog entries (for open_package by id)
+let activeSession = null;   // { id, name } when a study session is active (signed in)
+let currentPackageId = null;
 // Live session context (active package + current question). Nav publishes here;
 // the chat reads it each turn so the assistant is always aware of the state.
 const context = new TutorContext();
@@ -55,8 +58,10 @@ async function main() {
     baseUrl: DEFAULTS.baseUrl, agent: settings.agent, io: window.io || null,
     thinking: settings.thinking, showReasoning: settings.showReasoning,
     context, clientTools: buildClientTools(),
+    onHide: () => setChatVisible(false),
   });
   setAgentStatus(settings.agent);
+  setChatVisible(localStorage.getItem('tutor.chatHidden') !== 'true');
 
   initSplitter($('split'), $('left'), $('splitter'), $('right'));
   wireRail();
@@ -70,21 +75,111 @@ async function main() {
   new IngestPanel($('ingest'), {
     onPublished: () => { buildCatalog(); buildDocuments(); },
   });
+
+  // Study Sessions (per-student, server-persisted). Optional login.
+  sessionsPanel = new SessionsPanel($('sessions-panel'), {
+    onActivate: setActiveSession,
+    activeId: () => (activeSession ? activeSession.id : null),
+  });
+  restoreActiveSession();   // re-activate last session (if still signed in)
+  renderIdentity();         // top-right: Anonymous / signed-in user
+}
+
+/** Top-right identity widget: "Anonymous" + Sign in, or the user + Sign out. */
+async function renderIdentity() {
+  const box = $('identity');
+  let me = { authenticated: false, email: '' };
+  try { me = await fetchJson('etl/me'); } catch { /* anonymous */ }
+  const rd = encodeURIComponent(location.pathname + location.search);
+  box.innerHTML = '';
+
+  // Trigger: name on the LEFT, avatar on the RIGHT. Click toggles the menu.
+  const trigger = el('button', 'identity-trigger');
+  trigger.type = 'button';
+  const menu = el('div', 'identity-menu hidden');
+
+  if (me.authenticated) {
+    trigger.append(el('span', 'identity-user', me.name || me.email));
+    if (me.picture) {
+      const img = el('img', 'identity-pic');
+      img.src = me.picture; img.alt = ''; img.referrerPolicy = 'no-referrer';
+      img.onerror = () => img.replaceWith(el('span', 'identity-icon', '👤'));
+      trigger.append(img);
+    } else {
+      trigger.append(el('span', 'identity-icon', '👤'));
+    }
+    if (me.name) menu.append(el('div', 'identity-menu-email', me.email));
+    const out = el('a', 'identity-menu-item', 'Sign out');
+    out.href = `/oauth2/sign_out?rd=${rd}`;
+    menu.append(out);
+  } else {
+    trigger.append(el('span', 'identity-anon', 'Anonymous'), el('span', 'identity-icon', '👤'));
+    const sign = el('a', 'identity-menu-item', 'Sign in');
+    sign.href = `/oauth2/sign_in?rd=${rd}`;
+    menu.append(sign);
+  }
+
+  trigger.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
+  document.addEventListener('click', () => menu.classList.add('hidden'));
+  box.append(trigger, menu);
+}
+
+let sessionsPanel = null;
+
+// ---- Study Sessions ------------------------------------------------------
+
+const LS_ACTIVE = 'tutor.activeSession';
+
+function setActiveSession(session) {
+  activeSession = session || null;
+  if (activeSession) localStorage.setItem(LS_ACTIVE, activeSession.id);
+  else localStorage.removeItem(LS_ACTIVE);
+  setSessionStatus(activeSession ? activeSession.name : null);
+  // Guide the flow: once a session is active, go pick a package to study.
+  if (activeSession) showView('catalog');
+}
+
+async function restoreActiveSession() {
+  const id = localStorage.getItem(LS_ACTIVE);
+  if (!id) return;
+  try {
+    const s = await fetchJson(`etl/sessions/${id}`);   // 404/401 if gone or signed out
+    activeSession = { id: s.id, name: s.name };
+    setSessionStatus(s.name);
+  } catch { localStorage.removeItem(LS_ACTIVE); }
+}
+
+/** Persist a graded answer to the active session (no-op when anonymous). */
+function persistAnswer(packageId, q, result) {
+  if (!activeSession) return;
+  fetch(`etl/sessions/${activeSession.id}/answers`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ package_id: packageId, question_id: q.id, selected_ids: result.selected, correct: result.correct }),
+  }).catch(() => { /* non-fatal */ });
 }
 
 // ---- activity rail / left-pane view switching --------------------------
 
-const VIEWS = ['questions', 'catalog', 'documents', 'settings'];
+const VIEWS = ['sessions', 'questions', 'catalog', 'documents', 'settings'];
 
 function showView(name) {
-  document.querySelectorAll('.rail-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
+  document.querySelectorAll('.rail-btn[data-view]').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
   for (const v of VIEWS) $(`view-${v}`).classList.toggle('hidden', v !== name);
 }
 
 function wireRail() {
-  document.querySelectorAll('.rail-btn').forEach((btn) => {
+  document.querySelectorAll('.rail-btn[data-view]').forEach((btn) => {
     btn.addEventListener('click', () => showView(btn.dataset.view));
   });
+  // Robot button: toggle the chat pane (not a view).
+  $('rail-chat').addEventListener('click', () => setChatVisible($('split').classList.contains('chat-collapsed')));
+}
+
+/** Show/hide the chat (right) pane; collapsing gives the left pane full width. */
+function setChatVisible(visible) {
+  $('split').classList.toggle('chat-collapsed', !visible);
+  $('rail-chat').classList.toggle('active', visible);
+  localStorage.setItem('tutor.chatHidden', String(!visible));
 }
 
 // ---- Catalog (packages) -------------------------------------------------
@@ -129,6 +224,7 @@ async function openPackage(entry) {
     document.title = `Tutor — ${pkg.title}`;
     setPackageStatus(pkg.title);
     context.setPackage(pkg);
+    currentPackageId = pkg.id;
     mount.innerHTML = '';
     questionPanel = new QuestionPanel(mount, pkg, {
       onAskTutor: (q, p, state) => chat.prefill(buildPrompt(q, p, state)),
@@ -138,7 +234,21 @@ async function openPackage(entry) {
         { answered: info.answered, correct: info.correct, selectedIds: info.selectedIds },
         info.index, info.total,
       ),
+      // Persist each graded answer to the active study session (if signed in).
+      onAnswered: (q, result) => persistAnswer(pkg.id, q, result),
     });
+
+    // Restore saved answers for this package within the active session.
+    if (activeSession) {
+      try {
+        await fetch(`etl/sessions/${activeSession.id}/packages`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ package_id: pkg.id }),
+        });
+        const { answers } = await fetchJson(`etl/sessions/${activeSession.id}/answers?package_id=${encodeURIComponent(pkg.id)}`);
+        if (answers && answers.length) questionPanel.applySaved(answers);
+      } catch { /* non-fatal — free play continues */ }
+    }
   } catch (e) {
     const msg = e instanceof PackageError ? e.message : `Unexpected error: ${e.message}`;
     mount.innerHTML = errBox('Could not load this package.', { message: msg });
@@ -236,6 +346,7 @@ function wireSettings(settings) {
 
 function setAgentStatus(name) { $('sb-agent').textContent = `🤖 ${name}`; }
 function setPackageStatus(title) { $('sb-package').textContent = title ? `📦 ${title}` : '📦 No package'; }
+function setSessionStatus(name) { const el = $('sb-session'); if (el) el.textContent = name ? `🎯 ${name}` : ''; }
 
 // ---- helpers ------------------------------------------------------------
 
