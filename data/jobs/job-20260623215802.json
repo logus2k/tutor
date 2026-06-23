@@ -1,0 +1,115 @@
+{
+  "jobId": "job-20260623215802",
+  "state": "queued",
+  "packageId": "microsoft-ai-transformation-leader-ab-731",
+  "title": "Microsoft AI Transformation Leader",
+  "documents": [
+    "Microsoft-AI-Transformation-Leader-AB-731.pdf"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260623215802",
+      "event": "job.queued",
+      "documents": [
+        "Microsoft-AI-Transformation-Leader-AB-731.pdf"
+      ]
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "stage.started",
+      "stage": "extract"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "stage.done",
+      "stage": "extract"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "stage.started",
+      "stage": "segment"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "stage.done",
+      "stage": "segment",
+      "concepts_found": 38,
+      "pages_mapped": 44
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "concept.gated",
+      "objective": "1.1.1",
+      "title": "Generative AI vs. Traditional AI",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260623215802",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0004",
+      "accepted": true
+    }
+  ],
+  "created_at": "2026-06-23T21:58:02.275057+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "jobId": "job-20260623220028",
+  "state": "queued",
+  "packageId": "microsoft-ai-transformation-leader-ab-731",
+  "title": "Microsoft AI Transformation Leader",
+  "documents": [
+    "Microsoft-AI-Transformation-Leader-AB-731.pdf"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260623220028",
+      "event": "job.queued",
+      "documents": [
+        "Microsoft-AI-Transformation-Leader-AB-731.pdf"
+      ]
+    },
+    {
+      "jobId": "job-20260623220028",
+      "event": "stage.started",
+      "stage": "extract"
+    },
+    {
+      "jobId": "job-20260623220028",
+      "event": "extract.progress",
+      "detail": "docling started"
+    }
+  ],
+  "created_at": "2026-06-23T22:00:28.326942+00:00"
+}
