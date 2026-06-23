@@ -5787,8 +5787,8 @@
         {
           "id": "a",
           "text": "Video",
-          "correct": false,
-          "rationale": "Video is not a type of input that multimodal models can process."
+          "correct": true,
+          "rationale": "Video is also a modality multimodal models can process (e.g., Azure Content Understanding handles video)."
         },
         {
           "id": "b",
@@ -5800,16 +5800,22 @@
           "id": "c",
           "text": "Image",
           "correct": true,
-          "rationale": "Image is a type of input that multimodal models can process."
+          "rationale": "Images are a type of input that multimodal models can process."
         },
         {
           "id": "d",
           "text": "Audio",
           "correct": true,
           "rationale": "Audio is a type of input that multimodal models can process."
+        },
+        {
+          "id": "e",
+          "text": "Olfactory (smell) data",
+          "correct": false,
+          "rationale": "Smell is not a modality these models accept; their inputs are perceptual data such as text, images, audio, and video."
         }
       ],
-      "explanation": "Multimodal models can process and respond to multiple types of input (modalities) like text, images, and audio.",
+      "explanation": "Multimodal models can process and respond to multiple modalities — text, images, audio, and video.",
       "hints": [],
       "source_refs": [
         {
@@ -6756,25 +6762,25 @@
           "id": "a",
           "text": "Image generation model",
           "correct": false,
-          "rationale": "The image generation model is used for extension, not the core architecture described."
+          "rationale": "This belongs to the optional 'Extending with Generation' step, not the core three-part architecture."
         },
         {
           "id": "b",
           "text": "Frontend",
           "correct": true,
-          "rationale": "The Frontend is part of the architecture."
+          "rationale": "Step 1 of the architecture: the web/CLI interface where the user uploads an image and asks a question."
         },
         {
           "id": "c",
           "text": "Backend (Foundry)",
           "correct": true,
-          "rationale": "The Backend (Foundry) is handling the multimodal model analysis."
+          "rationale": "Step 2 of the architecture: it sends the image and question to the deployed multimodal model and returns the answer."
         },
         {
           "id": "d",
           "text": "Output Display",
           "correct": true,
-          "rationale": "The Output Display is part of the overall architecture."
+          "rationale": "Step 3 of the architecture: the app displays the model's answer to the user."
         }
       ],
       "explanation": "The core architecture involves the Frontend for input, the Backend (Foundry) for analysis, and an Output Display for results.",

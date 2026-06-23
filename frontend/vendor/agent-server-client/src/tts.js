@@ -46,10 +46,10 @@ export class TtsClient {
       if (!ok) { this._cleanup(); return false; }
       this.socket.emit('register_audio_client', {
         main_client_id: this.clientId, connection_type: 'browser',
-        mode: this._mode, format: 'binary', voice: this.voice, speed: this.speed,
+        mode: this._serverMode(), format: 'binary', voice: this.voice, speed: this.speed,
       });
       this.socket.emit('tts_configure_client', { client_id: this.clientId, voice: this.voice, speed: this.speed });
-      this.socket.emit('set_client_mode', { mode: this._mode, client_id: this.clientId });
+      this.socket.emit('set_client_mode', { mode: this._serverMode(), client_id: this.clientId });
       this.socket.on('tts_audio_chunk', (e) => this._onChunk(e));
       this.socket.on('tts_stop_immediate', () => this._stopLocal());
       this.available = true;
@@ -71,14 +71,27 @@ export class TtsClient {
     const clean = sanitizeForTTS(text);
     if (!clean) return;
     this._barged = false;
-    this.socket.emit('tts_text_chunk', { client_id: this.clientId, text: clean });
+    // The tts_server pipeline reads `chunk`/`final`/`target_client_id` (NOT
+    // `text`/`client_id`) — match the working cv-chat / job2cool clients, else
+    // the server discards the text and emits no audio. `final:true` flushes the
+    // sentence buffer immediately (we already split into sentences upstream).
+    this.socket.emit('tts_text_chunk', { chunk: clean, target_client_id: this.clientId, final: true });
   }
 
   /** Route audio to the avatar ('avatar_only') or back to the browser ('browser'). */
   setMode(mode) {
     this._mode = mode;
-    if (this.socket) this.socket.emit('set_client_mode', { mode, client_id: this.clientId });
+    if (this.socket) this.socket.emit('set_client_mode', { mode: this._serverMode(), client_id: this.clientId });
   }
+
+  /**
+   * Translate the SDK's internal mode vocabulary to the tts_server's. The server
+   * only accepts 'tts' (audio back to the browser) or 'avatar' (audio to the
+   * avatar) and skips emitting audio unless the session mode is exactly 'tts'
+   * (see the gate in tts_server.py). The SDK's 'browser'/'avatar_only' values
+   * would leave the session in a non-'tts' mode → silence.
+   */
+  _serverMode() { return this._mode === 'avatar_only' ? 'avatar' : 'tts'; }
 
   configure({ voice, speed } = {}) {
     if (voice !== undefined) this.voice = voice;

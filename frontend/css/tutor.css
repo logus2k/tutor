@@ -85,7 +85,7 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .statusbar {
   flex: 0 0 auto;
   display: flex; align-items: center;
-  height: 28px;
+  height: 24px;
   background: var(--bg-card); border-top: 1px solid var(--border);
   color: var(--text-mute); font-size: 12px;
 }
@@ -139,7 +139,43 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .split { flex: 1 1 auto; display: flex; min-height: 0; }
 .pane { min-width: 0; min-height: 0; overflow: auto; }
 .pane-left { padding: 26px clamp(18px, 3vw, 40px); }
-.pane-right { display: flex; min-height: 0; background: var(--bg-card); border-left: 1px solid var(--border); }
+.pane-right { display: flex; flex-direction: column; min-height: 0; background: var(--bg-card); border-left: 1px solid var(--border); }
+
+/* Right-pane tabs: Assistant (chat) + Grounding (current question's source). */
+.rtabs { flex: 0 0 auto; display: flex; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+.rtab { flex: 0 0 auto; padding: 9px 14px; background: transparent; border: none;
+  border-bottom: 2px solid transparent; color: var(--text-mute); font: inherit; font-size: 13px;
+  font-weight: 600; cursor: pointer; }
+.rtab:hover { color: var(--text); }
+.rtab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.rpanel { flex: 1 1 auto; min-height: 0; }
+.rpanel.hidden { display: none; }
+
+/* Grounding tab: verbatim source chunks for the answered question. */
+.grounding { overflow: auto; padding: 14px 16px; }
+.gr-head { font-weight: 700; font-size: 15px; margin-bottom: 10px; }
+.gr-body { display: flex; flex-direction: column; gap: 12px; }
+.gr-empty, .gr-locked { color: var(--text-mute); font-size: 13px; line-height: 1.5; }
+.gr-locked { background: var(--accent-soft); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.gr-concept { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.gr-concept-title { font-weight: 600; font-size: 13px; padding: 8px 12px; background: #ffeed3;
+  border-bottom: 1px solid var(--border); }
+.gr-chunk { padding: 10px 12px; border-top: 1px solid var(--border); }
+.gr-chunk:first-of-type { border-top: none; }
+.gr-cite { font-size: 11px; color: var(--text-mute); margin-bottom: 6px; font-weight: 600; }
+.gr-text { font-size: 13px; line-height: 1.55; word-break: break-word; }
+.gr-text p { margin: 0 0 8px; }
+.gr-text p:last-child { margin-bottom: 0; }
+.gr-text ul, .gr-text ol { margin: 0 0 8px; padding-left: 20px; }
+.gr-text code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+  background: var(--accent-soft); padding: 1px 4px; border-radius: 4px; }
+/* Markdown tables (shared by Grounding chunks and chat replies). */
+.md-table { border-collapse: collapse; width: 100%; margin: 4px 0 8px; font-size: 12px; }
+.md-table th, .md-table td { border: 1px solid var(--border); padding: 5px 8px; text-align: left;
+  vertical-align: top; }
+.md-table th { background: var(--accent-soft); font-weight: 600; }
+.gr-citations { font-size: 12px; color: var(--text-mute); padding-top: 4px; }
+.gr-citations-label { font-weight: 600; }
 
 /* Chat hidden (robot toggle / ✕): left pane takes the full width. */
 .split.chat-collapsed .pane-right,

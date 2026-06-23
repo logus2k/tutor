@@ -16,6 +16,7 @@ import { TutorContext } from './context.js';
 import { IngestPanel } from './ingest.js';
 import { SessionsPanel } from './sessions.js';
 import { FamePanel } from './fame.js';
+import { GroundingPanel } from './grounding.js';
 
 const LS = {
   agent: 'tutor.agent',
@@ -62,6 +63,12 @@ async function main() {
     onHide: () => setChatVisible(false),
   });
   setAgentStatus(settings.agent);
+
+  // Grounding tab (right pane, beside the Assistant): shows the current question's
+  // verbatim source chunks, revealed after answering. Reactive via shared context.
+  new GroundingPanel($('grounding'), context);
+  wireRightTabs();
+
   // Chat shown by default on desktop; hidden by default on mobile (questions
   // first). A saved preference always wins.
   const chatPref = localStorage.getItem('tutor.chatHidden');
@@ -197,6 +204,21 @@ function setChatVisible(visible) {
   $('split').classList.toggle('chat-collapsed', !visible);
   $('rail-chat').classList.toggle('active', visible);
   localStorage.setItem('tutor.chatHidden', String(!visible));
+}
+
+/** Right-pane tabs: switch between the Assistant (chat) and Grounding panels. */
+function wireRightTabs() {
+  const tabs = [...document.querySelectorAll('.rtab')];
+  tabs.forEach((btn) => btn.addEventListener('click', () => {
+    const target = btn.dataset.rtab;   // 'chat' | 'grounding'
+    tabs.forEach((b) => {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', String(on));
+    });
+    $('chat').classList.toggle('hidden', target !== 'chat');
+    $('grounding').classList.toggle('hidden', target !== 'grounding');
+  }));
 }
 
 // ---- Catalog (packages) -------------------------------------------------
