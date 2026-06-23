@@ -61,7 +61,11 @@ async function main() {
     onHide: () => setChatVisible(false),
   });
   setAgentStatus(settings.agent);
-  setChatVisible(localStorage.getItem('tutor.chatHidden') !== 'true');
+  // Chat shown by default on desktop; hidden by default on mobile (questions
+  // first). A saved preference always wins.
+  const chatPref = localStorage.getItem('tutor.chatHidden');
+  const mobile = window.matchMedia('(max-width: 760px)').matches;
+  setChatVisible(chatPref == null ? !mobile : chatPref !== 'true');
 
   initSplitter($('split'), $('left'), $('splitter'), $('right'));
   wireRail();

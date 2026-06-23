@@ -141,6 +141,11 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .pane-left { padding: 26px clamp(18px, 3vw, 40px); }
 .pane-right { display: flex; min-height: 0; background: var(--bg-card); border-left: 1px solid var(--border); }
 
+/* Chat hidden (robot toggle / ✕): left pane takes the full width. */
+.split.chat-collapsed .pane-right,
+.split.chat-collapsed .splitter { display: none; }
+.split.chat-collapsed .pane-left { flex: 1 1 auto !important; }
+
 /* left-pane views (Catalog / Documents / Settings) */
 .leftview { max-width: 760px; margin: 0 auto; }
 .leftview.hidden, .hidden { display: none; }
@@ -326,6 +331,11 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .chat-led.busy { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
 .chat-led.error { background: var(--bad); }
 
+/* header right group + close (hide chat) */
+.chat-headright { display: flex; align-items: center; gap: 10px; }
+.chat-close { background: none; border: none; cursor: pointer; color: var(--text-mute); font-size: 15px; line-height: 1; padding: 4px 8px; border-radius: 7px; }
+.chat-close:hover { background: var(--bg); color: var(--text); }
+
 /* Awareness strip: what the assistant currently "sees" (live context). */
 .chat-context {
   flex: 0 0 auto;
@@ -420,14 +430,48 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .chat-send:hover { background: var(--accent-deep); }
 .chat-send.is-stop { background: var(--bad); }
 
-/* ---------- responsive ---------- */
+/* ---------- responsive / mobile ---------- */
 @media (max-width: 760px) {
-  .split { flex-direction: column; }
+  /* One pane at a time: the left view fills the screen; the chat, when shown,
+     OVERLAYS it full-screen (✕ or the robot toggle hides it again). */
+  .split { position: relative; }
   .splitter { display: none; }
-  .pane-left, .pane-right { flex: 1 1 auto !important; }
-  .pane-right { border-left: none; border-top: 1px solid var(--border); }
-  .rail { flex-basis: 56px; }
+  .pane-left { flex: 1 1 auto !important; padding: 16px 14px; }
+  .pane-right {
+    position: absolute; inset: 0; z-index: 30;
+    border-left: none; width: 100%;
+  }
+  .split.chat-collapsed .pane-right { display: none; }
+
+  /* Compact rail (icons only). */
+  .rail { flex-basis: 54px; padding: 8px 0; }
   .rail-label { display: none; }
+  .rail-btn { width: 44px; padding: 8px 0; }
+  .rail-btn svg { width: 21px; height: 21px; }
+
+  /* Topbar: drop the long sub-line; keep brand + identity tidy. */
+  .topbar { padding: 8px 12px; }
+  .brand-sub { display: none; }
+  .identity-user { max-width: 34vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Status bar: let the package pill truncate instead of overflowing. */
+  #sb-package { max-width: 46vw; overflow: hidden; text-overflow: ellipsis; }
+  #sb-session { display: none; }
+
+  /* Questions: readable text + big, easy-to-tap controls & nav buttons. */
+  .leftview, .questions { max-width: 100%; }
+  .tq-stem { font-size: 19px; }
+  .tq-option { padding: 14px 14px; }
+  .tq-option input { width: 20px; height: 20px; }
+  .tq-btn { padding: 12px 16px; font-size: 15px; }
+  .tq-actions, .tq-foot { gap: 8px; flex-wrap: wrap; }
+  .tq-foot { flex-direction: column; align-items: stretch; }
+  .tq-btn-nav { width: 100%; }
+  .tq-cite { order: -1; }   /* show source above the nav buttons on mobile */
+
+  /* Chat composer: comfortable tap targets. */
+  .chat-send { padding: 12px 18px; }
+  .chat-icon { width: 38px; height: 38px; }
 }
 
 /* ---- Document ingestion (Documents view) -------------------------------- */
