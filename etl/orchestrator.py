@@ -12,7 +12,7 @@ Progress is emitted as socket.io-shaped events via emit() (see the ETL doc's
 socket.io contract). Per-concept results are cached in the job work dir, so a
 re-run resumes instead of re-calling the LLM.
 """
-import json, re, sys, os, urllib.request, hashlib, datetime
+import json, re, sys, os, urllib.request, hashlib, datetime, collections
 import jsonschema   # hard dependency: a broken/missing validator must fail loudly, not be worked around
 
 MD   = os.environ.get("ETL_MD",  "/home/logus/env/study/ms/materials/AI-901.md")
@@ -145,18 +145,56 @@ def strip_meta_references(text):
     t = re.sub(r"^[,;:\s]+", "", t)                 # drop orphaned leading punctuation
     return (t[0].upper() + t[1:]) if t else t
 
+# ---------------------------------------------------------------- typography normalizer
+# docling's --enrich-formula and table rendering leave LaTeX/HTML artifacts ("$\rightarrow$",
+# "&amp;", "\%") in the text; the author copies them verbatim. Map the common ones to the
+# Unicode the UI should show. Conservative: only known symbols, never a blanket strip of $...$.
+_TYPO = [
+    (re.compile(r"\$?\\(?:rightarrow|to)\$?"), "→"),       # ->
+    (re.compile(r"\$?\\(?:leftarrow|gets)\$?"), "←"),      # <-
+    (re.compile(r"\$?\\leftrightarrow\$?"), "↔"),          # <->
+    (re.compile(r"\$?\\Rightarrow\$?"), "⇒"),
+    (re.compile(r"\$?\\Leftarrow\$?"), "⇐"),
+    (re.compile(r"\$?\\times\$?"), "×"),
+    (re.compile(r"\$?\\(?:leq|le)\$?"), "≤"),
+    (re.compile(r"\$?\\(?:geq|ge)\$?"), "≥"),
+    (re.compile(r"\$?\\(?:neq|ne)\$?"), "≠"),
+    (re.compile(r"\$?\\approx\$?"), "≈"),
+    (re.compile(r"\$?\\cdot\$?"), "·"),
+    (re.compile(r"\$?\\ldots\$?"), "…"),
+]
+_ENT = {"&rarr;": "→", "&larr;": "←", "&harr;": "↔", "&amp;": "&",
+        "&lt;": "<", "&gt;": ">", "&nbsp;": " ", "&quot;": '"', "&#39;": "'"}
+_ESC = re.compile(r"\\([%_&#$~{}])")   # de-escape "\%", "\_", "\&", ...
+
+def normalize_typography(text):
+    """Convert leftover LaTeX symbols / HTML entities / TeX escapes to plain Unicode."""
+    if not text or not isinstance(text, str):
+        return text
+    for rx, rep in _TYPO:
+        text = rx.sub(rep, text)
+    for k, v in _ENT.items():
+        text = text.replace(k, v)
+    text = _ESC.sub(r"\1", text)
+    return re.sub(r"\s{2,}", " ", text).strip()
+
+def _clean_field(t):
+    return normalize_typography(strip_meta_references(t)) if isinstance(t, str) else t
+
 def scrub_meta(q):
-    """Strip source-pointer phrasing from every prose field of a built question
-    (in place). Run BEFORE judging so the judge sees self-contained text."""
+    """Clean every prose field of a built question (in place): strip source-pointer
+    phrasing and normalize typography. Run BEFORE judging so the judge sees clean text."""
     if isinstance(q.get("stem"), str):
-        q["stem"] = strip_meta_references(q["stem"])
+        q["stem"] = _clean_field(q["stem"])
     if isinstance(q.get("explanation"), str):
-        q["explanation"] = strip_meta_references(q["explanation"])
+        q["explanation"] = _clean_field(q["explanation"])
     if isinstance(q.get("hints"), list):
-        q["hints"] = [strip_meta_references(h) if isinstance(h, str) else h for h in q["hints"]]
+        q["hints"] = [_clean_field(h) for h in q["hints"]]
     for o in (q.get("options") or []):
+        if isinstance(o.get("text"), str):
+            o["text"] = normalize_typography(o["text"])   # options: typography only (don't strip meta from short labels)
         if isinstance(o.get("rationale"), str):
-            o["rationale"] = strip_meta_references(o["rationale"])
+            o["rationale"] = _clean_field(o["rationale"])
     return q
 
 # ---------------------------------------------------------------- sanitize (defensive guardrail)
@@ -172,6 +210,8 @@ def sanitize_question(q):
     nc = sum(1 for o in opts if o.get("correct"))
     if nc == 0:
         return None                                     # no key -> unsalvageable
+    if nc == len(opts):
+        return None                                     # every option correct -> no distractor, broken
     t = q.get("type")
     if t not in VALID_TYPES:                            # infer from shape
         tf = {o.get("text", "").strip().lower() for o in opts} <= {"true", "false"}
@@ -185,10 +225,32 @@ def sanitize_question(q):
     if not isinstance(d, int) or not 1 <= d <= 5: q["difficulty"] = 2
     return q
 
-def robust_judge(q, grounding):
+# The judge validates against the WHOLE document, not a cherry-picked chunk: many keys
+# depend on facts that live in a different section (e.g. a global task->service mapping
+# table). The source comfortably fits E2B's 64K window, so there's no reason to spare it.
+# Cap is in characters (~4 chars/token); the default leaves ample room for the question +
+# the judge's output. A document larger than this falls back to a leading slice.
+JUDGE_SOURCE_CAP = int(os.environ.get("ETL_JUDGE_SOURCE_CAP", 220000))
+_FULL_SRC = None
+def full_source():
+    """The entire source document (cached), used as authoritative ground truth."""
+    global _FULL_SRC
+    if _FULL_SRC is None:
+        _FULL_SRC = open(MD, encoding="utf-8").read()
+    return _FULL_SRC
+
+def robust_judge(q, grounding, source_text=None):
     """Judge a question, tolerating malformed judge output. Retries once with a
-    stricter reminder, then conservatively REJECTS (never silently keeps)."""
-    base = json.dumps({"question": q, "grounding": grounding})
+    stricter reminder, then conservatively REJECTS (never silently keeps).
+
+    `source_text` is the FULL source document (authoritative ground truth); `grounding`
+    is the extractor's highlighted spans for this concept (focus hint). The judge checks
+    against source_text so it can catch keys that contradict facts in other sections."""
+    if source_text is None:
+        source_text = full_source()
+    # source first => stable prefix the LLM server can cache across the many judge calls
+    base = json.dumps({"source_text": source_text[:JUDGE_SOURCE_CAP],
+                       "grounding": grounding, "question": q})
     for attempt in range(2):
         suffix = "" if attempt == 0 else ("\n\nYour previous reply was NOT valid JSON. "
                  "Reply with ONLY one valid JSON object — no comments, no extra text.")
@@ -197,6 +259,44 @@ def robust_judge(q, grounding):
         except Exception:
             continue
     return {"verdict": "reject", "issues": ["judge output unparseable"], "_parsefail": True}
+
+# ---------------------------------------------------------------- answer-blind validator
+# A second opinion that does NOT see the key: it re-solves the question from the full
+# document, then code compares its answer to the stored key. Reframing verify->solve is
+# what makes a small model (E2B) useful here — asked "is this key right?" it rubber-stamps;
+# asked "what IS the answer?" it reasons. Self-consistency over N samples cuts variance.
+VALIDATE_ON = os.environ.get("ETL_VALIDATE", "1") != "0"
+VALIDATE_N = int(os.environ.get("ETL_VALIDATE_N", 3))
+def validate_answer(q, source_text=None, n=None):
+    """Solve q answer-blind against the full document (self-consistency over n samples) and
+    compare to the stored key. Returns a dict with status agree|dispute|inconclusive."""
+    if source_text is None: source_text = full_source()
+    if n is None: n = VALIDATE_N
+    stored = frozenset(o["id"] for o in q.get("options", []) if o.get("correct"))
+    blind = {"stem": q.get("stem", ""), "type": q.get("type"),
+             "options": [{"id": o["id"], "text": o.get("text", "")} for o in q.get("options", [])]}
+    payload = json.dumps({"source_text": source_text[:JUDGE_SOURCE_CAP], "question": blind})
+    samples = []
+    for _ in range(n):
+        try:
+            r = agent_json("answer_validator", payload)
+            ids = r.get("answer_ids")
+            if isinstance(ids, list) and ids:
+                samples.append((frozenset(str(x) for x in ids), r.get("quote", "")))
+        except Exception:
+            continue
+    base = {"stored": sorted(stored), "samples": len(samples)}
+    if not samples:
+        return {**base, "status": "inconclusive", "derived": None, "quote": ""}
+    counts = collections.Counter(s[0] for s in samples)
+    top, topn = counts.most_common(1)[0]
+    quote = next((s[1] for s in samples if s[0] == top), "")
+    out = {**base, "derived": sorted(top), "quote": quote}
+    if topn < 2 and len(counts) == len(samples):     # no majority -> model is unsure
+        return {**out, "status": "dispute", "reason": "validator inconsistent across samples"}
+    if top == stored:
+        return {**out, "status": "agree"}
+    return {**out, "status": "dispute", "reason": "answer-blind solve disagrees with stored key"}
 
 def dedup_questions(qs, threshold=0.82):
     """Drop near-duplicate stems (token-set Jaccard). Keeps the first occurrence."""
@@ -286,7 +386,7 @@ def main():
     emit("stage.done", stage="segment", concepts_found=len(all_concepts), pages_mapped=len(PAGES))
     emit("stage.started", stage="transform")
 
-    pkg_concepts, pkg_questions, warnings = [], [], []
+    pkg_concepts, pkg_questions, warnings, disputes = [], [], [], []
     domains_used, qnum = {}, 0
 
     # package-wide difficulty plan: a repeating pattern proportional to the target
@@ -386,7 +486,7 @@ def main():
             # judge with one bounded repair
             accepted = False
             for attempt in range(2):
-                v = robust_judge(q, grounding)
+                v = robust_judge(q, grounding)   # judged against the full document
                 if v.get("_parsefail"):
                     warnings.append(f"{qid}: judge unparseable after retry — conservative reject")
                 if v.get("verdict") == "accept":
@@ -410,7 +510,18 @@ def main():
                         pass
                 else:
                     warnings.append(f"{qid} ({locator_code}): rejected after repair — {', '.join(v.get('issues', []))[:100]}")
-            if accepted: concept_qs.append(q)
+            if accepted:
+                concept_qs.append(q)
+                if VALIDATE_ON:                         # answer-blind second opinion
+                    va = validate_answer(q)
+                    if va["status"] == "dispute":
+                        disputes.append({"qid": qid, "stem": q["stem"][:120],
+                                         "stored": va["stored"], "derived": va["derived"],
+                                         "reason": va.get("reason", ""), "evidence": (va.get("quote") or "")[:200]})
+                        warnings.append(f"{qid}: KEY DISPUTED — stored {va['stored']} vs solved {va['derived']}")
+                    elif va["status"] == "inconclusive":
+                        warnings.append(f"{qid}: validator inconclusive (no parseable solve)")
+                    emit("question.validated", qid=qid, status=va["status"])
             emit("question.judged", objective=obj, qid=qid, accepted=accepted)
 
         pkg_concepts.append(concept); pkg_questions.extend(concept_qs)
@@ -483,9 +594,13 @@ def main():
     findings = (pj or {}).get("findings", []) or []
     score = (pj or {}).get("score", 0) or 0
     has_error = any((f or {}).get("severity") == "error" for f in findings)
-    publishable = (not has_error) and score >= PUBLISH_THRESHOLD
-    package["quality"] = {"score": score, "publishable": publishable, "findings": findings}
-    emit("package.judged", score=score, publishable=publishable, errors=sum(1 for f in findings if (f or {}).get("severity") == "error"))
+    # answer-blind disputes block publishing too: a question whose stored key disagrees with
+    # an independent solve must be reviewed by a human before the package goes live.
+    publishable = (not has_error) and score >= PUBLISH_THRESHOLD and not disputes
+    package["quality"] = {"score": score, "publishable": publishable, "findings": findings,
+                          "disputes": disputes}
+    emit("package.judged", score=score, publishable=publishable,
+         errors=sum(1 for f in findings if (f or {}).get("severity") == "error"), disputes=len(disputes))
 
     # ---------------------------------------------------------------- validate + write
     ok = True
@@ -501,7 +616,9 @@ def main():
     if not ok:
         emit("job.failed", stage="load", error="schema validation failed")
     elif not publishable:
-        emit("job.held", reason=("error findings present" if has_error else f"score {score} < {PUBLISH_THRESHOLD}"), score=score)
+        reason = (f"{len(disputes)} key dispute(s) need review" if disputes
+                  else "error findings present" if has_error else f"score {score} < {PUBLISH_THRESHOLD}")
+        emit("job.held", reason=reason, score=score, disputes=len(disputes))
     else:
         emit("job.published", packageId=package["id"],
              catalogEntry={"id": package["id"], "title": title, "questions": len(pkg_questions)})
@@ -517,6 +634,9 @@ def main():
           f"(errors={sum(1 for f in findings if (f or {}).get('severity')=='error')}, findings={len(findings)})")
     for f in findings[:5]:
         print(f"  [{(f or {}).get('severity')}] {(f or {}).get('area')}: {(f or {}).get('detail','')[:110]}")
+    print(f"answer-blind disputes: {len(disputes)}")
+    for dsp in disputes[:10]:
+        print(f"  [{dsp['qid']}] stored={dsp['stored']} solved={dsp['derived']} — {dsp['stem']}")
     print(f"validation: {valid}")
     print(f"written: {OUT}")
     for w in warnings[:25]: print("  -", w)

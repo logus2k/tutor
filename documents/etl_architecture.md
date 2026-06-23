@@ -152,9 +152,10 @@ renders the whole journey live. Event names use a `noun.verb` scheme:
 | `concept.gated` | `{ jobId, objective, title, action }` | A chunk passed the gate |
 | `concept.skipped` / `concept.merged` / `concept.cached` | `{ jobId, objective, … }` | Gate remediation / resume |
 | `question.judged` | `{ jobId, qid, accepted }` | One question accepted/rejected |
+| `question.validated` | `{ jobId, qid, status }` | Answer-blind solve: `agree`\|`dispute`\|`inconclusive` |
 | `transform.progress` | `{ jobId, conceptsDone, questionsAccepted }` | Rolling counters |
-| `package.judged` | `{ jobId, score, publishable }` | Package-quality verdict |
-| `job.held` | `{ jobId, reason, score? }` | Awaiting human review (extraction or low judge score) |
+| `package.judged` | `{ jobId, score, publishable, disputes }` | Package-quality verdict |
+| `job.held` | `{ jobId, reason, score?, disputes? }` | Awaiting human review (extraction, low score, or key disputes) |
 | `job.published` | `{ jobId, packageId, catalogEntry }` | **Package live in the Catalog** (UI's "done") |
 | `job.failed` | `{ jobId, stage, error }` | Terminal failure |
 
@@ -291,17 +292,47 @@ A question is **accepted** only if it passes, in order:
 2. **Key integrity** — exactly one `correct` for `mcq_single`; ≥1 for
    `mcq_multi`; well-formed `true_false`.
 3. **Factual correctness** — `question_judge` verifies the keyed answer and each
-   distractor's `rationale` against the grounding (LLM-as-judge; default-reject on
-   uncertainty).
+   distractor's `rationale` against the **full source document** (LLM-as-judge;
+   default-reject on uncertainty). The judge receives the *entire* document as
+   authoritative `source_text` (it fits the 64K window), not just the extractor's
+   highlighted spans — many keys depend on a fact in a *different* section (e.g. a
+   global task→service mapping table), which span-only grounding cannot verify.
 4. **Distractor quality** — distractors are plausible and mutually exclusive; no
-   "all/none of the above" unless intended.
+   "all/none of the above" unless intended; never *every* option correct.
 5. **Difficulty/Bloom sanity** — label matches the item's actual demand.
-6. **Dedup** — near-duplicate stems across the package are dropped. Implemented as
-   **lexical token-set Jaccard** (≥ 0.82); embedding-based semantic dedup is a
-   future upgrade.
+6. **Polarity** — for negative stems (NOT/EXCEPT/LEAST) the correct answer is the
+   odd-one-out; the judge rejects inverted keys and unanswerable "all-belong" stems.
+7. **Answer-blind validation** (`answer_validator` agent) — see §5.3.1.
 
 Rejected items are either **auto-repaired** (one bounded regeneration attempt
 with the judge's feedback) or **dropped with a warning** recorded in the report.
+
+#### 5.3.1 Answer-blind validation (second opinion that re-solves the question)
+
+`question_judge` is a *verifier*: shown the key, a small model (E2B) tends to
+**rubber-stamp** it — confirmed in testing, where it accepted a question that keyed
+"find entities → Computer Vision" even with the full document (which says
+*entities → Language/NLP*) in context. The fix is to change the framing from
+*verify* to *solve*: the **`answer_validator`** agent receives the question with the
+`correct` flags **stripped** plus the full document, and **independently derives the
+answer** (quoting the deciding line). The same E2B model that rubber-stamped the
+wrong key solves it correctly when asked this way.
+
+- **Self-consistency** — sampled `ETL_VALIDATE_N` times (default 3, temp ~0.3);
+  the majority answer is taken. No majority ⇒ treated as a dispute (model unsure).
+- **Deterministic compare** — code compares the derived option-id set to the stored
+  key. On mismatch the question is recorded in `quality.disputes` and the **whole
+  package is held** (not published) for out-of-band human review — the validator is
+  fallible too, so keys are **never auto-flipped**.
+- This one mechanism catches both **semantic mis-keys** and **polarity inversions**.
+- Toggle with `ETL_VALIDATE=0`; it is the same model/cost order as the judge, kept
+  cheap because the (stable) document prefix is sent first and can be cache-reused.
+
+> **Limitation (honest):** this raises recall, it does not guarantee correctness.
+> Where E2B's knowledge is *systematically* wrong it will solve the same wrong answer
+> as the author (correlated error). Human review of `held` packages remains the final
+> net; a stronger judge model (E4B) would raise the ceiling at the cost of an
+> active-model switch.
 
 Before the LLM judge, a **deterministic sanitize guardrail** runs on every
 authored question: it coerces `type`/`render` to the valid enums, reconciles them
@@ -314,8 +345,12 @@ also validated against `schema/package.schema.json` at the end of Load.
 
 ### 5.4 Concurrency & context
 - All LLM calls share **one active model** on `agent_server` → run with **bounded
-  concurrency** (e.g. 2–4 in flight; llama.cpp queues the rest). Per-concept calls
-  keep each prompt well under the 64K context (we never send the whole document).
+  concurrency** (e.g. 2–4 in flight; llama.cpp queues the rest). The **author** works
+  per-concept (focused chunk → targeted questions, stable concept ids), but the
+  **judge and `answer_validator` are given the whole document** as ground truth — at
+  ~44.5K tokens for AI-901 it fits the 64K window comfortably. (For a document that
+  exceeds the budget, `ETL_JUDGE_SOURCE_CAP` truncates to a leading slice; very large
+  corpora would need section-level retrieval — a future upgrade.)
 - Agents run with `enable_thinking: false`, low `temperature` for the author,
   and a stricter judge preset.
 

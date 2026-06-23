@@ -51,6 +51,13 @@ def clean(raw):
     text = "\n".join(out)
     text = re.sub(r"```[a-zA-Z]*\n\s*```\n", "", text)        # drop empty code fences
     text = re.sub(r" +:", ":", text)
+    # docling leaves LaTeX symbols from --enrich-formula / table cells; normalize to Unicode
+    # so the grounding (and thus authored questions) read cleanly.
+    for rx, rep in ((r"\$?\\(?:rightarrow|to)\$?", "→"), (r"\$?\\(?:leftarrow|gets)\$?", "←"),
+                    (r"\$?\\leftrightarrow\$?", "↔"), (r"\$?\\times\$?", "×"),
+                    (r"\$?\\(?:leq|le)\$?", "≤"), (r"\$?\\(?:geq|ge)\$?", "≥"),
+                    (r"\$?\\(?:neq|ne)\$?", "≠"), (r"\$?\\cdot\$?", "·")):
+        text = re.sub(rx, rep, text)
     text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
     text = re.sub(r"[ \t]+\n", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)

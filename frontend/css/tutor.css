@@ -411,6 +411,9 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   font-size: 14.5px; word-wrap: break-word; overflow-wrap: anywhere;
 }
 .chat-user .chat-bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 4px; white-space: pre-wrap; }
+/* live dictation preview (ghost bubble updated as you speak, removed on send) */
+.chat-dictating .chat-bubble { opacity: .6; font-style: italic; }
+.chat-dictating .chat-bubble::after { content: ' 🎤'; font-style: normal; }
 .chat-assistant .chat-bubble { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
 
 .chat-bubble p { margin: 0 0 8px; }

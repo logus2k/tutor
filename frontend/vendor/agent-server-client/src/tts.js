@@ -53,6 +53,14 @@ export class TtsClient {
       this.socket.on('tts_audio_chunk', (e) => this._onChunk(e));
       this.socket.on('tts_stop_immediate', () => this._stopLocal());
       this.available = true;
+      // Create + resume the AudioContext NOW, while we're still inside the
+      // toggle's user gesture. Audio chunks arrive later in a socket callback —
+      // a context first created there starts `suspended` under the browser's
+      // autoplay policy and never produces sound.
+      try {
+        this._ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (this._ctx.state === 'suspended') await this._ctx.resume();
+      } catch { /* no Web Audio → speak() stays a no-op */ }
       return true;
     } catch { this._cleanup(); return false; }
   }
@@ -93,6 +101,7 @@ export class TtsClient {
     const buf = evt && evt.audio_buffer;
     if (!buf || this._barged) return;
     if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (this._ctx.state === 'suspended') this._ctx.resume();   // unblock playback (autoplay policy)
     let ab;
     if (buf instanceof ArrayBuffer) ab = buf.slice(0);
     else if (buf && buf.buffer) ab = buf.buffer.slice(0);

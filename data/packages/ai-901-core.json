@@ -1799,35 +1799,41 @@
       "concept_ids": [
         "c-1-1-4"
       ],
-      "type": "mcq_single",
-      "render": "radio",
+      "type": "mcq_multi",
+      "render": "checkbox",
       "difficulty": 4,
       "bloom": "understand",
-      "stem": "Which of the following factors is a characteristic that AI systems must be designed to empower everyone regardless of?",
+      "stem": "Which of the following are factors that inclusive AI systems must be designed to empower everyone regardless of?",
       "options": [
         {
           "id": "a",
           "text": "Technical skill",
-          "correct": false,
-          "rationale": "Empowerment should be regardless of ability, age, gender, race, culture, language, or technical skill, but the question asks for a factor mentioned."
+          "correct": true,
+          "rationale": "Technical skill is explicitly listed among the factors inclusiveness must cover."
         },
         {
           "id": "b",
           "text": "Ability",
           "correct": true,
-          "rationale": "Inclusiveness means empowering everyone regardless of ability, age, gender, race, culture, language, or technical skill."
+          "rationale": "Ability is explicitly listed among the factors inclusiveness must cover."
         },
         {
           "id": "c",
           "text": "Language",
-          "correct": false,
-          "rationale": "While language is mentioned, 'ability' is a core concept listed alongside others like age and gender."
+          "correct": true,
+          "rationale": "Language is explicitly listed among the factors inclusiveness must cover."
         },
         {
           "id": "d",
           "text": "Cultural background",
+          "correct": true,
+          "rationale": "Culture/cultural background is explicitly listed among the factors inclusiveness must cover."
+        },
+        {
+          "id": "e",
+          "text": "Annual income bracket",
           "correct": false,
-          "rationale": "Cultural background is mentioned, but 'ability' is a fundamental dimension of empowerment listed."
+          "rationale": "Income bracket is not among the listed inclusiveness factors (ability, age, gender, race, culture, language, technical skill)."
         }
       ],
       "explanation": "AI systems are designed and built to empower everyone regardless of ability, age, gender, race, culture, language, or technical skill.",
@@ -2971,7 +2977,7 @@
         {
           "id": "a",
           "text": "Azure cloud",
-          "correct": true,
+          "correct": false,
           "rationale": "Azure cloud is a deployment option."
         },
         {
@@ -2991,6 +2997,12 @@
           "text": "IoT Edge",
           "correct": false,
           "rationale": "IoT Edge is a deployment option."
+        },
+        {
+          "id": "e",
+          "text": "Model training",
+          "correct": true,
+          "rationale": "Model training is a step in building the model, not a deployment option."
         }
       ],
       "explanation": "Deployment options include Azure cloud, local devices, Kubernetes, and IoT Edge.",
@@ -3109,8 +3121,8 @@
         {
           "id": "a",
           "text": "Batch size",
-          "correct": true,
-          "rationale": "Batch size controls inference behavior."
+          "correct": false,
+          "rationale": "Batch size is a non-generative (deployment) parameter for batch endpoints, not an inference-behavior control."
         },
         {
           "id": "b",
@@ -3340,25 +3352,25 @@
       "options": [
         {
           "id": "a",
-          "text": "Sentiment Analysis $\\rightarrow$ Generative AI",
+          "text": "Sentiment Analysis → Generative AI",
           "correct": false,
           "rationale": "Sentiment Analysis is part of Text Analysis, not Generative AI."
         },
         {
           "id": "b",
-          "text": "Transcribe $\\rightarrow$ Speech Recognition",
+          "text": "Transcribe → Speech Recognition",
           "correct": true,
           "rationale": "Transcribing voice directly maps to the Speech Recognition workload."
         },
         {
           "id": "c",
-          "text": "Identify objects $\\rightarrow$ Information Extraction",
+          "text": "Identify objects → Information Extraction",
           "correct": false,
           "rationale": "Identifying objects is associated with Computer Vision."
         },
         {
           "id": "d",
-          "text": "Convert text to voice $\\rightarrow$ Text-to-Speech",
+          "text": "Convert text to voice → Text-to-Speech",
           "correct": true,
           "rationale": "Converting text to voice is the function of the Text-to-Speech service."
         }
@@ -3403,7 +3415,7 @@
         {
           "id": "c",
           "text": "Sentiment Analysis",
-          "correct": true,
+          "correct": false,
           "rationale": "Sentiment Analysis is a part of Text Analysis."
         },
         {
@@ -3445,14 +3457,14 @@
         {
           "id": "b",
           "text": "Computer Vision",
-          "correct": true,
-          "rationale": "Identifying objects and finding entities like Person or Location falls under Computer Vision."
+          "correct": false,
+          "rationale": "Computer Vision understands images and video (e.g., detecting faces or objects); it does not extract named entities from document text."
         },
         {
           "id": "c",
           "text": "Text Analysis",
-          "correct": false,
-          "rationale": "Text Analysis focuses on sentiment or general text properties, not object/entity detection."
+          "correct": true,
+          "rationale": "Finding named entities such as Person or Location in text is Entity Recognition, an NLP / Text Analysis task (Azure AI Language)."
         },
         {
           "id": "d",
@@ -4765,6 +4777,12 @@
           "text": "Deployment",
           "correct": true,
           "rationale": "Deployment is the central process for making a model available for interaction."
+        },
+        {
+          "id": "e",
+          "text": "Gradient descent",
+          "correct": false,
+          "rationale": "Gradient descent is a model-training optimization algorithm, not a deployment or interaction component."
         }
       ],
       "explanation": "The key concepts mentioned include the Model Catalog, Deployment, Endpoint, Inference, and Token.",
@@ -5130,8 +5148,8 @@
       "concept_ids": [
         "c-2-1-4"
       ],
-      "type": "mcq_multi",
-      "render": "checkbox",
+      "type": "mcq_single",
+      "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
       "stem": "Which of the following is NOT a tool available in the Agent Playground?",
@@ -5139,25 +5157,25 @@
         {
           "id": "a",
           "text": "Bing Search",
-          "correct": true,
+          "correct": false,
           "rationale": "Bing Search is an available tool in the Agent Playground."
         },
         {
           "id": "b",
           "text": "Functions",
-          "correct": true,
+          "correct": false,
           "rationale": "Functions are an available tool in the Agent Playground."
         },
         {
           "id": "c",
           "text": "Chat Playground",
-          "correct": false,
+          "correct": true,
           "rationale": "The Chat Playground does not list tools available, whereas the Agent Playground does."
         },
         {
           "id": "d",
           "text": "APIs",
-          "correct": true,
+          "correct": false,
           "rationale": "APIs are an available tool in the Agent Playground."
         }
       ],
@@ -5520,31 +5538,31 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "understand",
-      "stem": "Which of the following is a technique for text analysis?",
+      "stem": "Which text analysis technique identifies the most important words or phrases that summarize the main topics of a text?",
       "options": [
         {
           "id": "a",
           "text": "Sentiment Analysis",
           "correct": false,
-          "rationale": "Sentiment Analysis is a technique for text analysis."
+          "rationale": "Sentiment Analysis determines the emotional tone of text, not its key topic phrases."
         },
         {
           "id": "b",
           "text": "Keyword Extraction",
           "correct": true,
-          "rationale": "Keyword Extraction is a technique for text analysis."
+          "rationale": "Keyword Extraction identifies the most important words or phrases that summarize a text's main topics."
         },
         {
           "id": "c",
           "text": "Entity Detection",
           "correct": false,
-          "rationale": "Entity Detection is a technique for text analysis."
+          "rationale": "Entity Detection identifies named entities (people, places, organizations), not summary keywords."
         },
         {
           "id": "d",
           "text": "Summarization",
           "correct": false,
-          "rationale": "Summarization is a technique for text analysis."
+          "rationale": "Summarization condenses text into a shorter version; it does not extract key phrases."
         }
       ],
       "explanation": "Keyword Extraction is the only text analysis technique explicitly mentioned.",
@@ -6577,6 +6595,12 @@
           "text": "Sending the prompt to the model's endpoint.",
           "correct": true,
           "rationale": "Calling the API involves sending the prompt to the model's endpoint."
+        },
+        {
+          "id": "e",
+          "text": "Retraining the model on new data",
+          "correct": false,
+          "rationale": "Retraining is a separate ML-lifecycle task, not part of the API interaction sequence."
         }
       ],
       "explanation": "The workflow includes selecting the model, crafting the prompt, calling the API, and receiving the output (which can be binary data or a URL).",
@@ -6864,8 +6888,8 @@
       "concept_ids": [
         "c-2-4-1"
       ],
-      "type": "mcq_multi",
-      "render": "checkbox",
+      "type": "mcq_single",
+      "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
       "stem": "Which of the following is NOT a type of content that Azure Content Understanding can process?",
@@ -6873,25 +6897,25 @@
         {
           "id": "a",
           "text": "Documents",
-          "correct": true,
+          "correct": false,
           "rationale": "Documents are content types the service handles."
         },
         {
           "id": "b",
           "text": "Audio",
-          "correct": true,
+          "correct": false,
           "rationale": "Audio is content type the service handles."
         },
         {
           "id": "c",
           "text": "Spreadsheets",
-          "correct": false,
+          "correct": true,
           "rationale": "Spreadsheets are not a content type that Azure Content Understanding can process."
         },
         {
           "id": "d",
           "text": "Video",
-          "correct": true,
+          "correct": false,
           "rationale": "Video is content type the service handles."
         }
       ],
@@ -6912,8 +6936,8 @@
       "concept_ids": [
         "c-2-4-1"
       ],
-      "type": "mcq_multi",
-      "render": "checkbox",
+      "type": "mcq_single",
+      "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
       "stem": "Which of the following is NOT listed as a capability of the service?",
@@ -6921,25 +6945,25 @@
         {
           "id": "a",
           "text": "Text extraction",
-          "correct": true,
+          "correct": false,
           "rationale": "Text extraction is a capability mentioned in the context of data extraction."
         },
         {
           "id": "b",
           "text": "Barcode recognition",
-          "correct": true,
+          "correct": false,
           "rationale": "Barcode extraction is a capability the service supports."
         },
         {
           "id": "c",
           "text": "Generating new software code",
-          "correct": false,
+          "correct": true,
           "rationale": "The capabilities focus on extracting, classifying, or generating specific data points, not generating software code."
         },
         {
           "id": "d",
           "text": "Complex table structure recognition",
-          "correct": true,
+          "correct": false,
           "rationale": "The service supports the extraction of complex table structures."
         }
       ],
@@ -7397,6 +7421,12 @@
           "text": "Frame Analysis",
           "correct": true,
           "rationale": "Frame Analysis is an extractable component."
+        },
+        {
+          "id": "e",
+          "text": "Barcode detection in still photos",
+          "correct": false,
+          "rationale": "Barcode detection applies to still images, not to temporal audio/video modalities."
         }
       ],
       "explanation": "Azure Content Understanding extracts various elements, including speech transcription (from audio), speaker identification, event detection, and frame analysis (from video).",

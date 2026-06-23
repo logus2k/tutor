@@ -188,14 +188,16 @@ export class ChatPanel {
       io: this.io,
       clientId: this.clientId,
       shouldSend: () => !(this.tts && this.voiceBtn.classList.contains('speaking')), // don't transcribe our own TTS
-      onPartial: (text) => { this.input.value = text; this._autosize(); this.micBtn.classList.add('speaking'); },
+      // Dictation never touches the composer (that's for typing). Live partials
+      // appear as a ghost bubble in the transcript; a final transcript is sent
+      // straight away as a real user turn — mirroring the cv-chat widget.
+      onPartial: (text) => { this.micBtn.classList.add('speaking'); this._dictPreview(text); },
       onFinal: (text) => {
         this.micBtn.classList.remove('speaking');
+        this._clearDictPreview();
         const t = (text || '').trim();
-        if (!t) return;
-        this.input.value = t;
-        this._autosize();
-        if (!this.streaming) this.send();   // hands-free: dictate → send
+        if (!t || this.streaming) return;   // drop while the tutor is responding
+        this._submit(t);                     // hands-free: dictate → send
       },
     });
     const ok = await this.stt.start();
@@ -216,12 +218,34 @@ export class ChatPanel {
     this.input.setSelectionRange(text.length, text.length);
   }
 
+  /** Send whatever is typed in the composer. */
   send() {
     const text = this.input.value.trim();
     if (!text || this.streaming) return;
-    if (this.tts) this.tts.stop();            // barge-in: stop any prior speech
     this.input.value = '';
     this._autosize();
+    this._submit(text);
+  }
+
+  /** Live dictation preview: a ghost user bubble in the transcript (not the composer). */
+  _dictPreview(text) {
+    if (!this._dictRow) {
+      this._dictRow = this._addBubble('user', '', { markdown: false });
+      this._dictRow.row.classList.add('chat-dictating');
+    }
+    this._dictRow.body.textContent = text;
+    this._scroll();
+  }
+
+  _clearDictPreview() {
+    if (this._dictRow) { this._dictRow.row.remove(); this._dictRow = null; }
+  }
+
+  /** Submit a user turn (from the composer or from dictation) and stream the reply. */
+  _submit(text) {
+    text = (text || '').trim();
+    if (!text || this.streaming) return;
+    if (this.tts) this.tts.stop();            // barge-in: stop any prior speech
 
     this._addBubble('user', text, { markdown: false });
     this.history.push({ role: 'user', content: text });
