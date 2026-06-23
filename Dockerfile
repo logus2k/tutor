@@ -1,33 +1,25 @@
-# Tutor — static frontend (nginx) + ETL backend (FastAPI/socket.io) + docling,
-# all in one image. The browser still reaches agent_server via the domain proxy's
-# /llm/ path; the ETL backend is reached same-origin under /etl/ (nginx proxies
-# it to the in-container uvicorn). docling runs in-image for document extraction
-# (models are bind-mounted at /data/models — see docker-compose.yml).
-FROM python:3.12-slim
-
-# nginx + libraries docling/pdf processing need.
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        nginx libgl1 libglib2.0-0 poppler-utils \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -f /etc/nginx/sites-enabled/default
+# Tutor app image — CODE ONLY, layered on top of the stable tutor-etl-base
+# (which carries CPU torch + docling + apt deps). Rebuilds are fast: they just
+# re-COPY etl/, schema/, frontend/ and the nginx conf — no pip, no torch.
+#
+# Build the base first (rarely): docker build -f Dockerfile.base -t tutor-etl-base:2.105.0 .
+# Then `docker compose up -d --build` rebuilds just this thin layer.
+ARG BASE=tutor-etl-base:2.105.0
+FROM ${BASE}
 
 WORKDIR /app
 
-# Python deps first (cache layer; docling/torch are large).
-COPY etl/requirements.txt /app/etl/requirements.txt
-RUN pip install --no-cache-dir -r /app/etl/requirements.txt
-
-# App code + static site.
+# App code + static site (the only things that change between rebuilds).
 COPY etl/ /app/etl/
 COPY schema/ /app/schema/
 COPY frontend/ /app/frontend/
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 RUN chmod +x /app/etl/start.sh
 
-# In-container docling; models are mounted at /data/models (not baked).
+# In-container docling on CPU; models are bind-mounted at /data/models.
 ENV ETL_DOCLING_MODE=local \
     DOCLING_MODELS=/data/models/docling/models \
-    ETL_DOCLING_DEVICE=auto \
+    ETL_DOCLING_DEVICE=cpu \
     PYTHONUNBUFFERED=1
 
 EXPOSE 80

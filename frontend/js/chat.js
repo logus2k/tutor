@@ -173,17 +173,22 @@ export class ChatPanel {
     if (!this.io) { this._softFail(this.micBtn, 'Mic needs socket.io — unavailable.'); return; }
     this.micBtn.classList.add('pending');
 
-    // Append dictated speech to whatever's already in the box (e.g. a prefilled
-    // question), showing live partials without clobbering the committed text.
-    this._sttBase = this.input.value.trim();
-    const join = (a, b) => (a ? `${a} ${b}` : b);
-
+    // Dictation: show live partials in the composer as a preview, and on a final
+    // transcript SEND it as a chat turn (it becomes a user bubble + goes to the
+    // tutor) — mirroring the cv-chat widget. The mic stays on to keep listening.
     this.stt = new SttMic({
       io: this.io,
       clientId: this.clientId,
       shouldSend: () => !(this.tts && this.voiceBtn.classList.contains('speaking')), // don't transcribe our own TTS
-      onPartial: (text) => { this.input.value = join(this._sttBase, text); this._autosize(); this.micBtn.classList.add('speaking'); },
-      onFinal: (text) => { this._sttBase = join(this._sttBase, text); this.input.value = this._sttBase; this._autosize(); this.micBtn.classList.remove('speaking'); },
+      onPartial: (text) => { this.input.value = text; this._autosize(); this.micBtn.classList.add('speaking'); },
+      onFinal: (text) => {
+        this.micBtn.classList.remove('speaking');
+        const t = (text || '').trim();
+        if (!t) return;
+        this.input.value = t;
+        this._autosize();
+        if (!this.streaming) this.send();   // hands-free: dictate → send
+      },
     });
     const ok = await this.stt.start();
     this.micBtn.classList.remove('pending');

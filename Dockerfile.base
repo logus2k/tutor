@@ -1,0 +1,22 @@
+# Tutor ETL base image — the heavy, slow-moving dependencies: CPU torch +
+# docling + the apt libraries docling/PDF processing need. This layer changes
+# rarely (only when etl/requirements.txt changes), so it is built ONCE and the
+# app image (Dockerfile) is FROM it, layering only code on top → fast rebuilds.
+#
+#   docker build -f Dockerfile.base -t tutor-etl-base:2.105.0 .
+#
+# Rebuild this only when bumping docling/torch or other deps; bump the tag to
+# match the docling version and update the FROM in Dockerfile.
+FROM python:3.12-slim
+
+# nginx + libraries docling/pdf processing need.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        nginx libgl1 libglib2.0-0 poppler-utils \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -f /etc/nginx/sites-enabled/default
+
+WORKDIR /app
+
+# Heavy Python deps (CPU torch + docling). Pinned in requirements.txt.
+COPY etl/requirements.txt /app/etl/requirements.txt
+RUN pip install --no-cache-dir -r /app/etl/requirements.txt

@@ -127,7 +127,8 @@ beside the input:
   [`recorder-worklet.js`](frontend/js/recorder-worklet.js) AudioWorklet. Mic
   audio is resampled to 16 kHz PCM16 and streamed as
   `audio_data {clientId, audioData}`; `transcription`/`transcription_partial`
-  come back and are appended to the composer (live partials, then committed).
+  come back — partials preview live in the composer and a final transcript is
+  **sent as a chat turn** (hands-free dictate → send; the mic keeps listening).
   This mirrors the deployed cv-chat widget — the SDK's reference `stt.js` used
   the wrong wire payload (`{client_id, audio}`) and a deprecated
   ScriptProcessorNode, so it never transcribed.
