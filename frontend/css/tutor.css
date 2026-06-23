@@ -183,6 +183,36 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .session-icon { background: none; border: none; cursor: pointer; font-size: 14px; padding: 6px 8px; border-radius: 8px; opacity: .6; }
 .session-icon:hover { opacity: 1; background: var(--bg); }
 
+/* wall of fame */
+.fame-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
+.fame-select {
+  flex: 1 1 200px; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 9px;
+  font: inherit; font-size: 14px; background: #fff; cursor: pointer; min-width: 0;
+}
+.fame-scope { display: inline-flex; border: 1.5px solid var(--border); border-radius: 9px; overflow: hidden; flex: 0 0 auto; }
+.fame-tab {
+  background: #fff; border: none; cursor: pointer; font: inherit; font-size: 13px; font-weight: 600;
+  color: var(--text-soft); padding: 8px 14px;
+}
+.fame-tab + .fame-tab { border-left: 1.5px solid var(--border); }
+.fame-tab.is-active { background: var(--accent); color: #fff; }
+.fame-tab:disabled { color: var(--text-mute); cursor: not-allowed; opacity: .6; }
+.fame-note { margin: 0 0 14px; }
+.fame-list { display: flex; flex-direction: column; gap: 8px; }
+.fame-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.fame-row.is-me { border-color: var(--accent); background: var(--accent-soft); }
+.fame-rank { flex: 0 0 auto; width: 30px; text-align: center; font-size: 18px; font-weight: 700; color: var(--text-mute); }
+.fame-main { flex: 1 1 auto; min-width: 0; }
+.fame-who { font-size: 15px; font-weight: 700; color: var(--text); }
+.fame-sub { font-size: 12.5px; color: var(--text-mute); margin-top: 2px; }
+.fame-score {
+  flex: 0 0 auto; font-size: 17px; font-weight: 800; color: var(--accent-deep);
+  font-variant-numeric: tabular-nums; min-width: 44px; text-align: right;
+}
+
 /* settings */
 .settings { display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
 .setting-row { display: flex; flex-direction: column; gap: 6px; }

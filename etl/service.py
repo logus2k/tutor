@@ -211,10 +211,14 @@ async def me(request: Request):
     e = _email(request)
     token = (request.headers.get("X-Access-Token") or "").strip()
     info = await asyncio.to_thread(_google_userinfo, token) if (e and token) else {}
+    name = (info.get("name") or "").strip() or None
+    if e:
+        # Persist the display name so the Wall of Fame can show real handles.
+        await asyncio.to_thread(sess.upsert_student, e, name)
     return {
         "email": e,
         "authenticated": bool(e),
-        "name": (info.get("name") or "").strip() or None,
+        "name": name,
         "picture": (info.get("picture") or "").strip() or None,
     }
 
@@ -279,6 +283,27 @@ async def sessions_save_answer(sid: str, request: Request):
     qid = (body.get("question_id") or "").strip()
     if not pkg or not qid:
         raise HTTPException(400, "package_id and question_id required")
-    if not sess.save_answer(e, sid, pkg, qid, body.get("selected_ids") or [], body.get("correct")):
+    if not sess.save_answer(e, sid, pkg, qid, body.get("selected_ids") or [],
+                            body.get("correct"), body.get("attempts") or 1):
         raise HTTPException(404, "session not found")
     return {"ok": True}
+
+# ---- Wall of Fame (per-package leaderboard) ---------------------------------
+# scope=mine (default) → the signed-in student's own sessions (login required).
+# scope=all            → best sessions across all students (other handles masked).
+
+@app.get("/etl/fame")
+def fame(request: Request, package_id: str, scope: str = "mine"):
+    pkg = (package_id or "").strip()
+    if not pkg:
+        raise HTTPException(400, "package_id required")
+    e = _email(request)
+    if scope == "mine":
+        if not e:
+            raise HTTPException(401, "login required")
+        sess.upsert_student(e)
+        entries = sess.leaderboard(pkg, email=e, mine=True)
+    else:
+        scope = "all"
+        entries = sess.leaderboard(pkg, email=(e or None), mine=False)
+    return {"scope": scope, "package_id": pkg, "entries": entries}

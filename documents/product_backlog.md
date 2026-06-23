@@ -21,6 +21,9 @@ What's planned next, roughly in priority order. Companion docs:
 - [x] **ETL authoring pipeline** (upload → docling → author → judge → publish).
 - [x] **Study Sessions**: per-student SQLite, optional Google login, answer
       save/restore, identity widget + avatar.
+- [x] **Question retries + retry-aware scoring** (score = Σ correct?1/attempts:0).
+- [x] **Wall of Fame**: per-package leaderboards (scope Mine/Everyone), one row
+      per session, retry-aware ranking.
 - [x] Layered CPU image (fast rebuilds, instant startup).
 
 ---

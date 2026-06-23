@@ -37,7 +37,7 @@ export class QuestionPanel {
   get question() { return this.pkg.questions[this.index]; }
 
   _stateFor(q) {
-    if (!this.state.has(q.id)) this.state.set(q.id, { selected: new Set(), answered: false, correct: null, hintsShown: 0 });
+    if (!this.state.has(q.id)) this.state.set(q.id, { selected: new Set(), answered: false, correct: null, attempts: 0, hintsShown: 0 });
     return this.state.get(q.id);
   }
 
@@ -66,20 +66,28 @@ export class QuestionPanel {
         selected: new Set(a.selected_ids || []),
         answered: true,
         correct: a.correct == null ? null : !!a.correct,
+        attempts: a.attempts || 1,
         hintsShown: 0,
       });
     }
     this._render();
   }
 
-  /** Progress across the package: { total, answered, correct }. */
+  /**
+   * Progress across the package: { total, answered, correct, attempts, points }.
+   * `points` is retry-aware (a first-try correct = 1; correct after N tries =
+   * 1/N), matching the server-side session score.
+   */
   getProgress() {
-    let answered = 0;
-    let correct = 0;
+    let answered = 0, correct = 0, attempts = 0, points = 0;
     for (const st of this.state.values()) {
-      if (st.answered) { answered++; if (st.correct) correct++; }
+      if (st.answered) {
+        answered++;
+        attempts += st.attempts || 1;
+        if (st.correct) { correct++; points += 1 / (st.attempts || 1); }
+      }
     }
-    return { total: this.pkg.questionCount, answered, correct };
+    return { total: this.pkg.questionCount, answered, correct, attempts, points: Math.round(points * 100) / 100 };
   }
 
   // ---- rendering --------------------------------------------------------
@@ -236,7 +244,17 @@ export class QuestionPanel {
       }
     });
 
-    bar.append(submit, ask);
+    bar.append(submit);
+    // Once answered, allow another attempt — re-enables the controls. The next
+    // submit counts as a fresh attempt (tracked for scoring); selections stay so
+    // the student can adjust rather than start over.
+    if (st.answered) {
+      const retry = el('button', 'tq-btn tq-btn-ghost', '↻ Try again');
+      retry.type = 'button';
+      retry.addEventListener('click', () => { st.answered = false; st.correct = null; this._render(); });
+      bar.append(retry);
+    }
+    bar.append(ask);
     return bar;
   }
 
@@ -275,19 +293,21 @@ export class QuestionPanel {
     // Correct iff the chosen set equals the correct set (handles single & multi).
     const correct = correctIds.size === chosen.size && [...correctIds].every((id) => chosen.has(id));
 
+    st.attempts = (st.attempts || 0) + 1;
     st.answered = true;
     st.correct = correct;
     this._render();
 
     if (this.cb.onAnswered) {
-      this.cb.onAnswered(q, { correct, selected: [...chosen], correctIds: [...correctIds] });
+      this.cb.onAnswered(q, { correct, selected: [...chosen], correctIds: [...correctIds], attempts: st.attempts });
     }
   }
 
   _renderFeedback(q, st) {
     this._feedback.innerHTML = '';
-    const banner = el('div', `tq-banner ${st.correct ? 'is-correct' : 'is-wrong'}`,
-      st.correct ? '✓ Correct' : '✗ Not quite');
+    const label = (st.correct ? '✓ Correct' : '✗ Not quite')
+      + (st.attempts > 1 ? `  ·  attempt ${st.attempts}` : '');
+    const banner = el('div', `tq-banner ${st.correct ? 'is-correct' : 'is-wrong'}`, label);
     this._feedback.appendChild(banner);
     if (q.explanation) {
       this._feedback.appendChild(el('p', 'tq-explanation', q.explanation));

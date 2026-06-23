@@ -1077,7 +1077,7 @@
       "render": "radio",
       "difficulty": 1,
       "bloom": "recall",
-      "stem": "What does fairness in AI mean according to the provided text?",
+      "stem": "What does fairness in AI mean?",
       "options": [
         {
           "id": "a",
@@ -1089,7 +1089,7 @@
           "id": "b",
           "text": "Treating all people equitably without bias based on characteristics like race or gender.",
           "correct": true,
-          "rationale": "This directly matches the definition provided in the grounding text."
+          "rationale": "This directly matches the definition provided."
         },
         {
           "id": "c",
@@ -1128,31 +1128,31 @@
       "render": "radio",
       "difficulty": 1,
       "bloom": "recall",
-      "stem": "Which of the following characteristics is explicitly mentioned as a basis for bias in AI systems?",
+      "stem": "Which of the following is a basis for bias in AI systems?",
       "options": [
         {
           "id": "a",
           "text": "Income level.",
           "correct": false,
-          "rationale": "While socioeconomic status is mentioned, the text lists a broader set of characteristics."
+          "rationale": "Income level. While socioeconomic status is a factor, it is not the only basis."
         },
         {
           "id": "b",
           "text": "Race or gender.",
           "correct": true,
-          "rationale": "The text explicitly lists race and gender as characteristics related to bias."
+          "rationale": "Race or gender. Race and gender are characteristics that serve as a basis for bias."
         },
         {
           "id": "c",
           "text": "Programming language.",
           "correct": false,
-          "rationale": "Programming language is not listed as a characteristic that causes bias."
+          "rationale": "Programming language. Programming language is not a basis for bias."
         },
         {
           "id": "d",
           "text": "System uptime.",
           "correct": false,
-          "rationale": "System uptime is unrelated to demographic characteristics causing bias."
+          "rationale": "System uptime. System uptime is not related to the basis for bias."
         }
       ],
       "explanation": "Bias in AI systems can be based on characteristics such as race, gender, age, disability, or socioeconomic status.",
@@ -1191,7 +1191,7 @@
           "id": "b",
           "text": "Training data that under-represents or stereotypes groups.",
           "correct": true,
-          "rationale": "The grounding explicitly defines data bias as training data under-representing or stereotyping groups."
+          "rationale": "Data bias is defined as training data under-representing or stereotyping groups."
         },
         {
           "id": "c",
@@ -1236,7 +1236,7 @@
           "id": "a",
           "text": "True",
           "correct": true,
-          "rationale": "The text explicitly states that even unbiased data can produce unfair outcomes."
+          "rationale": "Even unbiased data can produce unfair outcomes."
         },
         {
           "id": "b",
@@ -1275,31 +1275,31 @@
           "id": "a",
           "text": "Identifying bias in the training data.",
           "correct": true,
-          "rationale": "Identifying bias is necessary to address the source of unfairness."
+          "rationale": "Identifying bias in the training data."
         },
         {
           "id": "b",
           "text": "Using fairness metrics to measure equality.",
           "correct": true,
-          "rationale": "Fairness metrics are explicitly mentioned as tools to measure equality."
+          "rationale": "Using fairness metrics to measure equality."
         },
         {
           "id": "c",
           "text": "Ensuring the algorithm is perfectly neutral to all input features.",
           "correct": false,
-          "rationale": "The text implies that even unbiased data can lead to unfair outcomes, suggesting perfect neutrality is not the goal."
+          "rationale": "Implementing mitigation strategies to reduce bias."
         },
         {
           "id": "d",
           "text": "Implementing mitigation strategies to reduce bias.",
           "correct": true,
-          "rationale": "Mitigation strategies are listed as the means to reduce bias."
+          "rationale": "Assuming that if data is clean, the outcome will automatically be fair."
         },
         {
           "id": "e",
           "text": "Assuming that if data is clean, the outcome will automatically be fair.",
           "correct": false,
-          "rationale": "This contradicts the principle that fairness is proactive, not automatic."
+          "rationale": "Ensuring the algorithm is perfectly neutral to all input features."
         }
       ],
       "explanation": "Achieving AI fairness involves identifying bias in the data, using metrics to measure equality, and applying mitigation strategies to reduce bias.",
@@ -1326,7 +1326,7 @@
       "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
-      "stem": "What is the definition of reliability and safety in an AI system according to the provided text?",
+      "stem": "What is the definition of reliability and safety in an AI system?",
       "options": [
         {
           "id": "a",
@@ -1464,13 +1464,13 @@
           "id": "a",
           "text": "Graceful degradation",
           "correct": true,
-          "rationale": "Graceful degradation is mentioned as a key concept for handling unexpected conditions safely."
+          "rationale": "Graceful degradation is a key concept for handling unexpected conditions safely."
         },
         {
           "id": "b",
           "text": "Defending against adversarial attacks",
           "correct": true,
-          "rationale": "Defending against adversarial attacks is listed as a key concept for safety."
+          "rationale": "Defending against adversarial attacks is a key concept for safety."
         },
         {
           "id": "c",
@@ -1482,7 +1482,7 @@
           "id": "d",
           "text": "Robustness",
           "correct": true,
-          "rationale": "Robustness is explicitly listed as a key concept."
+          "rationale": "Robustness is a key concept."
         }
       ],
       "explanation": "The key concepts include Graceful degradation, defending against adversarial attacks, and Robustness.",
@@ -1554,19 +1554,19 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "Which of the following is a core requirement for privacy and security in AI systems, according to the provided information?",
+      "stem": "Which of the following is a core requirement for privacy and security in AI systems?",
       "options": [
         {
           "id": "a",
           "text": "Implementing advanced model inversion defenses.",
           "correct": false,
-          "rationale": "Model inversion defense is mentioned as a concept, but the core requirements listed are protecting data from unauthorized access, respecting consent, and ensuring regulatory compliance."
+          "rationale": "Model inversion defense is a concept, but the core requirements listed are protecting data from unauthorized access, respecting consent, and ensuring regulatory compliance."
         },
         {
           "id": "b",
           "text": "Ensuring data is collected, stored, and used in compliance with regulations.",
           "correct": true,
-          "rationale": "The grounding explicitly states that privacy and security means ensuring data is collected, stored, and used in compliance with regulations."
+          "rationale": "Privacy and security means ensuring data is collected, stored, and used in compliance with regulations."
         },
         {
           "id": "c",
@@ -1617,7 +1617,7 @@
           "id": "b",
           "text": "Ensuring data cannot be traced back to an individual.",
           "correct": true,
-          "rationale": "The grounding states that removing or masking PII is done so that data cannot be traced back to an individual."
+          "rationale": "Removing or masking PII is done so that data cannot be traced back to an individual."
         },
         {
           "id": "c",
@@ -1629,7 +1629,7 @@
           "id": "d",
           "text": "Ensuring compliance with GDPR.",
           "correct": false,
-          "rationale": "GDPR is mentioned as a regulation, but the specific action described is PII removal/masking."
+          "rationale": "GDPR is a regulation, but the specific action described is PII removal/masking."
         }
       ],
       "explanation": "To remove or mask personally identifiable information (PII), the goal is to ensure that the data cannot be traced back to an individual.",
@@ -1656,25 +1656,25 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "recall",
-      "stem": "True or False: A key aspect of privacy and security in AI systems is ensuring that data is only collected when explicit user consent is obtained.",
+      "stem": "A key aspect of privacy and security in AI systems is ensuring that data is only collected when explicit user consent is obtained.",
       "options": [
         {
           "id": "a",
           "text": "True",
           "correct": true,
-          "rationale": "Respecting user consent is listed as one of the core components of privacy and security."
+          "rationale": "Respecting user consent is one of the core components of privacy and security."
         },
         {
           "id": "b",
           "text": "False",
           "correct": false,
-          "rationale": "The grounding lists respecting user consent as a requirement, not exclusively tied to collection."
+          "rationale": "Respecting user consent is a requirement, not exclusively tied to collection."
         }
       ],
       "explanation": "Respecting user consent is a key component of privacy and security in AI systems.",
       "hints": [
         "Review the list of what privacy and security entails.",
-        "Check if consent is mentioned as a requirement."
+        "Check if consent is a requirement."
       ],
       "source_refs": [
         {
@@ -1701,37 +1701,37 @@
           "id": "a",
           "text": "Data minimization",
           "correct": false,
-          "rationale": "Data minimization is not explicitly mentioned in the provided grounding passages."
+          "rationale": "Data minimization is a key concept in AI privacy and security."
         },
         {
           "id": "b",
           "text": "Anonymization/pseudonymization",
           "correct": true,
-          "rationale": "The summary mentions anonymization/pseudonymization as a key concept."
+          "rationale": "Anonymization/pseudonymization is a key concept in AI privacy and security."
         },
         {
           "id": "c",
           "text": "Encryption",
           "correct": true,
-          "rationale": "Encryption is listed as a key concept in the summary."
+          "rationale": "Encryption is a key concept in AI privacy and security."
         },
         {
           "id": "d",
           "text": "Defending against model inversion attacks",
           "correct": false,
-          "rationale": "Model inversion is mentioned as an attack to defend against, but not explicitly listed as a core concept alongside the others."
+          "rationale": "Defending against model inversion attacks is a key concept in AI privacy and security."
         },
         {
           "id": "e",
           "text": "Regulatory compliance",
           "correct": true,
-          "rationale": "Ensuring regulatory compliance is explicitly mentioned as a requirement."
+          "rationale": "Regulatory compliance is a key concept in AI privacy and security."
         }
       ],
-      "explanation": "Key concepts include anonymization/pseudonymization, encryption, and ensuring compliance with regulations.",
+      "explanation": "Key concepts related to privacy and security in AI systems include data minimization, anonymization/pseudonymization, encryption, defending against model inversion attacks, and regulatory compliance.",
       "hints": [
-        "Scan the summary for terms like 'key concepts'.",
-        "Look for techniques (like anonymization) and protective measures (like encryption)."
+        "Scan the material for fundamental techniques and requirements related to AI privacy and security.",
+        "Consider data handling techniques, protection methods, and legal requirements."
       ],
       "source_refs": [
         {
@@ -1752,7 +1752,7 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "analyze",
-      "stem": "Based on the grounding, which of the following actions directly relates to managing data security infrastructure?",
+      "stem": "Which of the following actions directly relates to managing data security infrastructure?",
       "options": [
         {
           "id": "a",
@@ -1776,7 +1776,7 @@
           "id": "d",
           "text": "Ensuring data storage adheres to HIPAA standards.",
           "correct": false,
-          "rationale": "HIPAA is mentioned as a regulation example, but the grounding does not state that data storage must adhere to it."
+          "rationale": "HIPAA is a regulation example, but data storage is not required to adhere to it."
         }
       ],
       "explanation": "Managing encryption keys using Azure Key Vault is presented as a practical tool for managing the security infrastructure.",
@@ -1803,19 +1803,19 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "understand",
-      "stem": "Which of the following factors is explicitly mentioned as a characteristic that AI systems must be designed to empower everyone regardless of?",
+      "stem": "Which of the following factors is a characteristic that AI systems must be designed to empower everyone regardless of?",
       "options": [
         {
           "id": "a",
           "text": "Technical skill",
           "correct": false,
-          "rationale": "The grounding states that empowerment should be regardless of ability, age, gender, race, culture, language, or technical skill, but the question asks for a factor mentioned in the summary. The summary lists these factors."
+          "rationale": "Empowerment should be regardless of ability, age, gender, race, culture, language, or technical skill, but the question asks for a factor mentioned."
         },
         {
           "id": "b",
           "text": "Ability",
           "correct": true,
-          "rationale": "The grounding explicitly states that inclusiveness means empowering everyone regardless of ability, age, gender, race, culture, language, or technical skill."
+          "rationale": "Inclusiveness means empowering everyone regardless of ability, age, gender, race, culture, language, or technical skill."
         },
         {
           "id": "c",
@@ -1830,9 +1830,9 @@
           "rationale": "Cultural background is mentioned, but 'ability' is a fundamental dimension of empowerment listed."
         }
       ],
-      "explanation": "Inclusiveness means AI systems are designed and built to empower everyone regardless of ability, age, gender, race, culture, language, or technical skill.",
+      "explanation": "AI systems are designed and built to empower everyone regardless of ability, age, gender, race, culture, language, or technical skill.",
       "hints": [
-        "Review the definition of inclusiveness provided in the grounding text.",
+        "Review the definition of inclusiveness provided.",
         "Look for the list of characteristics that AI systems must account for."
       ],
       "source_refs": [
@@ -1854,36 +1854,36 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "recall",
-      "stem": "According to the provided text, what is one specific area related to accessibility that AI must work for?",
+      "stem": "What is one specific area related to accessibility that AI must work for?",
       "options": [
         {
           "id": "a",
           "text": "Only visual impairments",
           "correct": false,
-          "rationale": "The text specifies multiple types of disabilities."
+          "rationale": "AI must work for people with disabilities, which includes more than just visual impairments."
         },
         {
           "id": "b",
           "text": "People with disabilities (visual, hearing, motor, cognitive)",
           "correct": true,
-          "rationale": "The grounding explicitly states that accessibility means AI must work for people with disabilities (visual, hearing, motor, cognitive)."
+          "rationale": "AI must work for people with disabilities, encompassing visual, hearing, motor, and cognitive impairments."
         },
         {
           "id": "c",
           "text": "Only cognitive impairments",
           "correct": false,
-          "rationale": "The grounding lists several types of disabilities, not just cognitive ones."
+          "rationale": "AI must work for people with disabilities, which includes more than just cognitive impairments."
         },
         {
           "id": "d",
           "text": "Only hearing impairments",
           "correct": false,
-          "rationale": "The grounding lists multiple types of disabilities."
+          "rationale": "AI must work for people with disabilities, which includes more than just hearing impairments."
         }
       ],
       "explanation": "Accessibility requires that AI systems work for people with disabilities, specifically mentioning visual, hearing, motor, and cognitive impairments.",
       "hints": [
-        "Focus on the specific mention of accessibility in the grounding.",
+        "Focus on the specific mention of accessibility.",
         "Identify the different categories of disabilities listed."
       ],
       "source_refs": [
@@ -1949,13 +1949,13 @@
           "id": "a",
           "text": "Co-creation",
           "correct": true,
-          "rationale": "Co-creation is listed as a key concept for inclusiveness."
+          "rationale": "Co-creation is a key concept for inclusiveness."
         },
         {
           "id": "b",
           "text": "Universal design",
           "correct": true,
-          "rationale": "Universal design is listed as a key concept for inclusiveness."
+          "rationale": "Universal design is a key concept for inclusiveness."
         },
         {
           "id": "c",
@@ -1967,7 +1967,7 @@
           "id": "d",
           "text": "Cultural diversity",
           "correct": true,
-          "rationale": "Cultural diversity is listed as a key concept for inclusiveness."
+          "rationale": "Cultural diversity is a key concept for inclusiveness."
         },
         {
           "id": "e",
@@ -1978,7 +1978,7 @@
       ],
       "explanation": "The key concepts for inclusiveness include accessibility (working for people with disabilities), universal design, cultural diversity, and co-creation.",
       "hints": [
-        "Identify the explicit list of key concepts mentioned in the summary.",
+        "Identify the explicit list of key concepts mentioned.",
         "Distinguish between the listed concepts and non-inclusive practices."
       ],
       "source_refs": [
@@ -2000,7 +2000,7 @@
       "render": "radio",
       "difficulty": 5,
       "bloom": "analyze",
-      "stem": "If an organization wants to ensure their AI speech system supports a wide range of linguistic inputs, which Azure tool mentioned in the grounding would be relevant?",
+      "stem": "Which Azure tool is relevant if an organization wants to ensure their AI speech system supports a wide range of linguistic inputs?",
       "options": [
         {
           "id": "a",
@@ -2012,7 +2012,7 @@
           "id": "b",
           "text": "Azure AI Speech",
           "correct": true,
-          "rationale": "The grounding specifically mentions Azure AI Speech supports many languages, accents, and custom pronunciation."
+          "rationale": "Azure AI Speech supports many languages, accents, and custom pronunciation."
         },
         {
           "id": "c",
@@ -2027,7 +2027,7 @@
           "rationale": "Data Factory is for data orchestration, not direct speech processing."
         }
       ],
-      "explanation": "Azure AI Speech is the specific Azure tool mentioned that supports many languages, accents, and custom pronunciation, making it relevant for linguistic inclusivity.",
+      "explanation": "Azure AI Speech is the specific Azure tool that supports many languages, accents, and custom pronunciation, making it relevant for linguistic inclusivity.",
       "hints": [
         "Focus on the part of the grounding that discusses Azure tools for inclusiveness.",
         "Match the requirement (supporting many languages/accents) to the specific tool mentioned."
@@ -2081,7 +2081,7 @@
       "explanation": "Transparency means that AI systems are open and understandable, requiring users to know when they are interacting with an AI, how it works, what data it uses, and why it makes specific decisions or recommendations.",
       "hints": [
         "Consider what users need to know about an AI system.",
-        "Focus on the components of transparency mentioned in the text."
+        "Focus on the components of transparency mentioned."
       ],
       "source_refs": [
         {
@@ -2102,7 +2102,7 @@
       "render": "radio",
       "difficulty": 1,
       "bloom": "recall",
-      "stem": "What is the definition of explainability according to the provided text?",
+      "stem": "What is the definition of explainability?",
       "options": [
         {
           "id": "a",
@@ -2276,7 +2276,7 @@
       "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
-      "stem": "Which of the following is explicitly mentioned as a requirement for accountability regarding an AI system?",
+      "stem": "Which of the following is a requirement for accountability regarding an AI system?",
       "options": [
         {
           "id": "a",
@@ -2288,7 +2288,7 @@
           "id": "b",
           "text": "Clear ownership, governance, and mechanisms for remediation when harm occurs.",
           "correct": true,
-          "rationale": "The grounding explicitly states that accountability requires clear ownership, governance, and remediation mechanisms when harm occurs."
+          "rationale": "Accountability requires clear ownership, governance, and remediation mechanisms when harm occurs."
         },
         {
           "id": "c",
@@ -2305,7 +2305,7 @@
       ],
       "explanation": "Accountability means that human beings are responsible for the design, deployment, operation, and outcomes of an AI system, necessitating clear ownership, governance, and remediation mechanisms if harm occurs.",
       "hints": [
-        "Focus on the core definition of accountability provided in the text.",
+        "Focus on the core definition of accountability provided.",
         "Consider what must be in place when an AI causes a mistake."
       ],
       "source_refs": [
@@ -2327,31 +2327,31 @@
       "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
-      "stem": "According to the provided text, what is the distinction between 'Responsibility' and 'Accountability'?",
+      "stem": "What is the distinction between 'Responsibility' and 'Accountability'?",
       "options": [
         {
           "id": "a",
           "text": "Responsibility is owning the outcome, while accountability is doing the task.",
           "correct": false,
-          "rationale": "The text defines the roles in the opposite manner."
+          "rationale": "This statement incorrectly reverses the definitions of responsibility and accountability."
         },
         {
           "id": "b",
           "text": "Responsibility is doing the task (e.g., an engineer builds the model), whereas accountability is owning the outcome (e.g., the manager is answerable if the model fails).",
           "correct": true,
-          "rationale": "The grounding explicitly contrasts responsibility (doing the task) with accountability (owning the outcome)."
+          "rationale": "This accurately defines responsibility as task execution and accountability as owning the result."
         },
         {
           "id": "c",
           "text": "Responsibility is about governance, and accountability is about deployment.",
           "correct": false,
-          "rationale": "These are different aspects of the accountability chain."
+          "rationale": "This misrepresents the core difference between the two concepts."
         },
         {
           "id": "d",
           "text": "Responsibility and accountability are interchangeable terms in this context.",
           "correct": false,
-          "rationale": "The text clearly distinguishes between the two concepts."
+          "rationale": "The concepts are distinct, not interchangeable."
         }
       ],
       "explanation": "Responsibility relates to performing the task (like an engineer building the model), while accountability relates to owning the final outcome (like a manager being answerable if the model fails).",
@@ -2422,25 +2422,25 @@
           "id": "a",
           "text": "Human-in-the-loop capability",
           "correct": true,
-          "rationale": "Human-in-the-loop is explicitly mentioned as a requirement for critical decisions."
+          "rationale": "Human-in-the-loop capability is a requirement for critical decisions."
         },
         {
           "id": "b",
           "text": "Auditability mechanisms",
           "correct": true,
-          "rationale": "Mechanisms for remediation and governance imply the need for auditability."
+          "rationale": "Auditability mechanisms are required for remediation and governance."
         },
         {
           "id": "c",
           "text": "Clear ownership of the final outcome",
           "correct": true,
-          "rationale": "Clear ownership is a key concept required for accountability."
+          "rationale": "Clear ownership of the final outcome is a key concept required for accountability."
         },
         {
           "id": "d",
           "text": "Automation of all decision-making processes",
           "correct": false,
-          "rationale": "The concept requires human review and override capability, not full automation."
+          "rationale": "Automation of all decision-making processes is not a requirement; human review and override capability is necessary."
         }
       ],
       "explanation": "Key components for accountability include human-in-the-loop capability, clear ownership of the outcome, and mechanisms for remediation (which implies auditability and governance).",
@@ -2491,7 +2491,7 @@
           "id": "d",
           "text": "Implementing governance structures to manage the system's operation.",
           "correct": true,
-          "rationale": "Governance is explicitly listed as a requirement for accountability."
+          "rationale": "Governance is a requirement for accountability."
         }
       ],
       "explanation": "Applying accountability means ensuring human oversight (Human-in-the-loop), establishing clear ownership for outcomes, and implementing governance structures to manage the system.",
@@ -2518,7 +2518,7 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "What is the primary function of Generative AI according to the provided text?",
+      "stem": "What is the primary function of Generative AI?",
       "options": [
         {
           "id": "a",
@@ -2536,7 +2536,7 @@
           "id": "c",
           "text": "To create new content by learning patterns from existing training data.",
           "correct": true,
-          "rationale": "The summary explicitly states that Generative AI creates new content by learning patterns from training data."
+          "rationale": "Generative AI creates new content by learning patterns from training data."
         },
         {
           "id": "d",
@@ -2587,7 +2587,7 @@
           "id": "c",
           "text": "Tokens",
           "correct": true,
-          "rationale": "Tokens are explicitly defined as small pieces of text (words or sub-words) that the model processes."
+          "rationale": "Tokens are small pieces of text (words or sub-words) that the model processes."
         },
         {
           "id": "d",
@@ -2659,7 +2659,7 @@
       "render": "checkbox",
       "difficulty": 3,
       "bloom": "recall",
-      "stem": "Which components are explicitly mentioned in the workflow sequence for generating output?",
+      "stem": "Which components are in the workflow sequence for generating output?",
       "options": [
         {
           "id": "a",
@@ -2689,7 +2689,7 @@
           "id": "e",
           "text": "Fine-tuning",
           "correct": false,
-          "rationale": "Fine-tuning is mentioned as an optional step, not part of the core inference sequence shown."
+          "rationale": "Fine-tuning is an optional step, not part of the core inference sequence shown."
         }
       ],
       "explanation": "The inference workflow explicitly involves Tokenization, the Generative Model, and Decoding to produce the final output.",
@@ -2716,7 +2716,7 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "analyze",
-      "stem": "Based on the workflow description, what is the relationship between the Input Prompt and the Generative Model?",
+      "stem": "What is the relationship between the Input Prompt and the Generative Model?",
       "options": [
         {
           "id": "a",
@@ -2779,13 +2779,13 @@
           "id": "b",
           "text": "Azure OpenAI Service (GPT-4, GPT-3.5)",
           "correct": true,
-          "rationale": "The grounding explicitly states that Azure OpenAI Service (GPT-4, GPT-3.5) is used when you need to generate text, code, or chat responses, which falls under Generative AI."
+          "rationale": "Azure OpenAI Service (GPT-4, GPT-3.5) is used when you need to generate text, code, or chat responses, which falls under Generative AI."
         },
         {
           "id": "c",
           "text": "A specialized Classification Service",
           "correct": false,
-          "rationale": "Classification services are designed for categorizing input, not for creating new content."
+          "rationale": "A specialized Classification Service is designed for categorizing input, not for creating new content."
         },
         {
           "id": "d",
@@ -2794,7 +2794,7 @@
           "rationale": "While Azure ML can host models, the specific capability mentioned for generating new content points toward Generative AI services like Azure OpenAI."
         }
       ],
-      "explanation": "Generative AI is defined as creating new content like writing a poem or generating an image, and the grounding maps this task to the Azure OpenAI Service (GPT-4, GPT-3.5).",
+      "explanation": "Generative AI is defined as creating new content like writing a poem or generating an image, and this task maps to the Azure OpenAI Service (GPT-4, GPT-3.5).",
       "hints": [],
       "source_refs": [
         {
@@ -2841,7 +2841,7 @@
           "id": "c",
           "text": "Generative AI",
           "correct": true,
-          "rationale": "The grounding explicitly defines Generative AI as creating new content, such as writing a poem or generating an image."
+          "rationale": "Generative AI is the capability type defined by the ability to create new content, such as generating text or images."
         },
         {
           "id": "d",
@@ -2881,16 +2881,16 @@
           "id": "a",
           "text": "True",
           "correct": true,
-          "rationale": "The grounding states that if you need to generate text, code, or chat responses, the Azure OpenAI Service is the appropriate choice."
+          "rationale": "The Azure OpenAI Service is the designated service for generating text, code, or chat responses."
         },
         {
           "id": "b",
           "text": "False",
           "correct": false,
-          "rationale": "While Azure OpenAI is used for these tasks, the grounding specifies it as the service for this specific function."
+          "rationale": "The Azure OpenAI Service is not the designated service for generating text, code, or chat responses."
         }
       ],
-      "explanation": "True. The Azure OpenAI Service is specifically mentioned as the service for generating text, code, or chat responses.",
+      "explanation": "True. The Azure OpenAI Service is the service for generating text, code, or chat responses.",
       "hints": [],
       "source_refs": [
         {
@@ -2911,40 +2911,40 @@
       "render": "checkbox",
       "difficulty": 5,
       "bloom": "analyze",
-      "stem": "Which of the following tasks are explicitly associated with the Generative AI capability, based on the provided information?",
+      "stem": "Which of the following tasks are associated with the Generative AI capability?",
       "options": [
         {
           "id": "a",
           "text": "Predicting stock market trends",
           "correct": false,
-          "rationale": "Predicting trends falls under Predictive AI, not Generative AI."
+          "rationale": "Predicting stock market trends is associated with Predictive AI."
         },
         {
           "id": "b",
           "text": "Generating an image",
           "correct": true,
-          "rationale": "The grounding lists generating an image as an example of what Generative AI creates."
+          "rationale": "Generating an image is associated with Generative AI."
         },
         {
           "id": "c",
           "text": "Writing a poem",
           "correct": true,
-          "rationale": "The grounding lists writing a poem as an example of what Generative AI creates."
+          "rationale": "Writing a poem is associated with Generative AI."
         },
         {
           "id": "d",
           "text": "Categorizing customer feedback",
           "correct": false,
-          "rationale": "Categorizing feedback is a task typically associated with Classification AI."
+          "rationale": "Categorizing customer feedback is typically associated with Classification AI."
         },
         {
           "id": "e",
           "text": "Generating code",
           "correct": true,
-          "rationale": "The grounding lists generating code as an example of what Generative AI produces."
+          "rationale": "Generating code is associated with Generative AI."
         }
       ],
-      "explanation": "The Generative AI capability is demonstrated by creating new content, which includes generating images, writing poems, and generating code.",
+      "explanation": "Generative AI is demonstrated by creating new content, such as generating images, writing poems, and generating code.",
       "hints": [],
       "source_refs": [
         {
@@ -2972,30 +2972,30 @@
           "id": "a",
           "text": "Azure cloud",
           "correct": true,
-          "rationale": "Azure cloud is explicitly mentioned as a deployment option."
+          "rationale": "Azure cloud is a deployment option."
         },
         {
           "id": "b",
           "text": "Local devices",
           "correct": false,
-          "rationale": "Local devices are listed as a deployment option."
+          "rationale": "Local devices are a deployment option."
         },
         {
           "id": "c",
           "text": "Kubernetes",
           "correct": false,
-          "rationale": "Kubernetes is listed as a deployment option."
+          "rationale": "Kubernetes is a deployment option."
         },
         {
           "id": "d",
           "text": "IoT Edge",
           "correct": false,
-          "rationale": "IoT Edge is listed as a deployment option."
+          "rationale": "IoT Edge is a deployment option."
         }
       ],
       "explanation": "Deployment options include Azure cloud, local devices, Kubernetes, and IoT Edge.",
       "hints": [
-        "Review the list of deployment options mentioned in the grounding text."
+        "Review the list of deployment options mentioned."
       ],
       "source_refs": [
         {
@@ -3034,7 +3034,7 @@
           "id": "c",
           "text": "Cost parameters",
           "correct": false,
-          "rationale": "Cost is mentioned as something parameters control, but not the primary category for inference behavior."
+          "rationale": "Cost is something parameters control, but not the primary category for inference behavior."
         },
         {
           "id": "d",
@@ -3072,7 +3072,7 @@
           "id": "a",
           "text": "True",
           "correct": false,
-          "rationale": "Temperature is listed as a parameter controlling inference behavior, which is characteristic of generative AI parameters."
+          "rationale": "Temperature is a parameter controlling inference behavior, which is characteristic of generative AI parameters."
         },
         {
           "id": "b",
@@ -3110,28 +3110,28 @@
           "id": "a",
           "text": "Batch size",
           "correct": true,
-          "rationale": "Batch size is listed as a parameter that controls inference behavior."
+          "rationale": "Batch size controls inference behavior."
         },
         {
           "id": "b",
           "text": "Top-p",
           "correct": true,
-          "rationale": "Top-p is listed as a parameter that controls inference behavior."
+          "rationale": "Top-p controls inference behavior."
         },
         {
           "id": "c",
           "text": "Stop sequences",
           "correct": true,
-          "rationale": "Stop sequences are listed as a parameter that controls inference behavior."
+          "rationale": "Stop sequences control inference behavior."
         },
         {
           "id": "d",
           "text": "Instance count",
           "correct": false,
-          "rationale": "Instance count is related to deployment configuration (instance count), not explicitly listed as an inference behavior parameter in the table."
+          "rationale": "Instance count is related to deployment configuration, not inference behavior."
         }
       ],
-      "explanation": "Parameters like Temperature, Top-p, Max tokens, and Stop sequences control the inference behavior of the model.",
+      "explanation": "Parameters such as Temperature, Top-p, Max tokens, and Stop sequences control the inference behavior of the model.",
       "hints": [
         "Examine the row in the table that describes 'Inference behavior'."
       ],
@@ -3154,7 +3154,7 @@
       "render": "radio",
       "difficulty": 2,
       "bloom": "apply",
-      "stem": "Based on the Deployment Decision Flowchart, if a model needs to process large batches overnight, which deployment path is indicated?",
+      "stem": "If a model needs to process large batches overnight, which deployment path is indicated?",
       "options": [
         {
           "id": "a",
@@ -3166,7 +3166,7 @@
           "id": "b",
           "text": "Batch endpoint",
           "correct": true,
-          "rationale": "The flowchart indicates that if the answer to 'Need real-time response (<1 sec)?' is NO, and the answer to 'Need to process large batches overnight?' is YES, the path leads to the Batch endpoint."
+          "rationale": "If the answer to 'Need real-time response (<1 sec)?' is NO, and the answer to 'Need to process large batches overnight?' is YES, the path leads to the Batch endpoint."
         },
         {
           "id": "c",
@@ -3306,7 +3306,7 @@
           "id": "a",
           "text": "Generative AI",
           "correct": true,
-          "rationale": "Summarizing long documents is listed as an example of a Generative AI task."
+          "rationale": "Summarizing long documents is an example of a Generative AI task."
         },
         {
           "id": "b",
@@ -3315,7 +3315,7 @@
           "rationale": "Agentic AI keywords relate to action and goal achievement."
         }
       ],
-      "explanation": "The keyword 'summarize' is listed as a keyword associated with the Generative AI workload.",
+      "explanation": "The keyword 'summarize' is a keyword associated with the Generative AI workload.",
       "hints": [],
       "source_refs": [
         {
@@ -3386,34 +3386,34 @@
       "render": "checkbox",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "Which AI workloads are explicitly mentioned in the grounding text as distinct categories?",
+      "stem": "Which of the following are distinct categories of AI workloads?",
       "options": [
         {
           "id": "a",
           "text": "Generative AI",
           "correct": true,
-          "rationale": "Generative AI is listed as a specific workload type."
+          "rationale": "Generative AI is a distinct category of AI workload."
         },
         {
           "id": "b",
           "text": "Agentic AI",
           "correct": true,
-          "rationale": "Agentic AI is listed as a specific workload type."
+          "rationale": "Agentic AI is a distinct category of AI workload."
         },
         {
           "id": "c",
           "text": "Sentiment Analysis",
           "correct": true,
-          "rationale": "Sentiment Analysis is mentioned as part of Text Analysis."
+          "rationale": "Sentiment Analysis is a part of Text Analysis."
         },
         {
           "id": "d",
           "text": "Information Extraction",
           "correct": true,
-          "rationale": "Information Extraction is listed as a distinct workload type."
+          "rationale": "Information Extraction is a distinct workload type."
         }
       ],
-      "explanation": "The grounding text explicitly lists Generative AI, Agentic AI, Sentiment Analysis (part of Text Analysis), and Information Extraction as key areas.",
+      "explanation": "Generative AI, Agentic AI, Sentiment Analysis (under Text Analysis), and Information Extraction are the key areas mentioned.",
       "hints": [],
       "source_refs": [
         {
@@ -3619,25 +3619,25 @@
       "render": "checkbox",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "Which of the following techniques are listed as examples of text analysis techniques?",
+      "stem": "Which of the following techniques are examples of text analysis techniques?",
       "options": [
         {
           "id": "a",
           "text": "Keyword Extraction",
           "correct": true,
-          "rationale": "Keyword Extraction is listed as a technique for automatically extracting meaning from text."
+          "rationale": "Keyword Extraction is a technique for automatically extracting meaning from text."
         },
         {
           "id": "b",
           "text": "Entity Detection",
           "correct": true,
-          "rationale": "Entity Detection is listed as a technique for automatically extracting meaning from text."
+          "rationale": "Entity Detection is a technique for automatically extracting meaning from text."
         },
         {
           "id": "c",
           "text": "Sentiment Analysis",
           "correct": true,
-          "rationale": "Sentiment Analysis is listed as a technique for automatically extracting meaning from text."
+          "rationale": "Sentiment Analysis is a technique for automatically extracting meaning from text."
         },
         {
           "id": "d",
@@ -3763,7 +3763,7 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "recall",
-      "stem": "Which of the following terms should you associate with Speech Recognition based on the provided exam tip?",
+      "stem": "Which term is associated with Speech Recognition?",
       "options": [
         {
           "id": "a",
@@ -3775,7 +3775,7 @@
           "id": "b",
           "text": "Real-time transcription",
           "correct": true,
-          "rationale": "The exam tip suggests terms like 'real-time transcription' indicate Speech Recognition."
+          "rationale": "Real-time transcription indicates Speech Recognition."
         },
         {
           "id": "c",
@@ -3790,7 +3790,7 @@
           "rationale": "Voice generation is part of Speech Synthesis."
         }
       ],
-      "explanation": "Terms such as 'real-time transcription' and 'captions' are indicators that point toward the Speech Recognition capability.",
+      "explanation": "Real-time transcription is the term associated with Speech Recognition.",
       "hints": [],
       "source_refs": [
         {
@@ -3859,13 +3859,13 @@
           "id": "b",
           "text": "Speaker diarization",
           "correct": true,
-          "rationale": "The exam tip explicitly lists 'speaker diarization' as a term associated with Speech Recognition."
+          "rationale": "Speaker diarization is a feature associated with Speech Recognition."
         },
         {
           "id": "c",
           "text": "Real-time transcription",
           "correct": true,
-          "rationale": "The exam tip lists 'real-time transcription' as an indicator for Speech Recognition."
+          "rationale": "Real-time transcription is a feature associated with Speech Recognition."
         },
         {
           "id": "d",
@@ -3877,7 +3877,7 @@
           "id": "e",
           "text": "Listening/comprehension",
           "correct": true,
-          "rationale": "Speech Recognition is defined as the capability for listening and comprehension."
+          "rationale": "Speech Recognition is the capability for listening and comprehension."
         }
       ],
       "explanation": "Speech Recognition is associated with listening/comprehension, real-time transcription, and speaker diarization, while the other options relate to Speech Synthesis.",
@@ -4126,7 +4126,7 @@
           "id": "b",
           "text": "Azure AI Language",
           "correct": true,
-          "rationale": "Azure AI Language is specifically mentioned for extracting entities, key phrases, sentiment, PII, and summaries from text."
+          "rationale": "Azure AI Language is used for extracting entities, key phrases, sentiment, PII, and summaries from text."
         },
         {
           "id": "c",
@@ -4138,10 +4138,10 @@
           "id": "d",
           "text": "Azure AI Video Indexer",
           "correct": false,
-          "rationale": "The grounding does not specify a service named Azure AI Video Indexer for this purpose."
+          "rationale": "There is no service named Azure AI Video Indexer used for this purpose."
         }
       ],
-      "explanation": "Azure AI Language is the service detailed for extracting entities, key phrases, sentiment, PII, and summaries from text.",
+      "explanation": "Azure AI Language is the service used for extracting entities, key phrases, sentiment, PII, and summaries from text.",
       "hints": [
         "Focus on the service used for text-based language analysis.",
         "Review the specific outputs listed for text extraction."
@@ -4228,7 +4228,7 @@
           "id": "a",
           "text": "True",
           "correct": true,
-          "rationale": "The grounding explicitly states that identifying the input type (Text -> Azure AI Language, Image -> Azure AI Vision/Document Intelligence) is the 'Modality' Trick."
+          "rationale": "Identifying the input type (Text -> Azure AI Language, Image -> Azure AI Vision/Document Intelligence) is the 'Modality' Trick."
         },
         {
           "id": "b",
@@ -4262,25 +4262,25 @@
       "render": "checkbox",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "Which of the following extraction capabilities are explicitly mentioned as being handled by Azure AI Language?",
+      "stem": "Which of the following extraction capabilities are handled by Azure AI Language?",
       "options": [
         {
           "id": "a",
           "text": "Named Entity Recognition (NER)",
           "correct": true,
-          "rationale": "NER is listed as a specific capability handled by Azure AI Language."
+          "rationale": "Named Entity Recognition (NER) is handled by Azure AI Language."
         },
         {
           "id": "b",
           "text": "Transcription from audio",
           "correct": false,
-          "rationale": "Transcription from audio is typically handled by different services, not explicitly listed for Azure AI Language in this context."
+          "rationale": "Transcription from audio is not handled by Azure AI Language."
         },
         {
           "id": "c",
           "text": "Sentiment analysis",
           "correct": true,
-          "rationale": "Sentiment analysis is listed as a capability handled by Azure AI Language."
+          "rationale": "Sentiment analysis is handled by Azure AI Language."
         },
         {
           "id": "d",
@@ -4292,7 +4292,7 @@
           "id": "e",
           "text": "Summaries",
           "correct": true,
-          "rationale": "Summaries are listed as a capability handled by Azure AI Language."
+          "rationale": "Summaries are handled by Azure AI Language."
         }
       ],
       "explanation": "Azure AI Language handles Named Entity Recognition (NER), sentiment analysis, and summaries.",
@@ -4320,7 +4320,7 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "apply",
-      "stem": "If you are processing an invoice that requires understanding structured fields, which Azure AI service would you likely use based on the Modality Trick?",
+      "stem": "When processing an invoice that requires understanding structured fields, which Azure AI service is best suited for this task?",
       "options": [
         {
           "id": "a",
@@ -4338,7 +4338,7 @@
           "id": "c",
           "text": "Document Intelligence",
           "correct": true,
-          "rationale": "Document Intelligence is explicitly mentioned as the service for handling documents like forms and invoices."
+          "rationale": "Document Intelligence is the service for handling documents like forms and invoices."
         },
         {
           "id": "d",
@@ -4347,7 +4347,7 @@
           "rationale": "This service is for language processing, not for structured document parsing."
         }
       ],
-      "explanation": "For structured documents like forms or invoices, Document Intelligence is the appropriate service based on the Modality Trick.",
+      "explanation": "Document Intelligence is the appropriate service for handling structured documents like forms or invoices.",
       "hints": [
         "Consider the type of document mentioned in the scenario (invoice).",
         "Match the document type to the specialized extraction service."
@@ -4384,7 +4384,7 @@
           "id": "b",
           "text": "It serves as the primary interface for instructing a Generative AI model to produce a desired output.",
           "correct": true,
-          "rationale": "The summary states that a prompt is the input text instructing the model to produce a desired output and serves as the primary interface."
+          "rationale": "A prompt is the input text instructing the model to produce a desired output and serves as the primary interface."
         },
         {
           "id": "c",
@@ -4426,25 +4426,25 @@
           "id": "a",
           "text": "The CTAO framework.",
           "correct": true,
-          "rationale": "The summary explicitly recommends the CTAO framework for prompt creation."
+          "rationale": "The CTAO framework is recommended for creating effective prompts."
         },
         {
           "id": "b",
           "text": "The RTA framework.",
           "correct": false,
-          "rationale": "The grounding only mentions the CTAO framework."
+          "rationale": "The RTA framework is not the recommended framework."
         },
         {
           "id": "c",
           "text": "The T-F framework.",
           "correct": false,
-          "rationale": "The grounding only mentions the CTAO framework."
+          "rationale": "The T-F framework is not the recommended framework."
         },
         {
           "id": "d",
           "text": "The CTAO framework is only for system prompts.",
           "correct": false,
-          "rationale": "The grounding states the framework is recommended for prompt creation generally."
+          "rationale": "The CTAO framework is recommended for prompt creation generally, not just system prompts."
         }
       ],
       "explanation": "The CTAO framework (Clear & Specific, Task Decomposition, Assign a Role, Output Formatting) is recommended for creating effective prompts.",
@@ -4474,7 +4474,7 @@
           "id": "a",
           "text": "True",
           "correct": false,
-          "rationale": "The grounding advises keeping system prompt length concise, up to ~8,000 characters."
+          "rationale": "System prompt length should be kept concise, with a maximum of ~8,000 characters."
         },
         {
           "id": "b",
@@ -4510,25 +4510,25 @@
           "id": "a",
           "text": "Clear & Specific instructions.",
           "correct": true,
-          "rationale": "Clear & Specific is one of the components of the CTAO framework."
+          "rationale": "Clear & Specific instructions are components of the CTAO framework."
         },
         {
           "id": "b",
           "text": "Task Decomposition.",
           "correct": true,
-          "rationale": "Task Decomposition is one of the components of the CTAO framework."
+          "rationale": "Task Decomposition is a component of the CTAO framework."
         },
         {
           "id": "c",
           "text": "Assigning a specific output format.",
           "correct": true,
-          "rationale": "Output Formatting is one of the components of the CTAO framework."
+          "rationale": "Assigning a specific output format is a component of the CTAO framework."
         },
         {
           "id": "d",
           "text": "Setting the model's temperature.",
           "correct": false,
-          "rationale": "Setting temperature is a separate tip, not a component of the CTAO framework."
+          "rationale": "Setting the model's temperature is not a component of the CTAO framework."
         }
       ],
       "explanation": "The CTAO framework includes Clear & Specific instructions, Task Decomposition, Assigning a Role, and Output Formatting.",
@@ -4651,31 +4651,31 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "recall",
-      "stem": "In the context of Microsoft Foundry, what is the smallest unit of text that the model processes?",
+      "stem": "What is the smallest unit of text that the model processes in Microsoft Foundry?",
       "options": [
         {
           "id": "a",
           "text": "A word.",
           "correct": false,
-          "rationale": "The grounding specifies the unit is smaller than a word."
+          "rationale": "The smallest unit of text processed by the model is smaller than a word."
         },
         {
           "id": "b",
           "text": "A character or 4 characters.",
           "correct": true,
-          "rationale": "The grounding explicitly states the smallest unit is approximately 4 characters or 0.75 words."
+          "rationale": "The smallest unit of text processed by the model is approximately 4 characters or 0.75 words."
         },
         {
           "id": "c",
           "text": "A sentence.",
           "correct": false,
-          "rationale": "The unit is much smaller than a sentence."
+          "rationale": "The unit of text processed by the model is much smaller than a sentence."
         },
         {
           "id": "d",
           "text": "A full document.",
           "correct": false,
-          "rationale": "The unit is the smallest unit of text processed by the model."
+          "rationale": "The smallest unit of text processed by the model is the smallest unit of text processed by the model."
         }
       ],
       "explanation": "The smallest unit of text the model processes is defined as approximately 4 characters or 0.75 words.",
@@ -4740,31 +4740,31 @@
       "render": "checkbox",
       "difficulty": 5,
       "bloom": "analyze",
-      "stem": "Which of the following concepts are explicitly mentioned as key components related to model deployment and interaction in Microsoft Foundry?",
+      "stem": "Which of the following concepts are key components related to model deployment and interaction in Microsoft Foundry?",
       "options": [
         {
           "id": "a",
           "text": "Model Catalog",
           "correct": true,
-          "rationale": "The summary and grounding list the Model Catalog as a key concept."
+          "rationale": "Model Catalog is a key component related to model management."
         },
         {
           "id": "b",
           "text": "Inference",
           "correct": true,
-          "rationale": "Inference (prediction/response generation) is explicitly mentioned as the goal of deployment."
+          "rationale": "Inference is the process of generating a response from a deployed model."
         },
         {
           "id": "c",
           "text": "Token",
           "correct": true,
-          "rationale": "Token is mentioned as a unit related to cost and limit measurement."
+          "rationale": "Token is a unit used for measuring cost and limits."
         },
         {
           "id": "d",
           "text": "Deployment",
           "correct": true,
-          "rationale": "Deployment is the central process described."
+          "rationale": "Deployment is the central process for making a model available for interaction."
         }
       ],
       "explanation": "The key concepts mentioned include the Model Catalog, Deployment, Endpoint, Inference, and Token.",
@@ -4806,7 +4806,7 @@
           "id": "b",
           "text": "System Message field",
           "correct": true,
-          "rationale": "The grounding specifies that the System Message field is used to enter behavior rules."
+          "rationale": "The System Message field is used to enter behavior rules."
         },
         {
           "id": "c",
@@ -4904,7 +4904,7 @@
           "id": "b",
           "text": "The Foundry SDK.",
           "correct": true,
-          "rationale": "The Foundry SDK is explicitly described as a library of code that simplifies calling Azure APIs."
+          "rationale": "The Foundry SDK is a library of code that simplifies calling Azure APIs."
         },
         {
           "id": "c",
@@ -5134,19 +5134,19 @@
       "render": "checkbox",
       "difficulty": 2,
       "bloom": "recall",
-      "stem": "Which of the following is NOT explicitly listed as a tool available in the Agent Playground?",
+      "stem": "Which of the following is NOT a tool available in the Agent Playground?",
       "options": [
         {
           "id": "a",
           "text": "Bing Search",
           "correct": true,
-          "rationale": "Bing Search is listed as an available tool in the Agent Playground."
+          "rationale": "Bing Search is an available tool in the Agent Playground."
         },
         {
           "id": "b",
           "text": "Functions",
           "correct": true,
-          "rationale": "Functions are listed as an available tool in the Agent Playground."
+          "rationale": "Functions are an available tool in the Agent Playground."
         },
         {
           "id": "c",
@@ -5158,7 +5158,7 @@
           "id": "d",
           "text": "APIs",
           "correct": true,
-          "rationale": "APIs are listed as an available tool in the Agent Playground."
+          "rationale": "APIs are an available tool in the Agent Playground."
         }
       ],
       "explanation": "The Agent Playground makes tools like Bing Search, Functions, APIs, and Code available, whereas the Chat Playground does not.",
@@ -5198,7 +5198,7 @@
           "id": "b",
           "text": "False",
           "correct": false,
-          "rationale": "The grounding/knowledge feature is explicitly listed as available for the Agent Playground."
+          "rationale": "The grounding/knowledge feature is available for the Agent Playground."
         }
       ],
       "explanation": "The Agent Playground supports knowledge grounding (uploading files, connecting data), while the Chat Playground does not.",
@@ -5226,34 +5226,34 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "If an agent needs to find out about today's shipping delays, which tool would be most appropriate to utilize?",
+      "stem": "Which tool is most appropriate for an agent to use to find information about today's shipping delays?",
       "options": [
         {
           "id": "a",
           "text": "An API call to a proprietary logistics database.",
           "correct": false,
-          "rationale": "The grounding specifically mentions Bing Search as the tool for searching the live web for current information."
+          "rationale": "This method accesses a specific, internal database, which is not the best way to find current, general information like today's delays."
         },
         {
           "id": "b",
           "text": "Bing Search",
           "correct": true,
-          "rationale": "Bing Search is defined as the tool that searches the live web for current information, making it suitable for this query."
+          "rationale": "Bing Search is designed to search the live web for current information, making it suitable for finding today's shipping delays."
         },
         {
           "id": "c",
           "text": "Uploading a knowledge file.",
           "correct": false,
-          "rationale": "Uploading a knowledge file is for grounding, not for retrieving current, live web information."
+          "rationale": "Uploading a knowledge file is used for grounding, not for retrieving real-time, current information."
         },
         {
           "id": "d",
           "text": "A function call to a pre-defined shipping calculation script.",
           "correct": false,
-          "rationale": "The grounding does not mention a specific function for shipping delays, only the general capability of Bing Search."
+          "rationale": "A shipping calculation script would calculate rates, not retrieve current delay status."
         }
       ],
-      "explanation": "Bing Search is the specific tool listed that searches the live web for current information, which aligns with the task of finding today's shipping delays.",
+      "explanation": "Bing Search is the appropriate tool because it searches the live web for current information, which is necessary to find today's shipping delays.",
       "hints": [],
       "source_refs": [
         {
@@ -5278,25 +5278,25 @@
       "render": "checkbox",
       "difficulty": 3,
       "bloom": "analyze",
-      "stem": "Which features distinguish the Agent Playground (2.1.4) from the Chat Playground (2.1.2) based on the provided comparison?",
+      "stem": "Which features distinguish the Agent Playground (2.1.4) from the Chat Playground (2.1.2)?",
       "options": [
         {
           "id": "a",
           "text": "Availability of Tools (Bing, Functions, APIs, Code)",
           "correct": true,
-          "rationale": "The comparison explicitly shows that the Agent Playground has Tools available, while the Chat Playground does not."
+          "rationale": "The Agent Playground has Tools available, while the Chat Playground does not."
         },
         {
           "id": "b",
           "text": "Support for Knowledge Grounding (uploading files/connecting data)",
           "correct": true,
-          "rationale": "The comparison explicitly shows that Grounding/Knowledge is available in the Agent Playground but not in the Chat Playground."
+          "rationale": "Grounding/Knowledge is available in the Agent Playground but not in the Chat Playground."
         },
         {
           "id": "c",
           "text": "The ability to perform autonomous decision-making.",
           "correct": false,
-          "rationale": "The summary defines the agent as having autonomous decision-making, but the grounding comparison focuses on the presence of tools and grounding."
+          "rationale": "Although the agent has autonomous decision-making, the distinction here is the presence of tools and grounding."
         },
         {
           "id": "d",
@@ -5305,7 +5305,7 @@
           "rationale": "Bing Search is a specific tool; the distinction is about the general availability of tool types."
         }
       ],
-      "explanation": "The key distinctions are that the Agent Playground offers access to Tools (Bing, Functions, APIs, Code) and Knowledge Grounding, features not present in the Chat Playground.",
+      "explanation": "The Agent Playground offers access to Tools (Bing, Functions, APIs, Code) and Knowledge Grounding, features not present in the Chat Playground.",
       "hints": [],
       "source_refs": [
         {
@@ -5342,7 +5342,7 @@
           "id": "b",
           "text": "Focusing on agent capabilities and tool execution.",
           "correct": true,
-          "rationale": "The summary states that a lightweight client focuses on agent capabilities and tool execution."
+          "rationale": "A lightweight client focuses on agent capabilities and tool execution."
         },
         {
           "id": "c",
@@ -5381,25 +5381,25 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "recall",
-      "stem": "Which library is mentioned as the tool for programmatically interacting with an agent?",
+      "stem": "Which library is the tool for programmatically interacting with an agent?",
       "options": [
         {
           "id": "a",
           "text": "azure-ai-projects",
           "correct": true,
-          "rationale": "The grounding explicitly names the library (azure-ai-projects) for programmatic interaction."
+          "rationale": "This library is used for programmatic interaction with an agent."
         },
         {
           "id": "b",
           "text": "Agent SDK",
           "correct": false,
-          "rationale": "The Agent SDK is mentioned as something to install, not the library for interaction."
+          "rationale": "The Agent SDK is for installation, not the library for interaction."
         },
         {
           "id": "c",
           "text": "Chat Client SDK",
           "correct": false,
-          "rationale": "The context distinguishes the lightweight client from a Chat Client."
+          "rationale": "This is distinguished from the lightweight client."
         },
         {
           "id": "d",
@@ -5438,7 +5438,7 @@
           "id": "a",
           "text": "True",
           "correct": false,
-          "rationale": "The text explicitly states it differs from interacting through the portal's Agent Playground."
+          "rationale": "A lightweight client communicates programmatically, not through the portal's Agent Playground."
         },
         {
           "id": "b",
@@ -5476,30 +5476,30 @@
           "id": "a",
           "text": "Agent IDs",
           "correct": true,
-          "rationale": "The summary lists Agent IDs as key concepts."
+          "rationale": "Agent IDs are key concepts associated with a lightweight client application for an agent."
         },
         {
           "id": "b",
           "text": "Conversation threads",
           "correct": true,
-          "rationale": "The summary lists conversation threads as key concepts."
+          "rationale": "Conversation threads are key concepts associated with a lightweight client application for an agent."
         },
         {
           "id": "c",
           "text": "Tool execution",
           "correct": true,
-          "rationale": "The summary highlights tool execution as a key focus."
+          "rationale": "Tool execution is a key concept associated with a lightweight client application for an agent."
         },
         {
           "id": "d",
           "text": "Direct interaction via the Agent Playground",
           "correct": false,
-          "rationale": "Direct interaction via the Agent Playground is the opposite of a lightweight client."
+          "rationale": "Direct interaction via the Agent Playground is not a key concept associated with a lightweight client."
         }
       ],
       "explanation": "Key concepts for a lightweight client include Agent IDs, conversation threads, and tool execution.",
       "hints": [
-        "Review the summary to identify the specific items listed as key concepts."
+        "Review the list of key concepts for a lightweight client application for an agent."
       ],
       "source_refs": [
         {
@@ -5520,34 +5520,34 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "understand",
-      "stem": "Which of the following is explicitly mentioned as a technique for text analysis in the provided grounding?",
+      "stem": "Which of the following is a technique for text analysis?",
       "options": [
         {
           "id": "a",
           "text": "Sentiment Analysis",
           "correct": false,
-          "rationale": "Sentiment Analysis is not explicitly listed in the grounding text."
+          "rationale": "Sentiment Analysis is a technique for text analysis."
         },
         {
           "id": "b",
           "text": "Keyword Extraction",
           "correct": true,
-          "rationale": "Keyword Extraction is explicitly mentioned as a technique in the grounding text."
+          "rationale": "Keyword Extraction is a technique for text analysis."
         },
         {
           "id": "c",
           "text": "Entity Detection",
           "correct": false,
-          "rationale": "Entity Detection is not explicitly mentioned in the grounding text."
+          "rationale": "Entity Detection is a technique for text analysis."
         },
         {
           "id": "d",
           "text": "Summarization",
           "correct": false,
-          "rationale": "Summarization is not explicitly mentioned in the grounding text."
+          "rationale": "Summarization is a technique for text analysis."
         }
       ],
-      "explanation": "Keyword Extraction is the only text analysis technique explicitly mentioned in the grounding passage.",
+      "explanation": "Keyword Extraction is the only text analysis technique explicitly mentioned.",
       "hints": [],
       "source_refs": [
         {
@@ -5664,25 +5664,25 @@
       "render": "checkbox",
       "difficulty": 5,
       "bloom": "analyze",
-      "stem": "Which actions are required for building an application in Foundry, according to the provided text?",
+      "stem": "Which actions are required for building an application in Foundry?",
       "options": [
         {
           "id": "a",
           "text": "Selecting a model from the model catalog.",
           "correct": true,
-          "rationale": "Selecting a model is explicitly listed as a step in the setup."
+          "rationale": "Selecting a model is a step in the setup."
         },
         {
           "id": "b",
           "text": "Using the Foundry SDK to call the model's API endpoint.",
           "correct": true,
-          "rationale": "Using the SDK is explicitly listed as the client application step."
+          "rationale": "Using the SDK is the client application step."
         },
         {
           "id": "c",
           "text": "Creating a project in the Azure Foundry portal.",
           "correct": true,
-          "rationale": "Creating a project is listed as the first step in the setup."
+          "rationale": "Creating a project is the first step in the setup."
         },
         {
           "id": "d",
@@ -5712,25 +5712,25 @@
       "render": "checkbox",
       "difficulty": 5,
       "bloom": "analyze",
-      "stem": "Based on the provided information, which items fall under the category of 'Text Analysis Techniques'?",
+      "stem": "Which items fall under the category of 'Text Analysis Techniques'?",
       "options": [
         {
           "id": "a",
           "text": "Keyword Extraction",
           "correct": true,
-          "rationale": "Keyword Extraction is listed as a technique for text analysis."
+          "rationale": "Keyword Extraction is a technique for text analysis."
         },
         {
           "id": "b",
           "text": "Entity Detection",
           "correct": true,
-          "rationale": "Entity Detection is listed as a technique for text analysis."
+          "rationale": "Entity Detection is a technique for text analysis."
         },
         {
           "id": "c",
           "text": "Summarization",
           "correct": true,
-          "rationale": "Summarization is listed as a technique for text analysis."
+          "rationale": "Summarization is a technique for text analysis."
         },
         {
           "id": "d",
@@ -5764,31 +5764,31 @@
       "render": "checkbox",
       "difficulty": 1,
       "bloom": "recall",
-      "stem": "Which of the following is explicitly mentioned as a type of input that multimodal models can process?",
+      "stem": "Which of the following is a type of input that multimodal models can process?",
       "options": [
         {
           "id": "a",
           "text": "Video",
           "correct": false,
-          "rationale": "Video is not explicitly listed in the grounding text which specifies text, images, and audio."
+          "rationale": "Video is not a type of input that multimodal models can process."
         },
         {
           "id": "b",
           "text": "Text",
           "correct": true,
-          "rationale": "Text is explicitly mentioned as one of the input types multimodal models can process."
+          "rationale": "Text is a type of input that multimodal models can process."
         },
         {
           "id": "c",
           "text": "Image",
           "correct": true,
-          "rationale": "Images are explicitly mentioned as one of the input types multimodal models can process."
+          "rationale": "Image is a type of input that multimodal models can process."
         },
         {
           "id": "d",
           "text": "Audio",
           "correct": true,
-          "rationale": "Audio is explicitly mentioned as one of the input types multimodal models can process."
+          "rationale": "Audio is a type of input that multimodal models can process."
         }
       ],
       "explanation": "Multimodal models can process and respond to multiple types of input (modalities) like text, images, and audio.",
@@ -5824,7 +5824,7 @@
           "id": "b",
           "text": "Transcribing the audio (if needed).",
           "correct": true,
-          "rationale": "The grounding states that the model transcribes the audio if necessary."
+          "rationale": "The model transcribes the audio if necessary."
         },
         {
           "id": "c",
@@ -5908,7 +5908,7 @@
           "id": "b",
           "text": "It requires transcription if the input is audio.",
           "correct": true,
-          "rationale": "The grounding states that the model transcribes the audio (if needed)."
+          "rationale": "The model transcribes the audio (if needed)."
         },
         {
           "id": "c",
@@ -6166,31 +6166,31 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "Which of the following tasks is explicitly mentioned as a capability that multimodal models can perform when analyzing images?",
+      "stem": "Which of the following tasks is a capability that multimodal models can perform when analyzing images?",
       "options": [
         {
           "id": "a",
           "text": "Generating complex code from scratch.",
           "correct": false,
-          "rationale": "Generating code is not listed among the image analysis tasks mentioned in the grounding."
+          "rationale": "Generating complex code from scratch."
         },
         {
           "id": "b",
           "text": "Image captioning and description.",
           "correct": true,
-          "rationale": "Image captioning and description are explicitly listed as capabilities of multimodal models."
+          "rationale": "Image captioning and description."
         },
         {
           "id": "c",
           "text": "Real-time stock market prediction.",
           "correct": false,
-          "rationale": "Stock market prediction is not mentioned as a function of multimodal models based on the provided text."
+          "rationale": "Real-time stock market prediction."
         },
         {
           "id": "d",
           "text": "Optimizing network latency.",
           "correct": false,
-          "rationale": "Optimizing network latency is not listed as a function of multimodal models."
+          "rationale": "Optimizing network latency."
         }
       ],
       "explanation": "Multimodal models can perform tasks such as image captioning and description, as well as visual question answering, object detection and counting, and reading text from images.",
@@ -6221,31 +6221,31 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "According to the grounding, what is one way to send image data to a multimodal model during implementation?",
+      "stem": "What is one way to send image data to a multimodal model during implementation?",
       "options": [
         {
           "id": "a",
           "text": "Sending the image as a raw binary file upload.",
           "correct": false,
-          "rationale": "The grounding specifies sending data via URL or base64-encoded data, not raw binary uploads."
+          "rationale": "Sending the image as a raw binary file upload."
         },
         {
           "id": "b",
           "text": "Sending the image data via a URL or base64-encoded data in the user prompt.",
           "correct": true,
-          "rationale": "The implementation step requires sending the image as a URL or base64-encoded data in the user prompt."
+          "rationale": "Sending the image data via a URL or base64-encoded data in the user prompt."
         },
         {
           "id": "c",
           "text": "Sending the image data through a dedicated API endpoint only.",
           "correct": false,
-          "rationale": "The grounding specifies URL or base64 as the methods for sending data."
+          "rationale": "Sending the image data through a dedicated API endpoint only."
         },
         {
           "id": "d",
           "text": "Sending the image data as a simple text file.",
           "correct": false,
-          "rationale": "The specified methods are URL or base64, not simple text files."
+          "rationale": "Sending the image data as a simple text file."
         }
       ],
       "explanation": "Implementation involves sending the image data either as a URL or as base64-encoded data within the user prompt.",
@@ -6272,7 +6272,7 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "recall",
-      "stem": "True or False: A multimodal model can only perform tasks like image captioning and cannot perform visual question answering.",
+      "stem": "A multimodal model can only perform tasks like image captioning and cannot perform visual question answering.",
       "options": [
         {
           "id": "a",
@@ -6284,7 +6284,7 @@
           "id": "b",
           "text": "False",
           "correct": true,
-          "rationale": "Multimodal models can perform visual question answering, as listed in the grounding."
+          "rationale": "Multimodal models can perform visual question answering."
         }
       ],
       "explanation": "Multimodal models are capable of tasks beyond just image captioning; they can also perform visual question answering.",
@@ -6316,31 +6316,31 @@
           "id": "a",
           "text": "Reading text from images",
           "correct": true,
-          "rationale": "Reading text from images is explicitly listed as a capability."
+          "rationale": "Multimodal models can read text from images."
         },
         {
           "id": "b",
           "text": "Detecting objects and counting them.",
           "correct": true,
-          "rationale": "Object detection and counting are explicitly listed as capabilities."
+          "rationale": "Multimodal models can detect objects and count them."
         },
         {
           "id": "c",
           "text": "Performing complex mathematical calculations.",
           "correct": false,
-          "rationale": "Complex mathematical calculations are not mentioned as a capability."
+          "rationale": "Multimodal models cannot perform complex mathematical calculations."
         },
         {
           "id": "d",
           "text": "Answering visual questions.",
           "correct": true,
-          "rationale": "Visual question answering is explicitly listed as a capability."
+          "rationale": "Multimodal models can answer visual questions."
         },
         {
           "id": "e",
           "text": "Generating new images.",
           "correct": false,
-          "rationale": "Generating new images is not listed as a capability."
+          "rationale": "Multimodal models cannot generate new images."
         }
       ],
       "explanation": "Multimodal models can perform image captioning and description, visual question answering, object detection and counting, and reading text from images.",
@@ -6558,7 +6558,7 @@
           "id": "a",
           "text": "Writing a detailed prompt describing the desired image.",
           "correct": true,
-          "rationale": "Crafting the prompt is explicitly listed as step 2 in the workflow."
+          "rationale": "Crafting the prompt is step 2 in the workflow."
         },
         {
           "id": "b",
@@ -6662,7 +6662,7 @@
           "id": "c",
           "text": "A simple web or command-line interface where a user can upload an image and ask a question.",
           "correct": true,
-          "rationale": "The grounding states that the Frontend is a simple interface for image upload and questioning."
+          "rationale": "The Frontend is a simple interface for image upload and questioning."
         }
       ],
       "explanation": "The Frontend serves as the user interface, allowing users to upload an image and pose a question.",
@@ -6694,7 +6694,7 @@
           "id": "a",
           "text": "True",
           "correct": false,
-          "rationale": "The concept summary explicitly states that the application combines both interpretation and generation (or just one)."
+          "rationale": "The architecture combines both interpretation and generation (or just one) into a single application."
         },
         {
           "id": "b",
@@ -6738,19 +6738,19 @@
           "id": "b",
           "text": "Frontend",
           "correct": true,
-          "rationale": "The Frontend is explicitly mentioned as part of the architecture."
+          "rationale": "The Frontend is part of the architecture."
         },
         {
           "id": "c",
           "text": "Backend (Foundry)",
           "correct": true,
-          "rationale": "The Backend (Foundry) is explicitly mentioned as handling the multimodal model analysis."
+          "rationale": "The Backend (Foundry) is handling the multimodal model analysis."
         },
         {
           "id": "d",
           "text": "Output Display",
           "correct": true,
-          "rationale": "The Output Display is mentioned as part of the overall architecture."
+          "rationale": "The Output Display is part of the overall architecture."
         }
       ],
       "explanation": "The core architecture involves the Frontend for input, the Backend (Foundry) for analysis, and an Output Display for results.",
@@ -6788,7 +6788,7 @@
           "id": "b",
           "text": "Analyzing an image to return a text answer.",
           "correct": true,
-          "rationale": "The grounding states the model analyzes the image and returns a text answer."
+          "rationale": "The model analyzes the image and returns a text answer."
         },
         {
           "id": "c",
@@ -6868,31 +6868,31 @@
       "render": "checkbox",
       "difficulty": 2,
       "bloom": "recall",
-      "stem": "Which of the following is NOT listed as a type of content that Azure Content Understanding can process?",
+      "stem": "Which of the following is NOT a type of content that Azure Content Understanding can process?",
       "options": [
         {
           "id": "a",
           "text": "Documents",
           "correct": true,
-          "rationale": "Documents are explicitly listed as content types the service handles."
+          "rationale": "Documents are content types the service handles."
         },
         {
           "id": "b",
           "text": "Audio",
           "correct": true,
-          "rationale": "Audio is explicitly listed as content type the service handles."
+          "rationale": "Audio is content type the service handles."
         },
         {
           "id": "c",
           "text": "Spreadsheets",
           "correct": false,
-          "rationale": "The grounding mentions documents, forms, images, audio, and video, but not explicitly spreadsheets."
+          "rationale": "Spreadsheets are not a content type that Azure Content Understanding can process."
         },
         {
           "id": "d",
           "text": "Video",
           "correct": true,
-          "rationale": "Video is explicitly listed as content type the service handles."
+          "rationale": "Video is content type the service handles."
         }
       ],
       "explanation": "Azure Content Understanding supports unstructured content including documents, forms, images, audio, and video.",
@@ -6928,7 +6928,7 @@
           "id": "b",
           "text": "Barcode recognition",
           "correct": true,
-          "rationale": "Barcode extraction is listed as a capability the service supports."
+          "rationale": "Barcode extraction is a capability the service supports."
         },
         {
           "id": "c",
@@ -7012,7 +7012,7 @@
       "render": "radio",
       "difficulty": 3,
       "bloom": "analyze",
-      "stem": "Which of the following describes the primary focus regarding the combination of OCR and layout analysis in Azure AI Document Intelligence?",
+      "stem": "What is the primary focus regarding the combination of OCR and layout analysis in Azure AI Document Intelligence?",
       "options": [
         {
           "id": "a",
@@ -7024,13 +7024,13 @@
           "id": "b",
           "text": "Laser-focused extraction using OCR plus layout analysis.",
           "correct": true,
-          "rationale": "The grounding explicitly states the primary focus is 'Laser-focused extraction - OCR + layout Azure AI Document Intelligence'."
+          "rationale": "The primary focus is laser-focused extraction using OCR plus layout analysis."
         },
         {
           "id": "c",
           "text": "Generative AI reasoning performed separately from OCR.",
           "correct": false,
-          "rationale": "The service aims for 'Extraction + reasoning in one pass'."
+          "rationale": "The service aims for extraction and reasoning in one pass."
         },
         {
           "id": "d",
@@ -7039,7 +7039,7 @@
           "rationale": "The process integrates extraction and reasoning simultaneously."
         }
       ],
-      "explanation": "The primary focus of Azure AI Document Intelligence is 'Laser-focused extraction' achieved by combining OCR and layout analysis to perform 'Extraction + reasoning in one pass'.",
+      "explanation": "The primary focus of Azure AI Document Intelligence is laser-focused extraction achieved by combining OCR and layout analysis to perform extraction and reasoning in one pass.",
       "hints": [],
       "source_refs": [
         {
@@ -7066,25 +7066,25 @@
           "id": "a",
           "text": "It relies solely on Optical Character Recognition (OCR) for text extraction.",
           "correct": false,
-          "rationale": "This is incorrect because the service combines OCR with generative AI reasoning."
+          "rationale": "The mechanism is not solely OCR; it involves more than just text extraction."
         },
         {
           "id": "b",
           "text": "It uses only computer vision techniques like object detection.",
           "correct": false,
-          "rationale": "This is incomplete; it also incorporates generative AI reasoning."
+          "rationale": "The mechanism is not limited to only computer vision techniques."
         },
         {
           "id": "c",
           "text": "It combines computer vision (object detection, OCR) with generative AI reasoning.",
           "correct": true,
-          "rationale": "The summary explicitly states that it combines computer vision with generative AI reasoning."
+          "rationale": "This accurately describes the combination of techniques used."
         },
         {
           "id": "d",
           "text": "It assumes a structured layout for all image extractions.",
           "correct": false,
-          "rationale": "The grounding states that it handles unstructured visual content, unlike document-focused extraction that assumes structured layouts."
+          "rationale": "It handles unstructured visual content, meaning it does not assume a structured layout."
         }
       ],
       "explanation": "Azure Content Understanding handles unstructured visual content by combining computer vision techniques, such as object detection and OCR, with generative AI reasoning.",
@@ -7123,7 +7123,7 @@
           "id": "b",
           "text": "Printed text (OCR), handwritten notes, and logos.",
           "correct": true,
-          "rationale": "The grounding lists printed text (OCR), handwritten notes, and logos as examples of extractable content."
+          "rationale": "The service extracts printed text (OCR), handwritten notes, and logos."
         },
         {
           "id": "c",
@@ -7173,7 +7173,7 @@
           "id": "b",
           "text": "To apply the appropriate preprocessing steps based on whether the input is a document or a general image.",
           "correct": true,
-          "rationale": "The summary states the service automatically detects the content modality to apply appropriate preprocessing."
+          "rationale": "The service automatically detects the content modality to apply appropriate preprocessing."
         },
         {
           "id": "c",
@@ -7190,7 +7190,7 @@
       ],
       "explanation": "The service automatically detects the content modality (document vs. image) specifically to apply the correct preprocessing steps.",
       "hints": [
-        "Focus on the consequence of detecting the modality mentioned in the summary."
+        "Focus on the consequence of detecting the modality mentioned."
       ],
       "source_refs": [
         {
@@ -7267,36 +7267,36 @@
           "id": "a",
           "text": "Printed Text (via OCR)",
           "correct": true,
-          "rationale": "Printed text is explicitly listed as a type of content that can be extracted."
+          "rationale": "Printed Text (via OCR) is extractable content."
         },
         {
           "id": "b",
           "text": "Handwritten notes in images",
           "correct": true,
-          "rationale": "Handwritten notes are listed as an example of content that can be extracted."
+          "rationale": "Handwritten notes in images are extractable content."
         },
         {
           "id": "c",
           "text": "Structured data from a spreadsheet layout",
           "correct": false,
-          "rationale": "The service handles unstructured content, not necessarily structured layouts."
+          "rationale": "Structured data from a spreadsheet layout is not a primary extraction type."
         },
         {
           "id": "d",
           "text": "Logos",
           "correct": true,
-          "rationale": "Logos are listed as an example of content that can be extracted."
+          "rationale": "Logos are extractable content."
         },
         {
           "id": "e",
           "text": "Complex mathematical equations that require symbolic processing",
           "correct": false,
-          "rationale": "While complex, the grounding focuses on general extraction types like text, objects, and faces, not specifically symbolic processing."
+          "rationale": "Complex mathematical equations that require symbolic processing are not a primary extraction type."
         }
       ],
       "explanation": "Azure Content Understanding can extract printed text (via OCR), handwritten notes, and logos from still images.",
       "hints": [
-        "Identify the specific types of visual elements mentioned in the grounding text."
+        "Identify the specific types of visual elements mentioned."
       ],
       "source_refs": [
         {
@@ -7317,7 +7317,7 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "analyze",
-      "stem": "Which of the following is explicitly mentioned as a type of information that Azure Content Understanding can extract from temporal modalities like audio and video?",
+      "stem": "Which of the following is a type of information that Azure Content Understanding can extract from temporal modalities like audio and video?",
       "options": [
         {
           "id": "a",
@@ -7329,7 +7329,7 @@
           "id": "b",
           "text": "Speech transcription and event detection.",
           "correct": true,
-          "rationale": "The summary states that the process combines speech-to-text, event detection, and frame analysis, and the grounding mentions speech transcription as an output."
+          "rationale": "The process combines speech-to-text, event detection, and frame analysis, with speech transcription as an output."
         },
         {
           "id": "c",
@@ -7378,25 +7378,25 @@
           "id": "a",
           "text": "Speech Transcription",
           "correct": true,
-          "rationale": "The grounding explicitly lists 'Speech Transcription' under the Video aspect."
+          "rationale": "Speech Transcription is an extractable component."
         },
         {
           "id": "b",
           "text": "Speaker Identification",
           "correct": true,
-          "rationale": "The grounding lists 'speaker identification' as an extractable piece of information."
+          "rationale": "Speaker Identification is an extractable component."
         },
         {
           "id": "c",
           "text": "Event Detection",
           "correct": true,
-          "rationale": "The summary states that the process includes 'event detection'."
+          "rationale": "Event Detection is an extractable component."
         },
         {
           "id": "d",
           "text": "Frame Analysis",
           "correct": true,
-          "rationale": "The summary states that the process includes 'frame analysis'."
+          "rationale": "Frame Analysis is an extractable component."
         }
       ],
       "explanation": "Azure Content Understanding extracts various elements, including speech transcription (from audio), speaker identification, event detection, and frame analysis (from video).",
@@ -7432,19 +7432,19 @@
       "render": "radio",
       "difficulty": 4,
       "bloom": "recall",
-      "stem": "The grounding indicates that every extracted piece of information must include timestamp grounding.",
+      "stem": "Every extracted piece of information must include timestamp grounding.",
       "options": [
         {
           "id": "a",
           "text": "True",
           "correct": true,
-          "rationale": "The grounding explicitly states that every extracted piece of information includes timestamp grounding."
+          "rationale": "Every extracted piece of information includes timestamp grounding."
         },
         {
           "id": "b",
           "text": "False",
           "correct": false,
-          "rationale": "This is false because the grounding specifies that timestamp grounding is included for every extracted piece of information."
+          "rationale": "This is false because timestamp grounding is included for every extracted piece of information."
         }
       ],
       "explanation": "True. Every extracted piece of information, such as an ActionItem, includes a grounding object specifying the start time, end time, speaker, and confidence.",
@@ -7476,13 +7476,13 @@
       "render": "radio",
       "difficulty": 5,
       "bloom": "analyze",
-      "stem": "Based on the comparison table provided, which modality is primarily responsible for generating 'Speech Transcription'?",
+      "stem": "Which modality is primarily responsible for generating 'Speech Transcription'?",
       "options": [
         {
           "id": "a",
           "text": "Video",
           "correct": false,
-          "rationale": "The table indicates that Speech Transcription is generated from the audio track, not the video track."
+          "rationale": "Speech Transcription is generated from the audio track, not the video track."
         },
         {
           "id": "b",
@@ -7500,12 +7500,12 @@
           "id": "d",
           "text": "Neither modality.",
           "correct": false,
-          "rationale": "The table clearly indicates that speech transcription is derived from one of the two modalities."
+          "rationale": "Speech transcription is derived from one of the two modalities."
         }
       ],
-      "explanation": "The comparison table shows that Speech Transcription is generated from the audio track, as indicated by 'Yes (primary)' under the Audio-Only column.",
+      "explanation": "Speech Transcription is generated from the audio track, as indicated by 'Yes (primary)' under the Audio-Only column.",
       "hints": [
-        "Focus on the row corresponding to 'Speech Transcription' in the comparison table.",
+        "Focus on the row corresponding to 'Speech Transcription'.",
         "Determine which column (Audio-Only or Video) has the primary indicator."
       ],
       "source_refs": [

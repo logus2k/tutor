@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS answers (
     question_id  TEXT NOT NULL,
     selected_ids TEXT NOT NULL,   -- JSON array of option ids
     correct      INTEGER,         -- 1 / 0 / NULL
+    attempts     INTEGER NOT NULL DEFAULT 1,  -- submissions for this question (retries)
     answered_at  TEXT NOT NULL,
     PRIMARY KEY (session_id, package_id, question_id),
     FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
@@ -83,6 +84,10 @@ CREATE TABLE IF NOT EXISTS answers (
 def init_db() -> None:
     with _conn() as cx:
         cx.executescript(_SCHEMA)
+        # Migrate older DBs that predate retry tracking.
+        cols = [r["name"] for r in cx.execute("PRAGMA table_info(answers)")]
+        if "attempts" not in cols:
+            cx.execute("ALTER TABLE answers ADD COLUMN attempts INTEGER NOT NULL DEFAULT 1")
 
 
 # ---- students ----------------------------------------------------------------
@@ -109,13 +114,20 @@ def list_sessions(email: str) -> list[dict]:
             SELECT s.id, s.name, s.created_at, s.updated_at,
                    (SELECT COUNT(*) FROM session_packages p WHERE p.session_id = s.id) AS package_count,
                    (SELECT COUNT(*) FROM answers a WHERE a.session_id = s.id) AS answered,
-                   (SELECT COUNT(*) FROM answers a WHERE a.session_id = s.id AND a.correct = 1) AS correct
+                   (SELECT COUNT(*) FROM answers a WHERE a.session_id = s.id AND a.correct = 1) AS correct,
+                   (SELECT COALESCE(SUM(CASE WHEN a.correct = 1 THEN 1.0 / a.attempts ELSE 0 END), 0)
+                      FROM answers a WHERE a.session_id = s.id) AS score
             FROM sessions s WHERE s.student_email = ?
             ORDER BY s.updated_at DESC
             """,
             (email,),
         ).fetchall()
-    return [dict(r) for r in rows]
+    out = []
+    for r in rows:
+        d = dict(r)
+        d["score"] = round(d.get("score") or 0, 2)
+        out.append(d)
+    return out
 
 
 def create_session(email: str, name: str) -> dict:
@@ -127,7 +139,7 @@ def create_session(email: str, name: str) -> dict:
             (sid, email, name, now, now),
         )
     return {"id": sid, "name": name, "created_at": now, "updated_at": now,
-            "package_count": 0, "answered": 0, "correct": 0}
+            "package_count": 0, "answered": 0, "correct": 0, "score": 0}
 
 
 def _owned(cx, email: str, sid: str) -> bool:
@@ -189,7 +201,7 @@ def add_package(email: str, sid: str, package_id: str) -> bool:
 # ---- answers -----------------------------------------------------------------
 
 def save_answer(email: str, sid: str, package_id: str, question_id: str,
-                selected_ids: list, correct: bool | None) -> bool:
+                selected_ids: list, correct: bool | None, attempts: int = 1) -> bool:
     with _conn() as cx:
         if not _owned(cx, email, sid):
             return False
@@ -199,13 +211,14 @@ def save_answer(email: str, sid: str, package_id: str, question_id: str,
         )
         cx.execute(
             """
-            INSERT INTO answers(session_id, package_id, question_id, selected_ids, correct, answered_at)
-            VALUES(?,?,?,?,?,?)
+            INSERT INTO answers(session_id, package_id, question_id, selected_ids, correct, attempts, answered_at)
+            VALUES(?,?,?,?,?,?,?)
             ON CONFLICT(session_id, package_id, question_id) DO UPDATE SET
-                selected_ids=excluded.selected_ids, correct=excluded.correct, answered_at=excluded.answered_at
+                selected_ids=excluded.selected_ids, correct=excluded.correct,
+                attempts=excluded.attempts, answered_at=excluded.answered_at
             """,
             (sid, package_id, question_id, json.dumps(list(selected_ids or [])),
-             None if correct is None else int(bool(correct)), _now()),
+             None if correct is None else int(bool(correct)), max(1, int(attempts or 1)), _now()),
         )
         _touch(cx, sid)
     return True
@@ -217,11 +230,11 @@ def get_answers(email: str, sid: str, package_id: str | None = None) -> list[dic
             return []
         if package_id:
             rows = cx.execute(
-                "SELECT package_id, question_id, selected_ids, correct, answered_at "
+                "SELECT package_id, question_id, selected_ids, correct, attempts, answered_at "
                 "FROM answers WHERE session_id=? AND package_id=?", (sid, package_id)).fetchall()
         else:
             rows = cx.execute(
-                "SELECT package_id, question_id, selected_ids, correct, answered_at "
+                "SELECT package_id, question_id, selected_ids, correct, attempts, answered_at "
                 "FROM answers WHERE session_id=?", (sid,)).fetchall()
     out = []
     for r in rows:
@@ -233,12 +246,79 @@ def get_answers(email: str, sid: str, package_id: str | None = None) -> list[dic
 
 
 def _progress(cx, sid: str) -> dict:
-    total = cx.execute("SELECT COUNT(*) c FROM answers WHERE session_id=?", (sid,)).fetchone()["c"]
-    correct = cx.execute("SELECT COUNT(*) c FROM answers WHERE session_id=? AND correct=1", (sid,)).fetchone()["c"]
+    row = cx.execute(
+        "SELECT COUNT(*) answered, "
+        "SUM(CASE WHEN correct=1 THEN 1 ELSE 0 END) correct, "
+        "COALESCE(SUM(attempts), 0) attempts, "
+        "COALESCE(SUM(CASE WHEN correct=1 THEN 1.0/attempts ELSE 0 END), 0) score "
+        "FROM answers WHERE session_id=?", (sid,)).fetchone()
     by_pkg = [dict(r) for r in cx.execute(
-        "SELECT package_id, COUNT(*) answered, SUM(CASE WHEN correct=1 THEN 1 ELSE 0 END) correct "
+        "SELECT package_id, COUNT(*) answered, "
+        "SUM(CASE WHEN correct=1 THEN 1 ELSE 0 END) correct, "
+        "COALESCE(SUM(attempts), 0) attempts, "
+        "ROUND(COALESCE(SUM(CASE WHEN correct=1 THEN 1.0/attempts ELSE 0 END), 0), 2) score "
         "FROM answers WHERE session_id=? GROUP BY package_id", (sid,))]
-    return {"answered": total, "correct": correct, "by_package": by_pkg}
+    return {"answered": row["answered"] or 0, "correct": row["correct"] or 0,
+            "attempts": row["attempts"] or 0, "score": round(row["score"] or 0, 2),
+            "by_package": by_pkg}
+
+
+# ---- leaderboard / Wall of Fame ----------------------------------------------
+
+def _mask_email(email: str) -> str:
+    """A privacy-preserving display handle for other students on the public board."""
+    local, _, domain = (email or "").partition("@")
+    if not local:
+        return "anonymous"
+    shown = local[:2] if len(local) > 2 else local
+    return f"{shown}…@{domain}" if domain else f"{shown}…"
+
+
+def leaderboard(package_id: str, email: str | None = None, mine: bool = False,
+                limit: int = 50) -> list[dict]:
+    """Best sessions for a package, ranked by score (retry-aware).
+
+    Each row is one *session's* performance on the package — the same student
+    can appear multiple times (one row per session they studied it in). When
+    `mine` is set, only the requesting student's sessions are returned.
+    `email`, when provided, marks the requester's own rows (`is_me`) and lets
+    them see their real handle; other students are masked.
+    """
+    sql = """
+        SELECT a.session_id, s.name AS session_name, s.student_email,
+               st.name AS student_name,
+               COUNT(*) AS answered,
+               SUM(CASE WHEN a.correct=1 THEN 1 ELSE 0 END) AS correct,
+               SUM(a.attempts) AS attempts,
+               SUM(CASE WHEN a.correct=1 THEN 1.0/a.attempts ELSE 0 END) AS score,
+               MAX(a.answered_at) AS last_at
+        FROM answers a
+        JOIN sessions s ON s.id = a.session_id
+        LEFT JOIN students st ON st.email = s.student_email
+        WHERE a.package_id = ?
+    """
+    params: list = [package_id]
+    if mine:
+        sql += " AND s.student_email = ? "
+        params.append((email or "").lower())
+    sql += " GROUP BY a.session_id ORDER BY score DESC, attempts ASC, last_at ASC LIMIT ? "
+    params.append(int(limit))
+
+    me = (email or "").lower()
+    with _conn() as cx:
+        rows = cx.execute(sql, params).fetchall()
+    out = []
+    for rank, r in enumerate(rows, start=1):
+        d = dict(r)
+        em = (d.pop("student_email", "") or "").lower()
+        name = d.pop("student_name", None)
+        is_me = bool(me) and em == me
+        d["rank"] = rank
+        d["is_me"] = is_me
+        d["who"] = "You" if is_me else (name or _mask_email(em))
+        d["score"] = round(d.get("score") or 0, 2)
+        out.append(d)
+    return out
 
 
 # Initialise the schema on import (cheap, idempotent).

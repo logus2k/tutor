@@ -46,6 +46,11 @@
         <span class="rail-label">Chat</span>
       </button>
 
+      <button class="rail-btn" data-view="fame" type="button" title="Wall of Fame" aria-label="Wall of Fame">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg>
+        <span class="rail-label">Fame</span>
+      </button>
+
       <div class="rail-spacer"></div>
 
       <button class="rail-btn" data-view="settings" type="button" title="Settings" aria-label="Settings">
@@ -77,6 +82,11 @@
           <div id="ingest" class="ingest"></div>
           <h3 class="ingest-subhead">Uploaded</h3>
           <div id="documents-list" class="catalog"></div>
+        </div>
+
+        <!-- Wall of Fame: per-package leaderboards of the best study sessions. -->
+        <div id="view-fame" class="leftview hidden">
+          <div id="fame-panel"></div>
         </div>
 
         <!-- Settings: active agent + reasoning options. -->

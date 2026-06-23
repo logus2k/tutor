@@ -15,6 +15,7 @@ import { initSplitter } from './splitter.js';
 import { TutorContext } from './context.js';
 import { IngestPanel } from './ingest.js';
 import { SessionsPanel } from './sessions.js';
+import { FamePanel } from './fame.js';
 
 const LS = {
   agent: 'tutor.agent',
@@ -87,6 +88,12 @@ async function main() {
   });
   restoreActiveSession();   // re-activate last session (if still signed in)
   renderIdentity();         // top-right: Anonymous / signed-in user
+
+  // Wall of Fame (per-package leaderboards). Refreshed on demand when shown.
+  famePanel = new FamePanel($('fame-panel'), {
+    packages: () => packageIndex,
+    currentPackageId: () => currentPackageId,
+  });
 }
 
 /** Top-right identity widget: "Anonymous" + Sign in, or the user + Sign out. */
@@ -129,6 +136,7 @@ async function renderIdentity() {
 }
 
 let sessionsPanel = null;
+let famePanel = null;
 
 // ---- Study Sessions ------------------------------------------------------
 
@@ -158,13 +166,13 @@ function persistAnswer(packageId, q, result) {
   if (!activeSession) return;
   fetch(`etl/sessions/${activeSession.id}/answers`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ package_id: packageId, question_id: q.id, selected_ids: result.selected, correct: result.correct }),
+    body: JSON.stringify({ package_id: packageId, question_id: q.id, selected_ids: result.selected, correct: result.correct, attempts: result.attempts }),
   }).catch(() => { /* non-fatal */ });
 }
 
 // ---- activity rail / left-pane view switching --------------------------
 
-const VIEWS = ['sessions', 'questions', 'catalog', 'documents', 'settings'];
+const VIEWS = ['sessions', 'questions', 'catalog', 'documents', 'fame', 'settings'];
 
 function showView(name) {
   document.querySelectorAll('.rail-btn[data-view]').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
@@ -173,7 +181,12 @@ function showView(name) {
 
 function wireRail() {
   document.querySelectorAll('.rail-btn[data-view]').forEach((btn) => {
-    btn.addEventListener('click', () => showView(btn.dataset.view));
+    btn.addEventListener('click', () => {
+      const v = btn.dataset.view;
+      showView(v);
+      // The Wall of Fame reflects live scores — reload it each time it's opened.
+      if (v === 'fame' && famePanel) famePanel.refresh();
+    });
   });
   // Robot button: toggle the chat pane (not a view).
   $('rail-chat').addEventListener('click', () => setChatVisible($('split').classList.contains('chat-collapsed')));

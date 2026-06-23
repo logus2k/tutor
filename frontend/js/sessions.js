@@ -77,7 +77,7 @@ export class SessionsPanel {
       open.type = 'button';
       open.append(
         el('div', 'card-title', s.name),
-        el('div', 'card-meta', `${s.package_count} package${s.package_count === 1 ? '' : 's'} · ${s.answered} answered · ${s.correct} correct`),
+        el('div', 'card-meta', `${s.package_count} package${s.package_count === 1 ? '' : 's'} · ${s.answered} answered · ${s.correct} correct · ${s.score ?? 0} pts`),
       );
       open.addEventListener('click', () => this._activate(s));
 
