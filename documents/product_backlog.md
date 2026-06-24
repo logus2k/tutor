@@ -24,6 +24,11 @@ What's planned next, roughly in priority order. Companion docs:
 - [x] **Question retries + retry-aware scoring** (score = Σ correct?1/attempts:0).
 - [x] **Wall of Fame**: per-package leaderboards (scope Mine/Everyone), one row
       per session, retry-aware ranking.
+- [x] **Dispute Review area**: held packages retained in `data/held/`, resolved
+      by owner/admin (`TUTOR_ADMIN_EMAILS`) — select correct answer / edit / discard
+      / re-run validator — then published into the Catalog (`/etl/review*`).
+- [x] **Ingest progress hardening**: polling fallback + resume-on-reload + elapsed
+      timer so long stages never look frozen.
 - [x] Layered CPU image (fast rebuilds, instant startup).
 
 ---
@@ -56,6 +61,49 @@ What's planned next, roughly in priority order. Companion docs:
       panel (e.g. ETL job completion, session reminders).
 - [ ] **Avatar video** — optional talking-head via the SDK `AvatarClient` +
       the proxy `/avatar` path (TTS/STT already wired).
+
+---
+
+## Epic: Assistant Roles (Instructor / Coach / Mentor)
+
+Role-based assistant modes (see `documents/assistant_roles.md`). **Decisions:** a
+role = a system prompt + tool set + UI, over ONE shared corpus; role **is** the
+agent (the agent selector is the role picker); app stays "Tutor", the teaching
+role is **Instructor**; default = Instructor; Coach grades **deterministically**
+(LLM explains only); build the mastery substrate first, then all three roles; no
+hybrid mode. Parked: Auto mode, sentiment, role customization, effectiveness
+metrics.
+
+### Phase 0 — adaptive substrate (foundation)
+- [ ] **Per-concept mastery model** — SQLite `mastery(student, concept, attempts,
+      correct, ability, …)`; ability (ELO/IRT-lite) updated from each graded
+      answer (server maps question→`concept_ids` via the package); endpoints.
+- [ ] **Adaptive trio** (client tools, MCP `execution:client`):
+      `submit_answer` (grade a stated choice via the browser grader),
+      `get_grounding` (current concept's passages + citations),
+      `next_best_question` (weakest in-scope concept just above ability,
+      respecting prerequisites).
+- [ ] Wire `get_progress` + a new `get_mastery` to **persisted** session +
+      mastery (not just in-memory panel state).
+
+### Phase 1 — the three roles
+- [ ] **Instructor / Coach / Mentor agent presets** in agent_server (prompt +
+      params; all over the shared corpus + tools).
+- [ ] **Role picker UI** — the agent selector lists the roles with icon/color,
+      Instructor default; role indicator in the status bar.
+- [ ] **Coach** wired to the trio + deterministic grading; **Mentor** wired to
+      mastery (in-app progress report + next-step study plan).
+
+### Phase 2 — Mentor reminders
+- [ ] **Notifications + study reminders** backend (spaced-repetition from
+      mastery) and wire the status-bar **bell** (currently a placeholder).
+
+### Parked (not now)
+- [ ] Auto mode (rules → model-classified intent), with override + "switched
+      because…" note, and ambiguous-query fallback.
+- [ ] Sentiment-aware tone / switch suggestions.
+- [ ] User-customizable role behaviors (stricter Coach, etc.).
+- [ ] Role effectiveness metrics (mastery gain, retry trends, engagement).
 
 ---
 

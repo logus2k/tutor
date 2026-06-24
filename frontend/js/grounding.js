@@ -23,7 +23,7 @@ export class GroundingPanel {
   render(s) {
     const m = this.mount;
     m.innerHTML = '';
-    m.appendChild(el('div', 'gr-head', '📄 Grounding'));
+    // No title here — the right-pane tab already reads "📄 Grounding".
     const body = el('div', 'gr-body');
     m.appendChild(body);
 

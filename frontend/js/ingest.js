@@ -1,9 +1,18 @@
 // ingest.js — document ingestion UI for the Documents view.
 //
 // Uploads a document to the ETL backend (POST etl/jobs), then tracks the job
-// live over socket.io (path <base>etl/socket.io, room job:{jobId}) and renders
-// the upload → extract → transform → load → Catalog journey. On job.published it
-// calls onPublished() so the app can refresh the Catalog + Documents list.
+// live and renders the upload → extract → transform → load → Catalog journey.
+// On job.published it calls onPublished() so the app can refresh the Catalog +
+// Documents list.
+//
+// Progress tracking is BELT-AND-SUSPENDERS:
+//   • socket.io (path <base>etl/socket.io, room job:{jobId}) for live events, and
+//   • a polling fallback (GET etl/jobs/{jobId} every few seconds) that re-reads
+//     the authoritative event log — so progress advances even if the socket is
+//     blocked/slow, which long stages (docling) made look frozen before.
+// The active job id is persisted so a page reload RESUMES tracking. Rendering is
+// idempotent — derived from the full event list each time — so snapshot + live
+// + poll can't double-count.
 //
 // Paths are derived from the page location so it works whether the app is served
 // at / (dev) or /tutor/ (behind the domain proxy).
@@ -11,6 +20,11 @@
 const BASE = location.pathname.replace(/[^/]*$/, '');   // '/tutor/' or '/'
 const ETL_JOBS = BASE + 'etl/jobs';
 const ETL_SIO_PATH = BASE + 'etl/socket.io';
+const LS_ACTIVE_JOB = 'tutor.activeJob';
+const POLL_MS = 2500;
+
+const STAGE_LABEL = { extract: 'Extracting (docling)…', segment: 'Segmenting…', transform: 'Generating questions…', load: 'Validating & publishing…' };
+const TERMINAL = new Set(['published', 'held', 'failed', 'done']);
 
 const el = (tag, cls, text) => {
   const n = document.createElement(tag);
@@ -24,8 +38,14 @@ export class IngestPanel {
     this.mount = mount;
     this.onPublished = onPublished || (() => {});
     this.socket = null;
-    this.counts = { concepts: 0, questions: 0 };
+    this.poll = null;
+    this.ticker = null;
+    this.events = [];
+    this.lastStatus = null;
+    this.statusSince = Date.now();
+    this.published = false;     // guard so onPublished fires once
     this.render();
+    this.resumeActive();        // pick up an in-flight job after a reload
   }
 
   render() {
@@ -53,8 +73,27 @@ export class IngestPanel {
     form.addEventListener('submit', (e) => { e.preventDefault(); this.submit(file, title, btn); });
 
     this.form = form;
+    this.fileInput = file; this.titleInput = title; this.btn = btn;
     this.job = el('div', 'ingest-job hidden');
     this.mount.append(form, this.job);
+  }
+
+  buildJobPanel(headline) {
+    this.events = [];
+    this.published = false;
+    this.terminalShown = false;
+    this.lastStatus = null;
+    this.statusSince = Date.now();
+    this.job.classList.remove('hidden');
+    this.job.innerHTML = '';
+    this.statusEl = el('div', 'ingest-status is-working');
+    this.statusLabel = el('span', 'ingest-status-label', headline);
+    this.statusElapsed = el('span', 'ingest-status-elapsed', '');
+    this.statusEl.append(this.statusLabel, this.statusElapsed);
+    this.countsEl = el('div', 'ingest-counts', '');
+    this.logEl = el('div', 'ingest-log');
+    this.bannerEl = el('div', 'ingest-banner hidden');
+    this.job.append(this.statusEl, this.countsEl, this.logEl, this.bannerEl);
   }
 
   async submit(fileInput, titleInput, btn) {
@@ -62,14 +101,7 @@ export class IngestPanel {
     if (!f) return;
     btn.disabled = true; fileInput.disabled = true; titleInput.disabled = true;
 
-    this.counts = { concepts: 0, questions: 0 };
-    this.job.classList.remove('hidden');
-    this.job.innerHTML = '';
-    this.statusEl = el('div', 'ingest-status', `Uploading “${f.name}”…`);
-    this.countsEl = el('div', 'ingest-counts', '');
-    this.logEl = el('div', 'ingest-log');
-    this.bannerEl = el('div', 'ingest-banner hidden');
-    this.job.append(this.statusEl, this.countsEl, this.logEl, this.bannerEl);
+    this.buildJobPanel(`Uploading “${f.name}”…`);
 
     const fd = new FormData();
     fd.append('files', f, f.name);
@@ -82,79 +114,150 @@ export class IngestPanel {
       jid = (await resp.json()).jobId;
     } catch (e) {
       this.finish('failed', `Upload failed: ${e.message}`);
-      this.reset(fileInput, titleInput, btn);
+      this.reset();
       return;
     }
-    this.statusEl.textContent = 'Queued…';
-    this.track(jid, () => this.reset(fileInput, titleInput, btn));
+    localStorage.setItem(LS_ACTIVE_JOB, jid);
+    this.setStatus('Queued…');
+    this.track(jid);
   }
 
-  reset(fileInput, titleInput, btn) {
-    btn.disabled = false; fileInput.disabled = false; titleInput.disabled = false;
-    fileInput.value = '';
+  /** After a reload, re-attach to a job that was still running. */
+  async resumeActive() {
+    const jid = localStorage.getItem(LS_ACTIVE_JOB);
+    if (!jid) return;
+    let job;
+    try { job = await (await fetch(`${ETL_JOBS}/${encodeURIComponent(jid)}`, { headers: { Accept: 'application/json' } })).json(); }
+    catch { localStorage.removeItem(LS_ACTIVE_JOB); return; }
+    if (!job || !job.jobId) { localStorage.removeItem(LS_ACTIVE_JOB); return; }
+    if (TERMINAL.has(job.state)) { localStorage.removeItem(LS_ACTIVE_JOB); return; }   // already done; nothing live to show
+    this.btn.disabled = true;
+    this.buildJobPanel('Reconnecting…');
+    this.applyJob(job);
+    this.track(jid);
   }
 
-  track(jid, onDone) {
-    if (!window.io) { this.finish('failed', 'socket.io client unavailable'); onDone(); return; }
-    const socket = window.io(location.origin, {
-      path: ETL_SIO_PATH, transports: ['websocket', 'polling'], forceNew: true,
-    });
-    this.socket = socket;
-    socket.on('connect', () => socket.emit('join', { jobId: jid }));
-    socket.on('connect_error', () => { this.finish('failed', 'could not connect to the ingestion service'); onDone(); });
-    socket.onAny((event, data) => {
-      if (event === 'job.snapshot') {
-        for (const e of (data && data.events) || []) this.handle(e.event, e);
-        return;
+  reset() {
+    if (this.btn) { this.btn.disabled = false; }
+    if (this.fileInput) { this.fileInput.disabled = false; this.fileInput.value = ''; }
+    if (this.titleInput) { this.titleInput.disabled = false; }
+  }
+
+  track(jid) {
+    this.stopTracking();
+    // 1) Live socket (best-effort).
+    if (window.io) {
+      const socket = window.io(location.origin, { path: ETL_SIO_PATH, transports: ['websocket', 'polling'], forceNew: true });
+      this.socket = socket;
+      socket.on('connect', () => socket.emit('join', { jobId: jid }));
+      socket.onAny((event, data) => {
+        if (event === 'job.snapshot') { this.events = (data && data.events) || []; }
+        else { this.events.push({ event, ...(data || {}) }); }
+        this.repaint();
+      });
+    }
+    // 2) Polling fallback — authoritative job record, so progress never stalls
+    //    even if the socket is blocked. Stops itself on a terminal state.
+    const tick = async () => {
+      try {
+        const job = await (await fetch(`${ETL_JOBS}/${encodeURIComponent(jid)}`, { headers: { Accept: 'application/json' } })).json();
+        if (job && job.events) this.applyJob(job);
+      } catch { /* transient; keep polling */ }
+    };
+    this.poll = setInterval(tick, POLL_MS);
+    tick();
+    // 3) Elapsed ticker so long stages visibly advance.
+    this.ticker = setInterval(() => this.paintElapsed(), 1000);
+  }
+
+  stopTracking() {
+    if (this.socket) { try { this.socket.disconnect(); } catch { /* */ } this.socket = null; }
+    if (this.poll) { clearInterval(this.poll); this.poll = null; }
+    if (this.ticker) { clearInterval(this.ticker); this.ticker = null; }
+  }
+
+  /** Adopt the server's authoritative event log, then render. */
+  applyJob(job) {
+    this.events = job.events || [];
+    this.repaint();
+  }
+
+  // ---- idempotent rendering (derive everything from the event list) ----
+
+  derive() {
+    let status = 'Queued…';
+    let concepts = 0, questions = 0;
+    let terminal = null;
+    let published = null;
+    const logs = [];
+    for (const e of this.events) {
+      switch (e.event) {
+        case 'job.queued': status = 'Queued…'; break;
+        case 'stage.started': status = STAGE_LABEL[e.stage] || e.stage; break;
+        case 'extract.progress': if (e.detail) status = `Extracting: ${e.detail}`; break;
+        case 'stage.done': logs.push(`✓ ${e.stage}`); break;
+        case 'concept.gated': concepts++; logs.push(`concept ${e.objective || ''} — ${e.title || ''}`.trim()); break;
+        case 'question.judged': if (e.accepted) questions++; break;
+        case 'transform.progress':
+          if (e.concepts_done != null) concepts = e.concepts_done;
+          if (e.questions_accepted != null) questions = e.questions_accepted;
+          break;
+        case 'dedup.done': if (e.removed) logs.push(`removed ${e.removed} duplicate question(s)`); break;
+        case 'package.judged': logs.push(`quality score ${e.score}${e.publishable ? '' : ' (below threshold)'}`); break;
+        case 'job.published':
+          published = e;
+          terminal = { kind: 'ok', message: `Published “${e.packageId}” — now in the Catalog (${(e.catalogEntry && e.catalogEntry.questions) ?? questions} questions).` };
+          break;
+        case 'job.held': terminal = { kind: 'warn', message: `Held for review — quality score ${e.score ?? ''} below threshold. Not published.` }; break;
+        case 'job.failed': terminal = { kind: 'failed', message: `Failed${e.stage ? ` at ${e.stage}` : ''}: ${e.error || 'unknown error'}` }; break;
+        default: break;
       }
-      this.handle(event, data || {});
-      if (event === 'job.published' || event === 'job.held' || event === 'job.failed') {
-        socket.disconnect();
-        onDone();
-      }
-    });
+    }
+    return { status, concepts, questions, logs, terminal, published };
   }
 
-  log(text) {
-    this.logEl.append(el('div', 'ingest-log-line', text));
-    while (this.logEl.childNodes.length > 8) this.logEl.removeChild(this.logEl.firstChild);
+  repaint() {
+    if (!this.statusEl) return;
+    const s = this.derive();
+
+    if (s.terminal) {
+      this.finish(s.terminal.kind, s.terminal.message);
+      if (s.published && !this.published) { this.published = true; this.onPublished(); }
+      this.stopTracking();
+      localStorage.removeItem(LS_ACTIVE_JOB);
+    } else {
+      this.setStatus(s.status);
+    }
+
+    this.countsEl.textContent = (s.concepts || s.questions)
+      ? `concepts: ${s.concepts} · questions: ${s.questions}` : '';
+
+    // Rebuild the log (last 8 lines) — cheap and keeps it idempotent.
+    this.logEl.innerHTML = '';
+    for (const line of s.logs.slice(-8)) this.logEl.append(el('div', 'ingest-log-line', line));
     this.logEl.scrollTop = this.logEl.scrollHeight;
   }
 
-  setCounts() {
-    this.countsEl.textContent =
-      `concepts: ${this.counts.concepts} · questions: ${this.counts.questions}`;
+  setStatus(text) {
+    if (text !== this.lastStatus) { this.lastStatus = text; this.statusSince = Date.now(); }
+    this.statusLabel.textContent = text;
+    this.statusEl.classList.add('is-working');
+    this.paintElapsed();
   }
 
-  handle(event, d) {
-    switch (event) {
-      case 'job.queued': this.statusEl.textContent = 'Queued…'; break;
-      case 'stage.started':
-        this.statusEl.textContent = ({ extract: 'Extracting (docling)…', segment: 'Segmenting…', transform: 'Generating questions…', load: 'Validating & publishing…' }[d.stage] || d.stage); break;
-      case 'extract.progress': if (d.detail) this.statusEl.textContent = `Extracting: ${d.detail}`; break;
-      case 'stage.done': this.log(`✓ ${d.stage}`); break;
-      case 'concept.gated': this.counts.concepts++; this.setCounts(); this.log(`concept ${d.objective || ''} — ${d.title || ''}`); break;
-      case 'question.judged': if (d.accepted) { this.counts.questions++; this.setCounts(); } break;
-      case 'transform.progress':
-        if (d.concepts_done != null) this.counts.concepts = d.concepts_done;
-        if (d.questions_accepted != null) this.counts.questions = d.questions_accepted;
-        this.setCounts(); break;
-      case 'dedup.done': if (d.removed) this.log(`removed ${d.removed} duplicate question(s)`); break;
-      case 'package.judged': this.log(`quality score ${d.score}${d.publishable ? '' : ' (below threshold)'}`); break;
-      case 'job.published':
-        this.finish('ok', `Published “${d.packageId}” — now in the Catalog (${(d.catalogEntry && d.catalogEntry.questions) ?? this.counts.questions} questions).`);
-        this.onPublished(); break;
-      case 'job.held':
-        this.finish('warn', `Held for review — quality score ${d.score ?? ''} below threshold. Not published.`); break;
-      case 'job.failed':
-        this.finish('failed', `Failed${d.stage ? ` at ${d.stage}` : ''}: ${d.error || 'unknown error'}`); break;
-      default: break;
-    }
+  paintElapsed() {
+    if (!this.statusElapsed || this.terminalShown) return;
+    const secs = Math.max(0, Math.round((Date.now() - this.statusSince) / 1000));
+    this.statusElapsed.textContent = secs >= 1 ? ` · ${secs < 60 ? `${secs}s` : `${Math.floor(secs / 60)}m ${secs % 60}s`}` : '';
   }
 
   finish(kind, message) {
-    this.statusEl.textContent = ({ ok: 'Done', warn: 'Needs review', failed: 'Failed' }[kind] || '');
+    this.terminalShown = true;
+    this.statusEl.classList.remove('is-working');
+    this.statusLabel.textContent = ({ ok: 'Done', warn: 'Needs review', failed: 'Failed' }[kind] || '');
+    this.statusElapsed.textContent = '';
     this.bannerEl.className = `ingest-banner ingest-${kind}`;
     this.bannerEl.textContent = message;
+    this.reset();
   }
 }

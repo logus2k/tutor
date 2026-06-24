@@ -78,6 +78,30 @@ CREATE TABLE IF NOT EXISTS answers (
     PRIMARY KEY (session_id, package_id, question_id),
     FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS mastery (
+    student_email TEXT NOT NULL,
+    concept_id    TEXT NOT NULL,
+    title         TEXT,
+    attempts      INTEGER NOT NULL DEFAULT 0,
+    correct       INTEGER NOT NULL DEFAULT 0,
+    ability       REAL NOT NULL DEFAULT 0,   -- 0..1, ELO/IRT-lite estimate
+    updated_at    TEXT NOT NULL,
+    PRIMARY KEY (student_email, concept_id)
+);
+CREATE INDEX IF NOT EXISTS idx_mastery_student ON mastery(student_email);
+CREATE TABLE IF NOT EXISTS notifications (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_email TEXT NOT NULL,
+    kind          TEXT NOT NULL,         -- review | reminder | job | info
+    title         TEXT NOT NULL,
+    body          TEXT,
+    dedup_key     TEXT,                  -- collapse repeats (per student)
+    created_at    TEXT NOT NULL,
+    read_at       TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_notif_dedup
+    ON notifications(student_email, dedup_key) WHERE dedup_key IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_notif_student ON notifications(student_email, created_at);
 """
 
 
@@ -319,6 +343,96 @@ def leaderboard(package_id: str, email: str | None = None, mine: bool = False,
         d["score"] = round(d.get("score") or 0, 2)
         out.append(d)
     return out
+
+
+# ---- mastery (per-concept ability) ------------------------------------------
+
+def update_mastery(email: str, concept_id: str, title: str | None,
+                   correct: bool, attempts: int = 1) -> None:
+    """Update a student's ability on a concept from one graded outcome.
+
+    ELO/IRT-lite: ability += k·(target − ability), target = 1 if correct else 0.
+    First-try evidence weighs more (larger k); later attempts move it less.
+    """
+    if not email or not concept_id:
+        return
+    k = 0.40 if (attempts or 1) <= 1 else 0.22
+    target = 1.0 if correct else 0.0
+    with _conn() as cx:
+        row = cx.execute(
+            "SELECT attempts, correct, ability FROM mastery WHERE student_email=? AND concept_id=?",
+            (email, concept_id)).fetchone()
+        if row:
+            ability = max(0.0, min(1.0, row["ability"] + k * (target - row["ability"])))
+            cx.execute(
+                "UPDATE mastery SET title=COALESCE(?, title), attempts=attempts+1, "
+                "correct=correct+?, ability=?, updated_at=? WHERE student_email=? AND concept_id=?",
+                (title, 1 if correct else 0, ability, _now(), email, concept_id))
+        else:
+            ability = max(0.0, min(1.0, k * target))
+            cx.execute(
+                "INSERT INTO mastery(student_email, concept_id, title, attempts, correct, ability, updated_at) "
+                "VALUES(?,?,?,?,?,?,?)",
+                (email, concept_id, title, 1, 1 if correct else 0, ability, _now()))
+
+
+def get_mastery(email: str, concept_ids: set | None = None) -> list[dict]:
+    with _conn() as cx:
+        rows = cx.execute(
+            "SELECT concept_id, title, attempts, correct, ability, updated_at "
+            "FROM mastery WHERE student_email=? ORDER BY ability ASC", (email,)).fetchall()
+    out = []
+    for r in rows:
+        d = dict(r)
+        if concept_ids is not None and d["concept_id"] not in concept_ids:
+            continue
+        d["ability"] = round(d["ability"], 3)
+        d["mastered"] = d["ability"] >= 0.8 and d["attempts"] >= 2
+        out.append(d)
+    return out
+
+
+# ---- notifications ----------------------------------------------------------
+
+def add_notification(email: str, kind: str, title: str,
+                     body: str | None = None, dedup_key: str | None = None) -> None:
+    if not email:
+        return
+    with _conn() as cx:
+        cx.execute(
+            "INSERT OR IGNORE INTO notifications(student_email, kind, title, body, dedup_key, created_at) "
+            "VALUES(?,?,?,?,?,?)",
+            (email, kind, title, body, dedup_key, _now()))
+
+
+def list_notifications(email: str, limit: int = 50) -> list[dict]:
+    with _conn() as cx:
+        rows = cx.execute(
+            "SELECT id, kind, title, body, created_at, read_at FROM notifications "
+            "WHERE student_email=? ORDER BY created_at DESC LIMIT ?", (email, limit)).fetchall()
+    out = []
+    for r in rows:
+        d = dict(r)
+        d["read"] = d.pop("read_at") is not None
+        out.append(d)
+    return out
+
+
+def unread_count(email: str) -> int:
+    with _conn() as cx:
+        return cx.execute(
+            "SELECT COUNT(*) c FROM notifications WHERE student_email=? AND read_at IS NULL",
+            (email,)).fetchone()["c"]
+
+
+def mark_read(email: str, notif_id: int | None = None) -> None:
+    with _conn() as cx:
+        if notif_id is None:
+            cx.execute("UPDATE notifications SET read_at=? WHERE student_email=? AND read_at IS NULL",
+                       (_now(), email))
+        else:
+            cx.execute("UPDATE notifications SET read_at=? WHERE student_email=? AND id=?",
+                       (_now(), email, int(notif_id)))
 
 
 # Initialise the schema on import (cheap, idempotent).

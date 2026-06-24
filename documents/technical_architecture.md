@@ -286,11 +286,57 @@ options flagged `correct: true`. Per-option `rationale` and the question
 | **1. Extract** | document | Markdown + structured JSON + provenance | docling and/or vision (§4) |
 | **2. Normalize** | extractor output | `sources[]` entry + candidate `concepts[]` with grounding | Concepts derived from headings/objectives; grounding = the section's passages |
 | **3. Generate** | concept + grounding | `questions[]` for that concept | LLM agent preset; produces stem, options, per-option rationale, explanation, difficulty (1–5), bloom; constrained to the grounding to avoid hallucination |
-| **4. Validate** | questions | accepted / rejected + fixes | (a) **schema** validation; (b) **answer-key check** (exactly one correct for `mcq_single`, ≥1 for `mcq_multi`); (c) **LLM-as-judge** for factual correctness vs grounding and distractor plausibility; (d) **dedup**; (e) difficulty sanity |
+| **4. Validate** | questions | accepted / rejected + fixes | (a) **schema** validation; (b) **answer-key check** (exactly one correct for `mcq_single`, ≥1 for `mcq_multi`); (c) **LLM-as-judge** for factual correctness vs grounding and distractor plausibility; (d) **answer-blind re-solve** → key disputes (§6.1); (e) **dedup**; (f) difficulty sanity |
 | **5. Publish** | accepted questions | canonical package `.json` | Versioned; checksummed; ready for the Tutor |
 
 The generator and judge run as **`agent_server` presets** (one author agent, one
 judge agent), mirroring the `page_transcriber` pattern already in use.
+
+### 6.1 Quality gate, disputes & human review
+
+Validation (stage 4) applies **two independent checks** per question:
+
+1. **`question_judge`** — sees the answer key and rules the question sound or not
+   (accept / reject, with one bounded repair attempt on reject).
+2. **`answer_validator` (answer-blind)** — does **not** see the stored key. It
+   **re-solves** the question from the full source document, sampled `N` times
+   (`ETL_VALIDATE_N`, self-consistency), then *code* compares the majority answer
+   to the stored key. Reframing *verify→solve* is what makes a small model useful:
+   asked "is this key right?" it rubber-stamps; asked "what IS the answer?" it
+   reasons. Outcome per question: `agree`, `dispute` (majority ≠ key, or no
+   majority), or `inconclusive`.
+
+A package is **publishable** iff (deterministically, in code):
+`no error-severity findings AND package score ≥ PUBLISH_THRESHOLD (60) AND no disputes`.
+Disputes hard-block on purpose: a key an independent solve disagrees with must be
+seen by a human before students see it — the pipeline never silently rewrites a
+key (the validator is itself fallible).
+
+**Held packages are retained, not discarded.** A non-publishable package is kept
+in `data/held/<id>.json` (plus `data/held/<id>.src.md`, the extracted source, so
+the validator can re-run later). Held packages are **not** in the Catalog index
+(`data/packages/index.json`), so students never see them; *publishing* moves the
+file into `data/packages/` and rebuilds the index.
+
+**Dispute Review area.** A surface where a human resolves each disputed question.
+Access: the **owner** (the signed-in account that uploaded the document — the
+verified `X-Forwarded-Email` is stamped on the held package) **or** an **admin**
+(email allowlist via `TUTOR_ADMIN_EMAILS`). Anonymous-uploaded held packages are
+admin-only. For each disputed question the reviewer sees the stem/options with the
+**stored key** and the **answer-blind solved answer** both highlighted (plus the
+validator's evidence quote), and resolves it by:
+
+- **Selecting the correct answer** — pick the right option(s); may equal the
+  stored key, the solved answer, or neither.
+- **Fixing the enunciate** — edit stem / option text / explanation.
+- **Discarding** the question.
+- **Re-running** the judge/validator on just that question (uses the persisted
+  source md) to re-check after a fix.
+
+When **no unresolved disputes remain** (and the package still clears the score /
+error gate) the reviewer can **Publish** it into the Catalog. Each resolution is
+attributed (who/when) for audit. Backend: `etl/review.py` (held store) + review
+endpoints under `/etl/review` in `service.py`; frontend: a "Review" rail item.
 
 ---
 

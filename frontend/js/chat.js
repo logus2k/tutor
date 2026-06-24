@@ -59,10 +59,8 @@ export class ChatPanel {
 
     this._build();
     this._greet();
-    if (this.context) {
-      this._renderContext(this.context.snapshot);
-      this.context.addEventListener('change', (e) => this._renderContext(e.detail));
-    }
+    // Note: the live context is still injected into each turn's system message
+    // (see send() → describeContext); we just don't render a visible strip.
   }
 
   /** Load the tutor tool catalog from mcp-service (fail-soft). */
@@ -95,23 +93,9 @@ export class ChatPanel {
   _build() {
     this.root.innerHTML = '';
 
-    const header = el('div', 'chat-header');
-    this.statusWrap = el('div', 'chat-status');
-    this.statusText = el('span', 'chat-status-text', 'Ready');
-    this.led = el('span', 'chat-led');
-    this.led.title = 'Ready';
-    this.statusWrap.append(this.statusText, this.led);   // "Ready" then the LED
-    const closeBtn = el('button', 'chat-close', '✕');
-    closeBtn.type = 'button';
-    closeBtn.title = 'Hide chat';
-    closeBtn.setAttribute('aria-label', 'Hide chat');
-    closeBtn.addEventListener('click', () => { if (this.onHide) this.onHide(); });
-    const right = el('div', 'chat-headright');
-    right.append(this.statusWrap, closeBtn);
-    header.append(el('div', 'chat-title', '🎓 Tutor'), right);
-
-    // Awareness strip — shows what the assistant currently "sees" (live context).
-    this.contextEl = el('div', 'chat-context');
+    // No header here — connection status (LED + "Ready") lives in the bottom
+    // status bar (driven via the onStatus callback), and the close ✕ lives on
+    // the right-pane tab bar. The chat pane is just context + messages + composer.
 
     this.messagesEl = el('div', 'chat-messages');
 
@@ -138,21 +122,7 @@ export class ChatPanel {
     this.sendBtn.addEventListener('click', () => (this.streaming ? this.stop() : this.send()));
 
     composer.append(audio, this.input, this.sendBtn);
-    this.root.append(header, this.contextEl, this.messagesEl, composer);
-  }
-
-  /** Reflect the live context (package / question) in the awareness strip. */
-  _renderContext(s) {
-    if (!this.contextEl) return;
-    let text;
-    if (!s || !s.pkg) text = '🧭 No package — browsing';
-    else if (!s.question) text = `📦 ${s.pkg.title}`;
-    else {
-      const tag = s.qState && s.qState.answered ? (s.qState.correct ? '✓ answered' : '✗ answered') : 'unanswered';
-      text = `📦 ${s.pkg.title} · Q${s.qIndex + 1}/${s.qTotal} · ${tag}`;
-    }
-    this.contextEl.textContent = text;
-    this.contextEl.title = 'The assistant is aware of this context';
+    this.root.append(this.messagesEl, composer);
   }
 
   _greet() {

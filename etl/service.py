@@ -20,6 +20,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from etl import extract as extract_mod
 from etl import catalog
 from etl import sessions as sess
+from etl import review
 
 ROOT = catalog.ROOT
 PKG_DIR, DOC_DIR = catalog.PKG_DIR, catalog.DOC_DIR
@@ -34,6 +35,36 @@ asgi = socketio.ASGIApp(sio, other_asgi_app=app, socketio_path="/etl/socket.io")
 
 JOBS = {}
 LOOP = None
+
+# Package reader (for mapping a graded answer's question → its concept_ids, so
+# mastery can be updated server-side). Cached by file mtime.
+_pkg_cache: dict = {}
+def _load_package(package_id: str):
+    path = os.path.join(PKG_DIR, (package_id or "") + ".json")
+    try:
+        mt = os.path.getmtime(path)
+    except OSError:
+        return None
+    hit = _pkg_cache.get(package_id)
+    if hit and hit[0] == mt:
+        return hit[1]
+    try:
+        pkg = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        return None
+    _pkg_cache[package_id] = (mt, pkg)
+    return pkg
+
+def _question_concepts(package_id: str, question_id: str) -> list:
+    """[(concept_id, title), …] for a question in a package (empty if unknown)."""
+    pkg = _load_package(package_id)
+    if not pkg:
+        return []
+    q = next((x for x in pkg.get("questions", []) if x.get("id") == question_id), None)
+    if not q:
+        return []
+    titles = {c.get("id"): c.get("title") for c in pkg.get("concepts", [])}
+    return [(cid, titles.get(cid)) for cid in (q.get("concept_ids") or [])]
 
 def _slug(s): return re.sub(r"[^a-z0-9]+", "-", os.path.splitext(s)[0].lower()).strip("-") or "package"
 def _now(): return datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -70,7 +101,7 @@ def emit(jid, event, payload):
         asyncio.run_coroutine_threadsafe(sio.emit(event, data, room=f"job:{jid}"), LOOP)
 
 # ---- job runner (background thread: blocking docker + subprocess) ----
-def run_job(jid, pdf_path, md, js, pkg_id, title, src_uri, max_concepts, qpc):
+def run_job(jid, pdf_path, md, js, pkg_id, title, src_uri, max_concepts, qpc, owner=None):
     try:
         emit(jid, "job.queued", {"documents": [os.path.basename(src_uri)]})
         if md and js:                                   # re-build from existing extraction
@@ -103,10 +134,29 @@ def run_job(jid, pdf_path, md, js, pkg_id, title, src_uri, max_concepts, qpc):
         if state == "published":
             catalog.rebuild_package_index()
             emit(jid, "catalog.updated", {"packageId": pkg_id})
+            if owner:
+                sess.add_notification(owner, "job", f"Published: {title}",
+                                      "Your package is now in the Catalog.", dedup_key=f"published:{pkg_id}")
         else:
-            # held/failed packages must NOT enter the student-facing Catalog.
+            # Held packages are RETAINED for human review (Dispute Review area):
+            # move the file + source into data/held/ so it stays out of the
+            # Catalog but can be resolved + published later. Failed packages are
+            # discarded as before.
+            if state == "held":
+                try:
+                    pkg = json.load(open(out, encoding="utf-8"))
+                    src_text = open(md, encoding="utf-8").read() if md and os.path.exists(md) else (md or "")
+                    review.save_held(pkg, owner, src_text)
+                    n_disp = len(review.disputes_of(pkg))
+                    emit(jid, "review.available", {"packageId": pkg_id, "disputes": n_disp})
+                    if owner:
+                        sess.add_notification(owner, "review", f"Held for review: {title}",
+                                              f"{n_disp} question(s) need your review before publishing.",
+                                              dedup_key=f"held:{pkg_id}")
+                except Exception as e:  # noqa: BLE001
+                    emit(jid, "review.save_failed", {"packageId": pkg_id, "error": str(e)})
             try:
-                os.remove(out)
+                os.remove(out)   # never leave it in data/packages/ (Catalog scan)
             except OSError:
                 pass
             catalog.rebuild_package_index()
@@ -118,7 +168,8 @@ def run_job(jid, pdf_path, md, js, pkg_id, title, src_uri, max_concepts, qpc):
 
 # ---- REST ----
 @app.post("/etl/jobs")
-async def create_job(files: list[UploadFile] = File(default=[]), directive: str = Form(default="{}")):
+async def create_job(request: Request, files: list[UploadFile] = File(default=[]), directive: str = Form(default="{}")):
+    owner = _email(request)   # verified uploader (blank when anonymous) → held-package ownership
     d = json.loads(directive or "{}")
     jid = "job-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     src_md = d.get("sourceMd"); src_json = d.get("sourceJson")
@@ -147,7 +198,7 @@ async def create_job(files: list[UploadFile] = File(default=[]), directive: str 
     JOBS[jid] = job; _save(job)
     threading.Thread(target=run_job, daemon=True, args=(
         jid, pdf_path, src_md, src_json, pkg_id, title, src_uri,
-        int(d.get("maxConcepts", 999)), int(d.get("questionsPerConcept", 5)))).start()
+        int(d.get("maxConcepts", 999)), int(d.get("questionsPerConcept", 5)), owner)).start()
     return {"jobId": jid, "state": "queued", "packageId": pkg_id}
 
 @app.get("/etl/jobs/{jid}")
@@ -173,6 +224,20 @@ def health():
 
 def _email(request: Request) -> str:
     return (request.headers.get("X-Forwarded-Email") or "").strip().lower()
+
+# Dispute-review admins (env allowlist). Admins can review/publish ANY held
+# package, including those uploaded anonymously (no owner).
+ADMIN_EMAILS = {e.strip().lower() for e in os.getenv("TUTOR_ADMIN_EMAILS", "").split(",") if e.strip()}
+
+def _is_admin(email: str) -> bool:
+    return bool(email) and email.lower() in ADMIN_EMAILS
+
+def _can_review(email: str, package: dict) -> bool:
+    """A held package is reviewable by its uploader (owner) or any admin."""
+    if not email:
+        return False
+    owner = (package.get("owner_email") or "").strip().lower()
+    return _is_admin(email) or (bool(owner) and owner == email.lower())
 
 # Google omits name/picture from the ID token; they live at the UserInfo
 # endpoint, reachable with the access token forwarded as X-Access-Token
@@ -220,6 +285,7 @@ async def me(request: Request):
         "authenticated": bool(e),
         "name": name,
         "picture": (info.get("picture") or "").strip() or None,
+        "is_admin": _is_admin(e),
     }
 
 @app.get("/etl/sessions")
@@ -283,10 +349,65 @@ async def sessions_save_answer(sid: str, request: Request):
     qid = (body.get("question_id") or "").strip()
     if not pkg or not qid:
         raise HTTPException(400, "package_id and question_id required")
-    if not sess.save_answer(e, sid, pkg, qid, body.get("selected_ids") or [],
-                            body.get("correct"), body.get("attempts") or 1):
+    correct = body.get("correct")
+    attempts = int(body.get("attempts") or 1)
+    if not sess.save_answer(e, sid, pkg, qid, body.get("selected_ids") or [], correct, attempts):
         raise HTTPException(404, "session not found")
+    # Update per-concept mastery from this outcome (server maps question→concepts).
+    if correct is not None:
+        for cid, title in _question_concepts(pkg, qid):
+            sess.update_mastery(e, cid, title, bool(correct), attempts)
     return {"ok": True}
+
+@app.get("/etl/mastery")
+def mastery(request: Request, package_id: str | None = None):
+    e = _require_email(request)
+    cids = None
+    if package_id:
+        pkg = _load_package(package_id)
+        if pkg:
+            cids = {c.get("id") for c in pkg.get("concepts", [])}
+    return {"mastery": sess.get_mastery(e, cids)}
+
+# ---- Notifications + study reminders ----------------------------------------
+# Study reminders are spaced-repetition nudges derived from per-concept mastery
+# (generated on read, deduped per concept per day). Job events (held/published)
+# also notify the package owner.
+
+def _generate_study_reminders(email: str) -> None:
+    now = datetime.datetime.now(datetime.timezone.utc)
+    today = now.date().isoformat()
+    for m in sess.get_mastery(email):
+        try:
+            when = datetime.datetime.fromisoformat(m.get("updated_at"))
+        except Exception:
+            continue
+        age_days = (now - when).total_seconds() / 86400.0
+        title = m.get("title") or m.get("concept_id")
+        if m.get("mastered") and age_days >= 7:
+            sess.add_notification(email, "reminder", f"Time to review: {title}",
+                                  "You mastered this a while ago — a quick review keeps it fresh.",
+                                  dedup_key=f"review:{m['concept_id']}:{today}")
+        elif (not m.get("mastered")) and age_days >= 1 and (m.get("attempts") or 0) >= 1:
+            sess.add_notification(email, "reminder", f"Keep practicing: {title}",
+                                  "You're still building this concept — try a few more questions.",
+                                  dedup_key=f"practice:{m['concept_id']}:{today}")
+
+@app.get("/etl/notifications")
+def notifications_list(request: Request):
+    e = _require_email(request)
+    try:
+        _generate_study_reminders(e)
+    except Exception:  # noqa: BLE001  (reminders are best-effort)
+        pass
+    return {"notifications": sess.list_notifications(e), "unread": sess.unread_count(e)}
+
+@app.post("/etl/notifications/read")
+async def notifications_read(request: Request):
+    e = _require_email(request)
+    body = await request.json()
+    sess.mark_read(e, body.get("id"))
+    return {"ok": True, "unread": sess.unread_count(e)}
 
 # ---- Wall of Fame (per-package leaderboard) ---------------------------------
 # scope=mine (default) → the signed-in student's own sessions (login required).
@@ -307,3 +428,118 @@ def fame(request: Request, package_id: str, scope: str = "mine"):
         scope = "all"
         entries = sess.leaderboard(pkg, email=(e or None), mine=False)
     return {"scope": scope, "package_id": pkg, "entries": entries}
+
+# ---- Dispute Review (held packages) -----------------------------------------
+# Held packages (non-publishable: key disputes / sub-threshold) live in
+# data/held/ and are resolved here by the uploader (owner) or an admin, then
+# published into the Catalog. See documents/technical_architecture.md §6.1.
+
+def _load_reviewable(request: Request, pkg_id: str):
+    """Return (email, package) if the caller may review it, else raise."""
+    e = _require_email(request)
+    pkg = review.get_held(pkg_id)
+    if not pkg:
+        raise HTTPException(404, "held package not found")
+    if not _can_review(e, pkg):
+        raise HTTPException(403, "not allowed")
+    return e, pkg
+
+@app.get("/etl/review")
+def review_list(request: Request):
+    e = _require_email(request)
+    admin = _is_admin(e)
+    items = []
+    for it in review.list_held():
+        owner = (it.get("owner_email") or "").strip().lower()
+        mine = bool(owner) and owner == e
+        if admin or mine:
+            items.append({**it, "mine": mine})
+    return {"packages": items, "is_admin": admin}
+
+@app.get("/etl/review/{pkg_id}")
+def review_get(pkg_id: str, request: Request):
+    _e, pkg = _load_reviewable(request, pkg_id)
+    qmap = {q.get("id"): q for q in pkg.get("questions", [])}
+    disputes = [{**d, "question": qmap.get(d.get("qid"))} for d in review.disputes_of(pkg)]
+    return {
+        "id": pkg.get("id"), "title": pkg.get("title"),
+        "owner_email": pkg.get("owner_email"),
+        "score": (pkg.get("quality") or {}).get("score"),
+        "questions_total": len(pkg.get("questions", [])),
+        "has_source": bool(review.get_src(pkg_id)),
+        "disputes": disputes,
+    }
+
+@app.post("/etl/review/{pkg_id}/resolve")
+async def review_resolve(pkg_id: str, request: Request):
+    _e, pkg = _load_reviewable(request, pkg_id)
+    body = await request.json()
+    qid = (body.get("qid") or "").strip()
+    if not qid:
+        raise HTTPException(400, "qid required")
+    q = review.find_question(pkg, qid)
+    if not q:
+        raise HTTPException(404, "question not found")
+
+    if body.get("discard"):
+        pkg["questions"] = [x for x in pkg.get("questions", []) if x.get("id") != qid]
+    else:
+        if body.get("stem") is not None:
+            q["stem"] = str(body["stem"])
+        if body.get("explanation") is not None:
+            q["explanation"] = str(body["explanation"])
+        for upd in (body.get("options") or []):
+            opt = next((o for o in q.get("options", []) if o.get("id") == upd.get("id")), None)
+            if opt and upd.get("text") is not None:
+                opt["text"] = str(upd["text"])
+        if body.get("correct_ids") is not None:
+            want = {str(x) for x in body["correct_ids"]}
+            for o in q.get("options", []):
+                o["correct"] = o.get("id") in want
+            if not any(o.get("correct") for o in q.get("options", [])):
+                raise HTTPException(400, "at least one option must be correct")
+    review.clear_dispute(pkg, qid)
+    review.write_held(pkg)
+    remaining = len(review.disputes_of(pkg))
+    return {"ok": True, "disputes_remaining": remaining, "publishable": remaining == 0}
+
+@app.post("/etl/review/{pkg_id}/revalidate")
+async def review_revalidate(pkg_id: str, request: Request):
+    _e, pkg = _load_reviewable(request, pkg_id)
+    body = await request.json()
+    qid = (body.get("qid") or "").strip()
+    q = review.find_question(pkg, qid)
+    if not q:
+        raise HTTPException(404, "question not found")
+    src = review.get_src(pkg_id)
+    if not src:
+        raise HTTPException(409, "source text unavailable — cannot re-validate")
+    from etl import orchestrator   # lazy: keeps service startup instant
+    va = await asyncio.to_thread(orchestrator.validate_answer, q, src)
+    review.clear_dispute(pkg, qid)
+    if va.get("status") == "dispute":
+        review.disputes_of(pkg).append({
+            "qid": qid, "stem": (q.get("stem") or "")[:120],
+            "stored": va.get("stored"), "derived": va.get("derived"),
+            "reason": va.get("reason", ""), "evidence": (va.get("quote") or "")[:200],
+        })
+    review.write_held(pkg)
+    return {"status": va.get("status"), "stored": va.get("stored"), "derived": va.get("derived"),
+            "evidence": va.get("quote", ""), "disputes_remaining": len(review.disputes_of(pkg))}
+
+@app.post("/etl/review/{pkg_id}/publish")
+def review_publish(pkg_id: str, request: Request):
+    _e, pkg = _load_reviewable(request, pkg_id)
+    open_disputes = len(review.disputes_of(pkg))
+    if open_disputes:
+        raise HTTPException(409, f"{open_disputes} unresolved dispute(s) remain")
+    entry = review.publish_held(pkg_id)
+    if not entry:
+        raise HTTPException(404, "held package not found")
+    return {"ok": True, "entry": entry}
+
+@app.delete("/etl/review/{pkg_id}")
+def review_delete(pkg_id: str, request: Request):
+    _load_reviewable(request, pkg_id)
+    review.delete_held(pkg_id)
+    return {"deleted": True}

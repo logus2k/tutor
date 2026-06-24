@@ -17,6 +17,7 @@ import { IngestPanel } from './ingest.js';
 import { SessionsPanel } from './sessions.js';
 import { FamePanel } from './fame.js';
 import { GroundingPanel } from './grounding.js';
+import { ReviewPanel } from './review.js';
 
 const LS = {
   agent: 'tutor.agent',
@@ -27,12 +28,20 @@ const DEFAULTS = {
   // agent_server is reached same-origin through the domain proxy's public /llm/
   // path; the SDK builds `${baseUrl}/v1/...` → `/llm/v1/...`. Fixed by deploy.
   baseUrl: '/llm',
-  agent: 'tutor',
+  agent: 'instructor',
   // Document-relative (page served at /tutor/ → /tutor/data/...).
   packagesIndex: 'data/packages/index.json',
   packagesDir: 'data/packages/',
   documentsIndex: 'data/documents/index.json',
 };
+
+// Assistant roles (each is an agent_server preset). The agent selector IS the
+// role picker; Instructor is the default.
+const ROLES = [
+  { id: 'instructor', label: 'Instructor', icon: '📚' },
+  { id: 'coach', label: 'Coach', icon: '🎯' },
+  { id: 'mentor', label: 'Mentor', icon: '🧭' },
+];
 
 const $ = (id) => document.getElementById(id);
 const boolPref = (key, dflt) => { const v = localStorage.getItem(key); return v == null ? dflt : v === 'true'; };
@@ -47,8 +56,10 @@ let currentPackageId = null;
 const context = new TutorContext();
 
 async function main() {
+  const savedAgent = localStorage.getItem(LS.agent);
   const settings = {
-    agent: localStorage.getItem(LS.agent) ?? DEFAULTS.agent,
+    // Roles are the agents; fall back to Instructor if an old/unknown one is stored.
+    agent: ROLES.some((r) => r.id === savedAgent) ? savedAgent : DEFAULTS.agent,
     thinking: boolPref(LS.thinking, true),
     showReasoning: boolPref(LS.showReasoning, false),
   };
@@ -60,9 +71,10 @@ async function main() {
     baseUrl: DEFAULTS.baseUrl, agent: settings.agent, io: window.io || null,
     thinking: settings.thinking, showReasoning: settings.showReasoning,
     context, clientTools: buildClientTools(),
-    onHide: () => setChatVisible(false),
+    onStatus: (text, state) => setChatStatus(text, state),   // → bottom status pill
   });
   setAgentStatus(settings.agent);
+  setChatStatus('Ready', 'ready');
 
   // Grounding tab (right pane, beside the Assistant): shows the current question's
   // verbatim source chunks, revealed after answering. Reactive via shared context.
@@ -95,11 +107,18 @@ async function main() {
   });
   restoreActiveSession();   // re-activate last session (if still signed in)
   renderIdentity();         // top-right: Anonymous / signed-in user
+  wireNotifications();      // status-bar bell: study reminders + job notices
+  wireRolePicker();         // status-bar role pill → role select popup
 
   // Wall of Fame (per-package leaderboards). Refreshed on demand when shown.
   famePanel = new FamePanel($('fame-panel'), {
     packages: () => packageIndex,
     currentPackageId: () => currentPackageId,
+  });
+
+  // Dispute Review (held packages → resolve → publish). Refreshed when shown.
+  reviewPanel = new ReviewPanel($('review-panel'), {
+    onPublished: () => { buildCatalog(); buildDocuments(); },
   });
 }
 
@@ -117,7 +136,7 @@ async function renderIdentity() {
   const menu = el('div', 'identity-menu hidden');
 
   if (me.authenticated) {
-    trigger.append(el('span', 'identity-user', me.name || me.email));
+    // Just the avatar in the corner (no name beside it).
     if (me.picture) {
       const img = el('img', 'identity-pic');
       img.src = me.picture; img.alt = ''; img.referrerPolicy = 'no-referrer';
@@ -126,7 +145,8 @@ async function renderIdentity() {
     } else {
       trigger.append(el('span', 'identity-icon', '👤'));
     }
-    if (me.name) menu.append(el('div', 'identity-menu-email', me.email));
+    // The dropdown shows the name (falling back to the email if unknown).
+    menu.append(el('div', 'identity-menu-email', me.name || me.email));
     const out = el('a', 'identity-menu-item', 'Sign out');
     out.href = `/oauth2/sign_out?rd=${rd}`;
     menu.append(out);
@@ -144,6 +164,7 @@ async function renderIdentity() {
 
 let sessionsPanel = null;
 let famePanel = null;
+let reviewPanel = null;
 
 // ---- Study Sessions ------------------------------------------------------
 
@@ -179,7 +200,7 @@ function persistAnswer(packageId, q, result) {
 
 // ---- activity rail / left-pane view switching --------------------------
 
-const VIEWS = ['sessions', 'questions', 'catalog', 'documents', 'fame', 'settings'];
+const VIEWS = ['sessions', 'questions', 'catalog', 'documents', 'fame', 'review', 'settings'];
 
 function showView(name) {
   document.querySelectorAll('.rail-btn[data-view]').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
@@ -193,6 +214,7 @@ function wireRail() {
       showView(v);
       // The Wall of Fame reflects live scores — reload it each time it's opened.
       if (v === 'fame' && famePanel) famePanel.refresh();
+      if (v === 'review' && reviewPanel) reviewPanel.refresh();
     });
   });
   // Robot button: toggle the chat pane (not a view).
@@ -206,19 +228,42 @@ function setChatVisible(visible) {
   localStorage.setItem('tutor.chatHidden', String(!visible));
 }
 
-/** Right-pane tabs: switch between the Assistant (chat) and Grounding panels. */
+// Right-pane tabs. The Assistant tab is always present; the Grounding tab is
+// activated/deactivated from the toggle in the Questions footer (or closed via
+// the tab-bar ✕). `groundingOn` is the source of truth.
+let groundingOn = false;
+let activeTab = 'chat';
+
+function setActiveTab(tab) {
+  if (tab === 'grounding' && !groundingOn) tab = 'chat';
+  activeTab = tab;
+  document.querySelectorAll('.rtab[data-rtab]').forEach((b) => {
+    const on = b.dataset.rtab === tab;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-selected', String(on));
+  });
+  $('chat').classList.toggle('hidden', tab !== 'chat');
+  $('grounding').classList.toggle('hidden', tab !== 'grounding');
+}
+
+/** Show/hide the Grounding tab (toggle in Questions, or close ✕ on the tab bar). */
+function setGroundingActive(on) {
+  groundingOn = on;
+  const gtab = document.querySelector('.rtab[data-rtab="grounding"]');
+  if (gtab) gtab.classList.toggle('hidden', !on);
+  if (on) { setChatVisible(true); setActiveTab('grounding'); }
+  else if (activeTab === 'grounding') setActiveTab('chat');
+  if (questionPanel) questionPanel.setGroundingState(on);   // keep the footer toggle in sync
+}
+
 function wireRightTabs() {
-  const tabs = [...document.querySelectorAll('.rtab')];
-  tabs.forEach((btn) => btn.addEventListener('click', () => {
-    const target = btn.dataset.rtab;   // 'chat' | 'grounding'
-    tabs.forEach((b) => {
-      const on = b === btn;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-selected', String(on));
-    });
-    $('chat').classList.toggle('hidden', target !== 'chat');
-    $('grounding').classList.toggle('hidden', target !== 'grounding');
-  }));
+  document.querySelectorAll('.rtab[data-rtab]').forEach((btn) =>
+    btn.addEventListener('click', () => setActiveTab(btn.dataset.rtab)));
+  // Close ✕ (tab-bar level): closes the ACTIVE tab only.
+  $('rtab-close').addEventListener('click', () => {
+    if (activeTab === 'grounding') setGroundingActive(false);   // Grounding → back to Assistant
+    else setChatVisible(false);                                  // Assistant → collapse the pane
+  });
 }
 
 // ---- Catalog (packages) -------------------------------------------------
@@ -275,6 +320,9 @@ async function openPackage(entry) {
       ),
       // Persist each graded answer to the active study session (if signed in).
       onAnswered: (q, result) => persistAnswer(pkg.id, q, result),
+      // Grounding tab toggle (between the nav buttons).
+      isGroundingOn: () => groundingOn,
+      onToggleGrounding: () => setGroundingActive(!groundingOn),
     });
 
     // Restore saved answers for this package within the active session.
@@ -320,6 +368,23 @@ function buildClientTools() {
     goto_question: ({ number }) => needPackage() || (questionPanel.goTo((parseInt(number, 10) || 1) - 1), showView('questions'), stateResult()),
     get_current_state: () => stateResult(),
     get_progress: () => (questionPanel ? questionPanel.getProgress() : { error: 'No package is open.' }),
+    // --- adaptive trio (Coach/Mentor) ---
+    submit_answer: ({ answer, answers } = {}) => needPackage() || (showView('questions'), questionPanel.submitAnswer(answers ?? answer)),
+    get_grounding: () => needPackage() || questionPanel.groundingForCurrent(),
+    get_mastery: async () => {
+      if (!currentPackageId) return { error: 'No package is open.' };
+      try { return { mastery: (await fetchJson(`etl/mastery?package_id=${encodeURIComponent(currentPackageId)}`)).mastery }; }
+      catch (e) { return { error: 'Mastery requires sign-in.', detail: String(e.message) }; }
+    },
+    next_best_question: async () => {
+      if (!questionPanel) return needPackage();
+      let mastery = [];
+      try { mastery = (await fetchJson(`etl/mastery?package_id=${encodeURIComponent(currentPackageId)}`)).mastery || []; } catch { /* anonymous → fallback */ }
+      const idx = questionPanel.pickNextBest(mastery);
+      if (idx == null) return { message: 'All questions in this package are answered.', ...stateResult() };
+      questionPanel.goTo(idx); showView('questions');
+      return stateResult();
+    },
     open_package: async ({ package_id }) => {
       const entry = packageIndex.find((p) => p.id === package_id);
       if (!entry) return { error: `No package with id '${package_id}'. Available: ${packageIndex.map((p) => p.id).join(', ') || '(none)'}` };
@@ -366,11 +431,7 @@ function wireSettings(settings) {
   thinkCb.checked = settings.thinking;
   showCb.checked = settings.showReasoning;
 
-  agentSel.addEventListener('change', () => {
-    localStorage.setItem(LS.agent, agentSel.value);
-    chat.setAgent(agentSel.value);
-    setAgentStatus(agentSel.value);
-  });
+  agentSel.addEventListener('change', () => applyRole(agentSel.value));
   thinkCb.addEventListener('change', () => {
     localStorage.setItem(LS.thinking, String(thinkCb.checked));
     chat.setThinking(thinkCb.checked);
@@ -381,11 +442,109 @@ function wireSettings(settings) {
   });
 }
 
+// ---- notifications (status-bar bell) ------------------------------------
+
+let notifMenu = null;
+
+function wireNotifications() {
+  const bell = $('sb-notifications');
+  if (!bell) return;
+  bell.appendChild(el('span', 'sb-badge hidden'));
+  notifMenu = el('div', 'notif-menu hidden');
+  document.querySelector('.statusbar').appendChild(notifMenu);
+  bell.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (notifMenu.classList.contains('hidden')) openNotifications();
+    else notifMenu.classList.add('hidden');
+  });
+  document.addEventListener('click', () => notifMenu && notifMenu.classList.add('hidden'));
+  refreshNotifBadge();
+  setInterval(refreshNotifBadge, 60000);
+}
+
+function setNotifBadge(n) {
+  const b = $('sb-notifications') && $('sb-notifications').querySelector('.sb-badge');
+  if (!b) return;
+  b.textContent = n > 9 ? '9+' : String(n);
+  b.classList.toggle('hidden', !n);
+}
+
+async function refreshNotifBadge() {
+  try { setNotifBadge((await fetchJson('etl/notifications')).unread || 0); }
+  catch { setNotifBadge(0); }   // anonymous / offline
+}
+
+async function openNotifications() {
+  notifMenu.innerHTML = '';
+  notifMenu.classList.remove('hidden');
+  notifMenu.append(el('div', 'notif-head', 'Notifications'));
+  let data;
+  try { data = await fetchJson('etl/notifications'); }
+  catch { notifMenu.append(el('div', 'notif-empty', 'Sign in to get study reminders and updates.')); return; }
+  const items = data.notifications || [];
+  if (!items.length) { notifMenu.append(el('div', 'notif-empty', 'Nothing yet — keep studying! 📚')); }
+  for (const n of items) {
+    const row = el('div', 'notif-item' + (n.read ? '' : ' unread'));
+    row.append(el('div', 'notif-title', n.title));
+    if (n.body) row.append(el('div', 'notif-body', n.body));
+    notifMenu.append(row);
+  }
+  // Opening marks everything read.
+  fetch('etl/notifications/read', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })
+    .then(() => setNotifBadge(0)).catch(() => {});
+}
+
 // ---- status bar ---------------------------------------------------------
 
-function setAgentStatus(name) { $('sb-agent').textContent = `🤖 ${name}`; }
+function setAgentStatus(name) {
+  const r = ROLES.find((x) => x.id === name);
+  const el = $('sb-agent');
+  el.textContent = r ? `${r.icon} ${r.label}` : `🤖 ${name}`;
+  ROLES.forEach((x) => el.classList.toggle(`sb-role-${x.id}`, x.id === name));
+}
+
+/** Switch the active role (agent). Keeps the pill, the chat, and Settings in sync. */
+function applyRole(id) {
+  if (!ROLES.some((r) => r.id === id)) return;
+  localStorage.setItem(LS.agent, id);
+  if (chat) chat.setAgent(id);
+  setAgentStatus(id);
+  const sel = $('set-agent'); if (sel && sel.value !== id) sel.value = id;
+}
+
+/** Make the bottom-left role pill open a small role-select popup. */
+let roleMenu = null;
+function wireRolePicker() {
+  const pill = $('sb-agent');
+  if (!pill) return;
+  roleMenu = el('div', 'role-menu hidden');
+  for (const r of ROLES) {
+    const item = el('button', 'role-item');
+    item.type = 'button';
+    item.dataset.role = r.id;
+    item.append(el('span', 'role-item-icon', r.icon), el('span', 'role-item-label', r.label));
+    item.addEventListener('click', (e) => { e.stopPropagation(); applyRole(r.id); roleMenu.classList.add('hidden'); });
+    roleMenu.append(item);
+  }
+  document.querySelector('.statusbar').appendChild(roleMenu);
+  pill.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const cur = localStorage.getItem(LS.agent) || DEFAULTS.agent;
+    roleMenu.querySelectorAll('.role-item').forEach((b) => b.classList.toggle('is-active', b.dataset.role === cur));
+    roleMenu.classList.toggle('hidden');
+  });
+  document.addEventListener('click', () => roleMenu && roleMenu.classList.add('hidden'));
+}
 function setPackageStatus(title) { $('sb-package').textContent = title ? `📦 ${title}` : '📦 No package'; }
 function setSessionStatus(name) { const el = $('sb-session'); if (el) el.textContent = name ? `🎯 ${name}` : ''; }
+/** Assistant connection status → the colored pill in the bottom-right corner. */
+function setChatStatus(text, state = 'ready') {
+  const pill = $('sb-status'); if (!pill) return;
+  pill.classList.remove('busy', 'error');
+  if (state === 'busy' || state === 'error') pill.classList.add(state);
+  const label = $('sb-status-text'); if (label) label.textContent = text;
+  const led = $('sb-status-led'); if (led) led.title = text;
+}
 
 // ---- helpers ------------------------------------------------------------
 

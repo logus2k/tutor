@@ -1,6 +1,24 @@
 /* tutor.css — Tutor frontend. Split view (questions | chat) with a draggable
    vertical splitter. One stylesheet, no framework. */
 
+/* Vendored Roboto (from noted/frontend/fonts) — self-hosted, no external CDN.
+   400/500/700 supplied; 600 & 800 map to the nearest available weight. */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
 :root {
   --accent: #0e7490;
   --accent-deep: #0c5e6e;
@@ -17,7 +35,7 @@
   --bg-card: #ffffff;
   --radius: 12px;
   --shadow: 0 1px 3px rgba(15, 23, 42, .08), 0 8px 24px rgba(15, 23, 42, .04);
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -62,7 +80,7 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .identity-user { font-weight: 600; color: var(--text-soft); font-size: 12.5px; }
 .identity-anon { font-weight: 600; font-size: 12.5px; }
 .identity-icon { font-size: 18px; }
-.identity-pic { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); display: block; }
+.identity-pic { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); display: block; }
 
 .identity-menu {
   position: absolute; top: calc(100% + 6px); right: 0; z-index: 20;
@@ -98,11 +116,36 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   padding: 0 14px; font-size: 11px; font-weight: 600; letter-spacing: .01em;
   white-space: nowrap;
 }
-.sb-pill-agent { background: var(--accent); color: #fff; }
+/* Fixed width so the corner doesn't jump between role names (Coach vs Instructor). */
+.sb-pill-agent { background: var(--accent); color: #fff; cursor: pointer; min-width: 100px; justify-content: center; }
+/* Role picker popup (opens up from the bottom-left pill). */
+.role-menu { position: absolute; bottom: 34px; left: 6px; z-index: 30; min-width: 240px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: var(--shadow); padding: 6px; }
+.role-menu.hidden { display: none; }
+.role-item { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  background: none; border: none; cursor: pointer; font: inherit; font-size: 13.5px;
+  padding: 9px 10px; border-radius: 8px; color: var(--text); }
+.role-item:hover { background: var(--bg); }
+.role-item.is-active { background: var(--accent-soft); color: var(--accent-deep); font-weight: 600; }
+.role-item-icon { font-size: 16px; }
+/* Per-role color for the assistant pill (role = agent). */
+.sb-role-instructor { background: #3f6fb5; }   /* blue   */
+.sb-role-coach { background: #3f9d6b; }         /* green  */
+.sb-role-mentor { background: #7a5bbd; }        /* purple */
 .sb-pill-pkg {
   background: #ffe39e; color: #5b4a1c; padding-right: 20px;
   clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%);
 }
+
+/* Right-corner status pill (LED + label) — mirrors the left-corner pills. */
+.sb-pill-status { background: #92c9a8; color: #1f1f1f; gap: 7px; }
+.sb-pill-status.busy { background: var(--accent-soft); color: var(--accent-deep); }
+.sb-pill-status.error { background: var(--bad-soft); color: var(--bad); }
+.sb-led { width: 9px; height: 9px; border-radius: 50%; background: #19e668; flex: 0 0 auto;
+  box-shadow: 0 0 4px rgba(25,230,104,.9), 0 0 0 1px rgba(255,255,255,.55); }
+.sb-pill-status.busy .sb-led { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
+.sb-pill-status.error .sb-led { background: var(--bad); }
 
 /* Right-side icon buttons (e.g. notifications). */
 .sb-iconbtn {
@@ -111,6 +154,25 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 }
 .sb-iconbtn svg { width: 15px; height: 15px; }
 .sb-iconbtn:hover { color: var(--text); background: var(--bg); }
+
+/* Notifications: bell badge + pop-up panel (opens upward from the status bar). */
+.statusbar { position: relative; }
+#sb-notifications { position: relative; }
+.sb-badge { position: absolute; top: 2px; right: 5px; min-width: 14px; height: 14px; padding: 0 3px;
+  border-radius: 7px; background: var(--bad); color: #fff; font-size: 9px; font-weight: 700;
+  line-height: 14px; text-align: center; }
+.sb-badge.hidden { display: none; }
+.notif-menu { position: absolute; bottom: 34px; right: 6px; z-index: 30; width: 300px; max-height: 340px;
+  overflow: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: var(--shadow); padding: 6px; }
+.notif-menu.hidden { display: none; }
+.notif-head { font-size: 12px; font-weight: 700; color: var(--text-soft); padding: 6px 8px; }
+.notif-empty { font-size: 12.5px; color: var(--text-mute); padding: 8px; }
+.notif-item { padding: 8px; border-radius: 8px; border-top: 1px solid var(--border); }
+.notif-item:first-of-type { border-top: none; }
+.notif-item.unread { background: var(--accent-soft); }
+.notif-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.notif-body { font-size: 12px; color: var(--text-mute); margin-top: 2px; }
 
 /* ---------- workspace: rail + split (below the topbar) ---------- */
 .workspace { flex: 1 1 auto; display: flex; min-height: 0; }
@@ -130,10 +192,22 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   transition: color .12s ease, background .12s ease;
 }
-.rail-btn svg { width: 22px; height: 22px; }
-.rail-label { font-size: 10px; font-weight: 600; letter-spacing: .01em; }
-.rail-btn:hover { color: var(--text); background: var(--bg); }
-.rail-btn.active { color: var(--accent-deep); background: var(--accent-soft); }
+.rail-btn svg { width: 22px; height: 22px; fill: currentColor; fill-opacity: .15; }
+.rail-label { font-size: 10px; font-weight: 600; letter-spacing: .01em; color: var(--text-mute); }
+/* Hover/active only shift the background — each icon keeps its own pastel hue. */
+.rail-btn:hover { background: var(--bg); }
+.rail-btn.active { background: var(--accent-soft); }
+
+/* Soft pastel, distinct per rail icon (duotone: muted stroke + faint fill).
+   Hues spaced around the wheel so no two read alike. */
+.rail-btn[data-view="sessions"]  { color: #a7abdf; }  /* periwinkle */
+.rail-btn[data-view="questions"] { color: #93b8e3; }  /* soft blue  */
+.rail-btn[data-view="catalog"]   { color: #93cfa6; }  /* sage green */
+.rail-btn[data-view="documents"] { color: #ebbf95; }  /* soft peach */
+#rail-chat                       { color: #e6abce; }  /* mauve pink */
+.rail-btn[data-view="review"]    { color: #92cbd4; }  /* soft cyan  */
+.rail-btn[data-view="fame"]      { color: #ddc986; }  /* muted gold */
+.rail-btn[data-view="settings"]  { color: #aeb6c4; }  /* slate      */
 
 /* split layout */
 .split { flex: 1 1 auto; display: flex; min-height: 0; }
@@ -150,6 +224,10 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .rtab.active { color: var(--accent); border-bottom-color: var(--accent); }
 .rpanel { flex: 1 1 auto; min-height: 0; }
 .rpanel.hidden { display: none; }
+/* Close ✕ on the tab bar (right) — closes the active tab. */
+.rtab-close { margin-left: auto; align-self: center; background: none; border: none; cursor: pointer;
+  color: var(--text-mute); font-size: 15px; line-height: 1; padding: 4px 12px; border-radius: 7px; }
+.rtab-close:hover { background: var(--bg); color: var(--text); }
 
 /* Grounding tab: verbatim source chunks for the answered question. */
 .grounding { overflow: auto; padding: 14px 16px; }
@@ -249,13 +327,34 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   font-variant-numeric: tabular-nums; min-width: 44px; text-align: right;
 }
 
+/* dispute review */
+.rv-head { margin-bottom: 6px; }
+.rv-actions { display: flex; gap: 8px; margin: 6px 0 16px; flex-wrap: wrap; }
+.rv-disputes { display: flex; flex-direction: column; gap: 14px; }
+.rv-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; background: var(--bg-card); }
+.rv-qid { font-size: 11px; font-weight: 700; color: var(--text-mute); letter-spacing: .02em; margin-bottom: 8px; }
+.rv-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-soft); margin: 8px 0 4px; }
+.rv-stem { width: 100%; font: inherit; font-size: 14px; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; resize: vertical; }
+.rv-options { display: flex; flex-direction: column; gap: 6px; }
+.rv-option { display: flex; align-items: center; gap: 8px; }
+.rv-option input[type=radio], .rv-option input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); flex: 0 0 auto; }
+.rv-opt-text { flex: 1 1 auto; min-width: 0; font: inherit; font-size: 13.5px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 7px; }
+.rv-opt-tags { flex: 0 0 auto; display: inline-flex; gap: 4px; }
+.rv-tag { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 999px; }
+.rv-tag-stored { background: #ffe39e; color: #5b4a1c; }
+.rv-tag-solved { background: var(--accent-soft); color: var(--accent-deep); }
+.rv-hint { margin: 10px 0 4px; display: flex; flex-direction: column; gap: 3px; }
+.rv-hint-line { font-size: 12px; color: var(--text-soft); }
+.rv-evidence { font-size: 12.5px; color: var(--text-mute); font-style: italic; border-left: 3px solid var(--border); padding-left: 8px; }
+.rv-card-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
 /* settings */
 .settings { display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
 .setting-row { display: flex; flex-direction: column; gap: 6px; }
 .setting-row label { font-size: 13px; font-weight: 600; color: var(--text-soft); }
 #set-agent {
   padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 9px;
-  font: inherit; font-size: 14px; background: #fff; cursor: pointer; width: 220px;
+  font: inherit; font-size: 14px; background: #fff; cursor: pointer; width: 340px; max-width: 100%;
 }
 .setting-check { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
 .setting-check input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--accent); }
@@ -373,6 +472,12 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 /* footer */
 .tq-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
 .tq-cite { font-size: 12px; color: var(--text-mute); text-align: center; flex: 1 1 auto; }
+/* Grounding toggle between the nav buttons (replaces the old source text). */
+.tq-toggle { flex: 0 0 auto; font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+  padding: 7px 12px; border: 1.5px solid var(--border); border-radius: 999px;
+  background: #fff; color: var(--text-mute); transition: background .12s ease, color .12s ease, border-color .12s ease; }
+.tq-toggle:hover { color: var(--text-soft); border-color: #cbd5e1; }
+.tq-toggle.is-on { background: var(--accent-soft); color: var(--accent-deep); border-color: #cffafe; }
 
 .tq-error {
   background: var(--bad-soft); border: 1px solid #fecaca; color: #991b1b;
@@ -382,35 +487,9 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 /* ---------- chat panel ---------- */
 .chat { display: flex; flex-direction: column; width: 100%; min-height: 0; position: relative; }
 
-.chat-header {
-  flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 12px 16px; border-bottom: 1px solid var(--border);
-}
-.chat-title { font-weight: 700; font-size: 15px; }
-/* Connection status (text + LED) at the right of the chat header. */
-.chat-status { display: flex; align-items: center; gap: 8px; }
-.chat-status-text { font-size: 12px; color: var(--text-mute); }
-.chat-status.busy .chat-status-text { color: var(--accent-deep); font-weight: 600; }
-.chat-status.error .chat-status-text { color: var(--bad); font-weight: 600; }
-.chat-led { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); flex: 0 0 auto; }
-.chat-led.busy { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
-.chat-led.error { background: var(--bad); }
+/* (The chat header was removed — status lives in the bottom-right pill and the
+   close ✕ lives on the tab bar.) */
 
-/* header right group + close (hide chat) */
-.chat-headright { display: flex; align-items: center; gap: 10px; }
-.chat-close { background: none; border: none; cursor: pointer; color: var(--text-mute); font-size: 15px; line-height: 1; padding: 4px 8px; border-radius: 7px; }
-.chat-close:hover { background: var(--bg); color: var(--text); }
-
-/* Awareness strip: what the assistant currently "sees" (live context). */
-.chat-context {
-  flex: 0 0 auto;
-  padding: 5px 16px;
-  font-size: 11.5px; color: var(--text-mute);
-  background: var(--bg); border-bottom: 1px solid var(--border);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.chat-context:empty { display: none; }
 .chat-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .chat-toggle { font-size: 12px; color: var(--text-mute); display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
 .chat-toggle input { accent-color: var(--accent); }
@@ -536,7 +615,7 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   .tq-actions, .tq-foot { gap: 8px; flex-wrap: wrap; }
   .tq-foot { flex-direction: column; align-items: stretch; }
   .tq-btn-nav { width: 100%; }
-  .tq-cite { order: -1; }   /* show source above the nav buttons on mobile */
+  .tq-toggle { order: -1; }   /* show the Grounding toggle above the nav buttons on mobile */
 
   /* Chat composer: comfortable tap targets. */
   .chat-send { padding: 12px 18px; }

@@ -22,6 +22,16 @@ services:
       - ETL_DOCLING_MODE=local
       - DOCLING_MODELS=/data/models/docling/models
       - ETL_DOCLING_DEVICE=auto      # CPU build → cpu; see README for the GPU upgrade
+      - TUTOR_ADMIN_EMAILS=logus2k@gmail.com   # Dispute Review admins (comma-separated)
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
+    # On the shared external edge network so it survives Docker/WSL restarts
+    # (the previous per-project default network did not) and is reachable by
+    # name for health monitoring.
+    networks:
+      - logus2k_network
+
+networks:
+  logus2k_network:
+    external: true

@@ -90,6 +90,80 @@ export class QuestionPanel {
     return { total: this.pkg.questionCount, answered, correct, attempts, points: Math.round(points * 100) / 100 };
   }
 
+  // ---- adaptive-trio support (called by client tools) -------------------
+
+  /**
+   * Grade a stated answer WITHOUT UI interaction (for the `submit_answer` tool).
+   * `refs` may be an option id, a letter (A/B/…), a 1-based number, option text,
+   * or an array of those for multi-select. Returns the graded result or {error}.
+   */
+  submitAnswer(refs) {
+    const q = this.question;
+    const ids = this._resolveOptionRefs(q, refs);
+    if (!ids.length) return { error: `Could not match "${Array.isArray(refs) ? refs.join(', ') : refs}" to an option of this question.` };
+    const st = this._stateFor(q);
+    st.selected = new Set(ids);
+    st.answered = false;             // allow (re)grading via the deterministic grader
+    this._grade();                   // marks answered, fires onAnswered (persist + mastery), re-renders
+    return {
+      question: { number: this.index + 1, total: this.pkg.questionCount, stem: q.stem },
+      selected: ids, correct: st.correct, attempts: st.attempts,
+      correctIds: (q.options || []).filter((o) => o.correct).map((o) => o.id),
+    };
+  }
+
+  _resolveOptionRefs(q, refs) {
+    const list = Array.isArray(refs) ? refs : [refs];
+    const opts = q.options || [];
+    const out = new Set();
+    for (const raw of list) {
+      if (raw == null) continue;
+      const s = String(raw).trim();
+      const sl = s.toLowerCase();
+      let opt = opts.find((o) => String(o.id).toLowerCase() === sl);                       // by id
+      if (!opt && /^[a-z]$/i.test(s)) opt = opts[s.toUpperCase().charCodeAt(0) - 65];       // letter
+      if (!opt && /^\d+$/.test(s)) opt = opts[parseInt(s, 10) - 1];                         // 1-based number
+      if (!opt) opt = opts.find((o) => (o.text || '').toLowerCase() === sl);                // exact text
+      if (!opt && sl.length >= 3) opt = opts.find((o) => (o.text || '').toLowerCase().includes(sl)); // contains
+      if (opt) out.add(opt.id);
+    }
+    return [...out];
+  }
+
+  /** Grounding for the current question (for the `get_grounding` tool). */
+  groundingForCurrent() {
+    const q = this.question;
+    const concepts = this.pkg.conceptsFor(q).map((c) => ({
+      id: c.id, title: c.title,
+      passages: (Array.isArray(c.grounding) ? c.grounding : []).map((g) => ({
+        text: g.text || '', citation: g.citation || g.locator || '',
+      })),
+    }));
+    return { question: { number: this.index + 1, stem: q.stem }, concepts, citations: this.pkg.citationsFor(q) };
+  }
+
+  /**
+   * Index of the "next best" question (for `next_best_question`): an UNANSWERED
+   * question on the weakest in-scope concept, at a difficulty just above that
+   * concept's ability. `mastery` = server list [{concept_id, ability}]. Falls
+   * back to the first unanswered; null when everything is answered.
+   */
+  pickNextBest(mastery = []) {
+    const ability = {};
+    for (const m of mastery) ability[m.concept_id] = m.ability;
+    const isAnswered = (q) => { const st = this.state.get(q.id); return st && st.answered; };
+    const pool = this.pkg.questions.map((q, i) => ({ q, i })).filter(({ q }) => !isAnswered(q));
+    if (!pool.length) return null;
+    const score = ({ q }) => {
+      const cids = q.concept_ids || [];
+      const ab = cids.length ? Math.min(...cids.map((c) => ability[c] ?? 0)) : 0;   // weakest concept
+      const targetDiff = 1 + Math.round(ab * 4);                                    // 0..1 ability → 1..5
+      return ab * 10 + Math.abs((q.difficulty || 1) - targetDiff);                  // weakest first, then closest difficulty
+    };
+    pool.sort((a, b) => score(a) - score(b));
+    return pool[0].i;
+  }
+
   // ---- rendering --------------------------------------------------------
 
   _render() {
@@ -270,11 +344,27 @@ export class QuestionPanel {
     next.disabled = this.index >= this.pkg.questionCount - 1;
     next.addEventListener('click', () => this.go(1));
 
-    const cites = this.pkg.citationsFor(q);
-    const cite = el('span', 'tq-cite', cites.length ? `Source: ${cites.join('; ')}` : '');
+    // Grounding toggle (between the nav buttons) — replaces the old "Source:"
+    // text; the source is shown in the status bar and at the foot of the
+    // Grounding tab itself.
+    const on = this.cb.isGroundingOn ? this.cb.isGroundingOn() : false;
+    const gtoggle = el('button', 'tq-toggle' + (on ? ' is-on' : ''), '📄 Grounding');
+    gtoggle.type = 'button';
+    gtoggle.setAttribute('aria-pressed', String(on));
+    gtoggle.title = 'Show the source this question was written from';
+    gtoggle.addEventListener('click', () => { if (this.cb.onToggleGrounding) this.cb.onToggleGrounding(); });
+    this._groundingBtn = gtoggle;
 
-    foot.append(prev, cite, next);
+    foot.append(prev, gtoggle, next);
     return foot;
+  }
+
+  /** Reflect external Grounding-tab state (toggled elsewhere) on the footer button. */
+  setGroundingState(on) {
+    if (this._groundingBtn) {
+      this._groundingBtn.classList.toggle('is-on', on);
+      this._groundingBtn.setAttribute('aria-pressed', String(on));
+    }
   }
 
   _syncSubmitEnabled() {
