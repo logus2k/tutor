@@ -29,7 +29,7 @@
   --bad-soft: #fef2f2;
   --text: #0f172a;
   --text-soft: #334155;
-  --text-mute: #64748b;
+  --text-mute: #313131;
   --border: #e2e8f0;
   --bg: #f6f7f9;
   --bg-card: #ffffff;
@@ -59,13 +59,13 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 10px 18px;
-  background: var(--bg-card);
+  padding: 5px 18px;
+  background: #fff3c6;
   border-bottom: 1px solid var(--border);
   z-index: 5;
 }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.brand-mark { font-size: 26px; }
+.brand-mark { font-size: 28px; }
 .brand-title { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
 .brand-sub { font-size: 12.5px; color: var(--text-mute); }
 
@@ -113,7 +113,7 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 /* Left-corner pill chain (job2cool effect): agent then package, package chevroned. */
 .sb-pill {
   display: inline-flex; align-items: center; gap: 6px; height: 100%;
-  padding: 0 14px; font-size: 11px; font-weight: 600; letter-spacing: .01em;
+  padding: 0 14px; font-size: 11px; letter-spacing: .01em;
   white-space: nowrap;
 }
 /* Fixed width so the corner doesn't jump between role names (Coach vs Instructor). */
@@ -139,11 +139,14 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 }
 
 /* Right-corner status pill (LED + label) — mirrors the left-corner pills. */
-.sb-pill-status { background: #92c9a8; color: #1f1f1f; gap: 7px; }
+.sb-pill-status {
+  background: #92c9a8; color: #1f1f1f; gap: 7px; padding-left: 22px;
+  /* '>' chevron notch on the left edge (mirrors the package pill's chevron). */
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10px 50%);
+}
 .sb-pill-status.busy { background: var(--accent-soft); color: var(--accent-deep); }
 .sb-pill-status.error { background: var(--bad-soft); color: var(--bad); }
-.sb-led { width: 9px; height: 9px; border-radius: 50%; background: #19e668; flex: 0 0 auto;
-  box-shadow: 0 0 4px rgba(25,230,104,.9), 0 0 0 1px rgba(255,255,255,.55); }
+.sb-led { width: 9px; height: 9px; border-radius: 50%; border: 0.5px solid #666666; background: #19e668; flex: 0 0 auto; }
 .sb-pill-status.busy .sb-led { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
 .sb-pill-status.error .sb-led { background: var(--bad); }
 
@@ -182,7 +185,7 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   flex: 0 0 68px;
   display: flex; flex-direction: column; align-items: center;
   gap: 6px; padding: 12px 0;
-  background: var(--bg-card);
+  background: #def0ff;
   border-right: 1px solid var(--border);
 }
 .rail-spacer { flex: 1 1 auto; }
@@ -192,7 +195,7 @@ body.is-resizing { cursor: col-resize; user-select: none; }
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   transition: color .12s ease, background .12s ease;
 }
-.rail-btn svg { width: 22px; height: 22px; fill: currentColor; fill-opacity: .15; }
+.rail-btn svg { width: 22px; height: 22px; fill: currentColor; fill-opacity: .85; stroke: var(--text-mute); }
 .rail-label { font-size: 10px; font-weight: 600; letter-spacing: .01em; color: var(--text-mute); }
 /* Hover/active only shift the background — each icon keeps its own pastel hue. */
 .rail-btn:hover { background: var(--bg); }

@@ -58,7 +58,7 @@ export class SessionsPanel {
     }
 
     this.newBtn.style.display = '';
-    this.who.textContent = `Signed in as ${this.me.email}`;
+    this.who.textContent = '';   // identity is shown in the top-right widget
     await this._renderList();
   }
 
