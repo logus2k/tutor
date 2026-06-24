@@ -281,19 +281,46 @@ async function buildCatalog() {
   packageIndex = packages;
   if (!packages.length) { listEl.innerHTML = '<p class="muted">No packages yet.</p>'; return; }
 
+  // Admins get a rename ✎ on each card (the backend also allows the owner).
+  let canRename = false;
+  try { canRename = !!(await fetchJson('etl/me')).is_admin; } catch { /* anon */ }
+
   listEl.innerHTML = '';
   listEl.append(el('h2', 'leftview-title', 'Catalog'));
   for (const p of packages) {
-    const card = el('button', 'card');
-    card.type = 'button';
-    card.append(
+    const card = el('div', 'card session-card');
+    const open = el('button', 'session-open');
+    open.type = 'button';
+    open.append(
       el('div', 'card-title', p.title || p.id),
       el('div', 'card-desc', p.description || ''),
       el('div', 'card-meta', `${p.questions != null ? p.questions + ' questions · ' : ''}${p.id}`),
     );
-    card.addEventListener('click', () => openPackage(p));
+    open.addEventListener('click', () => openPackage(p));
+    card.append(open);
+    if (canRename) {
+      const actions = el('div', 'session-actions');
+      const ren = el('button', 'session-icon', '✎');
+      ren.type = 'button'; ren.title = 'Rename';
+      ren.addEventListener('click', (e) => { e.stopPropagation(); renamePackage(p); });
+      actions.append(ren);
+      card.append(actions);
+    }
     listEl.appendChild(card);
   }
+}
+
+/** Rename a published package's catalog title (admin/owner; id unchanged). */
+async function renamePackage(p) {
+  const t = (prompt('Package title:', p.title || p.id) || '').trim();
+  if (!t || t === p.title) return;
+  try {
+    const r = await fetch(`etl/packages/${encodeURIComponent(p.id)}/rename`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: t }),
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    buildCatalog();
+  } catch (e) { alert(`Rename failed: ${e.message}`); }
 }
 
 async function openPackage(entry) {

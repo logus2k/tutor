@@ -1,0 +1,2951 @@
+{
+  "jobId": "job-20260624212542",
+  "state": "held",
+  "packageId": "microsoft-ai-transformation-leader-ab-731",
+  "title": "Microsoft-AI-Transformation-Leader-AB-731.pdf",
+  "documents": [
+    "Microsoft-AI-Transformation-Leader-AB-731.pdf"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260624212542",
+      "event": "job.queued",
+      "documents": [
+        "Microsoft-AI-Transformation-Leader-AB-731.pdf"
+      ]
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.started",
+      "stage": "extract"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.done",
+      "stage": "extract"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.started",
+      "stage": "segment"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.done",
+      "stage": "segment",
+      "concepts_found": 38,
+      "pages_mapped": 44
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.1.1",
+      "title": "Generative AI vs. Traditional AI",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0003",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.1",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 1,
+      "questions_accepted": 4
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.1.2",
+      "title": "Generative AI Acquisition Framework (Buy-Boost-Build)",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.2",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.2",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0008",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.2",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.2",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0010",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.2",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0011",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.2",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 2,
+      "questions_accepted": 10
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.1.3",
+      "title": "Pretrained vs. Fine-tuned AI Models",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0012",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.3",
+      "qid": "q-0012",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0013",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.3",
+      "qid": "q-0013",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0014",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.3",
+      "qid": "q-0014",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0015",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.3",
+      "qid": "q-0015",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0016",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.3",
+      "qid": "q-0016",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 3,
+      "questions_accepted": 15
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.1.4",
+      "title": "Generative AI Cost Drivers: Tokens and ROI",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0017",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.4",
+      "qid": "q-0017",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0018",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.4",
+      "qid": "q-0018",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0019",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.4",
+      "qid": "q-0019",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0020",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.4",
+      "qid": "q-0020",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 19
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.1.5",
+      "title": "Challenges of Generative AI: Fabrications, Reliability, and Bias",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0021",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.5",
+      "qid": "q-0021",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0022",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.5",
+      "qid": "q-0022",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0023",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.5",
+      "qid": "q-0023",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0024",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.5",
+      "qid": "q-0024",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0025",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.5",
+      "qid": "q-0025",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 24
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.1.6",
+      "title": "Generative AI Business Value Drivers and Assessment",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0026",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.6",
+      "qid": "q-0026",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0027",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.6",
+      "qid": "q-0027",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0028",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.6",
+      "qid": "q-0028",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0029",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.1.6",
+      "qid": "q-0029",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 6,
+      "questions_accepted": 28
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.1",
+      "title": "Definition and Impact of Prompt Engineering",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0030",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.1",
+      "qid": "q-0030",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0031",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.1",
+      "qid": "q-0031",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0032",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.1",
+      "qid": "q-0032",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0033",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.1",
+      "qid": "q-0033",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0034",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.1",
+      "qid": "q-0034",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 7,
+      "questions_accepted": 33
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.2",
+      "title": "Core Prompt Engineering Techniques and Workflow",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0035",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.2",
+      "qid": "q-0035",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0036",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.2",
+      "qid": "q-0036",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0037",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.2",
+      "qid": "q-0037",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0038",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.2",
+      "qid": "q-0038",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0039",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.2",
+      "qid": "q-0039",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 8,
+      "questions_accepted": 38
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.3",
+      "title": "Business Requirements for Grounding Solutions",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0040",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.3",
+      "qid": "q-0040",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0041",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.3",
+      "qid": "q-0041",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0042",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.3",
+      "qid": "q-0042",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0043",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.3",
+      "qid": "q-0043",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0044",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.3",
+      "qid": "q-0044",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 9,
+      "questions_accepted": 43
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.4",
+      "title": "Retrieval-Augmented Generation (RAG) Architecture",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0045",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.4",
+      "qid": "q-0045",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0046",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.4",
+      "qid": "q-0046",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0047",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.4",
+      "qid": "q-0047",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0048",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.4",
+      "qid": "q-0048",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0049",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.4",
+      "qid": "q-0049",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 10,
+      "questions_accepted": 48
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.5",
+      "title": "Data's Role in AI: Types, Quality, and Readiness",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0050",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.5",
+      "qid": "q-0050",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0051",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.5",
+      "qid": "q-0051",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0052",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.5",
+      "qid": "q-0052",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0053",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.5",
+      "qid": "q-0053",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0054",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.5",
+      "qid": "q-0054",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 11,
+      "questions_accepted": 53
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.6",
+      "title": "Definition and Importance of Secure AI",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0055",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.6",
+      "qid": "q-0055",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0056",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.6",
+      "qid": "q-0056",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.6",
+      "qid": "q-0057",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0058",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.6",
+      "qid": "q-0058",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 12,
+      "questions_accepted": 56
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.7",
+      "title": "When Machine Learning Adds Value and Application Scenarios",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0059",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.7",
+      "qid": "q-0059",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0060",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.7",
+      "qid": "q-0060",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0061",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.7",
+      "qid": "q-0061",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0062",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.7",
+      "qid": "q-0062",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0063",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.7",
+      "qid": "q-0063",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 13,
+      "questions_accepted": 61
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.8",
+      "title": "Machine Learning Lifecycle Phases and Gates",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.8",
+      "qid": "q-0064",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0065",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.8",
+      "qid": "q-0065",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0066",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.8",
+      "qid": "q-0066",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0067",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.8",
+      "qid": "q-0067",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0068",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.8",
+      "qid": "q-0068",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 14,
+      "questions_accepted": 65
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "1.2.9",
+      "title": "AI System Security Requirements and Threats",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0069",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.9",
+      "qid": "q-0069",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0070",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.9",
+      "qid": "q-0070",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0071",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.9",
+      "qid": "q-0071",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0072",
+      "status": "inconclusive"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "1.2.9",
+      "qid": "q-0072",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 15,
+      "questions_accepted": 69
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.1",
+      "title": "Mapping Business Processes to Copilot Solutions",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0073",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.1",
+      "qid": "q-0073",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0074",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.1",
+      "qid": "q-0074",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0075",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.1",
+      "qid": "q-0075",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0076",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.1",
+      "qid": "q-0076",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0077",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.1",
+      "qid": "q-0077",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 16,
+      "questions_accepted": 74
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.2",
+      "title": "Comparing Microsoft Copilot Versions",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0078",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.2",
+      "qid": "q-0078",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0079",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.2",
+      "qid": "q-0079",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0080",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.2",
+      "qid": "q-0080",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0081",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.2",
+      "qid": "q-0081",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0082",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.2",
+      "qid": "q-0082",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 17,
+      "questions_accepted": 79
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.3",
+      "title": "Microsoft 365 Copilot Chat Interface and Capabilities",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0083",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.3",
+      "qid": "q-0083",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0084",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.3",
+      "qid": "q-0084",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0085",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.3",
+      "qid": "q-0085",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0086",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.3",
+      "qid": "q-0086",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0087",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.3",
+      "qid": "q-0087",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 18,
+      "questions_accepted": 84
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.4",
+      "title": "Microsoft 365 Copilot Application-Specific Capabilities",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0088",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.4",
+      "qid": "q-0088",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0089",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.4",
+      "qid": "q-0089",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0090",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.4",
+      "qid": "q-0090",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0091",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.4",
+      "qid": "q-0091",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 88
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.5",
+      "title": "Microsoft Copilot Studio Overview",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0092",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.5",
+      "qid": "q-0092",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.5",
+      "qid": "q-0093",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0094",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.5",
+      "qid": "q-0094",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0095",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.5",
+      "qid": "q-0095",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 20,
+      "questions_accepted": 91
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.6",
+      "title": "Microsoft Graph: Definition, Role, and Copilot Grounding",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0096",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.6",
+      "qid": "q-0096",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0097",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.6",
+      "qid": "q-0097",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0098",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.6",
+      "qid": "q-0098",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0099",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.6",
+      "qid": "q-0099",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0100",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.6",
+      "qid": "q-0100",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 21,
+      "questions_accepted": 96
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.7",
+      "title": "Benefits and Risks of Integrated Microsoft AI Solutions",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0101",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.7",
+      "qid": "q-0101",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0102",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.7",
+      "qid": "q-0102",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0103",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.7",
+      "qid": "q-0103",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0104",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.7",
+      "qid": "q-0104",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0105",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.7",
+      "qid": "q-0105",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 22,
+      "questions_accepted": 101
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.8",
+      "title": "Mapping Business Processes to Microsoft AI Services",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0106",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.8",
+      "qid": "q-0106",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0107",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.8",
+      "qid": "q-0107",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0108",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.8",
+      "qid": "q-0108",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0109",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.8",
+      "qid": "q-0109",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0110",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.8",
+      "qid": "q-0110",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 23,
+      "questions_accepted": 106
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.9",
+      "title": "Copilot Modes: Research vs. Analyst Persona",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0111",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.9",
+      "qid": "q-0111",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0112",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.9",
+      "qid": "q-0112",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0113",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.9",
+      "qid": "q-0113",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0114",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.9",
+      "qid": "q-0114",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0115",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.9",
+      "qid": "q-0115",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 111
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.1.10",
+      "title": "Build-Buy-Extend Framework for Microsoft AI",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0116",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.10",
+      "qid": "q-0116",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0117",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.10",
+      "qid": "q-0117",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0118",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.10",
+      "qid": "q-0118",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0119",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.10",
+      "qid": "q-0119",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0120",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.1.10",
+      "qid": "q-0120",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 25,
+      "questions_accepted": 116
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.2.1",
+      "title": "Microsoft Foundry Definition and Comparison with Copilot",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0121",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.1",
+      "qid": "q-0121",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0122",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.1",
+      "qid": "q-0122",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0123",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.1",
+      "qid": "q-0123",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0124",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.1",
+      "qid": "q-0124",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 26,
+      "questions_accepted": 120
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.2.2",
+      "title": "Azure AI Services and Microsoft Foundry Capabilities",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0125",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.2",
+      "qid": "q-0125",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0126",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.2",
+      "qid": "q-0126",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0127",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.2",
+      "qid": "q-0127",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0128",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.2",
+      "qid": "q-0128",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0129",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.2",
+      "qid": "q-0129",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 27,
+      "questions_accepted": 125
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.2.3",
+      "title": "AI Model Selection Framework",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0130",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.3",
+      "qid": "q-0130",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0131",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.3",
+      "qid": "q-0131",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0132",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.3",
+      "qid": "q-0132",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0133",
+      "status": "inconclusive"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.3",
+      "qid": "q-0133",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.3",
+      "qid": "q-0134",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 28,
+      "questions_accepted": 129
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "2.2.4",
+      "title": "Microsoft Foundry Benefits: Security, Scalability, and Governance",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0135",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.4",
+      "qid": "q-0135",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0136",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.4",
+      "qid": "q-0136",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0137",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.4",
+      "qid": "q-0137",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0138",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.4",
+      "qid": "q-0138",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0139",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "2.2.4",
+      "qid": "q-0139",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 29,
+      "questions_accepted": 134
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.1.1",
+      "title": "Definition and Business Imperative of Responsible AI",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0140",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.1",
+      "qid": "q-0140",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0141",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.1",
+      "qid": "q-0141",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0142",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.1",
+      "qid": "q-0142",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0143",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.1",
+      "qid": "q-0143",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0144",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.1",
+      "qid": "q-0144",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0145",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.1",
+      "qid": "q-0145",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 30,
+      "questions_accepted": 140
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.1.2",
+      "title": "AI Governance Principles and Frameworks",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0146",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.2",
+      "qid": "q-0146",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0147",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.2",
+      "qid": "q-0147",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0148",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.2",
+      "qid": "q-0148",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0149",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.2",
+      "qid": "q-0149",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0150",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.2",
+      "qid": "q-0150",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 31,
+      "questions_accepted": 145
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.1.3",
+      "title": "AI Council and Responsible AI Principles",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0151",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.3",
+      "qid": "q-0151",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.3",
+      "qid": "q-0152",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0153",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.3",
+      "qid": "q-0153",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0154",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.1.3",
+      "qid": "q-0154",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 32,
+      "questions_accepted": 148
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.2.1",
+      "title": "AI Adoption Team Definition and Composition",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0155",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.1",
+      "qid": "q-0155",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0156",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.1",
+      "qid": "q-0156",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0157",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.1",
+      "qid": "q-0157",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0158",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.1",
+      "qid": "q-0158",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0159",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.1",
+      "qid": "q-0159",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 33,
+      "questions_accepted": 153
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.2.2",
+      "title": "Barriers and Mitigation Strategies for AI Adoption",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0160",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.2",
+      "qid": "q-0160",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0161",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.2",
+      "qid": "q-0161",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0162",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.2",
+      "qid": "q-0162",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0163",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.2",
+      "qid": "q-0163",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 34,
+      "questions_accepted": 157
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.2.3",
+      "title": "AI Champions Program Definition and Function",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0164",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.3",
+      "qid": "q-0164",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0165",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.3",
+      "qid": "q-0165",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0166",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.3",
+      "qid": "q-0166",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0167",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.3",
+      "qid": "q-0167",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0168",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.3",
+      "qid": "q-0168",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 35,
+      "questions_accepted": 162
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.2.4",
+      "title": "Impact Areas of AI Adoption",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0169",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.4",
+      "qid": "q-0169",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0170",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.4",
+      "qid": "q-0170",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.4",
+      "qid": "q-0171",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0172",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.4",
+      "qid": "q-0172",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0173",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.4",
+      "qid": "q-0173",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 36,
+      "questions_accepted": 166
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.2.5",
+      "title": "Copilot Licensing Models",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0174",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.5",
+      "qid": "q-0174",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0175",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.5",
+      "qid": "q-0175",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0176",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.5",
+      "qid": "q-0176",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0177",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.5",
+      "qid": "q-0177",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0178",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.5",
+      "qid": "q-0178",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 37,
+      "questions_accepted": 171
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "concept.gated",
+      "objective": "3.2.6",
+      "title": "Azure AI Services Subscription Models",
+      "action": "accept"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0179",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.6",
+      "qid": "q-0179",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0180",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.6",
+      "qid": "q-0180",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0181",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.6",
+      "qid": "q-0181",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0182",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.6",
+      "qid": "q-0182",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0183",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.6",
+      "qid": "q-0183",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.validated",
+      "qid": "q-0184",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "question.judged",
+      "objective": "3.2.6",
+      "qid": "q-0184",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "transform.progress",
+      "concepts_done": 38,
+      "questions_accepted": 177
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "dedup.done",
+      "removed": 2,
+      "remaining": 172
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 38,
+      "questions": 172
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 27
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "job.held",
+      "reason": "27 key dispute(s) need review",
+      "score": 65,
+      "disputes": 27
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "review.available",
+      "packageId": "microsoft-ai-transformation-leader-ab-731",
+      "disputes": 27
+    },
+    {
+      "jobId": "job-20260624212542",
+      "event": "catalog.skipped",
+      "packageId": "microsoft-ai-transformation-leader-ab-731",
+      "state": "held"
+    }
+  ],
+  "created_at": "2026-06-24T21:25:42.015801+00:00"
+}

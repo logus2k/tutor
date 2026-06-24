@@ -543,3 +543,41 @@ def review_delete(pkg_id: str, request: Request):
     _load_reviewable(request, pkg_id)
     review.delete_held(pkg_id)
     return {"deleted": True}
+
+@app.post("/etl/review/{pkg_id}/rename")
+async def review_rename(pkg_id: str, request: Request):
+    _e, pkg = _load_reviewable(request, pkg_id)
+    body = await request.json()
+    title = (body.get("title") or "").strip()
+    if not title:
+        raise HTTPException(400, "title required")
+    pkg["title"] = title[:200]
+    review.write_held(pkg)
+    return {"ok": True, "title": pkg["title"]}
+
+@app.post("/etl/packages/{pkg_id}/rename")
+async def package_rename(pkg_id: str, request: Request):
+    """Rename a PUBLISHED package's title (admin, or the package owner). The id
+    is unchanged — only the catalog display title."""
+    e = _require_email(request)
+    safe = review._safe_id(pkg_id)
+    path = os.path.join(PKG_DIR, safe + ".json") if safe else ""
+    if not safe or not os.path.exists(path):
+        raise HTTPException(404, "package not found")
+    try:
+        pkg = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        raise HTTPException(500, "cannot read package")
+    owner = (pkg.get("owner_email") or "").strip().lower()
+    if not (_is_admin(e) or (owner and owner == e)):
+        raise HTTPException(403, "not allowed")
+    body = await request.json()
+    title = (body.get("title") or "").strip()
+    if not title:
+        raise HTTPException(400, "title required")
+    pkg["title"] = title[:200]
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(pkg, f, indent=2, ensure_ascii=False)
+    _pkg_cache.pop(safe, None)
+    catalog.rebuild_package_index()
+    return {"ok": True, "title": pkg["title"]}

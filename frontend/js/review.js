@@ -92,10 +92,18 @@ export class ReviewPanel {
     this.publishBtn = el('button', 'tq-btn tq-btn-primary', 'Publish to Catalog');
     this.publishBtn.type = 'button';
     this.publishBtn.addEventListener('click', () => this.publish());
+    const ren = el('button', 'tq-btn tq-btn-ghost', '✎ Rename');
+    ren.type = 'button';
+    ren.addEventListener('click', async () => {
+      const t = (prompt('Package title:', data.title || id) || '').trim();
+      if (!t || t === data.title) return;
+      try { await fetchJson(`${API}/review/${encodeURIComponent(id)}/rename`, { method: 'POST', body: { title: t } }); this.openPackage(id); }
+      catch (e) { alert(`Rename failed: ${e.message}`); }
+    });
     const del = el('button', 'tq-btn tq-btn-ghost', '🗑 Discard package');
     del.type = 'button';
     del.addEventListener('click', () => this.discardPackage());
-    this.actionsEl.append(this.publishBtn, del);
+    this.actionsEl.append(this.publishBtn, ren, del);
     this.root.append(this.actionsEl);
 
     this.hasSource = data.has_source;
