@@ -1,6 +1,6 @@
 # Tutor — Product Backlog
 
-**Status:** Living document · **Last updated:** 2026-06-23
+**Status:** Living document · **Last updated:** 2026-06-25
 
 What's planned next, roughly in priority order. Companion docs:
 [technical_architecture.md](technical_architecture.md) (vision/schema/roadmap),
@@ -35,30 +35,25 @@ What's planned next, roughly in priority order. Companion docs:
 
 ## Now / next
 
-### 1. Adaptive runtime (architecture §7–8) — the core differentiator
-- [ ] **`submit_answer`** tool (client) — grade the student's stated choice via
+### 1. Adaptive runtime (architecture §7–8) — ✅ delivered (via the Roles epic)
+- [x] **`submit_answer`** tool (client) — grade the student's stated choice via
       the deterministic grader; closes the conversational loop.
-- [ ] **`get_grounding`** tool (client) — return the concept's grounding passages
+- [x] **`get_grounding`** tool (client) — return the concept's grounding passages
       + citations so the tutor explains from source and cites.
-- [ ] **`next_best_question`** tool (client) — adaptive selection: weakest
-      in-scope concept at a difficulty just above ability, respecting
-      `prerequisites` and `taxonomy` weights.
-- [ ] **Student ability / mastery model** — per-concept ability estimate
-      (ELO/IRT-lite) updated from outcomes; mastery threshold.
-
-> Recommended first trio: `submit_answer` + `get_grounding` + `next_best_question`
-> (all client-side, no new infra). See [tutor_tool_ideas.md](tutor_tool_ideas.md).
+- [x] **`next_best_question`** tool (client) — adaptive selection: weakest
+      in-scope concept at a difficulty just above ability.
+- [x] **Student ability / mastery model** — per-concept ELO/IRT-lite ability,
+      updated server-side from each graded answer; mastery threshold.
 
 ### 2. Sessions ↔ progress integration
-- [ ] Wire **`get_progress` and the tutor tools to the active session** so the
-      assistant reports *persisted* progress (not just in-memory panel state).
+- [x] Wire **`get_progress` + `get_mastery`** to persisted session + mastery.
 - [ ] Explicit **"add package to session"** affordance in the Catalog.
-- [ ] **Per-concept / per-domain mastery view** (weighted by `taxonomy.weight`,
-      §7.3) — a dashboard the tutor can also narrate.
+      *(currently implicit — opening a package adds it to the active session; no button yet)*
+- [ ] **Per-concept / per-domain mastery view (dashboard UI)** weighted by
+      `taxonomy.weight` (§7.3). *(data exists via `/etl/mastery`; no UI yet)*
 
 ### 3. Loose ends from current UI
-- [ ] **Notifications** — the status-bar bell is a placeholder; design + wire a
-      panel (e.g. ETL job completion, session reminders).
+- [x] **Notifications** — status-bar bell wired (study reminders + job notices).
 - [ ] **Avatar video** — optional talking-head via the SDK `AvatarClient` +
       the proxy `/avatar` path (TTS/STT already wired).
 
@@ -74,29 +69,25 @@ role is **Instructor**; default = Instructor; Coach grades **deterministically**
 hybrid mode. Parked: Auto mode, sentiment, role customization, effectiveness
 metrics.
 
-### Phase 0 — adaptive substrate (foundation)
-- [ ] **Per-concept mastery model** — SQLite `mastery(student, concept, attempts,
-      correct, ability, …)`; ability (ELO/IRT-lite) updated from each graded
-      answer (server maps question→`concept_ids` via the package); endpoints.
-- [ ] **Adaptive trio** (client tools, MCP `execution:client`):
-      `submit_answer` (grade a stated choice via the browser grader),
-      `get_grounding` (current concept's passages + citations),
-      `next_best_question` (weakest in-scope concept just above ability,
-      respecting prerequisites).
-- [ ] Wire `get_progress` + a new `get_mastery` to **persisted** session +
-      mastery (not just in-memory panel state).
+### Phase 0 — adaptive substrate (foundation) ✅
+- [x] **Per-concept mastery model** — SQLite `mastery(...)`; ELO/IRT-lite ability
+      updated from each graded answer (server maps question→`concept_ids`); `/etl/mastery`.
+- [x] **Adaptive trio** (client tools, MCP `execution:client`): `submit_answer`,
+      `get_grounding`, `next_best_question` (+ `get_mastery`).
+- [x] Wire `get_progress` + `get_mastery` to persisted session + mastery.
 
-### Phase 1 — the three roles
-- [ ] **Instructor / Coach / Mentor agent presets** in agent_server (prompt +
-      params; all over the shared corpus + tools).
-- [ ] **Role picker UI** — the agent selector lists the roles with icon/color,
-      Instructor default; role indicator in the status bar.
-- [ ] **Coach** wired to the trio + deterministic grading; **Mentor** wired to
-      mastery (in-app progress report + next-step study plan).
+### Phase 1 — the three roles ✅
+- [x] **Instructor / Coach / Mentor agent presets** in agent_server (hot-reload admin API).
+- [x] **Role picker UI** — the agent selector lists the roles (icon/color),
+      Instructor default; clickable role pill + popup; role-colored status pill.
+- [x] **Coach** wired to the trio + deterministic grading; **Mentor** wired to mastery.
 
-### Phase 2 — Mentor reminders
-- [ ] **Notifications + study reminders** backend (spaced-repetition from
-      mastery) and wire the status-bar **bell** (currently a placeholder).
+### Phase 2 — Mentor reminders ✅
+- [x] **Notifications + study reminders** backend (spaced-repetition from mastery)
+      and the status-bar **bell** (badge + popup) wired.
+
+> Built but not yet **browser-verified by us** (needs a real Google login): the
+> signed-in role/tools/bell/mastery flow — worth a click-through pass.
 
 ### Parked (not now)
 - [ ] Auto mode (rules → model-classified intent), with override + "switched
