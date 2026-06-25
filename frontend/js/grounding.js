@@ -1,10 +1,14 @@
 // grounding.js — the "Grounding" tab (right pane, next to the Assistant).
 //
-// Shows the VERBATIM source chunk(s) the CURRENT question was written from,
-// resolved as question.concept_ids → package concepts → concept.grounding[].
-// ANSWER-SAFE (architecture §7.2): the source is revealed only AFTER the student
-// answers — before that it could hand them the answer. The panel is reactive: it
-// subscribes to the shared TutorContext and re-renders on every navigation/answer.
+// Shows the VERBATIM source chunk(s) a question was written from, resolved as
+// question.concept_ids → package concepts → concept.grounding[].
+//
+// Two drivers:
+//  • Questions flow — subscribes to the shared TutorContext and renders the
+//    CURRENT question's grounding, ANSWER-SAFE (revealed only after answering,
+//    architecture §7.2).
+//  • Review flow — `showConcepts(payload)` renders an explicit, already-resolved
+//    grounding payload for the dispute card the reviewer selected (no gate).
 
 import { renderMarkdown } from './markdown.js';
 
@@ -20,51 +24,63 @@ export class GroundingPanel {
     this.render(context.snapshot);
   }
 
+  // ---- Questions flow (reactive, answer-safe) ---------------------------
   render(s) {
     const m = this.mount;
+    if (!s || !s.pkg) return this._empty('Open a package and a question to see the source it was written from.');
+    const q = s.question;
+    if (!q) return this._empty('Select a question to see its source passage.');
+    if (!(s.qState && s.qState.answered)) {
+      m.innerHTML = '';
+      return m.appendChild(el('p', 'gr-locked', '🔒 Answer this question to reveal the source passage(s) it was written from.'));
+    }
+    const pkg = s.pkg;
+    const concepts = (typeof pkg.conceptsFor === 'function' ? pkg.conceptsFor(q) : []).map((c) => ({
+      title: c.title || c.id, objective: c.objective,
+      passages: (Array.isArray(c.grounding) ? c.grounding : []).map((g) => ({ text: g.text || '', citation: g.citation || g.locator || '' })),
+    }));
+    const citations = typeof pkg.citationsFor === 'function' ? pkg.citationsFor(q) : [];
+    this._paint({ concepts, citations });
+  }
+
+  // ---- Review flow (explicit payload) -----------------------------------
+  /** @param {{question?:{stem?:string}, concepts:Array, citations?:Array}} payload */
+  showConcepts(payload = {}) {
+    const stem = payload.question && payload.question.stem;
+    this._paint({
+      heading: stem ? `Reviewing: ${stem}` : 'Grounding',
+      concepts: payload.concepts || [],
+      citations: payload.citations || [],
+    });
+  }
+
+  // ---- shared renderer --------------------------------------------------
+  _empty(msg) { this.mount.innerHTML = ''; this.mount.appendChild(el('p', 'gr-empty', msg)); }
+
+  _paint({ heading, concepts, citations }) {
+    const m = this.mount;
     m.innerHTML = '';
-    // No title here — the right-pane tab already reads "📄 Grounding".
+    if (heading) m.appendChild(el('div', 'gr-head', heading));
     const body = el('div', 'gr-body');
     m.appendChild(body);
 
-    if (!s || !s.pkg) {
-      return body.appendChild(el('p', 'gr-empty', 'Open a package and a question to see the source it was written from.'));
-    }
-    const q = s.question;
-    if (!q) {
-      return body.appendChild(el('p', 'gr-empty', 'Select a question to see its source passage.'));
-    }
-    if (!(s.qState && s.qState.answered)) {
-      return body.appendChild(el('p', 'gr-locked',
-        '🔒 Answer this question to reveal the source passage(s) it was written from.'));
-    }
-
-    const pkg = s.pkg;
-    const concepts = typeof pkg.conceptsFor === 'function' ? pkg.conceptsFor(q) : [];
-    const citations = typeof pkg.citationsFor === 'function' ? pkg.citationsFor(q) : [];
-
-    if (!concepts.length) {
-      body.appendChild(el('p', 'gr-empty', 'No grounding is recorded for this question.'));
-    }
+    if (!concepts.length) body.appendChild(el('p', 'gr-empty', 'No grounding is recorded for this question.'));
     for (const c of concepts) {
       const card = el('div', 'gr-concept');
-      card.appendChild(el('div', 'gr-concept-title', c.title || c.id || 'Concept'));
-      const spans = Array.isArray(c.grounding) ? c.grounding : [];
-      if (!spans.length) {
-        card.appendChild(el('p', 'gr-empty', '(no verbatim span recorded for this concept)'));
-      }
-      for (const g of spans) {
+      card.appendChild(el('div', 'gr-concept-title', c.objective ? `${c.objective} · ${c.title}` : (c.title || 'Concept')));
+      const passages = c.passages || [];
+      if (!passages.length) card.appendChild(el('p', 'gr-empty', '(no verbatim span recorded for this concept)'));
+      for (const g of passages) {
         const chunk = el('div', 'gr-chunk');
-        const cite = g.citation || g.locator || '';
-        if (cite) chunk.appendChild(el('div', 'gr-cite', cite));
-        const body = el('div', 'gr-text');
-        body.innerHTML = renderMarkdown(reflowLists(g.text || ''));   // renderMarkdown escapes first (XSS-safe), then renders tables/lists
-        chunk.appendChild(body);
+        if (g.citation) chunk.appendChild(el('div', 'gr-cite', g.citation));
+        const tb = el('div', 'gr-text');
+        tb.innerHTML = renderMarkdown(reflowLists(g.text || ''));   // escapes first (XSS-safe), then renders tables/lists
+        chunk.appendChild(tb);
         card.appendChild(chunk);
       }
       body.appendChild(card);
     }
-    if (citations.length) {
+    if (citations && citations.length) {
       const foot = el('div', 'gr-citations');
       foot.appendChild(el('span', 'gr-citations-label', 'Source: '));
       foot.appendChild(document.createTextNode(citations.join('; ')));
@@ -75,11 +91,6 @@ export class GroundingPanel {
 
 // The extractor sometimes flattens a list captured as a grounding span into one
 // line; re-break it so renderMarkdown shows real <ol>/<ul> items.
-//  - Numbered: "1. a. 2. b." → break before an "N. " that follows a sentence
-//    period (so prose like "$5. 2 items" — no dot after the 2 — is left alone).
-//  - Bullet: " - 'x' → A - 'y' → B" → break before a " - " whose item starts with
-//    a quote (the cheat-sheet's keyword lists), so plain "term - definition"
-//    dashes are NOT split.
 function reflowLists(text) {
   let t = text || '';
   t = t.replace(/\.\s+(\d+\.\s)/g, '.\n$1');     // numbered run-ons

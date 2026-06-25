@@ -2181,7 +2181,7 @@
         {
           "id": "b",
           "text": "Model differences",
-          "correct": true,
+          "correct": false,
           "rationale": "Differences between models cause significant cost variations, such as a 450% difference."
         },
         {
@@ -2199,7 +2199,7 @@
         {
           "id": "e",
           "text": "Context tokens",
-          "correct": false,
+          "correct": true,
           "rationale": "Context tokens are a component, but the text focuses on input, output, and model differences as primary drivers."
         }
       ],
@@ -2499,54 +2499,6 @@
       ]
     },
     {
-      "id": "q-0027",
-      "concept_ids": [
-        "c-1-1-6"
-      ],
-      "type": "mcq_single",
-      "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
-      "stem": "What characteristic allows AI to handle unlimited concurrent requests without a proportional cost increase?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Deterministic software architecture.",
-          "correct": false,
-          "rationale": "Deterministic software is a characteristic of certain tasks, not the mechanism for unlimited concurrent requests."
-        },
-        {
-          "id": "b",
-          "text": "Handling unlimited concurrent requests without proportional cost increase.",
-          "correct": true,
-          "rationale": "The ability to handle unlimited concurrent requests without proportional cost increase is a key feature of AI scalability."
-        },
-        {
-          "id": "c",
-          "text": "Replacing all human effort in all operational tasks.",
-          "correct": false,
-          "rationale": "AI replaces human effort in certain areas (automation), but this option describes the cost/request handling mechanism."
-        },
-        {
-          "id": "d",
-          "text": "Serving millions of customers with the same infrastructure.",
-          "correct": false,
-          "rationale": "Serving millions of customers is an outcome of scalability, but the mechanism described in the text is the handling of requests and cost."
-        }
-      ],
-      "explanation": "AI can handle unlimited concurrent requests without proportional cost increase, which is a core aspect of its scalability.",
-      "hints": [],
-      "source_refs": [
-        {
-          "source_id": "src-ai901",
-          "locator": "§1.1.6"
-        }
-      ],
-      "tags": [
-        "scalability"
-      ]
-    },
-    {
       "id": "q-0028",
       "concept_ids": [
         "c-1-1-6"
@@ -2693,7 +2645,7 @@
       "render": "checkbox",
       "difficulty": 3,
       "bloom": "understand",
-      "stem": "Which of the following are key impacts of high-quality prompt engineering?",
+      "stem": "Which of the following are key aspects of prompt engineering?",
       "options": [
         {
           "id": "a",
@@ -2703,7 +2655,7 @@
         },
         {
           "id": "b",
-          "text": "Increasing the model's underlying accuracy.",
+          "text": "Increasing the prompt's description accuracy.",
           "correct": true,
           "rationale": "High-quality prompts significantly improve output accuracy."
         },
@@ -2715,7 +2667,7 @@
         },
         {
           "id": "d",
-          "text": "Improving safety compliance.",
+          "text": "Reducing compliance risk",
           "correct": true,
           "rationale": "Key impacts include improving safety compliance."
         }
@@ -3040,7 +2992,7 @@
         {
           "id": "d",
           "text": "System Prompts",
-          "correct": false,
+          "correct": true,
           "rationale": "System prompts are described as session-level instructions, not necessarily a technique for teaching a specific functional purpose like the others."
         }
       ],
@@ -3171,14 +3123,14 @@
         },
         {
           "id": "b",
-          "text": "Ensuring data freshness.",
+          "text": "Ensuring data freshness (data reflects the current state).",
           "correct": true,
           "rationale": "Ensuring data freshness is a requirement to confirm data reflects the current state."
         },
         {
           "id": "c",
-          "text": "Confirming data format compatibility.",
-          "correct": false,
+          "text": "Confirming data format compatibility to be processed by AI.",
+          "correct": true,
           "rationale": "Confirming data format compatibility is a requirement, so it is not the answer to what is NOT a focus."
         },
         {
@@ -9491,107 +9443,6 @@
       }
     ],
     "disputes": [
-      {
-        "qid": "q-0020",
-        "stem": "Which of the following are identified as factors that dramatically impact total cost?",
-        "stored": [
-          "a",
-          "b",
-          "c",
-          "d"
-        ],
-        "derived": [
-          "a",
-          "c",
-          "d",
-          "e"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Cost Components:\n| Cost Type                          | Description                    | Example        |\n|------------------------------------|--------------------------------|----------------|\n| Tok"
-      },
-      {
-        "qid": "q-0025",
-        "stem": "Which of the following concepts are associated with the mitigation of Bias according to the Responsible AI framework?",
-        "stored": [
-          "a",
-          "b",
-          "c"
-        ],
-        "derived": [
-          "b",
-          "c"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Microsoft's six principles of Responsible AI:\n| Principle | Definition | Application |\n|---|---|---|\n| AI treats all people equitably | Bias testing, representative data | Fairness |"
-      },
-      {
-        "qid": "q-0027",
-        "stem": "What characteristic allows AI to handle unlimited concurrent requests without a proportional cost increase?",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "AI can handle unlimited concurrent requests without proportional cost increase"
-      },
-      {
-        "qid": "q-0031",
-        "stem": "Which of the following are key impacts of high-quality prompt engineering?",
-        "stored": [
-          "a",
-          "b",
-          "d"
-        ],
-        "derived": [
-          "a"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Key Impacts of Prompt Engineering\n\n| Impact Area | Poor Prompt | Well-Engineered Prompt | Improvement |\n|---|---|---|---|\n| \"Write about our product\" | \"Write a 200-word product description highlighti"
-      },
-      {
-        "qid": "q-0038",
-        "stem": "Which of the following prompt engineering techniques are methods for teaching the model different functional purposes?",
-        "stored": [
-          "a",
-          "b",
-          "c"
-        ],
-        "derived": [
-          "a",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Core Prompt Engineering Techniques\n\n| Technique Description | Example | Use When |\n|--------------------------------|-----------------------------------------------------------------------------------"
-      },
-      {
-        "qid": "q-0039",
-        "stem": "If a user needs the model to strictly adhere to a predefined output structure across multiple interactions, which techni",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "c"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Set explicit boundaries \"Answer only from the provided document. Do not add external information.\""
-      },
-      {
-        "qid": "q-0041",
-        "stem": "Which of the following is NOT explicitly mentioned as a focus when defining business requirements for grounding solution",
-        "stored": [
-          "a",
-          "b",
-          "d"
-        ],
-        "derived": [
-          "b"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "When Grounding Is Essential\n\n| Requirement                          | Description                                                 | Questions to Ask          |\n|--------------------------------------|"
-      },
       {
         "qid": "q-0061",
         "stem": "What is a key metric used to measure the value of an ML application?",

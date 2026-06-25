@@ -468,7 +468,35 @@ def review_list(request: Request):
 def review_get(pkg_id: str, request: Request):
     _e, pkg = _load_reviewable(request, pkg_id)
     qmap = {q.get("id"): q for q in pkg.get("questions", [])}
-    disputes = [{**d, "question": qmap.get(d.get("qid"))} for d in review.disputes_of(pkg)]
+    cmap = {c.get("id"): c for c in pkg.get("concepts", [])}
+    srcmap = {s.get("id"): s for s in pkg.get("sources", [])}
+    fallback_src = (pkg.get("sources") or [{}])[0]
+
+    disputes = []
+    for d in review.disputes_of(pkg):
+        q = qmap.get(d.get("qid")) or {}
+        refs = q.get("source_refs", []) or []
+        src = srcmap.get(refs[0].get("source_id")) if refs else fallback_src
+        locators = [r.get("locator") for r in refs if r.get("locator")]
+        # Resolve the concepts' verbatim grounding chunks for this question.
+        grounding = []
+        pages = set()
+        for cid in (q.get("concept_ids") or []):
+            c = cmap.get(cid)
+            if not c:
+                continue
+            passages = [{"text": g.get("text", ""), "citation": g.get("citation") or g.get("locator") or ""}
+                        for g in (c.get("grounding") or [])]
+            for p in passages:
+                pages.update(re.findall(r"p\.?\s*(\d+)", p["citation"]))
+            grounding.append({"title": c.get("title"), "objective": c.get("objective"), "passages": passages})
+        for loc in locators:
+            pages.update(re.findall(r"p\.?\s*(\d+)", loc))
+        disputes.append({**d, "question": q,
+                         "source": {"title": (src or {}).get("title"), "uri": (src or {}).get("uri")},
+                         "locators": locators,
+                         "pages": sorted(pages, key=lambda x: int(x)),
+                         "grounding": grounding})
     return {
         "id": pkg.get("id"), "title": pkg.get("title"),
         "owner_email": pkg.get("owner_email"),

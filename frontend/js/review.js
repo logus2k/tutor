@@ -17,11 +17,13 @@ export class ReviewPanel {
    * @param {object} opts
    * @param {() => void} opts.onPublished  called after a package is published (refresh Catalog).
    */
-  constructor(root, { onPublished } = {}) {
+  constructor(root, { onPublished, onSelectDispute } = {}) {
     this.root = root;
     this.onPublished = onPublished || (() => {});
+    this.onSelectDispute = onSelectDispute || (() => {});   // (payload) → show grounding chunks
     this.me = { authenticated: false, is_admin: false };
-    this.current = null;   // open package id (detail view) or null (list)
+    this.current = null;       // open package id (detail view) or null (list)
+    this.selectedQid = null;   // the card whose grounding is shown
   }
 
   /** (Re)load whatever view is active. Called when the rail item is opened. */
@@ -121,18 +123,44 @@ export class ReviewPanel {
     this.publishBtn.title = this.disputes.length ? 'Resolve all disputes first' : '';
 
     this.listEl.innerHTML = '';
+    this.selectedQid = null;
     if (!this.disputes.length) {
       this.listEl.append(el('p', 'muted', 'All disputes resolved — you can publish.'));
       return;
     }
-    for (const d of this.disputes) this.listEl.appendChild(this.disputeCard(d));
+    let first = null;
+    for (const d of this.disputes) {
+      const card = this.disputeCard(d);
+      if (!first) first = { d, card };
+      this.listEl.appendChild(card);
+    }
+    if (first) this._select(first.d, first.card);   // auto-select the first → populates the Grounding tab
+  }
+
+  /** Select a dispute card: highlight it and push its grounding to the Grounding tab. */
+  _select(d, card) {
+    this.selectedQid = d.qid;
+    this.listEl.querySelectorAll('.rv-card.is-selected').forEach((c) => c.classList.remove('is-selected'));
+    card.classList.add('is-selected');
+    this.onSelectDispute({ question: d.question, concepts: d.grounding || [], citations: d.locators || [] });
   }
 
   disputeCard(d) {
     const q = d.question || {};
     const multi = q.type === 'mcq_multi';
     const card = el('div', 'rv-card');
+    // Clicking the card body (not a control) selects it → its grounding chunks
+    // show in the Grounding tab to assess before deciding.
+    card.addEventListener('click', (e) => { if (!e.target.closest('input, textarea, button')) this._select(d, card); });
+
     card.append(el('div', 'rv-qid', `${d.qid} · ${q.type || ''}`));
+
+    // Where it came from: document + page(s)/locator(s).
+    const src = d.source || {};
+    let where = `📄 ${src.title || 'source'}`;
+    if (d.pages && d.pages.length) where += ` · p.${d.pages.join(', ')}`;
+    if (d.locators && d.locators.length) where += ` · ${d.locators.join(' ')}`;
+    card.append(el('div', 'rv-where', where));
 
     // Editable stem.
     const stem = el('textarea', 'rv-stem');
@@ -140,7 +168,7 @@ export class ReviewPanel {
     stem.rows = 2;
     card.append(el('label', 'rv-label', 'Question'), stem);
 
-    // Options: select the correct one(s) + edit text.
+    // Options: select the correct one(s) + edit text; chips mark key / solved.
     const opts = el('div', 'rv-options');
     const inputs = [];
     for (const o of q.options || []) {
@@ -151,7 +179,6 @@ export class ReviewPanel {
       sel.checked = !!o.correct;
       const txt = document.createElement('input');
       txt.type = 'text'; txt.className = 'rv-opt-text'; txt.value = o.text || '';
-      // Mark which option the stored key / solved answer point to.
       const tags = el('span', 'rv-opt-tags');
       if ((d.stored || []).includes(o.id)) tags.append(el('span', 'rv-tag rv-tag-stored', 'key'));
       if ((d.derived || []).includes(o.id)) tags.append(el('span', 'rv-tag rv-tag-solved', 'solved'));
@@ -161,12 +188,11 @@ export class ReviewPanel {
     }
     card.append(el('label', 'rv-label', 'Options (check the correct answer)'), opts);
 
-    // Hint: stored vs solved + evidence.
-    const hint = el('div', 'rv-hint');
-    hint.append(el('span', 'rv-hint-line', `Stored key: ${(d.stored || []).join(', ') || '—'}  ·  Answer-blind solved: ${(d.derived || []).join(', ') || '—'}`));
-    if (d.reason) hint.append(el('span', 'rv-hint-line muted', d.reason));
-    if (d.evidence) hint.append(el('span', 'rv-evidence', `“${d.evidence}”`));
-    card.append(hint);
+    // Only show a reason when it's informative (skip the boilerplate disagreement).
+    if (d.reason && !/answer-blind solve disagrees/i.test(d.reason)) {
+      card.append(el('div', 'rv-reason muted', d.reason));
+    }
+    const note = el('div', 'rv-recheck');   // re-check result lands here
 
     // Actions.
     const bar = el('div', 'rv-card-actions');
@@ -183,14 +209,13 @@ export class ReviewPanel {
     discard.addEventListener('click', () => this.resolve(d.qid, { discard: true }, discard));
 
     bar.append(save, discard);
-
     if (this.hasSource) {
       const recheck = el('button', 'tq-btn tq-btn-ghost', '↻ Re-run check');
       recheck.type = 'button';
-      recheck.addEventListener('click', () => this.revalidate(d.qid, hint, recheck));
+      recheck.addEventListener('click', () => this.revalidate(d.qid, note, recheck));
       bar.append(recheck);
     }
-    card.append(bar);
+    card.append(bar, note);
     return card;
   }
 
@@ -207,7 +232,7 @@ export class ReviewPanel {
     }
   }
 
-  async revalidate(qid, hintEl, btn) {
+  async revalidate(qid, noteEl, btn) {
     const old = btn.textContent;
     btn.disabled = true; btn.textContent = 'Checking…';
     try {
@@ -217,7 +242,7 @@ export class ReviewPanel {
         this.disputes = this.disputes.filter((d) => d.qid !== qid);
         this.renderDisputes();
       } else {
-        hintEl.append(el('span', 'rv-hint-line', `Re-check: ${r.status} — solved ${(r.derived || []).join(', ') || '—'} vs key ${(r.stored || []).join(', ') || '—'}`));
+        noteEl.textContent = `Re-check: still ${r.status} — solved ${(r.derived || []).join(', ') || '—'} vs key ${(r.stored || []).join(', ') || '—'}`;
         btn.disabled = false; btn.textContent = old;
       }
     } catch (e) {

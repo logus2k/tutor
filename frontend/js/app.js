@@ -77,8 +77,9 @@ async function main() {
   setChatStatus('Ready', 'ready');
 
   // Grounding tab (right pane, beside the Assistant): shows the current question's
-  // verbatim source chunks, revealed after answering. Reactive via shared context.
-  new GroundingPanel($('grounding'), context);
+  // verbatim source chunks, revealed after answering. Reactive via shared context;
+  // also driven explicitly from Review (showConcepts).
+  groundingPanel = new GroundingPanel($('grounding'), context);
   wireRightTabs();
 
   // Chat shown by default on desktop; hidden by default on mobile (questions
@@ -119,6 +120,8 @@ async function main() {
   // Dispute Review (held packages → resolve → publish). Refreshed when shown.
   reviewPanel = new ReviewPanel($('review-panel'), {
     onPublished: () => { buildCatalog(); buildDocuments(); },
+    // Selecting a dispute card shows its grounding chunks in the Grounding tab.
+    onSelectDispute: (payload) => { if (groundingPanel) groundingPanel.showConcepts(payload); setGroundingActive(true); },
   });
 }
 
@@ -165,6 +168,7 @@ async function renderIdentity() {
 let sessionsPanel = null;
 let famePanel = null;
 let reviewPanel = null;
+let groundingPanel = null;
 
 // ---- Study Sessions ------------------------------------------------------
 
