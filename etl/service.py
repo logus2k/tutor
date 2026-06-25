@@ -13,7 +13,7 @@ live (the §3.5 contract); a 'job.snapshot' is sent on join for catch-up.
 
 Run:  .venv_tutor/bin/uvicorn etl.service:asgi --host 0.0.0.0 --port 8099  (cwd = tutor/)
 """
-import asyncio, json, os, re, subprocess, sys, threading, datetime, time, urllib.request
+import asyncio, json, os, re, shutil, subprocess, sys, threading, datetime, time, urllib.request
 import socketio
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 
@@ -21,6 +21,7 @@ from etl import extract as extract_mod
 from etl import catalog
 from etl import sessions as sess
 from etl import review
+from etl import merge
 
 ROOT = catalog.ROOT
 PKG_DIR, DOC_DIR = catalog.PKG_DIR, catalog.DOC_DIR
@@ -35,6 +36,8 @@ asgi = socketio.ASGIApp(sio, other_asgi_app=app, socketio_path="/etl/socket.io")
 
 JOBS = {}
 LOOP = None
+JOB_CANCEL = set()   # jids the user asked to cancel (checked between docs)
+JOB_PROCS = {}       # jid -> running orchestrator Popen (killed on cancel)
 
 # Package reader (for mapping a graded answer's question → its concept_ids, so
 # mastery can be updated server-side). Cached by file mtime.
@@ -108,70 +111,124 @@ def emit(jid, event, payload):
         asyncio.run_coroutine_threadsafe(sio.emit(event, data, room=f"job:{jid}"), LOOP)
 
 # ---- job runner (background thread: blocking docker + subprocess) ----
-def run_job(jid, pdf_path, md, js, pkg_id, title, src_uri, max_concepts, qpc, owner=None):
-    try:
-        emit(jid, "job.queued", {"documents": [os.path.basename(src_uri)]})
-        if md and js:                                   # re-build from existing extraction
-            emit(jid, "stage.started", {"stage": "extract"})
-            emit(jid, "extract.progress", {"detail": "using provided extraction"})
-            emit(jid, "stage.done", {"stage": "extract"})
-        else:                                           # full docling extraction
-            emit(jid, "stage.started", {"stage": "extract"})
-            workdir = f"/tmp/etl_jobs/{jid}/extract"
-            md, js = extract_mod.extract(pdf_path, workdir, emit=lambda e, **k: emit(jid, e, k))
-            emit(jid, "stage.done", {"stage": "extract"})
+# Per-DOCUMENT ingestion: each document is extracted → authored (orchestrator
+# run once for that document) → MERGED into the package draft, persisted after
+# every document so finished docs are committed and visible. FAIL-STOP: if a
+# document fails, the run stops (a failed doc may be essential) but the docs
+# already merged are kept — fix it and add it to the package. The draft lives in
+# data/held/ (the Review area); the user resolves disputes and publishes.
 
-        out = os.path.join(PKG_DIR, pkg_id + ".json")
-        env = {**os.environ, "ETL_MD": md, "ETL_DOC": js, "ETL_OUT": out, "ETL_PKG_ID": pkg_id,
-               "ETL_JOB_ID": jid, "ETL_MAX_CONCEPTS": str(max_concepts), "ETL_QPC": str(qpc),
-               "ETL_SRC_TITLE": title, "ETL_SRC_URI": src_uri, "ETL_SRC_ID": f"src-{pkg_id}"}
-        proc = subprocess.Popen([PYTHON, "etl/orchestrator.py"], cwd=ROOT, env=env,
-                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
+# Terminal/catalog events from a per-doc orchestrator run must NOT flip the job
+# state — the job is only done after ALL docs + finalize.
+_PART_SKIP = {"job.published", "job.held", "job.failed", "catalog.updated", "catalog.skipped"}
+
+def _author_part(jid, md, js, doc, out, max_concepts, qpc, idx):
+    """Run the orchestrator for ONE document → a standalone 'part' package at
+    `out`. Returns (ok, error). Per-doc terminal events are filtered out."""
+    env = {**os.environ, "ETL_MD": md, "ETL_DOC": js, "ETL_OUT": out,
+           "ETL_PKG_ID": f"part{idx}", "ETL_JOB_ID": jid,
+           "ETL_MAX_CONCEPTS": str(max_concepts), "ETL_QPC": str(qpc),
+           "ETL_SRC_TITLE": doc["title"],
+           "ETL_SOURCES": json.dumps([{"id": doc["id"], "title": doc["title"], "uri": doc["uri"]}]),
+           "ETL_SRC_URI": doc["uri"], "ETL_SRC_ID": doc["id"]}
+    proc = subprocess.Popen([PYTHON, "etl/orchestrator.py"], cwd=ROOT, env=env,
+                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
+    JOB_PROCS[jid] = proc            # so a cancel can kill it immediately
+    err = None
+    try:
         for line in proc.stdout:
             line = line.rstrip()
-            if line.startswith("EVENT "):
-                try:
-                    p = json.loads(line[6:]); ev = p.pop("event", None); p.pop("jobId", None)
-                    if ev:
-                        emit(jid, ev, p)
-                except Exception:
-                    pass
-        proc.wait()
-        state = JOBS[jid].get("state")
-        if state == "published":
-            catalog.rebuild_package_index()
-            emit(jid, "catalog.updated", {"packageId": pkg_id})
-            if owner:
-                sess.add_notification(owner, "job", f"Published: {title}",
-                                      "Your package is now in the Catalog.", dedup_key=f"published:{pkg_id}")
-        else:
-            # Held packages are RETAINED for human review (Dispute Review area):
-            # move the file + source into data/held/ so it stays out of the
-            # Catalog but can be resolved + published later. Failed packages are
-            # discarded as before.
-            if state == "held":
-                try:
-                    pkg = json.load(open(out, encoding="utf-8"))
-                    src_text = open(md, encoding="utf-8").read() if md and os.path.exists(md) else (md or "")
-                    review.save_held(pkg, owner, src_text)
-                    n_disp = len(review.disputes_of(pkg))
-                    emit(jid, "review.available", {"packageId": pkg_id, "disputes": n_disp})
-                    if owner:
-                        sess.add_notification(owner, "review", f"Held for review: {title}",
-                                              f"{n_disp} question(s) need your review before publishing.",
-                                              dedup_key=f"held:{pkg_id}")
-                except Exception as e:  # noqa: BLE001
-                    emit(jid, "review.save_failed", {"packageId": pkg_id, "error": str(e)})
+            if not line.startswith("EVENT "):
+                continue
             try:
-                os.remove(out)   # never leave it in data/packages/ (Catalog scan)
-            except OSError:
-                pass
-            catalog.rebuild_package_index()
-            emit(jid, "catalog.skipped", {"packageId": pkg_id, "state": state})
-            if state not in ("held", "failed"):
-                JOBS[jid]["state"] = "done"; _save(JOBS[jid])
+                p = json.loads(line[6:]); ev = p.pop("event", None); p.pop("jobId", None)
+            except Exception:
+                continue
+            if not ev:
+                continue
+            if ev == "job.failed":
+                err = p.get("error", "authoring failed")
+            if ev not in _PART_SKIP:
+                emit(jid, ev, p)        # re-emit useful progress (concept.gated, transform.progress, …)
+        proc.wait()
+    finally:
+        JOB_PROCS.pop(jid, None)
+    if jid in JOB_CANCEL:
+        return (False, "cancelled")
+    if proc.returncode != 0 and not err:
+        err = f"orchestrator exited {proc.returncode}"
+    return (err is None and os.path.exists(out)), err
+
+def run_job(jid, docs, md, js, pkg_id, title, max_concepts, qpc, owner=None,
+            base_pkg=None, start_index=0):
+    try:
+        emit(jid, "job.queued", {"documents": [d["title"] for d in docs] or [title]})
+        workroot = f"/tmp/etl_jobs/{jid}"
+        total = len(docs)
+        draft = base_pkg                    # existing package when ADDING; else None
+        src_parts = []
+        for n, doc in enumerate(docs):
+            if jid in JOB_CANCEL:
+                emit(jid, "job.cancelled", {"packageId": pkg_id}); return
+            idx = start_index + n
+            emit(jid, "extract.file", {"index": n + 1, "total": total, "title": doc["title"]})
+            # ---- extract this document (FAIL-STOP) ----
+            try:
+                if doc.get("path"):
+                    md_i, js_i = extract_mod.extract(doc["path"], os.path.join(workroot, "x", str(idx)),
+                                                     emit=lambda e, **k: emit(jid, e, k))
+                else:                       # rebuild-from-extraction (synthetic single doc)
+                    md_i, js_i = md, js
+            except Exception as ex:
+                emit(jid, "job.failed", {"stage": "extract", "document": doc["title"], "error": str(ex)[:400]})
+                _finalize_draft(jid, draft, pkg_id, title, owner, src_parts, stopped_at=doc["title"])
+                return
+            emit(jid, "extract.file.done", {"index": n + 1, "total": total, "title": doc["title"]})
+            if jid in JOB_CANCEL:
+                emit(jid, "job.cancelled", {"packageId": pkg_id}); return
+            # ---- author this document into a part package (FAIL-STOP) ----
+            part_out = os.path.join(workroot, f"part-{idx}.json")
+            ok, err = _author_part(jid, md_i, js_i, doc, part_out, max_concepts, qpc, idx)
+            if jid in JOB_CANCEL:
+                emit(jid, "job.cancelled", {"packageId": pkg_id}); return
+            if not ok:
+                emit(jid, "job.failed", {"stage": "author", "document": doc["title"], "error": (err or "no package")[:400]})
+                _finalize_draft(jid, draft, pkg_id, title, owner, src_parts, stopped_at=doc["title"])
+                return
+            # ---- merge into the draft, persist (committed/visible per doc) ----
+            part = json.load(open(part_out, encoding="utf-8"))
+            draft = merge.merge_part(draft, part, idx, pkg_id, title)
+            try: src_parts.append(open(md_i, encoding="utf-8").read())
+            except Exception: pass
+            review.save_held(draft, owner, None)        # persist after each document
+            c = merge.counts(draft)
+            emit(jid, "doc.done", {"index": n + 1, "total": total, "title": doc["title"], **c})
+
+        if jid in JOB_CANCEL:
+            emit(jid, "job.cancelled", {"packageId": pkg_id}); return
+        if draft is None:
+            emit(jid, "job.failed", {"stage": "job", "error": "no documents produced content"})
+            return
+        _finalize_draft(jid, draft, pkg_id, title, owner, src_parts)
     except Exception as e:
-        emit(jid, "job.failed", {"stage": "job", "error": str(e)})
+        emit(jid, "job.failed", {"stage": "job", "error": str(e)[:400]})
+
+def _finalize_draft(jid, draft, pkg_id, title, owner, src_parts, stopped_at=None):
+    """Persist the draft to held (Review) with the combined source, notify, emit ready."""
+    if draft is None:
+        return
+    try:
+        review.save_held(draft, owner, "\n\n".join(src_parts) if src_parts else None)
+        catalog.rebuild_package_index()
+        c = merge.counts(draft)
+        emit(jid, "job.review_ready", {"packageId": pkg_id, "stoppedAt": stopped_at, **c})
+        if owner:
+            msg = (f"Stopped at “{stopped_at}”. " if stopped_at else "") + \
+                  f"{c['questions']} questions from {c['sources']} document(s); {c['disputes']} to review."
+            sess.add_notification(owner, "review", f"Ready for review: {title}", msg,
+                                  dedup_key=f"review:{pkg_id}:{c['sources']}")
+    except Exception as e:  # noqa: BLE001
+        emit(jid, "review.save_failed", {"packageId": pkg_id, "error": str(e)[:300]})
 
 # ---- REST ----
 @app.post("/etl/jobs")
@@ -180,34 +237,89 @@ async def create_job(request: Request, files: list[UploadFile] = File(default=[]
     d = json.loads(directive or "{}")
     jid = "job-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     src_md = d.get("sourceMd"); src_json = d.get("sourceJson")
-    pdf_path = None; src_uri = d.get("sourceUri", "")
 
-    if files:                                            # real upload
-        f = files[0]
-        safe = re.sub(r"[^A-Za-z0-9._-]+", "_", f.filename or "upload.pdf")
-        pdf_path = os.path.join(DOC_DIR, safe)
-        with open(pdf_path, "wb") as out:
-            out.write(await f.read())
-        src_uri = f"documents/{safe}"
-        pretty = d.get("title") or _pretty_title(f.filename or safe)   # blank → clean name from filename
-        catalog.upsert_document({"id": _slug(safe), "title": pretty,
-                                 "file": safe, "kind": "pdf", "uploaded_at": _now()})
-        pkg_id = d.get("packageId") or _slug(safe)
-        title = pretty
-    elif src_md and src_json:                            # re-build from extraction
+    docs = []
+    if files:                                            # one OR MORE uploads → a single package
+        for f in files:
+            safe = re.sub(r"[^A-Za-z0-9._-]+", "_", f.filename or "upload.pdf")
+            path = os.path.join(DOC_DIR, safe)
+            with open(path, "wb") as out:
+                out.write(await f.read())
+            t = _pretty_title(f.filename or safe)
+            catalog.upsert_document({"id": _slug(safe), "title": t, "file": safe,
+                                     "kind": "pdf", "uploaded_at": _now()})
+            docs.append({"path": path, "title": t, "uri": f"documents/{safe}", "id": f"src-{_slug(safe)}"})
+        if d.get("title"):
+            title = d["title"]
+        elif len(docs) == 1:
+            title = docs[0]["title"]
+        else:
+            title = f"{docs[0]['title']} + {len(docs) - 1} more"
+        pkg_id = d.get("packageId") or _slug(title)
+        documents = [dd["title"] for dd in docs]
+    elif src_md and src_json:                            # re-build from extraction (one synthetic doc)
         pkg_id = d.get("packageId") or "package"
         title = d.get("title") or pkg_id
-        src_uri = src_uri or "materials/source"
+        docs = [{"path": None, "title": title, "uri": "materials/source", "id": f"src-{pkg_id}"}]
+        documents = [title]
     else:
         raise HTTPException(400, "provide files[] or directive.sourceMd+sourceJson")
 
     job = {"jobId": jid, "state": "queued", "packageId": pkg_id, "title": title,
-           "documents": [os.path.basename(src_uri)], "events": [], "created_at": _now()}
+           "documents": documents, "events": [], "created_at": _now(),
+           "owner": owner, "mode": "new",
+           "files": [os.path.basename(dd["uri"]) for dd in docs if dd.get("path")]}
     JOBS[jid] = job; _save(job)
     threading.Thread(target=run_job, daemon=True, args=(
-        jid, pdf_path, src_md, src_json, pkg_id, title, src_uri,
+        jid, docs, src_md, src_json, pkg_id, title,
         int(d.get("maxConcepts", 999)), int(d.get("questionsPerConcept", 5)), owner)).start()
     return {"jobId": jid, "state": "queued", "packageId": pkg_id}
+
+@app.post("/etl/jobs/{jid}/cancel")
+def cancel_job(jid: str, request: Request):
+    """Cancel a running import and clean up its mess: stop the worker, then remove
+    the half-built draft (new imports) and the files this job uploaded."""
+    e = _require_email(request)
+    job = JOBS.get(jid)
+    if job is None and os.path.exists(_job_file(jid)):
+        job = json.load(open(_job_file(jid), encoding="utf-8"))
+    if not job:
+        raise HTTPException(404, "unknown job")
+    owner = (job.get("owner") or "").strip().lower()
+    if not (_is_admin(e) or (owner and owner == e)):
+        raise HTTPException(403, "not allowed")
+
+    JOB_CANCEL.add(jid)
+    p = JOB_PROCS.get(jid)
+    if p:
+        try: p.kill()
+        except Exception: pass
+
+    pkgid = job.get("packageId")
+    # New import → drop the half-built draft (and any package file). Add-to-existing
+    # → leave the original package intact (only the just-uploaded docs are removed).
+    if job.get("mode") == "new" and pkgid:
+        review.delete_held(pkgid)
+        try: os.remove(os.path.join(PKG_DIR, pkgid + ".json"))
+        except OSError: pass
+    # Remove the files this job uploaded + their document-index entries.
+    files = set(job.get("files") or [])
+    if files:
+        for fn in files:
+            try: os.remove(os.path.join(DOC_DIR, fn))
+            except OSError: pass
+        idxp = os.path.join(DOC_DIR, "index.json")
+        try:
+            idx = json.load(open(idxp, encoding="utf-8"))
+            idx["documents"] = [x for x in idx.get("documents", []) if x.get("file") not in files]
+            json.dump(idx, open(idxp, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+        except Exception:
+            pass
+    catalog.rebuild_package_index()
+    shutil.rmtree(f"/tmp/etl_jobs/{jid}", ignore_errors=True)
+    job["state"] = "cancelled"; JOBS[jid] = job; _save(job)
+    emit(jid, "job.cancelled", {"packageId": pkgid})
+    return {"ok": True, "cancelled": jid}
 
 @app.get("/etl/jobs/{jid}")
 def get_job(jid: str):
@@ -585,6 +697,56 @@ def review_delete(pkg_id: str, request: Request):
     _load_reviewable(request, pkg_id)
     review.delete_held(pkg_id)
     return {"deleted": True}
+
+@app.post("/etl/review/{pkg_id}/documents")
+async def review_add_documents(pkg_id: str, request: Request, files: list[UploadFile] = File(default=[])):
+    """Add one or more documents to an EXISTING package (held draft or published).
+    Each new doc is processed per-document and merged in; the result lands in the
+    held draft (Review) for the owner/admin to resolve + (re)publish."""
+    e = _require_email(request)
+    safe = review._safe_id(pkg_id)
+    pkg = review.get_held(safe)
+    from_published = False
+    if pkg is None:
+        ppath = os.path.join(PKG_DIR, safe + ".json") if safe else ""
+        if safe and os.path.exists(ppath):
+            pkg = json.load(open(ppath, encoding="utf-8")); from_published = True
+        else:
+            raise HTTPException(404, "package not found")
+    if not _can_review(e, pkg):
+        raise HTTPException(403, "not allowed")
+    if not files:
+        raise HTTPException(400, "no files")
+
+    docs = []
+    for f in files:
+        sname = re.sub(r"[^A-Za-z0-9._-]+", "_", f.filename or "upload.pdf")
+        path = os.path.join(DOC_DIR, sname)
+        with open(path, "wb") as out:
+            out.write(await f.read())
+        t = _pretty_title(f.filename or sname)
+        catalog.upsert_document({"id": _slug(sname), "title": t, "file": sname,
+                                 "kind": "pdf", "uploaded_at": _now()})
+        docs.append({"path": path, "title": t, "uri": f"documents/{sname}", "id": f"src-{_slug(sname)}"})
+
+    # If it was published, pull it out of the Catalog while we extend it (it
+    # becomes a held draft until the user re-publishes).
+    if from_published:
+        try: os.remove(os.path.join(PKG_DIR, safe + ".json"))
+        except OSError: pass
+        catalog.rebuild_package_index()
+
+    title = pkg.get("title") or safe
+    start_index = len(pkg.get("sources", []))
+    jid = "job-" + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    job = {"jobId": jid, "state": "queued", "packageId": safe, "title": title,
+           "documents": [d["title"] for d in docs], "events": [], "created_at": _now(),
+           "owner": e, "mode": "add",
+           "files": [os.path.basename(dd["uri"]) for dd in docs if dd.get("path")]}
+    JOBS[jid] = job; _save(job)
+    threading.Thread(target=run_job, daemon=True, args=(
+        jid, docs, None, None, safe, title, 999, 5, e, pkg, start_index)).start()
+    return {"jobId": jid, "state": "queued", "packageId": safe}
 
 @app.post("/etl/review/{pkg_id}/rename")
 async def review_rename(pkg_id: str, request: Request):

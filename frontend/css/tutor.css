@@ -656,8 +656,19 @@ div.brand-text { margin-left: 5px; }
 .ingest-btn:disabled { opacity: .55; cursor: default; }
 
 .ingest-job { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
-.ingest-status { font-size: 14px; font-weight: 600; color: var(--text); }
+.ingest-status { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.ingest-status-label { flex: 0 1 auto; }
+.ingest-status-elapsed { flex: 0 0 auto; color: var(--text-mute); font-weight: 400; }
+.ingest-cancel { margin-left: auto; flex: 0 0 auto; background: #fff; border: 1.5px solid #fecaca; color: var(--bad);
+  font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 10px; border-radius: 7px; }
+.ingest-cancel:hover { background: var(--bad-soft); }
+.ingest-cancel:disabled { opacity: .6; cursor: default; }
 .ingest-counts { font-size: 12.5px; color: var(--text-mute); margin-top: 4px; }
+/* ingestion progress bar (determinate = % width; indeterminate = sweep) */
+.ingest-bar { position: relative; height: 8px; margin: 8px 0 2px; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.ingest-bar-fill { height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .3s ease; }
+.ingest-bar.indeterminate .ingest-bar-fill { width: 40% !important; border-radius: 999px; animation: ingest-sweep 1.1s ease-in-out infinite; }
+@keyframes ingest-sweep { 0% { margin-left: -42%; } 100% { margin-left: 100%; } }
 .ingest-log {
   margin-top: 10px; max-height: 160px; overflow-y: auto;
   font-size: 12.5px; color: var(--text-soft);
@@ -668,3 +679,4 @@ div.brand-text { margin-left: 5px; }
 .ingest-ok   { background: var(--ok-soft);  color: var(--ok);  border: 1px solid #bbf7d0; }
 .ingest-warn { background: #fffbeb;         color: #92400e;    border: 1px solid #fde68a; }
 .ingest-failed { background: var(--bad-soft); color: var(--bad); border: 1px solid #fecaca; }
+.ingest-cancelled { background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }

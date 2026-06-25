@@ -24,6 +24,9 @@ SRC_ID = os.environ.get("ETL_SRC_ID", "src-ai901")
 SRC_TITLE = os.environ.get("ETL_SRC_TITLE", "Microsoft Certified: Azure AI Fundamentals (AI-901) Master Cheat Sheet")
 SRC_URI = os.environ.get("ETL_SRC_URI", "materials/AI-901.pdf")
 PKG_ID = os.environ.get("ETL_PKG_ID", "ai-901-core")
+# All uploaded documents that make up this package (multi-doc ingestion). Falls
+# back to the single SRC_* source when not provided.
+SOURCES = json.loads(os.environ.get("ETL_SOURCES") or "[]")
 API  = os.environ.get("ETL_API", "http://localhost:7701/v1/chat/completions")
 
 # argv fallbacks only apply when run as a script with NUMERIC args; importing this
@@ -332,35 +335,131 @@ def page_map(doc_path):
 
 # ---------------------------------------------------------------- segment (Markdown)
 def segment(md_path):
-    lines = open(md_path, encoding="utf-8").read().split("\n")
-    domain = {"num": None, "title": None, "weight": None}
-    domains, concepts, cur = {}, [], None
-    for ln in lines:
-        md_ = re.match(r"^## Domain (\d+):\s*(.*)", ln)
-        ob  = re.match(r"^#### (\d+\.\d+\.\d+)\s+(.*)", ln)
-        brk = re.match(r"^#{1,4}\s", ln)
-        if md_:
-            num, ttl = md_.group(1), md_.group(2).strip()
-            wm = re.search(r"\((\d+)\s*-\s*(\d+)%\)", ttl)
-            weight = (int(wm.group(1)) + int(wm.group(2))) / 200 if wm else None
-            ttl = re.sub(r"\s*\(\d+\s*-\s*\d+%\)", "", ttl)
-            domain = {"num": num, "title": ttl, "weight": weight}
-            domains[f"d{num}"] = {"id": f"d{num}", "title": ttl, "weight": weight}
-            if cur: concepts.append(cur); cur = None
-            continue
-        if ob:
-            if cur: concepts.append(cur)
-            cur = {"objective": ob.group(1), "title": ob.group(2).strip(),
-                   "domain_num": domain["num"], "lines": []}
-            continue
-        if brk and not ln.startswith("#####"):
-            if cur: concepts.append(cur); cur = None
-            continue
-        if cur is not None: cur["lines"].append(ln)
-    if cur: concepts.append(cur)
+    """Split a document's markdown into concept-sized sections — STRUCTURE-AGNOSTIC.
+
+    Any heading (#..######) starts a section; top-level headings (h1/h2) group as
+    domains, the rest are concepts. A document with no usable headings is chunked
+    by length. EVERY document therefore yields concepts (no dependency on the
+    AI-901 '## Domain N:' / '#### 1.1.1' convention that used to be required)."""
+    raw = open(md_path, encoding="utf-8").read()
+    secs, cur = [], None
+    for ln in raw.split("\n"):
+        h = re.match(r"^(#{1,6})\s+(.*)", ln)
+        if h:
+            if cur: secs.append(cur)
+            cur = {"level": len(h.group(1)), "title": h.group(2).strip(), "lines": []}
+        elif cur is not None:
+            cur["lines"].append(ln)
+        elif ln.strip():                     # preamble before the first heading
+            cur = {"level": 0, "title": "Overview", "lines": [ln]}
+    if cur: secs.append(cur)
+
+    domains, concepts = {}, []
+    dnum, cseq = [0], [0]
+    def new_domain(title):
+        dnum[0] += 1; cseq[0] = 0
+        did = f"d{dnum[0]}"
+        domains[did] = {"id": did, "title": (title or f"Section {dnum[0]}")[:120], "weight": None}
+        return dnum[0]
+    def add(title, lines, dn):
+        cseq[0] += 1
+        concepts.append({"objective": f"{dn}.{cseq[0]}", "title": (title or f"Part {cseq[0]}")[:160],
+                         "domain_num": dn, "lines": lines})
+
+    has_top = any(s["level"] in (1, 2) for s in secs)
+    cur_dn = None
+    for s in secs:
+        words = len(" ".join(s["lines"]).split())
+        if has_top and s["level"] in (1, 2):
+            cur_dn = new_domain(s["title"])
+            add(s["title"], s["lines"], cur_dn)   # always a candidate; downstream drops empty ones
+        else:
+            if cur_dn is None:
+                cur_dn = new_domain("Document")
+            add(s["title"], s["lines"], cur_dn)
+
+    if not concepts:                          # no headings at all → fixed-size chunks
+        cur_dn = new_domain("Document")
+        words = raw.split()
+        for k in range(0, max(1, len(words)), 500):
+            add(None, [" ".join(words[k:k + 500])], cur_dn)
+
     for c in concepts:
         c["text"] = "\n".join(c["lines"]).strip(); c["words"] = len(c["text"].split())
     return concepts, domains
+
+# ---------------------------------------------------------------- chunk for the LLM
+def _markdown_sections(md_path):
+    """FALLBACK only: split exported markdown into heading-delimited sections when
+    the structured DoclingDocument JSON is unavailable. (The primary path uses
+    docling's own section structure — see chunk_doc.)"""
+    raw = open(md_path, encoding="utf-8").read()
+    blocks, cur = [], []
+    for ln in raw.split("\n"):
+        if re.match(r"^#{1,6}\s+", ln) and cur:
+            blocks.append("\n".join(cur)); cur = [ln]
+        else:
+            cur.append(ln)
+    if cur:
+        blocks.append("\n".join(cur))
+    return blocks
+
+def chunk_doc(md_path, doc_path=None, max_chars=None):
+    """Pack a document into LLM-sized chunks using docling's OWN section structure.
+
+    docling already detects the document hierarchy, so we read its structured
+    output (the DoclingDocument JSON produced at extraction) and let docling's
+    HierarchicalChunker emit section-aware pieces WITH their heading context — no
+    regex heading-detection of our own. We then merge small sections up to a char
+    budget and slice any single oversized section, so every chunk fits the model
+    window (a document bigger than the window just becomes more chunks). Each piece
+    is a whole section, so a question and its answer key are never split apart.
+    Falls back to a markdown heading split only if the structured JSON is missing."""
+    max_chars = max_chars or int(os.environ.get("ETL_CHUNK_CHARS") or 18000)
+
+    # each section: (text_with_heading_context, headings[list], pages[list])
+    sections = None
+    try:
+        from docling.chunking import HierarchicalChunker
+        from docling_core.types.doc import DoclingDocument
+        doc = DoclingDocument.load_from_json(doc_path or DOC)
+        sections = []
+        for ch in HierarchicalChunker().chunk(doc):
+            heads = [h for h in (getattr(ch.meta, "headings", None) or []) if h]
+            pages = sorted({p.page_no for it in (ch.meta.doc_items or [])
+                            for p in (getattr(it, "prov", None) or []) if getattr(p, "page_no", None)})
+            ctx = (" > ".join(heads) + "\n\n") if heads else ""
+            sections.append((ctx + (ch.text or ""), heads, pages))
+        emit("chunk.source", source="docling", sections=len(sections))
+    except Exception as e:
+        emit("warn", message=f"docling chunker unavailable ({e}); markdown fallback")
+        sections = [(b, [], []) for b in _markdown_sections(md_path)]
+
+    # slice any single section larger than the budget (rare; long prose)
+    norm = []
+    for text, heads, pages in sections:
+        if len(text) <= max_chars:
+            norm.append((text, heads, pages)); continue
+        for k in range(0, len(text), max_chars):
+            norm.append((text[k:k + max_chars], heads, pages))
+
+    # greedily pack consecutive sections into chunks under the budget, unioning their
+    # heading context + source pages so each chunk keeps real provenance for Review
+    chunks, cur = [], None
+    for text, heads, pages in norm:
+        if cur and len(cur["text"]) + len(text) + 2 > max_chars:
+            chunks.append(cur); cur = None
+        if cur is None:
+            cur = {"text": text, "headings": list(heads), "pages": set(pages)}
+        else:
+            cur["text"] += "\n\n" + text
+            cur["headings"] += [h for h in heads if h not in cur["headings"]]
+            cur["pages"] |= set(pages)
+    if cur:
+        chunks.append(cur)
+    for c in chunks:
+        c["pages"] = sorted(c["pages"])
+    return [c for c in chunks if c["text"].strip()]
 
 # ---------------------------------------------------------------- helpers
 def opt_id(i): return chr(ord("a") + i)
@@ -371,6 +470,84 @@ LOC_RE = re.compile(r"^(§\d+\.\d+(?:\.\d+)?|p\.\s*\d+)$")
 def clean_locator(loc, fallback):
     loc = (loc or "").strip()
     return loc if LOC_RE.match(loc) else fallback
+
+_ANS_LABEL = re.compile(r"^(the\s+)?(correct\s+)?(answers?|ans|options?|choices?)\s*[:\-.]?\s*", re.I)
+def resolve_key(source_answer, options):
+    """Map a document's STATED answer (transcribed by the LLM) to option ids,
+    deterministically — so an imported question's key comes from the source's own
+    words, never the model's opinion. Accepts option letter(s)/number(s) ("c",
+    "b, d", "2") or the correct option's text. Returns a set of correct ids (empty
+    if it cannot be resolved). This is answer-token resolution, NOT format parsing."""
+    sa = str(source_answer or "").strip()
+    if not sa:
+        return set()
+    letters = {o["id"] for o in options}
+    texts = [(o["id"], (o.get("text") or "").strip().lower()) for o in options]
+    ids = set()
+    for part in re.split(r"[,/&;]|\band\b", sa, flags=re.I):
+        p = _ANS_LABEL.sub("", part.strip()).strip().strip("().:").strip()
+        if not p:
+            continue
+        pl = p.lower()
+        if len(pl) == 1 and pl in letters:                 # option letter
+            ids.add(pl); continue
+        if p.isdigit():                                     # 1-based index
+            k = int(p) - 1
+            if 0 <= k < len(options): ids.add(options[k]["id"])
+            continue
+        exact = [oid for oid, t in texts if t and t == pl]  # exact option text
+        if exact:
+            ids.update(exact); continue
+        sub = [oid for oid, t in texts if t and (pl in t or t in pl)]
+        if len(sub) == 1:                                   # unambiguous substring
+            ids.add(sub[0])
+    return ids
+
+# ---------------------------------------------------------------- import ready-made Q&A
+# A document may ALREADY contain multiple-choice questions (stem → a./b./c./d. →
+# "Answer: x"). Import those VERBATIM instead of authoring around them.
+# Tolerate docling's rendering: options come out as list items ("- a. Foo") and
+# the answer as a heading ("##### Answer: c"), so allow an optional list marker
+# before the option letter and optional heading hashes before "Answer".
+_OPT_RE = re.compile(r"^\s*(?:[-*+]\s+)?([a-hA-H])[.)]\s+(.+?)\s*$")
+_ANS_RE = re.compile(r"^\s*#*\s*Answer\s*[:\-]\s*([A-Ha-h](?:\s*[,/&]\s*[A-Ha-h])*)\s*$", re.I)
+_PFX_RE = re.compile(r"^\(?\s*(multiple[\s-]*choice|open[^)]*|true[\s/-]*false)\s*\)?\s*[:.\-]?\s*", re.I)
+
+def parse_qa(text):
+    """Extract already-formed MCQs from a section's markdown. Returns a list of
+    {stem, type, options:[{id,text,correct,rationale}], difficulty}. Open/free-text
+    questions (no options) are skipped — the app only renders MCQ/true-false."""
+    lines = (text or "").split("\n")
+    out, i, n = [], 0, len(lines)
+    while i < n:
+        if not _OPT_RE.match(lines[i]):
+            i += 1; continue
+        start = i; opts = []
+        while i < n and _OPT_RE.match(lines[i]):
+            m = _OPT_RE.match(lines[i]); opts.append((m.group(1).lower(), m.group(2).strip())); i += 1
+        if len(opts) < 2:
+            continue
+        j = start - 1                                  # stem = nearest non-blank line above
+        while j >= 0 and not lines[j].strip():
+            j -= 1
+        stem = _PFX_RE.sub("", lines[j].strip()) if j >= 0 else ""
+        k = i                                          # answer = next non-blank line
+        while k < n and not lines[k].strip():
+            k += 1
+        am = _ANS_RE.match(lines[k]) if k < n else None
+        if not (am and stem):
+            continue
+        ans = {x.strip().lower() for x in re.split(r"[,/&]", am.group(1))}
+        i = k + 1
+        options, correct = [], 0
+        for idx, (letter, txt) in enumerate(opts):
+            is_c = letter in ans
+            correct += is_c
+            options.append({"id": opt_id(idx), "text": txt, "correct": bool(is_c), "rationale": ""})
+        if correct:
+            out.append({"stem": stem, "type": ("mcq_multi" if correct > 1 else "mcq_single"),
+                        "options": options, "difficulty": 2})
+    return out
 
 
 def main():
@@ -383,17 +560,20 @@ def main():
     # ---------------------------------------------------------------- run
     if not os.environ.get("ETL_JOB_ID"):     # service emits its own job.queued; avoid a dupe
         emit("job.queued", documents=[{"uri": SRC_URI}])
-    emit("stage.started", stage="segment")
-    PAGES = page_map(DOC)
-    all_concepts, domains = segment(MD)
-    emit("stage.done", stage="segment", concepts_found=len(all_concepts), pages_mapped=len(PAGES))
+    emit("stage.started", stage="chunk")
+    chunks = chunk_doc(MD, DOC)
+    emit("stage.done", stage="chunk", chunks=len(chunks))
     emit("stage.started", stage="transform")
 
     pkg_concepts, pkg_questions, warnings, disputes = [], [], [], []
-    domains_used, qnum = {}, 0
+    qnum = 0
+    # one domain per document; multi-doc merge namespaces ids with d{idx}- downstream
+    domains = {"d1": {"id": "d1", "title": (SRC_TITLE or "Document")[:120], "weight": None}}
+    domains_used = {"d1": True}
+    concept_by_title = {}      # lower(title) -> concept dict (deduped across chunks)
+    _cseq = [0]
 
-    # package-wide difficulty plan: a repeating pattern proportional to the target
-    # distribution, drawn QPC-at-a-time so the *package* covers all 5 levels.
+    # difficulty spread for AUTHORED questions (imported keep the source's own level)
     _DIST = {1: .15, 2: .25, 3: .30, 4: .20, 5: .10}
     _PATTERN = [lvl for lvl, frac in _DIST.items() for _ in range(max(1, round(frac * 20)))]
     _dix = [0]
@@ -402,91 +582,81 @@ def main():
         _dix[0] += n
         return out
 
-    def gate(meta):
-        return agent_json("concept_extractor", meta)
+    def get_concept(title, chunk_text, locator, citation):
+        key = (title or "General").strip().lower()[:160]
+        if key in concept_by_title:
+            return concept_by_title[key]
+        _cseq[0] += 1
+        concept = {"id": f"c-{_cseq[0]}", "domain": "d1", "objective": str(_cseq[0]),
+                   "title": (title or "General")[:160], "summary": "", "prerequisites": [], "tags": [],
+                   "grounding": [{"source_id": SRC_ID, "locator": locator or "document",
+                                  "text": (chunk_text or "")[:400], "citation": (citation or title or "")[:160]}]}
+        concept_by_title[key] = concept
+        pkg_concepts.append(concept)
+        return concept
 
-    i = 0
-    processed = 0
-    while i < len(all_concepts) and len(pkg_concepts) < MAX_CONCEPTS:
-        c = all_concepts[i]; i += 1
-        obj = c["objective"]
-        page = PAGES.get(obj)
-        locator = (f"p.{page} " if page else "") + f"§{obj}"
-        locator_code = f"§{obj}"
-        if c["words"] < MIN_WORDS:
-            warnings.append(f"{locator_code}: pre-filtered ({c['words']} words)")
-            emit("concept.skipped", objective=obj, reason="below min words"); continue
-
-        cache_f = f"{WORK}/{obj}.json"
-        if os.path.exists(cache_f):                      # resume
-            cached = json.load(open(cache_f))
-            pkg_concepts.append(cached["concept"]); pkg_questions.extend(cached["questions"])
-            domains_used[cached["concept"]["domain"]] = True
-            emit("concept.cached", objective=obj, questions=len(cached["questions"])); continue
-
-        meta = (f"Objective: {obj} | Heading: {c['title']} | Locator: {locator_code} | "
-                f"Domain: {domains.get('d'+str(c['domain_num']),{}).get('title','')}\n\n{c['text']}")
+    for ci, chunk in enumerate(chunks):
+        ctext = chunk["text"]; cpages = chunk.get("pages") or []; cheads = chunk.get("headings") or []
+        loc = (f"p.{cpages[0]}" if len(cpages) == 1 else f"p.{cpages[0]}-{cpages[-1]}") if cpages else f"chunk {ci+1}"
+        citation = " > ".join(cheads)
+        emit("chunk.started", index=ci + 1, total=len(chunks), pages=cpages)
+        directive = {"document_title": SRC_TITLE, "chunk_index": ci + 1, "chunk_total": len(chunks),
+                     "questions_per_concept": QPC, "types": ["mcq_single", "mcq_multi", "true_false"],
+                     "chunk": ctext}
         try:
-            ce = gate(meta)
+            res = agent_json("document_author", json.dumps(directive))
         except Exception as e:
-            warnings.append(f"{locator_code}: gate failed ({e})"); continue
+            warnings.append(f"chunk {ci+1}: document_author failed ({e})")
+            emit("chunk.failed", index=ci + 1, error=str(e)[:200]); continue
 
-        action = ce.get("suggested_action", "accept")
-        if not ce.get("usable") or action == "skip":
-            warnings.append(f"{locator_code}: gate rejected ({ce.get('reason','?')})")
-            emit("concept.skipped", objective=obj, reason=ce.get("reason", "")); continue
-        if action == "merge_next" and i < len(all_concepts):   # bounded remediation (1 round)
-            nxt = all_concepts[i]
-            meta2 = meta + "\n\n" + nxt["text"]
-            try:
-                ce2 = gate(meta2)
-                if ce2.get("usable"):
-                    ce = ce2; c = {**c, "text": c["text"] + "\n" + nxt["text"]}; i += 1
-                    emit("concept.merged", objective=obj, merged_with=nxt["objective"])
-            except Exception:
-                pass
-        elif action in ("merge_prev", "split"):
-            warnings.append(f"{locator_code}: gate suggested '{action}' — accepted as-is (remediation-lite)")
+        # register any concepts the model named (summaries enrich existing ones)
+        for rc in (res.get("concepts") or []):
+            c = get_concept(rc.get("title"), ctext, loc, citation)
+            if rc.get("summary") and not c["summary"]:
+                c["summary"] = str(rc["summary"])[:600]
 
-        did = f"d{c['domain_num']}"; domains_used[did] = True
-        cid = f"c-{obj.replace('.', '-')}"
-        grounding = [{"source_id": SRC_ID, "locator": clean_locator(g.get("locator"), locator),
-                      "text": g.get("text", ""), "citation": f"AI-901 {locator}"}
-                     for g in (ce.get("grounding") or [])]
-        if not grounding:
-            grounding = [{"source_id": SRC_ID, "locator": locator, "text": c["text"][:300],
-                          "citation": f"AI-901 {locator}"}]
-        concept = {"id": cid, "domain": did, "objective": obj,
-                   "title": ce.get("title") or c["title"], "summary": ce.get("summary", ""),
-                   "prerequisites": ce.get("prerequisites", []) or [], "grounding": grounding,
-                   "tags": ce.get("tags", []) or []}
-        emit("concept.gated", objective=obj, title=concept["title"], action=action)
-
-        directive = {"concept": {"title": concept["title"], "objective": obj,
-                                 "summary": concept["summary"], "grounding": grounding},
-                     "questions_per_concept": QPC, "target_difficulties": next_targets(QPC),
-                     "types": ["mcq_single", "mcq_multi", "true_false"]}
-        try:
-            qa = agent_json("question_author", json.dumps(directive))
-        except Exception as e:
-            warnings.append(f"{locator_code}: author failed ({e})"); pkg_concepts.append(concept); continue
-
-        concept_qs = []
-        for raw in qa.get("questions", []):
-            opts = raw.get("options", [])
+        imp_n = auth_n = 0
+        for raw in (res.get("questions") or []):
+            c = get_concept(raw.get("concept_title") or raw.get("concept"), ctext, loc, citation)
+            cid = c["id"]; is_imp = bool(raw.get("imported"))
+            opts = raw.get("options", []) or []
             for k, o in enumerate(opts): o["id"] = opt_id(k); o.setdefault("rationale", "")
             qnum += 1; qid = f"q-{qnum:04d}"
-            srcs = [{"source_id": SRC_ID, "locator": clean_locator(l, locator_code)}
-                    for l in (raw.get("source_locators") or [locator_code])]
             q = {"id": qid, "concept_ids": [cid], "type": raw.get("type", "mcq_single"),
-                 "render": raw.get("render", "radio"), "difficulty": int(raw.get("difficulty", 2)),
-                 "bloom": raw.get("bloom", "understand"), "stem": raw.get("stem", ""),
+                 "render": raw.get("render", "radio"), "difficulty": int(raw.get("difficulty", 2) or 2),
+                 "bloom": raw.get("bloom", "recall" if is_imp else "understand"),
+                 "stem": raw.get("stem", ""),
                  "options": [{"id": o["id"], "text": o.get("text", ""), "correct": bool(o.get("correct")),
                               "rationale": o.get("rationale", "")} for o in opts],
                  "explanation": raw.get("explanation", ""), "hints": raw.get("hints", []) or [],
-                 "source_refs": srcs, "tags": raw.get("tags", []) or []}
-            scrub_meta(q)   # self-contain BEFORE judging so the judge sees clean text
-            # judge with one bounded repair
+                 "source_refs": [{"source_id": SRC_ID, "locator": loc}],
+                 "tags": (raw.get("tags", []) or []) + (["imported"] if is_imp else [])}
+
+            if is_imp:
+                # the document's OWN question: the stored key comes from the source's STATED answer
+                # (resolved deterministically), never the model's opinion. Sanitize only — no re-judge/reword.
+                key = resolve_key(raw.get("source_answer"), q["options"])
+                if key:
+                    for o in q["options"]:
+                        o["correct"] = o["id"] in key
+                elif raw.get("source_answer"):
+                    warnings.append(f"{qid}: source_answer '{str(raw.get('source_answer'))[:30]}' unresolved — kept model flags")
+                else:
+                    warnings.append(f"{qid}: imported with no source_answer — kept model flags")
+                sq = sanitize_question(q)
+                if sq:
+                    sq["tags"] = sorted(set((sq.get("tags") or []) + ["imported"]))
+                    pkg_questions.append(sq); imp_n += 1
+                    emit("question.imported", qid=qid, accepted=True)
+                else:
+                    warnings.append(f"{qid}: imported question unsalvageable (no clear key) — skipped")
+                continue
+
+            # authored: self-contain, judge with one bounded repair, then answer-blind validate
+            scrub_meta(q)
+            grounding = c["grounding"]
+            fix_dir = {"concept": {"title": c["title"], "summary": c["summary"], "grounding": grounding},
+                       "questions_per_concept": 1, "types": ["mcq_single", "mcq_multi", "true_false"]}
             accepted = False
             for attempt in range(2):
                 v = robust_judge(q, grounding)   # judged against the full document
@@ -496,9 +666,8 @@ def main():
                     accepted = True; break
                 if attempt == 0:   # one repair: ask author to fix this one
                     try:
-                        fix = agent_json("question_author", json.dumps({**directive,
-                            "questions_per_concept": 1, "target_difficulties": [q["difficulty"]],
-                            "fix_feedback": v.get("issues", [])}))
+                        fix = agent_json("question_author", json.dumps({**fix_dir,
+                            "target_difficulties": [q["difficulty"]], "fix_feedback": v.get("issues", [])}))
                         r2 = (fix.get("questions") or [None])[0]
                         if r2:
                             o2 = r2.get("options", [])
@@ -512,9 +681,9 @@ def main():
                     except Exception:
                         pass
                 else:
-                    warnings.append(f"{qid} ({locator_code}): rejected after repair — {', '.join(v.get('issues', []))[:100]}")
+                    warnings.append(f"{qid}: rejected after repair — {', '.join(v.get('issues', []))[:100]}")
             if accepted:
-                concept_qs.append(q)
+                pkg_questions.append(q); auth_n += 1
                 if VALIDATE_ON:                         # answer-blind second opinion
                     va = validate_answer(q)
                     if va["status"] == "dispute":
@@ -525,11 +694,9 @@ def main():
                     elif va["status"] == "inconclusive":
                         warnings.append(f"{qid}: validator inconclusive (no parseable solve)")
                     emit("question.validated", qid=qid, status=va["status"])
-            emit("question.judged", objective=obj, qid=qid, accepted=accepted)
+            emit("question.judged", qid=qid, accepted=accepted)
 
-        pkg_concepts.append(concept); pkg_questions.extend(concept_qs)
-        json.dump({"concept": concept, "questions": concept_qs}, open(cache_f, "w"))
-        processed += 1
+        emit("chunk.done", index=ci + 1, total=len(chunks), imported=imp_n, authored=auth_n)
         emit("transform.progress", concepts_done=len(pkg_concepts), questions_accepted=len(pkg_questions))
 
     # defensive sanitize: guarantee every question is schema-valid + internally consistent
@@ -575,13 +742,16 @@ def main():
         warnings.append(f"curator failed ({e})")
         title, description = (SRC_TITLE or "Untitled package"), f"Question bank generated from {SRC_TITLE}."
 
+    # All uploaded documents (multi-doc) or the single fallback source.
+    _src_in = SOURCES or [{"id": SRC_ID, "title": SRC_TITLE, "uri": SRC_URI}]
+    sources_full = [{"id": s.get("id"), "title": s.get("title"),
+                     "kind": "pdf", "extractor": "docling+enrich", "uri": s.get("uri")} for s in _src_in]
     package = {
         "schema_version": "1.0", "id": PKG_ID, "title": title, "description": description,
         "generated_by": "tutor orchestrator.py (gemma-4-e2b)",
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "sources": [{"id": SRC_ID, "title": SRC_TITLE,
-                     "kind": "pdf", "extractor": "docling+enrich", "uri": SRC_URI}],
-        "source_ids": [SRC_ID], "taxonomy": {"domains": domains_list},
+        "sources": sources_full,
+        "source_ids": [s["id"] for s in sources_full], "taxonomy": {"domains": domains_list},
         "concepts": pkg_concepts, "questions": pkg_questions,
     }
 

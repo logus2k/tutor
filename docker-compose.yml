@@ -21,10 +21,19 @@ services:
       - ETL_API=http://host.docker.internal:7701/v1/chat/completions
       - ETL_DOCLING_MODE=local
       - DOCLING_MODELS=/data/models/docling/models
-      - ETL_DOCLING_DEVICE=auto      # CPU build → cpu; see README for the GPU upgrade
+      - ETL_DOCLING_DEVICE=auto      # CUDA build → uses the GPU (device reservation below)
       - TUTOR_ADMIN_EMAILS=logus2k@gmail.com   # Dispute Review admins (comma-separated)
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    # GPU passthrough for docling (RTX 4090). Needs the NVIDIA Container Toolkit
+    # (present — Docker has the nvidia runtime). torch is the CUDA build.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     restart: unless-stopped
     # On the shared external edge network so it survives Docker/WSL restarts
     # (the previous per-project default network did not) and is reachable by

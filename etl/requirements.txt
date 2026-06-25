@@ -1,9 +1,9 @@
 # Tutor ETL backend — pinned to the versions baked into the tutor base image.
 # docling transitively pulls torch, transformers, docling-ibm-models, etc.
 #
-# torch/torchvision are pinned to the CPU wheels (download.pytorch.org/whl/cpu).
-# The default PyPI torch is the CUDA build (the image was 6.13GB on cu130);
-# docling runs fine on CPU here, so the CPU wheel keeps the base image small.
+# torch/torchvision are the CUDA (cu130) wheels so docling runs on the GPU
+# (RTX 4090) — far faster extraction. Bigger base image (~6GB); the container
+# must be granted the GPU (docker-compose.yml) with ETL_DOCLING_DEVICE=auto.
 #
 # Direct deps:
 #   fastapi + python-multipart  REST (POST /etl/jobs is multipart)
@@ -11,9 +11,9 @@
 #   python-socketio             live job progress (socket.io server)
 #   jsonschema                  hard package-schema validation
 #   docling                     PDF/Word extraction (CLI invoked by extract.py)
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.12.1+cpu
-torchvision==0.27.1+cpu
+--extra-index-url https://download.pytorch.org/whl/cu130
+torch==2.12.1+cu130
+torchvision==0.27.1+cu130
 fastapi==0.138.0
 uvicorn[standard]==0.49.0
 python-socketio==5.16.3

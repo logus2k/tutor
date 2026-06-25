@@ -102,10 +102,30 @@ export class ReviewPanel {
       try { await fetchJson(`${API}/review/${encodeURIComponent(id)}/rename`, { method: 'POST', body: { title: t } }); this.openPackage(id); }
       catch (e) { alert(`Rename failed: ${e.message}`); }
     });
+    // Add document(s) to this package (per-document; merges + lands back here).
+    const addBtn = el('button', 'tq-btn tq-btn-ghost', '➕ Add document');
+    addBtn.type = 'button';
+    const fileIn = document.createElement('input');
+    fileIn.type = 'file'; fileIn.multiple = true; fileIn.accept = '.pdf,.docx,.md,.markdown';
+    fileIn.style.display = 'none';
+    fileIn.addEventListener('change', async () => {
+      if (!fileIn.files.length) return;
+      const fd = new FormData();
+      for (const f of fileIn.files) fd.append('files', f, f.name);
+      addBtn.disabled = true; addBtn.textContent = 'Uploading…';
+      try {
+        const r = await fetch(`${API}/review/${encodeURIComponent(id)}/documents`, { method: 'POST', body: fd });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        alert('Adding document(s) — watch progress in the Documents tab. This package updates here when done.');
+      } catch (e) { alert(`Add failed: ${e.message}`); }
+      addBtn.disabled = false; addBtn.textContent = '➕ Add document'; fileIn.value = '';
+    });
+    addBtn.addEventListener('click', () => fileIn.click());
+
     const del = el('button', 'tq-btn tq-btn-ghost', '🗑 Discard package');
     del.type = 'button';
     del.addEventListener('click', () => this.discardPackage());
-    this.actionsEl.append(this.publishBtn, ren, del);
+    this.actionsEl.append(this.publishBtn, ren, addBtn, del, fileIn);
     this.root.append(this.actionsEl);
 
     this.hasSource = data.has_source;

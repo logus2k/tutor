@@ -34,9 +34,10 @@ const el = (tag, cls, text) => {
 };
 
 export class IngestPanel {
-  constructor(mount, { onPublished } = {}) {
+  constructor(mount, { onPublished, onUploaded } = {}) {
     this.mount = mount;
     this.onPublished = onPublished || (() => {});
+    this.onUploaded = onUploaded || (() => {});
     this.socket = null;
     this.poll = null;
     this.ticker = null;
@@ -55,6 +56,7 @@ export class IngestPanel {
     const file = el('input');
     file.type = 'file';
     file.accept = '.pdf,.docx,.md,.markdown';
+    file.multiple = true;          // several documents → one combined package
     file.required = true;
     file.className = 'ingest-file';
 
@@ -67,7 +69,7 @@ export class IngestPanel {
     btn.type = 'submit';
 
     form.append(
-      el('label', 'ingest-label', 'Add a source document'),
+      el('label', 'ingest-label', 'Add source document(s) — select several to combine into one package'),
       file, title, btn,
     );
     form.addEventListener('submit', (e) => { e.preventDefault(); this.submit(file, title, btn); });
@@ -89,23 +91,31 @@ export class IngestPanel {
     this.statusEl = el('div', 'ingest-status is-working');
     this.statusLabel = el('span', 'ingest-status-label', headline);
     this.statusElapsed = el('span', 'ingest-status-elapsed', '');
-    this.statusEl.append(this.statusLabel, this.statusElapsed);
+    this.cancelBtn = el('button', 'ingest-cancel', '✕ Cancel');
+    this.cancelBtn.type = 'button';
+    this.cancelBtn.addEventListener('click', () => this.cancel());
+    this.statusEl.append(this.statusLabel, this.statusElapsed, this.cancelBtn);
+    // Real progress bar (extract: files done/total; transform: concepts done/found).
+    this.barWrap = el('div', 'ingest-bar');
+    this.barFill = el('div', 'ingest-bar-fill');
+    this.barWrap.append(this.barFill);
     this.countsEl = el('div', 'ingest-counts', '');
     this.logEl = el('div', 'ingest-log');
     this.bannerEl = el('div', 'ingest-banner hidden');
-    this.job.append(this.statusEl, this.countsEl, this.logEl, this.bannerEl);
+    this.job.append(this.statusEl, this.barWrap, this.countsEl, this.logEl, this.bannerEl);
   }
 
   async submit(fileInput, titleInput, btn) {
-    const f = fileInput.files[0];
-    if (!f) return;
+    const files = [...fileInput.files];
+    if (!files.length) return;
     btn.disabled = true; fileInput.disabled = true; titleInput.disabled = true;
 
-    this.buildJobPanel(`Uploading “${f.name}”…`);
+    this.buildJobPanel(files.length === 1 ? `Uploading “${files[0].name}”…`
+                                          : `Uploading ${files.length} documents → one package…`);
 
     const fd = new FormData();
-    fd.append('files', f, f.name);
-    fd.append('directive', JSON.stringify({ title: titleInput.value.trim() || f.name }));
+    for (const f of files) fd.append('files', f, f.name);   // all files → one job → one package
+    fd.append('directive', JSON.stringify({ title: titleInput.value.trim() || undefined }));
 
     let jid;
     try {
@@ -118,6 +128,7 @@ export class IngestPanel {
       return;
     }
     localStorage.setItem(LS_ACTIVE_JOB, jid);
+    this.onUploaded();             // files are registered already → refresh the Uploaded list
     this.setStatus('Queued…');
     this.track(jid);
   }
@@ -144,6 +155,7 @@ export class IngestPanel {
   }
 
   track(jid) {
+    this.jid = jid;
     this.stopTracking();
     // 1) Live socket (best-effort).
     if (window.io) {
@@ -185,35 +197,52 @@ export class IngestPanel {
   // ---- idempotent rendering (derive everything from the event list) ----
 
   derive() {
-    let status = 'Queued…';
-    let concepts = 0, questions = 0;
-    let terminal = null;
-    let published = null;
+    // Per-document model: documents are the top-level unit. Cumulative counts
+    // come from doc.done (merge totals); the bar tracks documents done / total.
+    let fileTotal = 0, fileIdx = 0, filesDone = 0, curFile = '';
+    let concepts = 0, questions = 0, disputes = 0;
+    let sub = 'Queued…';
+    let terminal = null, published = null;
     const logs = [];
     for (const e of this.events) {
       switch (e.event) {
-        case 'job.queued': status = 'Queued…'; break;
-        case 'stage.started': status = STAGE_LABEL[e.stage] || e.stage; break;
-        case 'extract.progress': if (e.detail) status = `Extracting: ${e.detail}`; break;
-        case 'stage.done': logs.push(`✓ ${e.stage}`); break;
-        case 'concept.gated': concepts++; logs.push(`concept ${e.objective || ''} — ${e.title || ''}`.trim()); break;
-        case 'question.judged': if (e.accepted) questions++; break;
-        case 'transform.progress':
-          if (e.concepts_done != null) concepts = e.concepts_done;
-          if (e.questions_accepted != null) questions = e.questions_accepted;
+        case 'job.queued': sub = 'Queued…'; break;
+        case 'extract.file': fileTotal = e.total || fileTotal; fileIdx = e.index || fileIdx; curFile = e.title || curFile; sub = 'extracting (docling)…'; break;
+        case 'extract.file.done': filesDone = Math.max(filesDone, (e.index || 1) - 1); break;
+        case 'extract.progress': if (!fileTotal && e.detail) sub = `docling: ${e.detail}`; break;
+        case 'stage.started': sub = ({ segment: 'segmenting…', transform: 'generating questions…', load: 'validating…' }[e.stage] || e.stage); break;
+        case 'doc.done':
+          filesDone = Math.max(filesDone, e.index || 0);
+          concepts = e.concepts ?? concepts; questions = e.questions ?? questions; disputes = e.disputes ?? disputes;
+          logs.push(`✓ ${e.index}/${e.total}: ${e.title || ''} — ${e.questions} Q so far`.trim());
           break;
-        case 'dedup.done': if (e.removed) logs.push(`removed ${e.removed} duplicate question(s)`); break;
-        case 'package.judged': logs.push(`quality score ${e.score}${e.publishable ? '' : ' (below threshold)'}`); break;
-        case 'job.published':
-          published = e;
-          terminal = { kind: 'ok', message: `Published “${e.packageId}” — now in the Catalog (${(e.catalogEntry && e.catalogEntry.questions) ?? questions} questions).` };
+        case 'dedup.done': if (e.removed) logs.push(`removed ${e.removed} duplicate(s)`); break;
+        case 'job.review_ready':
+          terminal = { kind: (e.disputes ? 'warn' : 'ok'),
+            message: (e.stoppedAt ? `Stopped at “${e.stoppedAt}”. ` : '') +
+              `Saved to Review: ${e.questions} questions from ${e.sources} document(s)` +
+              (e.disputes ? `, ${e.disputes} to resolve. ` : '. ') +
+              `Open the Review tab to resolve and publish.` };
           break;
-        case 'job.held': terminal = { kind: 'warn', message: `Held for review — quality score ${e.score ?? ''} below threshold. Not published.` }; break;
-        case 'job.failed': terminal = { kind: 'failed', message: `Failed${e.stage ? ` at ${e.stage}` : ''}: ${e.error || 'unknown error'}` }; break;
+        case 'job.failed':
+          terminal = { kind: 'failed',
+            message: `Stopped at “${e.document || '?'}”${e.stage ? ` during ${e.stage}` : ''}: ${e.error || 'unknown error'}. ` +
+              `Documents processed before it are kept — fix that file and add it to the package from Review.` };
+          break;
+        case 'job.cancelled': terminal = { kind: 'cancelled', message: 'Import cancelled — its draft and uploaded files were removed.' }; break;
+        // legacy single-package flow (kept for compatibility)
+        case 'job.published': published = e; terminal = { kind: 'ok', message: `Published “${e.packageId}”.` }; break;
+        case 'job.held': terminal = { kind: 'warn', message: `Held for review.` }; break;
         default: break;
       }
     }
-    return { status, concepts, questions, logs, terminal, published };
+
+    let status, pct = null;
+    if (!terminal) {
+      status = fileTotal ? `Document ${fileIdx}/${fileTotal}${curFile ? `: ${curFile}` : ''} — ${sub}` : sub;
+      if (fileTotal) pct = filesDone / fileTotal;
+    }
+    return { status, fileTotal, fileIdx, filesDone, concepts, questions, disputes, pct, logs, terminal, published };
   }
 
   repaint() {
@@ -229,8 +258,26 @@ export class IngestPanel {
       this.setStatus(s.status);
     }
 
-    this.countsEl.textContent = (s.concepts || s.questions)
-      ? `concepts: ${s.concepts} · questions: ${s.questions}` : '';
+    // Progress bar: determinate when we have a fraction, else an indeterminate sweep.
+    if (this.barWrap) {
+      if (s.terminal) {
+        this.barWrap.classList.remove('indeterminate');
+        this.barFill.style.width = '100%';
+      } else if (s.pct != null) {
+        this.barWrap.classList.remove('indeterminate');
+        this.barFill.style.width = `${Math.round(Math.max(0, Math.min(1, s.pct)) * 100)}%`;
+      } else {
+        this.barWrap.classList.add('indeterminate');   // unknown total → animated sweep
+        this.barFill.style.width = '100%';
+      }
+    }
+
+    const bits = [];
+    if (s.fileTotal) bits.push(`documents: ${s.filesDone}/${s.fileTotal}`);
+    if (s.concepts) bits.push(`concepts: ${s.concepts}`);
+    if (s.questions) bits.push(`questions: ${s.questions}`);
+    if (s.disputes) bits.push(`to review: ${s.disputes}`);
+    this.countsEl.textContent = bits.join(' · ');
 
     // Rebuild the log (last 8 lines) — cheap and keeps it idempotent.
     this.logEl.innerHTML = '';
@@ -254,10 +301,31 @@ export class IngestPanel {
   finish(kind, message) {
     this.terminalShown = true;
     this.statusEl.classList.remove('is-working');
-    this.statusLabel.textContent = ({ ok: 'Done', warn: 'Needs review', failed: 'Failed' }[kind] || '');
+    this.statusLabel.textContent = ({ ok: 'Done', warn: 'Needs review', failed: 'Failed', cancelled: 'Cancelled' }[kind] || '');
     this.statusElapsed.textContent = '';
+    if (this.cancelBtn) this.cancelBtn.style.display = 'none';
+    if (this.barWrap) this.barWrap.style.display = 'none';
     this.bannerEl.className = `ingest-banner ingest-${kind}`;
     this.bannerEl.textContent = message;
     this.reset();
+  }
+
+  /** Cancel the running import and clean up its mess (server stops + removes draft/files). */
+  async cancel() {
+    if (!this.jid) return;
+    if (!confirm('Cancel this import and remove what it created so far?')) return;
+    this.cancelBtn.disabled = true; this.cancelBtn.textContent = 'Cancelling…';
+    try {
+      const r = await fetch(`${ETL_JOBS}/${encodeURIComponent(this.jid)}/cancel`, { method: 'POST' });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    } catch (e) {
+      alert(`Cancel failed: ${e.message}`);
+      this.cancelBtn.disabled = false; this.cancelBtn.textContent = '✕ Cancel';
+      return;
+    }
+    this.stopTracking();
+    localStorage.removeItem(LS_ACTIVE_JOB);
+    this.finish('cancelled', 'Import cancelled — its draft and uploaded files were removed.');
+    this.onUploaded();   // refresh the Documents list (files removed)
   }
 }

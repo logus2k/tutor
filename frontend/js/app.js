@@ -98,6 +98,7 @@ async function main() {
   // Document ingestion (upload → ETL → live progress → Catalog). Created once;
   // on publish it refreshes the Catalog and the Documents list.
   new IngestPanel($('ingest'), {
+    onUploaded: () => buildDocuments(),                 // show new files in "Uploaded" right away
     onPublished: () => { buildCatalog(); buildDocuments(); },
   });
 
@@ -219,6 +220,7 @@ function wireRail() {
       // The Wall of Fame reflects live scores — reload it each time it's opened.
       if (v === 'fame' && famePanel) famePanel.refresh();
       if (v === 'review' && reviewPanel) reviewPanel.refresh();
+      if (v === 'documents') buildDocuments();   // always show the latest uploads
     });
   });
   // Robot button: toggle the chat pane (not a view).
