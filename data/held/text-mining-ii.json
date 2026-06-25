@@ -1,0 +1,988 @@
+{
+  "schema_version": "1.0",
+  "id": "text-mining-ii",
+  "title": "Text Mining II",
+  "description": "This package contains sample questions covering topics such as ambiguity in natural languages, the self-attention mechanism, lemmatization, and general NLP pipeline steps.",
+  "generated_by": "tutor orchestrator.py (gemma-4-e2b)",
+  "generated_at": "2026-06-25T20:45:52.625587+00:00",
+  "sources": [
+    {
+      "id": "src-2024-exam-tm-sample-questions",
+      "title": "2024 EXAM TM SAMPLE QUESTIONS",
+      "kind": "pdf",
+      "extractor": "docling+enrich",
+      "uri": "documents/2024_EXAM_TM_SAMPLE_QUESTIONS.pdf"
+    }
+  ],
+  "source_ids": [
+    "src-2024-exam-tm-sample-questions"
+  ],
+  "taxonomy": {
+    "domains": [
+      {
+        "id": "d0-d1",
+        "title": "2024 EXAM TM SAMPLE QUESTIONS",
+        "weight": 1.0
+      }
+    ]
+  },
+  "concepts": [
+    {
+      "id": "d0-c-1",
+      "domain": "d0-d1",
+      "objective": "1",
+      "title": "Ambiguity in Natural Languages",
+      "summary": "Different sentences can have the same meaning, which is a known problem in Natural Languages.",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1",
+          "text": "1. Sample questions based on LECTURES content\n\n(Multiple-Choice) One of the problems of Natural Languages is that different sentences can have the same meaning. This is known as the problem of:\n\n1. Sample questions based on LECTURES content\n\n- a. Overfitting\n- b. Ambiguity\n- c. Variability\n- d. Generalization\n\nAnswer: c\n\n(Open, development question) Explain how the self-attention mechanism works inside a Transformer.\n\nAnswer: c\n\nAnswer: The self-attention mechanism in a Transformer works by calculating attention scores between every pair of words in the input sequence. To compute these attention scores, three types of embeddings are generated for each word: query, key,  and  value.  The  attention  scores  are  calculated  by  taking  the  dot  product  between  the  query  and  key  embeddings, followed by applying a softmax function to obtain a probability distribution. These attention scores determine how much each word should contribute to the final representation of the current word. Finally, the attention-weighted sum of the value embeddings, weighted by the attention scores, is computed. This weighted sum serves as the contextual representation of the current word, capturing the relevant information from the entire sequence.\n\n2. Sample questions based on LABS content\n\n(Multiple-Choice) What is the purpose of Lemmatization in Text Mining?\n\n2. Sample questions based on LABS content\n\n- a. Removing stop words from the text\n- b. Reducing words to their root form\n- c. Groupi",
+          "citation": "1. Sample questions based on LECTURES content > Answer: c > 2. Sample questions based on LABS content > Answer: b > Answer:"
+        }
+      ]
+    },
+    {
+      "id": "d0-c-2",
+      "domain": "d0-d1",
+      "objective": "2",
+      "title": "Self-Attention Mechanism",
+      "summary": "The self-attention mechanism calculates attention scores between word pairs using query, key, and value embeddings to create contextual representations.",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1",
+          "text": "1. Sample questions based on LECTURES content\n\n(Multiple-Choice) One of the problems of Natural Languages is that different sentences can have the same meaning. This is known as the problem of:\n\n1. Sample questions based on LECTURES content\n\n- a. Overfitting\n- b. Ambiguity\n- c. Variability\n- d. Generalization\n\nAnswer: c\n\n(Open, development question) Explain how the self-attention mechanism works inside a Transformer.\n\nAnswer: c\n\nAnswer: The self-attention mechanism in a Transformer works by calculating attention scores between every pair of words in the input sequence. To compute these attention scores, three types of embeddings are generated for each word: query, key,  and  value.  The  attention  scores  are  calculated  by  taking  the  dot  product  between  the  query  and  key  embeddings, followed by applying a softmax function to obtain a probability distribution. These attention scores determine how much each word should contribute to the final representation of the current word. Finally, the attention-weighted sum of the value embeddings, weighted by the attention scores, is computed. This weighted sum serves as the contextual representation of the current word, capturing the relevant information from the entire sequence.\n\n2. Sample questions based on LABS content\n\n(Multiple-Choice) What is the purpose of Lemmatization in Text Mining?\n\n2. Sample questions based on LABS content\n\n- a. Removing stop words from the text\n- b. Reducing words to their root form\n- c. Groupi",
+          "citation": "1. Sample questions based on LECTURES content > Answer: c > 2. Sample questions based on LABS content > Answer: b > Answer:"
+        }
+      ]
+    },
+    {
+      "id": "d0-c-3",
+      "domain": "d0-d1",
+      "objective": "3",
+      "title": "Lemmatization",
+      "summary": "Lemmatization is a technique in Text Mining used to reduce words to their root form.",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1",
+          "text": "1. Sample questions based on LECTURES content\n\n(Multiple-Choice) One of the problems of Natural Languages is that different sentences can have the same meaning. This is known as the problem of:\n\n1. Sample questions based on LECTURES content\n\n- a. Overfitting\n- b. Ambiguity\n- c. Variability\n- d. Generalization\n\nAnswer: c\n\n(Open, development question) Explain how the self-attention mechanism works inside a Transformer.\n\nAnswer: c\n\nAnswer: The self-attention mechanism in a Transformer works by calculating attention scores between every pair of words in the input sequence. To compute these attention scores, three types of embeddings are generated for each word: query, key,  and  value.  The  attention  scores  are  calculated  by  taking  the  dot  product  between  the  query  and  key  embeddings, followed by applying a softmax function to obtain a probability distribution. These attention scores determine how much each word should contribute to the final representation of the current word. Finally, the attention-weighted sum of the value embeddings, weighted by the attention scores, is computed. This weighted sum serves as the contextual representation of the current word, capturing the relevant information from the entire sequence.\n\n2. Sample questions based on LABS content\n\n(Multiple-Choice) What is the purpose of Lemmatization in Text Mining?\n\n2. Sample questions based on LABS content\n\n- a. Removing stop words from the text\n- b. Reducing words to their root form\n- c. Groupi",
+          "citation": "1. Sample questions based on LECTURES content > Answer: c > 2. Sample questions based on LABS content > Answer: b > Answer:"
+        }
+      ]
+    },
+    {
+      "id": "d0-c-4",
+      "domain": "d0-d1",
+      "objective": "4",
+      "title": "NLP Pipeline Steps",
+      "summary": "The main steps in an NLP pipeline using Transformers for embedding generation include Preprocessing, Transformers (Embedding Generation), and Classification.",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1",
+          "text": "1. Sample questions based on LECTURES content\n\n(Multiple-Choice) One of the problems of Natural Languages is that different sentences can have the same meaning. This is known as the problem of:\n\n1. Sample questions based on LECTURES content\n\n- a. Overfitting\n- b. Ambiguity\n- c. Variability\n- d. Generalization\n\nAnswer: c\n\n(Open, development question) Explain how the self-attention mechanism works inside a Transformer.\n\nAnswer: c\n\nAnswer: The self-attention mechanism in a Transformer works by calculating attention scores between every pair of words in the input sequence. To compute these attention scores, three types of embeddings are generated for each word: query, key,  and  value.  The  attention  scores  are  calculated  by  taking  the  dot  product  between  the  query  and  key  embeddings, followed by applying a softmax function to obtain a probability distribution. These attention scores determine how much each word should contribute to the final representation of the current word. Finally, the attention-weighted sum of the value embeddings, weighted by the attention scores, is computed. This weighted sum serves as the contextual representation of the current word, capturing the relevant information from the entire sequence.\n\n2. Sample questions based on LABS content\n\n(Multiple-Choice) What is the purpose of Lemmatization in Text Mining?\n\n2. Sample questions based on LABS content\n\n- a. Removing stop words from the text\n- b. Reducing words to their root form\n- c. Groupi",
+          "citation": "1. Sample questions based on LECTURES content > Answer: c > 2. Sample questions based on LABS content > Answer: b > Answer:"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "d0-q-0001",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "One of the problems of Natural Languages is that different sentences can have the same meaning. This is known as the problem of:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Overfitting",
+          "correct": false,
+          "rationale": "Overfitting is a different concept related to model training."
+        },
+        {
+          "id": "b",
+          "text": "Ambiguity",
+          "correct": false,
+          "rationale": "Ambiguity refers to the problem where different sentences can have the same meaning."
+        },
+        {
+          "id": "c",
+          "text": "Variability",
+          "correct": true,
+          "rationale": "Variability is not the specific term for this problem."
+        },
+        {
+          "id": "d",
+          "text": "Generalization",
+          "correct": false,
+          "rationale": "Generalization is related to applying learned knowledge to new data."
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0003",
+      "concept_ids": [
+        "d0-c-3"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the purpose of Lemmatization in Text Mining?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Removing stop words from the text",
+          "correct": false,
+          "rationale": "Removing stop words is a different preprocessing task."
+        },
+        {
+          "id": "b",
+          "text": "Reducing words to their root form",
+          "correct": true,
+          "rationale": "Lemmatization involves reducing words to their root form."
+        },
+        {
+          "id": "c",
+          "text": "Grouping words with similar meanings together",
+          "correct": false,
+          "rationale": "Grouping words is not the primary goal of lemmatization."
+        },
+        {
+          "id": "d",
+          "text": "Removing prefixes and suffixes from words",
+          "correct": false,
+          "rationale": "Removing prefixes and suffixes is a different operation."
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0005",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 1,
+      "bloom": "recall",
+      "stem": "What is the known problem in Natural Languages where different sentences can have the same meaning?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Overfitting",
+          "correct": false,
+          "rationale": "Overfitting is a problem related to machine learning model training, not sentence meaning."
+        },
+        {
+          "id": "b",
+          "text": "Ambiguity",
+          "correct": true,
+          "rationale": "Ambiguity is the problem where different sentences can have the same meaning."
+        },
+        {
+          "id": "c",
+          "text": "Variability",
+          "correct": false,
+          "rationale": "Variability refers to changes in language, not the duplication of meaning across sentences."
+        },
+        {
+          "id": "d",
+          "text": "Generalization",
+          "correct": false,
+          "rationale": "Generalization is a concept in machine learning about applying learned patterns to new data."
+        }
+      ],
+      "explanation": "The problem where different sentences can have the same meaning is known as ambiguity.",
+      "hints": [
+        "Think about the concept that describes multiple interpretations for a single linguistic unit."
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "ambiguity"
+      ]
+    },
+    {
+      "id": "d0-q-0006",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 1,
+      "bloom": "recall",
+      "stem": "Which term describes the situation where different sentences can possess the identical meaning?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Overfitting",
+          "correct": false,
+          "rationale": "Overfitting is a machine learning concept, not a linguistic ambiguity problem."
+        },
+        {
+          "id": "b",
+          "text": "Ambiguity",
+          "correct": true,
+          "rationale": "Ambiguity is the problem where different sentences can have the same meaning."
+        },
+        {
+          "id": "c",
+          "text": "Variability",
+          "correct": false,
+          "rationale": "Variability describes changes in language, not the duplication of meaning."
+        },
+        {
+          "id": "d",
+          "text": "Generalization",
+          "correct": false,
+          "rationale": "Generalization is a concept related to applying learned patterns."
+        }
+      ],
+      "explanation": "The situation where different sentences can have the same meaning is defined as ambiguity.",
+      "hints": [
+        "Recall the specific term used to describe multiple meanings for one expression."
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "ambiguity"
+      ]
+    },
+    {
+      "id": "d0-q-0008",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_multi",
+      "render": "checkbox",
+      "difficulty": 2,
+      "bloom": "understand",
+      "stem": "Which of the following concepts are related to the problem of ambiguity in Natural Languages?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Overfitting",
+          "correct": false,
+          "rationale": "Overfitting is a machine learning concern, not a linguistic ambiguity issue."
+        },
+        {
+          "id": "b",
+          "text": "Ambiguity",
+          "correct": true,
+          "rationale": "Ambiguity is the core problem described, as different sentences can have the same meaning."
+        },
+        {
+          "id": "c",
+          "text": "Variability",
+          "correct": true,
+          "rationale": "Variability is a linguistic aspect that contributes to the complexity of meaning representation."
+        },
+        {
+          "id": "d",
+          "text": "Generalization",
+          "correct": false,
+          "rationale": "Generalization is a machine learning technique, not a problem of linguistic ambiguity."
+        }
+      ],
+      "explanation": "Ambiguity and variability are related to the challenges of meaning representation in Natural Languages.",
+      "hints": [
+        "Consider which terms describe linguistic challenges rather than ML training concerns."
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "ambiguity"
+      ]
+    },
+    {
+      "id": "d0-q-0009",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_multi",
+      "render": "checkbox",
+      "difficulty": 2,
+      "bloom": "understand",
+      "stem": "Which of the following terms are associated with the challenges or mechanisms within the Transformer architecture mentioned in the context of language processing?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Self-attention mechanism",
+          "correct": true,
+          "rationale": "The self-attention mechanism is a key component of the Transformer architecture."
+        },
+        {
+          "id": "b",
+          "text": "Lemmatization",
+          "correct": false,
+          "rationale": "Lemmatization is a process in Text Mining, not directly described as a core Transformer mechanism here."
+        },
+        {
+          "id": "c",
+          "text": "Query embedding",
+          "correct": true,
+          "rationale": "Query embeddings are one of the three types of embeddings generated for the self-attention mechanism."
+        },
+        {
+          "id": "d",
+          "text": "Stop words removal",
+          "correct": false,
+          "rationale": "Stop words removal is a preprocessing step, not a mechanism of the self-attention calculation itself."
+        }
+      ],
+      "explanation": "The self-attention mechanism and its components like query embeddings are central to the Transformer's function.",
+      "hints": [
+        "Look for terms directly related to how the Transformer calculates contextual representations."
+      ],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "transformer"
+      ]
+    },
+    {
+      "id": "d0-q-0010",
+      "concept_ids": [
+        "d0-c-2"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Which three types of embeddings are generated for each word when calculating attention scores in the self-attention mechanism?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Query, Key, and Value",
+          "correct": true,
+          "rationale": "The self-attention mechanism generates query, key, and value embeddings for each word."
+        },
+        {
+          "id": "b",
+          "text": "Input, Context, and Output",
+          "correct": false,
+          "rationale": "Input, Context, and Output are not the specific embeddings used to calculate attention scores."
+        },
+        {
+          "id": "c",
+          "text": "Token, Position, and Semantic",
+          "correct": false,
+          "rationale": "Token, Position, and Semantic are not the three specific embeddings used in this calculation."
+        },
+        {
+          "id": "d",
+          "text": "Attention, Weight, and Score",
+          "correct": false,
+          "rationale": "Attention, Weight, and Score are concepts related to the process, not the embeddings themselves."
+        }
+      ],
+      "explanation": "The self-attention mechanism calculates attention scores using query, key, and value embeddings for each word.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "self-attention",
+        "embeddings"
+      ]
+    },
+    {
+      "id": "d0-q-0011",
+      "concept_ids": [
+        "d0-c-2"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How are the attention scores calculated between word pairs?",
+      "options": [
+        {
+          "id": "a",
+          "text": "By taking the dot product between the query and key embeddings.",
+          "correct": true,
+          "rationale": "The attention scores are calculated by taking the dot product between the query and key embeddings."
+        },
+        {
+          "id": "b",
+          "text": "By applying a softmax function directly to the value embeddings.",
+          "correct": false,
+          "rationale": "The softmax function is applied after the dot product of query and key."
+        },
+        {
+          "id": "c",
+          "text": "By summing the value embeddings.",
+          "correct": false,
+          "rationale": "The sum of value embeddings is computed after weighting by attention scores."
+        },
+        {
+          "id": "d",
+          "text": "By comparing the semantic similarity of the key and value embeddings.",
+          "correct": false,
+          "rationale": "The calculation specifically involves the dot product of query and key."
+        }
+      ],
+      "explanation": "Attention scores are computed by taking the dot product between the query and key embeddings, followed by a softmax function.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "attention-score",
+        "dot-product"
+      ]
+    },
+    {
+      "id": "d0-q-0012",
+      "concept_ids": [
+        "d0-c-2"
+      ],
+      "type": "true_false",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "The attention-weighted sum of the value embeddings is used to create the contextual representation of the current word.",
+      "options": [
+        {
+          "id": "a",
+          "text": "True",
+          "correct": true,
+          "rationale": "The attention-weighted sum of the value embeddings serves as the contextual representation of the current word."
+        },
+        {
+          "id": "b",
+          "text": "False",
+          "correct": false,
+          "rationale": "The attention-weighted sum of the value embeddings is the final step, not the representation itself."
+        }
+      ],
+      "explanation": "The contextual representation of the current word is computed by taking the attention-weighted sum of the value embeddings.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "contextual-representation",
+        "value-embedding"
+      ]
+    },
+    {
+      "id": "d0-q-0013",
+      "concept_ids": [
+        "d0-c-2"
+      ],
+      "type": "mcq_multi",
+      "render": "checkbox",
+      "difficulty": 3,
+      "bloom": "understand",
+      "stem": "Which of the following are steps involved in calculating the self-attention mechanism?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Generating query, key, and value embeddings for each word.",
+          "correct": true,
+          "rationale": "Generating query, key, and value embeddings is the initial step required for calculating attention scores."
+        },
+        {
+          "id": "b",
+          "text": "Calculating the dot product between query and key embeddings.",
+          "correct": true,
+          "rationale": "The dot product between query and key embeddings is used to determine the initial attention scores."
+        },
+        {
+          "id": "c",
+          "text": "Applying a softmax function to obtain a probability distribution.",
+          "correct": true,
+          "rationale": "A softmax function is applied to the scores to convert them into a probability distribution."
+        },
+        {
+          "id": "d",
+          "text": "Computing the final attention-weighted sum of the value embeddings.",
+          "correct": true,
+          "rationale": "The final step involves computing the weighted sum of the value embeddings."
+        },
+        {
+          "id": "e",
+          "text": "Removing stop words from the input sequence.",
+          "correct": false,
+          "rationale": "Removing stop words is a separate text processing step, not part of the self-attention calculation."
+        }
+      ],
+      "explanation": "The calculation involves generating Q, K, V embeddings, calculating dot products, applying softmax, and computing the weighted sum of V embeddings.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "attention-process",
+        "multi-step"
+      ]
+    },
+    {
+      "id": "d0-q-0015",
+      "concept_ids": [
+        "d0-c-3"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 3,
+      "bloom": "understand",
+      "stem": "Which action describes the process of Lemmatization?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Replacing all words with their full dictionary form.",
+          "correct": false,
+          "rationale": "Lemmatization involves reducing words to their root form, not replacing them with the full form."
+        },
+        {
+          "id": "b",
+          "text": "Reducing words to their root form.",
+          "correct": true,
+          "rationale": "The core function of lemmatization is to reduce words to their root form."
+        },
+        {
+          "id": "c",
+          "text": "Removing punctuation marks from the text.",
+          "correct": false,
+          "rationale": "Removing punctuation is a separate task from word form reduction."
+        }
+      ],
+      "explanation": "Lemmatization is a technique in Text Mining used to reduce words to their root form.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "lemmatization"
+      ]
+    },
+    {
+      "id": "d0-q-0016",
+      "concept_ids": [
+        "d0-c-3"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 3,
+      "bloom": "understand",
+      "stem": "The technique of Lemmatization is specifically employed in which field?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Machine Learning model training.",
+          "correct": false,
+          "rationale": "While related to NLP, the context specifies Text Mining."
+        },
+        {
+          "id": "b",
+          "text": "Text Mining.",
+          "correct": true,
+          "rationale": "Lemmatization is a technique in Text Mining."
+        },
+        {
+          "id": "c",
+          "text": "Transformer architecture design.",
+          "correct": false,
+          "rationale": "The text discusses the self-attention mechanism in Transformers, not lemmatization's primary field."
+        }
+      ],
+      "explanation": "Lemmatization is a technique in Text Mining used to reduce words to their root form.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "lemmatization"
+      ]
+    },
+    {
+      "id": "d0-q-0017",
+      "concept_ids": [
+        "d0-c-3"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 3,
+      "bloom": "understand",
+      "stem": "Which of the following is a function associated with Lemmatization?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Removing stop words from the text.",
+          "correct": false,
+          "rationale": "Stop word removal is distinct from word form reduction."
+        },
+        {
+          "id": "b",
+          "text": "Reducing words to their root form.",
+          "correct": true,
+          "rationale": "The main function of lemmatization is to reduce words to their root form."
+        },
+        {
+          "id": "c",
+          "text": "Calculating attention scores between words.",
+          "correct": false,
+          "rationale": "Calculating attention scores is part of the Transformer mechanism, not lemmatization."
+        }
+      ],
+      "explanation": "Lemmatization is a technique in Text Mining used to reduce words to their root form.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "lemmatization"
+      ]
+    },
+    {
+      "id": "d0-q-0018",
+      "concept_ids": [
+        "d0-c-3"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 4,
+      "bloom": "analyze",
+      "stem": "If a text processing pipeline aims to normalize vocabulary by converting words like 'running' and 'ran' into a single base form, which technique is most appropriate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stop word removal.",
+          "correct": false,
+          "rationale": "Stop word removal targets common, low-information words, not morphological reduction."
+        },
+        {
+          "id": "b",
+          "text": "Lemmatization.",
+          "correct": true,
+          "rationale": "Lemmatization is the technique specifically designed to reduce inflected words to their root form."
+        },
+        {
+          "id": "c",
+          "text": "Self-attention calculation.",
+          "correct": false,
+          "rationale": "Self-attention is used for contextual representation in sequence models, not for basic word normalization."
+        }
+      ],
+      "explanation": "Lemmatization is the technique specifically designed to reduce inflected words to their root form.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "lemmatization"
+      ]
+    },
+    {
+      "id": "d0-q-0019",
+      "concept_ids": [
+        "d0-c-4"
+      ],
+      "type": "mcq_multi",
+      "render": "checkbox",
+      "difficulty": 4,
+      "bloom": "understand",
+      "stem": "Which of the following represents a main step in an NLP pipeline using Transformers for embedding generation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Classification",
+          "correct": false,
+          "rationale": "Classification is a step that typically follows embedding generation in an NLP pipeline."
+        },
+        {
+          "id": "b",
+          "text": "Preprocessing",
+          "correct": true,
+          "rationale": "Preprocessing is one of the main steps in an NLP pipeline using Transformers for embedding generation."
+        },
+        {
+          "id": "c",
+          "text": "Embedding Generation",
+          "correct": true,
+          "rationale": "Embedding generation is one of the main steps in an NLP pipeline using Transformers for embedding generation."
+        },
+        {
+          "id": "d",
+          "text": "Self-attention mechanism",
+          "correct": false,
+          "rationale": "The self-attention mechanism is a component within the Transformer, not a main pipeline step itself."
+        }
+      ],
+      "explanation": "The main steps in an NLP pipeline using Transformers for embedding generation include Preprocessing, Transformers (Embedding Generation), and Classification.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "pipeline"
+      ]
+    },
+    {
+      "id": "d0-q-0021",
+      "concept_ids": [
+        "d0-c-4"
+      ],
+      "type": "true_false",
+      "render": "radio",
+      "difficulty": 4,
+      "bloom": "recall",
+      "stem": "The self-attention mechanism in a Transformer calculates attention scores by taking the dot product between the query and key embeddings.",
+      "options": [
+        {
+          "id": "a",
+          "text": "True",
+          "correct": true,
+          "rationale": "The attention scores are calculated by taking the dot product between the query and key embeddings."
+        },
+        {
+          "id": "b",
+          "text": "False",
+          "correct": false,
+          "rationale": "The attention scores are not calculated by the dot product between query and key embeddings; a softmax function is applied afterward."
+        }
+      ],
+      "explanation": "The self-attention mechanism calculates attention scores by taking the dot product between the query and key embeddings.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "transformer"
+      ]
+    },
+    {
+      "id": "d0-q-0022",
+      "concept_ids": [
+        "d0-c-4"
+      ],
+      "type": "mcq_multi",
+      "render": "checkbox",
+      "difficulty": 5,
+      "bloom": "analyze",
+      "stem": "Which of the following are components or outcomes related to the self-attention mechanism in a Transformer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Generating the final contextual representation of a word",
+          "correct": true,
+          "rationale": "The attention-weighted sum of value embeddings serves as the contextual representation of the current word."
+        },
+        {
+          "id": "b",
+          "text": "Calculating attention scores via dot product between query and key embeddings",
+          "correct": true,
+          "rationale": "Attention scores are calculated by taking the dot product between the query and key embeddings."
+        },
+        {
+          "id": "c",
+          "text": "Applying a softmax function to obtain a probability distribution",
+          "correct": true,
+          "rationale": "A softmax function is applied to the dot product to obtain a probability distribution of attention scores."
+        },
+        {
+          "id": "d",
+          "text": "Removing stop words from the input sequence",
+          "correct": false,
+          "rationale": "Removing stop words is a preprocessing step, not a direct output or component of the self-attention calculation."
+        }
+      ],
+      "explanation": "The self-attention mechanism involves calculating attention scores via dot product, applying softmax to get probabilities, and computing a weighted sum of value embeddings to form the contextual representation.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "attention"
+      ]
+    },
+    {
+      "id": "d0-q-0023",
+      "concept_ids": [
+        "d0-c-4"
+      ],
+      "type": "mcq_multi",
+      "render": "checkbox",
+      "difficulty": 5,
+      "bloom": "analyze",
+      "stem": "Which of the following are the three types of embeddings generated for each word when calculating attention scores in a Transformer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Query",
+          "correct": true,
+          "rationale": "Query embeddings are one of the three types generated for calculating attention scores."
+        },
+        {
+          "id": "b",
+          "text": "Key",
+          "correct": true,
+          "rationale": "Key embeddings are one of the three types generated for calculating attention scores."
+        },
+        {
+          "id": "c",
+          "text": "Value",
+          "correct": true,
+          "rationale": "Value embeddings are one of the three types generated for calculating attention scores."
+        },
+        {
+          "id": "d",
+          "text": "Token",
+          "correct": false,
+          "rationale": "Token embeddings are not listed as the specific types used for attention score calculation."
+        }
+      ],
+      "explanation": "The three types of embeddings generated for each word to compute attention scores are query, key, and value.",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-2024-exam-tm-sample-questions",
+          "locator": "p.1"
+        }
+      ],
+      "tags": [
+        "embedding"
+      ]
+    }
+  ],
+  "quality": {
+    "score": 65,
+    "publishable": false,
+    "findings": [
+      {
+        "severity": "info",
+        "area": "coverage",
+        "detail": "Only one domain (d1) is present, and it covers 4 concepts. Coverage seems minimal given the small sample size, but we cannot confirm complete coverage without the full set."
+      },
+      {
+        "severity": "warn",
+        "area": "balance",
+        "detail": "The difficulty distribution is heavily skewed towards difficulty level 2 (7 questions), which might lead to an overly easy assessment overall. Bloom distribution is also heavily weighted towards 'recall' (8) and 'understand' (7), with very few 'analyze' questions (3)."
+      },
+      {
+        "severity": "info",
+        "area": "redundancy",
+        "detail": "The sample questions appear distinct, but the relationship between the first three questions suggests potential overlap in concepts related to ambiguity/meaning equivalence."
+      }
+    ],
+    "disputes": [
+      {
+        "qid": "d0-q-0008",
+        "stem": "Which of the following concepts are related to the problem of ambiguity in Natural Languages?",
+        "stored": [
+          "b",
+          "c"
+        ],
+        "derived": [
+          "b"
+        ],
+        "reason": "answer-blind solve disagrees with stored key",
+        "evidence": "One of the problems of Natural Languages is that different sentences can have the same meaning. This is known as the problem of:\n\n- a. Overfitting\n- b. Ambiguity\n- c. Variability\n- d. Generalization\n\n"
+      },
+      {
+        "qid": "d0-q-0022",
+        "stem": "Which of the following are components or outcomes related to the self-attention mechanism in a Transformer?",
+        "stored": [
+          "a",
+          "b",
+          "c"
+        ],
+        "derived": [
+          "b",
+          "c"
+        ],
+        "reason": "answer-blind solve disagrees with stored key",
+        "evidence": "To compute these attention scores, three types of embeddings are generated for each word: query, key, and value. The attention scores are calculated by taking the dot product between the query and key"
+      }
+    ]
+  },
+  "owner_email": "logus2k@gmail.com",
+  "held_at": "2026-06-25T20:45:53.779431+00:00"
+}

@@ -6,6 +6,90 @@
       "file": "Microsoft-AI-Transformation-Leader-AB-731.pdf",
       "kind": "pdf",
       "uploaded_at": "2026-06-24T21:25:42.015505+00:00"
+    },
+    {
+      "id": "2024-exam-tm-sample-questions",
+      "title": "2024 EXAM TM SAMPLE QUESTIONS",
+      "file": "2024_EXAM_TM_SAMPLE_QUESTIONS.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.564275+00:00"
+    },
+    {
+      "id": "l1-introduction-to-nlp-2025-26",
+      "title": "L1 Introduction to NLP 2025 26",
+      "file": "L1_Introduction_to_NLP_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.566204+00:00"
+    },
+    {
+      "id": "l2-extra-n-grams-tf-idf-tm-2025-26",
+      "title": "L2 EXTRA N grams TF IDF TM 2025 26",
+      "file": "L2_EXTRA_N-grams_TF-IDF_-_TM_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.569243+00:00"
+    },
+    {
+      "id": "l2-word-embeddings-tm-2025-26",
+      "title": "L2 Word Embeddings TM 2025 26",
+      "file": "L2_Word_Embeddings_-_TM_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.575149+00:00"
+    },
+    {
+      "id": "l3-sequential-models-tm-2025-25",
+      "title": "L3 Sequential Models TM 2025 25",
+      "file": "L3_Sequential_Models_-_TM_2025-25.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.582756+00:00"
+    },
+    {
+      "id": "l4-attention-transformers-v2-tm-2025-26",
+      "title": "L4 Attention Transformers v2 TM 2025 26",
+      "file": "L4_Attention_Transformers_v2_-_TM_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.591211+00:00"
+    },
+    {
+      "id": "l5-large-language-models-tm-2025-26",
+      "title": "L5 Large Language Models TM 2025 26",
+      "file": "L5_Large_Language_Models_-_TM_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.603678+00:00"
+    },
+    {
+      "id": "l6-large-language-models-ii-tm-2025-26",
+      "title": "L6 Large Language Models II TM 2025 26",
+      "file": "L6_Large_Language_Models_II_-_TM_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.615310+00:00"
+    },
+    {
+      "id": "mindeval-ims",
+      "title": "MindEval @ IMS",
+      "file": "MindEval_IMS.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.621008+00:00"
+    },
+    {
+      "id": "project-guidelines-text-mining-2025-2026-v2",
+      "title": "Project Guidelines Text Mining 2025 2026 v2",
+      "file": "Project_Guidelines_-_Text_Mining_2025-2026_v2.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.621952+00:00"
+    },
+    {
+      "id": "sample-questions",
+      "title": "sample questions",
+      "file": "sample_questions.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.622206+00:00"
+    },
+    {
+      "id": "tm-course-presentation-2025-26",
+      "title": "TM Course Presentation 2025 26",
+      "file": "TM_Course_Presentation_-_2025-26.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-25T20:44:59.623700+00:00"
     }
   ]
 }

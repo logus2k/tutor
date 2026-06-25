@@ -1,0 +1,2855 @@
+{
+  "jobId": "job-20260625200144",
+  "state": "queued",
+  "packageId": "text-mining",
+  "title": "Text Mining",
+  "documents": [
+    "2024 EXAM TM SAMPLE QUESTIONS",
+    "L1 Introduction to NLP 2025 26",
+    "L2 EXTRA N grams TF IDF TM 2025 26",
+    "L2 Word Embeddings TM 2025 26",
+    "L3 Sequential Models TM 2025 25",
+    "L4 Attention Transformers v2 TM 2025 26",
+    "L5 Large Language Models TM 2025 26",
+    "L6 Large Language Models II TM 2025 26",
+    "MindEval @ IMS",
+    "Project Guidelines Text Mining 2025 2026 v2",
+    "sample questions",
+    "TM Course Presentation 2025 26"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260625200144",
+      "event": "job.queued",
+      "documents": [
+        "2024 EXAM TM SAMPLE QUESTIONS",
+        "L1 Introduction to NLP 2025 26",
+        "L2 EXTRA N grams TF IDF TM 2025 26",
+        "L2 Word Embeddings TM 2025 26",
+        "L3 Sequential Models TM 2025 25",
+        "L4 Attention Transformers v2 TM 2025 26",
+        "L5 Large Language Models TM 2025 26",
+        "L6 Large Language Models II TM 2025 26",
+        "MindEval @ IMS",
+        "Project Guidelines Text Mining 2025 2026 v2",
+        "sample questions",
+        "TM Course Presentation 2025 26"
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 1,
+      "total": 12,
+      "title": "2024 EXAM TM SAMPLE QUESTIONS"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 1,
+      "total": 12,
+      "title": "2024 EXAM TM SAMPLE QUESTIONS"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 8
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 2,
+      "authored": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 4,
+      "questions": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": true,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 1,
+      "total": 12,
+      "title": "2024 EXAM TM SAMPLE QUESTIONS",
+      "concepts": 4,
+      "questions": 4,
+      "disputes": 0,
+      "sources": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 2,
+      "total": 12,
+      "title": "L1 Introduction to NLP 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 2,
+      "total": 12,
+      "title": "L1 Introduction to NLP 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 134
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 1,
+      "authored": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 5,
+      "questions": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 2,
+      "total": 12,
+      "title": "L1 Introduction to NLP 2025 26",
+      "concepts": 9,
+      "questions": 9,
+      "disputes": 1,
+      "sources": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 3,
+      "total": 12,
+      "title": "L2 EXTRA N grams TF IDF TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 3,
+      "total": 12,
+      "title": "L2 EXTRA N grams TF IDF TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 104
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        34,
+        35
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 2,
+      "authored": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 5,
+      "questions": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 3,
+      "total": 12,
+      "title": "L2 EXTRA N grams TF IDF TM 2025 26",
+      "concepts": 14,
+      "questions": 14,
+      "disputes": 2,
+      "sources": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 4,
+      "total": 12,
+      "title": "L2 Word Embeddings TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 4,
+      "total": 12,
+      "title": "L2 Word Embeddings TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 176
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 2,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 2,
+      "imported": 1,
+      "authored": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 2,
+      "pages": [
+        59,
+        60,
+        61,
+        62
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 2,
+      "imported": 3,
+      "authored": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 8,
+      "questions_accepted": 7
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 7
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 8,
+      "questions": 7
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 4,
+      "total": 12,
+      "title": "L2 Word Embeddings TM 2025 26",
+      "concepts": 22,
+      "questions": 21,
+      "disputes": 3,
+      "sources": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 5,
+      "total": 12,
+      "title": "L3 Sequential Models TM 2025 25"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 5,
+      "total": 12,
+      "title": "L3 Sequential Models TM 2025 25"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 162
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 2,
+      "pages": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        41,
+        44,
+        45,
+        46,
+        47,
+        48,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        58,
+        59,
+        60,
+        63,
+        64,
+        65,
+        68,
+        69,
+        70,
+        72,
+        74,
+        76,
+        79,
+        80
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 2,
+      "imported": 0,
+      "authored": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 2,
+      "pages": [
+        80
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 2,
+      "imported": 0,
+      "authored": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 6,
+      "questions_accepted": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 6,
+      "questions": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 75,
+      "publishable": true,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 5,
+      "total": 12,
+      "title": "L3 Sequential Models TM 2025 25",
+      "concepts": 28,
+      "questions": 27,
+      "disputes": 3,
+      "sources": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 6,
+      "total": 12,
+      "title": "L4 Attention Transformers v2 TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 6,
+      "total": 12,
+      "title": "L4 Attention Transformers v2 TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 170
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 2,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        48,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 2,
+      "imported": 0,
+      "authored": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 2,
+      "pages": [
+        64,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0008",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 2,
+      "imported": 0,
+      "authored": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 9,
+      "questions_accepted": 9
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 9
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 9,
+      "questions": 9
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": true,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 6,
+      "total": 12,
+      "title": "L4 Attention Transformers v2 TM 2025 26",
+      "concepts": 37,
+      "questions": 36,
+      "disputes": 3,
+      "sources": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 7,
+      "total": 12,
+      "title": "L5 Large Language Models TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 7,
+      "total": 12,
+      "title": "L5 Large Language Models TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 226
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 2,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 2,
+      "imported": 0,
+      "authored": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 6,
+      "questions_accepted": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 2,
+      "pages": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0010",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0011",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0012",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0012",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0013",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0014",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0014",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 2,
+      "imported": 1,
+      "authored": 6
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 13,
+      "questions_accepted": 13
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 12
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 13,
+      "questions": 12
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 75,
+      "publishable": true,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 7,
+      "total": 12,
+      "title": "L5 Large Language Models TM 2025 26",
+      "concepts": 50,
+      "questions": 48,
+      "disputes": 3,
+      "sources": 7
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 8,
+      "total": 12,
+      "title": "L6 Large Language Models II TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 8,
+      "total": 12,
+      "title": "L6 Large Language Models II TM 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 176
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 2
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 2,
+      "pages": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0008",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 2,
+      "imported": 0,
+      "authored": 8
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 8,
+      "questions_accepted": 8
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 2,
+      "pages": [
+        60,
+        61,
+        62,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0010",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0012",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0012",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0013",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0013",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0014",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0014",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 2,
+      "imported": 1,
+      "authored": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 12,
+      "questions_accepted": 14
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 14
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 12,
+      "questions": 14
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 75,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 8,
+      "total": 12,
+      "title": "L6 Large Language Models II TM 2025 26",
+      "concepts": 62,
+      "questions": 62,
+      "disputes": 4,
+      "sources": 8
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 9,
+      "total": 12,
+      "title": "MindEval @ IMS"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 9,
+      "total": 12,
+      "title": "MindEval @ IMS"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 72
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 0,
+      "authored": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 4,
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 55,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 9,
+      "total": 12,
+      "title": "MindEval @ IMS",
+      "concepts": 66,
+      "questions": 65,
+      "disputes": 4,
+      "sources": 9
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 10,
+      "total": 12,
+      "title": "Project Guidelines Text Mining 2025 2026 v2"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 10,
+      "total": 12,
+      "title": "Project Guidelines Text Mining 2025 2026 v2"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 31
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 0,
+      "authored": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 5,
+      "questions_accepted": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 5,
+      "questions": 5
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": true,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 10,
+      "total": 12,
+      "title": "Project Guidelines Text Mining 2025 2026 v2",
+      "concepts": 71,
+      "questions": 70,
+      "disputes": 4,
+      "sources": 10
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 11,
+      "total": 12,
+      "title": "sample questions"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "text/markdown — skipping docling"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "extract complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 11,
+      "total": 12,
+      "title": "sample questions"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "warn",
+      "message": "docling chunker unavailable ([Errno 21] Is a directory: '.'); markdown fallback"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.imported",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 3,
+      "authored": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 3,
+      "questions_accepted": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 3,
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": true,
+      "errors": 0,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 11,
+      "total": 12,
+      "title": "sample questions",
+      "concepts": 74,
+      "questions": 73,
+      "disputes": 4,
+      "sources": 11
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file",
+      "index": 12,
+      "total": 12,
+      "title": "TM Course Presentation 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "extract.file.done",
+      "index": 12,
+      "total": 12,
+      "title": "TM Course Presentation 2025 26"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 31
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 0,
+      "authored": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "transform.progress",
+      "concepts_done": 2,
+      "questions_accepted": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 2,
+      "questions": 4
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 1
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "doc.done",
+      "index": 12,
+      "total": 12,
+      "title": "TM Course Presentation 2025 26",
+      "concepts": 76,
+      "questions": 77,
+      "disputes": 5,
+      "sources": 12
+    },
+    {
+      "jobId": "job-20260625200144",
+      "event": "job.review_ready",
+      "packageId": "text-mining",
+      "stoppedAt": null,
+      "concepts": 76,
+      "questions": 77,
+      "disputes": 5,
+      "sources": 12
+    }
+  ],
+  "created_at": "2026-06-25T20:01:44.624465+00:00",
+  "owner": "logus2k@gmail.com",
+  "mode": "new",
+  "files": [
+    "2024_EXAM_TM_SAMPLE_QUESTIONS.pdf",
+    "L1_Introduction_to_NLP_2025-26.pdf",
+    "L2_EXTRA_N-grams_TF-IDF_-_TM_2025-26.pdf",
+    "L2_Word_Embeddings_-_TM_2025-26.pdf",
+    "L3_Sequential_Models_-_TM_2025-25.pdf",
+    "L4_Attention_Transformers_v2_-_TM_2025-26.pdf",
+    "L5_Large_Language_Models_-_TM_2025-26.pdf",
+    "L6_Large_Language_Models_II_-_TM_2025-26.pdf",
+    "MindEval_IMS.pdf",
+    "Project_Guidelines_-_Text_Mining_2025-2026_v2.pdf",
+    "sample_questions.md",
+    "TM_Course_Presentation_-_2025-26.pdf"
+  ]
+}

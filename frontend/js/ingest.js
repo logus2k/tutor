@@ -279,9 +279,9 @@ export class IngestPanel {
     if (s.disputes) bits.push(`to review: ${s.disputes}`);
     this.countsEl.textContent = bits.join(' · ');
 
-    // Rebuild the log (last 8 lines) — cheap and keeps it idempotent.
+    // Rebuild the FULL log (idempotent); the panel scrolls (see .ingest-log CSS).
     this.logEl.innerHTML = '';
-    for (const line of s.logs.slice(-8)) this.logEl.append(el('div', 'ingest-log-line', line));
+    for (const line of s.logs) this.logEl.append(el('div', 'ingest-log-line', line));
     this.logEl.scrollTop = this.logEl.scrollHeight;
   }
 

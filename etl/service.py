@@ -125,7 +125,7 @@ _PART_SKIP = {"job.published", "job.held", "job.failed", "catalog.updated", "cat
 def _author_part(jid, md, js, doc, out, max_concepts, qpc, idx):
     """Run the orchestrator for ONE document → a standalone 'part' package at
     `out`. Returns (ok, error). Per-doc terminal events are filtered out."""
-    env = {**os.environ, "ETL_MD": md, "ETL_DOC": js, "ETL_OUT": out,
+    env = {**os.environ, "ETL_MD": md, "ETL_DOC": js or "", "ETL_OUT": out,
            "ETL_PKG_ID": f"part{idx}", "ETL_JOB_ID": jid,
            "ETL_MAX_CONCEPTS": str(max_concepts), "ETL_QPC": str(qpc),
            "ETL_SRC_TITLE": doc["title"],

@@ -19,6 +19,19 @@ _DOCLING_ARGS = ["--from", "pdf", "--to", "md", "--to", "json", "--no-ocr",
                  "--table-mode", "accurate", "--image-export-mode", "placeholder",
                  "--enrich-code", "--enrich-formula"]
 
+# Uploads that are ALREADY text — no docling needed.
+_TEXT_EXTS = {".md", ".markdown", ".txt", ".text"}
+
+def _extract_text(src_path, workdir, emit):
+    """A markdown / plain-text upload is already extracted content — clean it through
+    as the document markdown. There is no DoclingDocument JSON, so the chunker falls
+    back to a markdown heading split (and references degrade to chunk-level)."""
+    emit("extract.progress", detail="text/markdown — skipping docling")
+    md = os.path.join(workdir, "doc.md")
+    clean_file(src_path, md)
+    emit("extract.progress", detail="extract complete")
+    return md, None
+
 def _finish(raw_md, js, workdir, emit):
     md = os.path.join(workdir, "doc.md")
     clean_file(raw_md, md)
@@ -56,6 +69,8 @@ def _extract_exec(pdf_path, workdir, emit):
 
 def extract(pdf_path, workdir, emit=lambda *a, **k: None):
     os.makedirs(workdir, exist_ok=True)
+    if os.path.splitext(pdf_path)[1].lower() in _TEXT_EXTS:
+        return _extract_text(pdf_path, workdir, emit)
     return (_extract_local if MODE == "local" else _extract_exec)(pdf_path, workdir, emit)
 
 if __name__ == "__main__":

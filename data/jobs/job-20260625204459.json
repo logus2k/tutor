@@ -1,0 +1,477 @@
+{
+  "jobId": "job-20260625204459",
+  "state": "queued",
+  "packageId": "text-mining-ii",
+  "title": "Text Mining II",
+  "documents": [
+    "2024 EXAM TM SAMPLE QUESTIONS",
+    "L1 Introduction to NLP 2025 26",
+    "L2 EXTRA N grams TF IDF TM 2025 26",
+    "L2 Word Embeddings TM 2025 26",
+    "L3 Sequential Models TM 2025 25",
+    "L4 Attention Transformers v2 TM 2025 26",
+    "L5 Large Language Models TM 2025 26",
+    "L6 Large Language Models II TM 2025 26",
+    "MindEval @ IMS",
+    "Project Guidelines Text Mining 2025 2026 v2",
+    "sample questions",
+    "TM Course Presentation 2025 26"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260625204459",
+      "event": "job.queued",
+      "documents": [
+        "2024 EXAM TM SAMPLE QUESTIONS",
+        "L1 Introduction to NLP 2025 26",
+        "L2 EXTRA N grams TF IDF TM 2025 26",
+        "L2 Word Embeddings TM 2025 26",
+        "L3 Sequential Models TM 2025 25",
+        "L4 Attention Transformers v2 TM 2025 26",
+        "L5 Large Language Models TM 2025 26",
+        "L6 Large Language Models II TM 2025 26",
+        "MindEval @ IMS",
+        "Project Guidelines Text Mining 2025 2026 v2",
+        "sample questions",
+        "TM Course Presentation 2025 26"
+      ]
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "extract.file",
+      "index": 1,
+      "total": 12,
+      "title": "2024 EXAM TM SAMPLE QUESTIONS"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "extract.file.done",
+      "index": 1,
+      "total": 12,
+      "title": "2024 EXAM TM SAMPLE QUESTIONS"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 8
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 1
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 1,
+      "pages": [
+        1
+      ]
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.imported",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.imported",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 1,
+      "imported": 2
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 2
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.started",
+      "stage": "author"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0008",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "concept.authored",
+      "concept": "c-1",
+      "title": "Ambiguity in Natural Languages",
+      "questions": 5
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 7
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0010",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0011",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0012",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0012",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0013",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0013",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "concept.authored",
+      "concept": "c-2",
+      "title": "Self-Attention Mechanism",
+      "questions": 4
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 11
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0014",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0014",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0015",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0015",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0016",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0016",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0017",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0017",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0018",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0018",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "concept.authored",
+      "concept": "c-3",
+      "title": "Lemmatization",
+      "questions": 5
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 16
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0019",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0019",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0020",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0020",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0021",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0021",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0022",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0022",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.validated",
+      "qid": "q-0023",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "question.judged",
+      "qid": "q-0023",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "concept.authored",
+      "concept": "c-4",
+      "title": "NLP Pipeline Steps",
+      "questions": 5
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 21
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "dedup.done",
+      "removed": 3,
+      "remaining": 18
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 4,
+      "questions": 18
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "package.judged",
+      "score": 65,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 2
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "doc.done",
+      "index": 1,
+      "total": 12,
+      "title": "2024 EXAM TM SAMPLE QUESTIONS",
+      "concepts": 4,
+      "questions": 18,
+      "disputes": 2,
+      "sources": 1
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "extract.file",
+      "index": 2,
+      "total": 12,
+      "title": "L1 Introduction to NLP 2025 26"
+    },
+    {
+      "jobId": "job-20260625204459",
+      "event": "extract.progress",
+      "detail": "docling started"
+    }
+  ],
+  "created_at": "2026-06-25T20:44:59.623925+00:00",
+  "owner": "logus2k@gmail.com",
+  "mode": "new",
+  "files": [
+    "2024_EXAM_TM_SAMPLE_QUESTIONS.pdf",
+    "L1_Introduction_to_NLP_2025-26.pdf",
+    "L2_EXTRA_N-grams_TF-IDF_-_TM_2025-26.pdf",
+    "L2_Word_Embeddings_-_TM_2025-26.pdf",
+    "L3_Sequential_Models_-_TM_2025-25.pdf",
+    "L4_Attention_Transformers_v2_-_TM_2025-26.pdf",
+    "L5_Large_Language_Models_-_TM_2025-26.pdf",
+    "L6_Large_Language_Models_II_-_TM_2025-26.pdf",
+    "MindEval_IMS.pdf",
+    "Project_Guidelines_-_Text_Mining_2025-2026_v2.pdf",
+    "sample_questions.md",
+    "TM_Course_Presentation_-_2025-26.pdf"
+  ]
+}

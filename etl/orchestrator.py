@@ -415,7 +415,7 @@ def chunk_doc(md_path, doc_path=None, max_chars=None):
     window (a document bigger than the window just becomes more chunks). Each piece
     is a whole section, so a question and its answer key are never split apart.
     Falls back to a markdown heading split only if the structured JSON is missing."""
-    max_chars = max_chars or int(os.environ.get("ETL_CHUNK_CHARS") or 18000)
+    max_chars = max_chars or int(os.environ.get("ETL_CHUNK_CHARS") or 4000)
 
     # each section: (text_with_heading_context, headings[list], pages[list])
     sections = None
@@ -590,7 +590,7 @@ def main():
         concept = {"id": f"c-{_cseq[0]}", "domain": "d1", "objective": str(_cseq[0]),
                    "title": (title or "General")[:160], "summary": "", "prerequisites": [], "tags": [],
                    "grounding": [{"source_id": SRC_ID, "locator": locator or "document",
-                                  "text": (chunk_text or "")[:400], "citation": (citation or title or "")[:160]}]}
+                                  "text": (chunk_text or "")[:1500], "citation": (citation or title or "")[:160]}]}
         concept_by_title[key] = concept
         pkg_concepts.append(concept)
         return concept
@@ -615,58 +615,79 @@ def main():
             if rc.get("summary") and not c["summary"]:
                 c["summary"] = str(rc["summary"])[:600]
 
-        imp_n = auth_n = 0
+        # IMPORT ready-made Q&A from this chunk (verbatim, source-keyed). Authoring is
+        # NOT done here — the small model satisfices at a few questions per call, so we
+        # author densely PER CONCEPT after all chunks (see below).
+        imp_n = 0
         for raw in (res.get("questions") or []):
+            if not raw.get("imported"):
+                continue
             c = get_concept(raw.get("concept_title") or raw.get("concept"), ctext, loc, citation)
-            cid = c["id"]; is_imp = bool(raw.get("imported"))
             opts = raw.get("options", []) or []
             for k, o in enumerate(opts): o["id"] = opt_id(k); o.setdefault("rationale", "")
             qnum += 1; qid = f"q-{qnum:04d}"
-            q = {"id": qid, "concept_ids": [cid], "type": raw.get("type", "mcq_single"),
+            q = {"id": qid, "concept_ids": [c["id"]], "type": raw.get("type", "mcq_single"),
                  "render": raw.get("render", "radio"), "difficulty": int(raw.get("difficulty", 2) or 2),
-                 "bloom": raw.get("bloom", "recall" if is_imp else "understand"),
-                 "stem": raw.get("stem", ""),
+                 "bloom": raw.get("bloom", "recall"), "stem": raw.get("stem", ""),
                  "options": [{"id": o["id"], "text": o.get("text", ""), "correct": bool(o.get("correct")),
                               "rationale": o.get("rationale", "")} for o in opts],
                  "explanation": raw.get("explanation", ""), "hints": raw.get("hints", []) or [],
-                 "source_refs": [{"source_id": SRC_ID, "locator": loc}],
-                 "tags": (raw.get("tags", []) or []) + (["imported"] if is_imp else [])}
+                 "source_refs": [{"source_id": SRC_ID, "locator": loc}], "tags": ["imported"]}
+            key = resolve_key(raw.get("source_answer"), q["options"])
+            if key:
+                for o in q["options"]:
+                    o["correct"] = o["id"] in key
+            elif raw.get("source_answer"):
+                warnings.append(f"{qid}: source_answer '{str(raw.get('source_answer'))[:30]}' unresolved — kept model flags")
+            else:
+                warnings.append(f"{qid}: imported with no source_answer — kept model flags")
+            sq = sanitize_question(q)
+            if sq:
+                sq["tags"] = sorted(set((sq.get("tags") or []) + ["imported"]))
+                pkg_questions.append(sq); imp_n += 1
+                emit("question.imported", qid=qid, accepted=True)
+            else:
+                warnings.append(f"{qid}: imported question unsalvageable — skipped")
+        emit("chunk.done", index=ci + 1, total=len(chunks), imported=imp_n)
+        emit("transform.progress", concepts_done=len(pkg_concepts), questions_accepted=len(pkg_questions))
 
-            if is_imp:
-                # the document's OWN question: the stored key comes from the source's STATED answer
-                # (resolved deterministically), never the model's opinion. Sanitize only — no re-judge/reword.
-                key = resolve_key(raw.get("source_answer"), q["options"])
-                if key:
-                    for o in q["options"]:
-                        o["correct"] = o["id"] in key
-                elif raw.get("source_answer"):
-                    warnings.append(f"{qid}: source_answer '{str(raw.get('source_answer'))[:30]}' unresolved — kept model flags")
-                else:
-                    warnings.append(f"{qid}: imported with no source_answer — kept model flags")
-                sq = sanitize_question(q)
-                if sq:
-                    sq["tags"] = sorted(set((sq.get("tags") or []) + ["imported"]))
-                    pkg_questions.append(sq); imp_n += 1
-                    emit("question.imported", qid=qid, accepted=True)
-                else:
-                    warnings.append(f"{qid}: imported question unsalvageable (no clear key) — skipped")
-                continue
-
-            # authored: self-contain, judge with one bounded repair, then answer-blind validate
+    # ---------------------------------------------------------------- DENSE authoring per concept
+    # The local model writes only a few questions per call regardless of the prompt, so author ONE
+    # CONCEPT AT A TIME with a forced target-difficulty list of length QPC — the mechanism that
+    # actually yields ~QPC questions per concept (matching the old pipeline's density).
+    emit("stage.started", stage="author")
+    for c in list(pkg_concepts):
+        grounding = c["grounding"]
+        loc = (grounding[0].get("locator") if grounding else "") or "document"
+        cdir = {"concept": {"title": c["title"], "objective": c.get("objective", ""),
+                            "summary": c["summary"], "grounding": grounding},
+                "questions_per_concept": QPC, "target_difficulties": next_targets(QPC),
+                "types": ["mcq_single", "mcq_multi", "true_false"]}
+        try:
+            qa = agent_json("question_author", json.dumps(cdir))
+        except Exception as e:
+            warnings.append(f"{c['id']}: author failed ({e})"); continue
+        cq = 0
+        for raw in (qa.get("questions") or []):
+            opts = raw.get("options", []) or []
+            for k, o in enumerate(opts): o["id"] = opt_id(k); o.setdefault("rationale", "")
+            qnum += 1; qid = f"q-{qnum:04d}"
+            q = {"id": qid, "concept_ids": [c["id"]], "type": raw.get("type", "mcq_single"),
+                 "render": raw.get("render", "radio"), "difficulty": int(raw.get("difficulty", 2) or 2),
+                 "bloom": raw.get("bloom", "understand"), "stem": raw.get("stem", ""),
+                 "options": [{"id": o["id"], "text": o.get("text", ""), "correct": bool(o.get("correct")),
+                              "rationale": o.get("rationale", "")} for o in opts],
+                 "explanation": raw.get("explanation", ""), "hints": raw.get("hints", []) or [],
+                 "source_refs": [{"source_id": SRC_ID, "locator": loc}], "tags": raw.get("tags", []) or []}
             scrub_meta(q)
-            grounding = c["grounding"]
-            fix_dir = {"concept": {"title": c["title"], "summary": c["summary"], "grounding": grounding},
-                       "questions_per_concept": 1, "types": ["mcq_single", "mcq_multi", "true_false"]}
             accepted = False
             for attempt in range(2):
-                v = robust_judge(q, grounding)   # judged against the full document
-                if v.get("_parsefail"):
-                    warnings.append(f"{qid}: judge unparseable after retry — conservative reject")
+                v = robust_judge(q, grounding)
                 if v.get("verdict") == "accept":
                     accepted = True; break
-                if attempt == 0:   # one repair: ask author to fix this one
+                if attempt == 0:
                     try:
-                        fix = agent_json("question_author", json.dumps({**fix_dir,
+                        fix = agent_json("question_author", json.dumps({**cdir, "questions_per_concept": 1,
                             "target_difficulties": [q["difficulty"]], "fix_feedback": v.get("issues", [])}))
                         r2 = (fix.get("questions") or [None])[0]
                         if r2:
@@ -674,29 +695,25 @@ def main():
                             for k, o in enumerate(o2): o["id"] = opt_id(k); o.setdefault("rationale", "")
                             q = {**q, "type": r2.get("type", q["type"]), "render": r2.get("render", q["render"]),
                                  "stem": r2.get("stem", q["stem"]),
-                                 "options": [{"id": o["id"], "text": o.get("text",""), "correct": bool(o.get("correct")),
-                                              "rationale": o.get("rationale","")} for o in o2],
+                                 "options": [{"id": o["id"], "text": o.get("text", ""), "correct": bool(o.get("correct")),
+                                              "rationale": o.get("rationale", "")} for o in o2],
                                  "explanation": r2.get("explanation", q["explanation"])}
-                            scrub_meta(q)   # re-scrub the repaired question before re-judging
+                            scrub_meta(q)
                     except Exception:
                         pass
                 else:
-                    warnings.append(f"{qid}: rejected after repair — {', '.join(v.get('issues', []))[:100]}")
+                    warnings.append(f"{qid}: rejected after repair — {', '.join(v.get('issues', []))[:80]}")
             if accepted:
-                pkg_questions.append(q); auth_n += 1
-                if VALIDATE_ON:                         # answer-blind second opinion
+                pkg_questions.append(q); cq += 1
+                if VALIDATE_ON:
                     va = validate_answer(q)
                     if va["status"] == "dispute":
-                        disputes.append({"qid": qid, "stem": q["stem"][:120],
-                                         "stored": va["stored"], "derived": va["derived"],
-                                         "reason": va.get("reason", ""), "evidence": (va.get("quote") or "")[:200]})
-                        warnings.append(f"{qid}: KEY DISPUTED — stored {va['stored']} vs solved {va['derived']}")
-                    elif va["status"] == "inconclusive":
-                        warnings.append(f"{qid}: validator inconclusive (no parseable solve)")
+                        disputes.append({"qid": qid, "stem": q["stem"][:120], "stored": va["stored"],
+                                         "derived": va["derived"], "reason": va.get("reason", ""),
+                                         "evidence": (va.get("quote") or "")[:200]})
                     emit("question.validated", qid=qid, status=va["status"])
             emit("question.judged", qid=qid, accepted=accepted)
-
-        emit("chunk.done", index=ci + 1, total=len(chunks), imported=imp_n, authored=auth_n)
+        emit("concept.authored", concept=c["id"], title=c["title"][:60], questions=cq)
         emit("transform.progress", concepts_done=len(pkg_concepts), questions_accepted=len(pkg_questions))
 
     # defensive sanitize: guarantee every question is schema-valid + internally consistent

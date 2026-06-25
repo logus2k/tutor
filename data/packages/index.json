@@ -13,6 +13,13 @@
       "file": "microsoft-ai-transformation-leader-ab-731.json",
       "description": "This package covers the business value, capabilities, adoption strategies, and core concepts of Generative AI solutions within the Microsoft Azure ecosystem.",
       "questions": 171
+    },
+    {
+      "id": "text-mining",
+      "title": "Text Mining I",
+      "file": "text-mining.json",
+      "description": "This package contains sample questions covering topics such as ambiguity in natural language, the self-attention mechanism, lemmatization, and NLP pipeline steps using Transformers.",
+      "questions": 77
     }
   ]
 }
