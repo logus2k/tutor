@@ -513,27 +513,33 @@ async def review_resolve(pkg_id: str, request: Request):
     qid = (body.get("qid") or "").strip()
     if not qid:
         raise HTTPException(400, "qid required")
+
+    if body.get("discard"):
+        # Always clears the dispute — works even for an orphan whose question was
+        # already removed (e.g. by dedup), which is exactly what needs cleaning up.
+        pkg["questions"] = [x for x in pkg.get("questions", []) if x.get("id") != qid]
+        review.clear_dispute(pkg, qid)
+        review.write_held(pkg)
+        remaining = len(review.disputes_of(pkg))
+        return {"ok": True, "disputes_remaining": remaining, "publishable": remaining == 0}
+
     q = review.find_question(pkg, qid)
     if not q:
         raise HTTPException(404, "question not found")
-
-    if body.get("discard"):
-        pkg["questions"] = [x for x in pkg.get("questions", []) if x.get("id") != qid]
-    else:
-        if body.get("stem") is not None:
-            q["stem"] = str(body["stem"])
-        if body.get("explanation") is not None:
-            q["explanation"] = str(body["explanation"])
-        for upd in (body.get("options") or []):
-            opt = next((o for o in q.get("options", []) if o.get("id") == upd.get("id")), None)
-            if opt and upd.get("text") is not None:
-                opt["text"] = str(upd["text"])
-        if body.get("correct_ids") is not None:
-            want = {str(x) for x in body["correct_ids"]}
-            for o in q.get("options", []):
-                o["correct"] = o.get("id") in want
-            if not any(o.get("correct") for o in q.get("options", [])):
-                raise HTTPException(400, "at least one option must be correct")
+    if body.get("stem") is not None:
+        q["stem"] = str(body["stem"])
+    if body.get("explanation") is not None:
+        q["explanation"] = str(body["explanation"])
+    for upd in (body.get("options") or []):
+        opt = next((o for o in q.get("options", []) if o.get("id") == upd.get("id")), None)
+        if opt and upd.get("text") is not None:
+            opt["text"] = str(upd["text"])
+    if body.get("correct_ids") is not None:
+        want = {str(x) for x in body["correct_ids"]}
+        for o in q.get("options", []):
+            o["correct"] = o.get("id") in want
+        if not any(o.get("correct") for o in q.get("options", [])):
+            raise HTTPException(400, "at least one option must be correct")
     review.clear_dispute(pkg, qid)
     review.write_held(pkg)
     remaining = len(review.disputes_of(pkg))

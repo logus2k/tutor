@@ -162,6 +162,20 @@ export class ReviewPanel {
     if (d.locators && d.locators.length) where += ` · ${d.locators.join(' ')}`;
     card.append(el('div', 'rv-where', where));
 
+    // Orphan dispute: the question was removed (e.g. by de-duplication) but a
+    // leftover dispute remained. Nothing to edit/grade — just let them clear it.
+    if (!q.id) {
+      card.append(el('div', 'rv-orphan', '⚠ This question no longer exists (removed during de-duplication). Discard to clear this leftover dispute.'));
+      if (d.stem) card.append(el('div', 'rv-reason muted', `Was: “${d.stem}”`));
+      const bar = el('div', 'rv-card-actions');
+      const discard = el('button', 'tq-btn tq-btn-primary', '🗑 Discard');
+      discard.type = 'button';
+      discard.addEventListener('click', () => this.resolve(d.qid, { discard: true }, discard));
+      bar.append(discard);
+      card.append(bar);
+      return card;
+    }
+
     // Editable stem.
     const stem = el('textarea', 'rv-stem');
     stem.value = q.stem || '';

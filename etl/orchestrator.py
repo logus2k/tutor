@@ -546,6 +546,11 @@ def main():
     if _ndup: warnings.append(f"dedup: removed {_ndup} near-duplicate question(s)")
     emit("dedup.done", removed=_ndup, remaining=len(pkg_questions))
 
+    # Prune disputes whose question was dropped (e.g. by dedup) so we never leave
+    # an orphan dispute pointing at a non-existent question.
+    _surviving = {q["id"] for q in pkg_questions}
+    disputes = [d for d in disputes if d.get("qid") in _surviving]
+
     emit("stage.done", stage="transform", concepts=len(pkg_concepts), questions=len(pkg_questions))
     emit("stage.started", stage="load")
 

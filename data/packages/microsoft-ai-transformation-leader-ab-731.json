@@ -3972,8 +3972,8 @@
       "options": [
         {
           "id": "a",
-          "text": "Time Taken.",
-          "correct": false,
+          "text": "Time savings.",
+          "correct": true,
           "rationale": "Time savings are a component of value measurement, but not the primary metric itself."
         },
         {
@@ -4207,7 +4207,7 @@
         {
           "id": "a",
           "text": "Model training",
-          "correct": false,
+          "correct": true,
           "rationale": "Model training is a step in the lifecycle, but MLOps covers the entire lifecycle, not just training."
         },
         {
@@ -4225,13 +4225,13 @@
         {
           "id": "d",
           "text": "Data acquisition",
-          "correct": false,
+          "correct": true,
           "rationale": "Data acquisition is a phase, but MLOps focuses on automating the lifecycle *from* development onward."
         },
         {
           "id": "e",
           "text": "Evaluation",
-          "correct": false,
+          "correct": true,
           "rationale": "Evaluation is a step, but MLOps focuses on the end-to-end automation and operationalization."
         }
       ],
@@ -4744,7 +4744,7 @@
         },
         {
           "id": "b",
-          "text": "Microsoft Graph",
+          "text": "M365 Copilot Chat",
           "correct": true,
           "rationale": "Microsoft 365 Copilot gains access to Microsoft Graph, allowing it to answer questions grounded in organizational data."
         },
@@ -4756,7 +4756,7 @@
         },
         {
           "id": "d",
-          "text": "M365 app integration",
+          "text": "Microsoft Graph",
           "correct": false,
           "rationale": "M365 app integration is a feature of Microsoft 365 Copilot."
         }
@@ -4782,12 +4782,12 @@
       "render": "radio",
       "difficulty": 1,
       "bloom": "recall",
-      "stem": "Which component is included in the definition of Microsoft 365 Copilot?",
+      "stem": "Which component is part of Microsoft 365 Copilot?",
       "options": [
         {
           "id": "a",
           "text": "Microsoft Copilot",
-          "correct": true,
+          "correct": false,
           "rationale": "Microsoft 365 Copilot is defined as Microsoft Copilot plus Microsoft Graph access and M365 app integration."
         },
         {
@@ -4798,13 +4798,13 @@
         },
         {
           "id": "c",
-          "text": "The $30/user/month license",
-          "correct": false,
+          "text": "A $30 per user monthly license",
+          "correct": true,
           "rationale": "The license fee is associated with unlocking enterprise value through data grounding."
         },
         {
           "id": "d",
-          "text": "Only M365 app integration",
+          "text": "Word and Excel licenses",
           "correct": false,
           "rationale": "Microsoft 365 Copilot includes more than just M365 app integration."
         }
@@ -4954,14 +4954,14 @@
       "options": [
         {
           "id": "a",
-          "text": "Web mode",
+          "text": "Application mode",
           "correct": false,
           "rationale": "Web mode is used for public research, while Work mode is used for internal M365 data."
         },
         {
           "id": "b",
           "text": "Web mode",
-          "correct": true,
+          "correct": false,
           "rationale": "Web mode is used for public research, while Work mode is used for internal M365 data."
         },
         {
@@ -6028,31 +6028,31 @@
       "options": [
         {
           "id": "a",
-          "text": "Document creation $\rightarrow$ Azure AI Foundry",
+          "text": "Document creation -> Azure AI Foundry",
           "correct": false,
           "rationale": "Document creation is mapped to M365 Copilot in Word, not Azure AI Foundry."
         },
         {
           "id": "b",
-          "text": "Data analysis $\rightarrow$ M365 Copilot in Word",
+          "text": "Data analysis -> M365 Copilot in Word",
           "correct": false,
           "rationale": "M365 Copilot in Word is for document creation, not data analysis."
         },
         {
           "id": "c",
-          "text": "Reports, proposals, contracts $\rightarrow$ M365 Copilot in Word",
+          "text": "Reports, proposals, contracts -> M365 Copilot in Word",
           "correct": true,
           "rationale": "Reports, proposals, and contracts are correctly mapped to M365 Copilot in Word."
         },
         {
           "id": "d",
-          "text": "General research $\rightarrow$ Public AI assistant",
+          "text": "External research -> Microsoft Copilot (Web)",
           "correct": true,
           "rationale": "General research is correctly mapped to the Public AI assistant."
         },
         {
           "id": "e",
-          "text": "Data analysis $\rightarrow$ Public AI assistant",
+          "text": "Data analysis -> Public AI assistant",
           "correct": false,
           "rationale": "Data analysis is not explicitly mapped to the Public AI assistant in this context."
         }
@@ -6861,7 +6861,7 @@
         {
           "id": "b",
           "text": "Azure AI Vision",
-          "correct": true,
+          "correct": false,
           "rationale": "Azure AI Vision generates the vector embeddings for semantic search."
         },
         {
@@ -7561,7 +7561,7 @@
         {
           "id": "d",
           "text": "Mitigating reputational damage.",
-          "correct": true,
+          "correct": false,
           "rationale": "Responsible AI aims to ensure trustworthiness, which helps mitigate risks like reputational damage."
         }
       ],
@@ -7760,18 +7760,18 @@
         {
           "id": "c",
           "text": "Inventorying all AI assets.",
-          "correct": false,
+          "correct": true,
           "rationale": "Inventorying assets is part of the 'Map' phase of the framework, not the direct establishment of accountability."
         },
         {
           "id": "d",
           "text": "Assessing risks and performance outcomes.",
-          "correct": false,
+          "correct": true,
           "rationale": "Assessing risks is part of the 'Measure' phase, not the direct establishment of accountability."
         },
         {
           "id": "e",
-          "text": "Implementing controls and oversight.",
+          "text": "Monitoring user behavior",
           "correct": false,
           "rationale": "Implementing controls is part of the 'Manage' phase, not the direct establishment of accountability."
         }
@@ -8331,7 +8331,7 @@
         {
           "id": "a",
           "text": "Lack of cross-functional collaboration",
-          "correct": false,
+          "correct": true,
           "rationale": "This is a barrier, but the text lists five specific barriers."
         },
         {
@@ -8343,12 +8343,12 @@
         {
           "id": "c",
           "text": "Prioritizing technology over use cases",
-          "correct": false,
+          "correct": true,
           "rationale": "This is a barrier, but the question asks to identify one of the listed barriers."
         },
         {
           "id": "d",
-          "text": "Insufficient quality, quantity, or access to relevant data",
+          "text": "Lack of time",
           "correct": true,
           "rationale": "Insufficient quality, quantity, or access to relevant data is a barrier."
         }
@@ -8378,7 +8378,7 @@
       "render": "radio",
       "difficulty": 2,
       "bloom": "recall",
-      "stem": "The text suggests that AI cannot produce accurate, grounded outputs due to data limitations.",
+      "stem": "AI cannot produce accurate, grounded outputs due to data limitations.",
       "options": [
         {
           "id": "a",
@@ -8730,7 +8730,7 @@
         },
         {
           "id": "d",
-          "text": "Infrastructure scaling",
+          "text": "Infrastructure technologies",
           "correct": false,
           "rationale": "Infrastructure scaling is not listed as one of the four critical domains for AI adoption planning."
         }
@@ -9414,7 +9414,7 @@
   ],
   "quality": {
     "score": 65,
-    "publishable": false,
+    "publishable": true,
     "findings": [
       {
         "severity": "info",
@@ -9442,281 +9442,8 @@
         "detail": "The sample questions appear well-formed with standard MCQ types. Answer keys are not provided in the sample, but the structure is consistent."
       }
     ],
-    "disputes": [
-      {
-        "qid": "q-0061",
-        "stem": "What is a key metric used to measure the value of an ML application?",
-        "stored": [
-          "b",
-          "d"
-        ],
-        "derived": [
-          "b",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Metric\n|-----------------------------------------|\n| Correct predictions / total predictions | Domain dependent (95%+ for critical)               | Accuracy      |\n| Precision/Recall                  "
-      },
-      {
-        "qid": "q-0062",
-        "stem": "Which of the following are metrics used for measuring the value of an ML application?",
-        "stored": [
-          "a",
-          "b",
-          "d"
-        ],
-        "derived": [
-          "b",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Metric\n|-----------------------------------------|\n| Correct predictions / total predictions | Domain dependent (95%+ for critical)               | Accuracy      |\n| Precision/Recall                  "
-      },
-      {
-        "qid": "q-0065",
-        "stem": "What is required at a critical decision gate after Phase 1 of the ML lifecycle?",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "b"
-        ],
-        "reason": "validator inconsistent across samples",
-        "evidence": "Gate | Question | Who Decides | Go/No-Go after Phase 1 | Is business value clear and feasible? | Business leadership"
-      },
-      {
-        "qid": "q-0067",
-        "stem": "Which of the following activities are included in the definition of MLOps practices?",
-        "stored": [
-          "b",
-          "c"
-        ],
-        "derived": [
-          "b",
-          "c",
-          "e"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Key MLOps Capabilities:\n- Automated retraining pipelines\n- Model versioning and registry\n- Performance monitoring and alerting\n- Drift detection (data drift, concept drift)\n- Rollback capabilities"
-      },
-      {
-        "qid": "q-0079",
-        "stem": "What feature does Microsoft 365 Copilot gain access to that allows it to answer questions grounded in organizational dat",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "b",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Definition - Microsoft 365 Copilot: An enterprise AI assistant that combines the power of LLMs with your organization's Microsoft Graph data (emails, documents, meetings, calendars) to provide grounde"
-      },
-      {
-        "qid": "q-0080",
-        "stem": "Which component is included in the definition of Microsoft 365 Copilot?",
-        "stored": [
-          "a"
-        ],
-        "derived": [
-          "a",
-          "b"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Definition - Microsoft Copilot: A generative AI assistant available at copilot.microsoft.com that works over public web data (Bing search index). Free for all users with commercial data protection for"
-      },
-      {
-        "qid": "q-0084",
-        "stem": "Which mode of the Microsoft 365 Copilot Chat interface is used for querying internal organizational data?",
-        "stored": [
-          "b",
-          "c"
-        ],
-        "derived": [
-          "c"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Definition - Microsoft 365 Copilot: An enterprise AI assistant that combines the power of LLMs with your organization's Microsoft Graph data (emails, documents, meetings, calendars) to provide grounde"
-      },
-      {
-        "qid": "q-0085",
-        "stem": "Which of the following capabilities are provided by Microsoft 365 Copilot Chat?",
-        "stored": [
-          "a",
-          "b",
-          "c"
-        ],
-        "derived": [
-          "a",
-          "b",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Capability                                                 | Description                                          | Example Use Case    |\n|------------------------------------------------------------|"
-      },
-      {
-        "qid": "q-0091",
-        "stem": "Which of the following applications are having tailored Copilot capabilities?",
-        "stored": [
-          "a",
-          "b",
-          "c",
-          "d",
-          "e"
-        ],
-        "derived": [
-          "a",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Application-Specific Capabilities Table\n| Application | Key Capabilities | Example Prompt |\n|---|---|---|\n| Generate, rewrite, summarize, transform, insert data from other apps | \"Rewrite this paragra"
-      },
-      {
-        "qid": "q-0109",
-        "stem": "Which of the following combinations correctly maps a process category to a recommended service?",
-        "stored": [
-          "c",
-          "d"
-        ],
-        "derived": [
-          "c",
-          "d",
-          "e"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Process-to-Foundry Mapping Table\n\n| Business Process            | Foundry Tool/Capability                 | Example Use Case                                                 |\n|------------------------"
-      },
-      {
-        "qid": "q-0128",
-        "stem": "Which components are involved in the process described for semantic search across modalities?",
-        "stored": [
-          "a",
-          "b"
-        ],
-        "derived": [
-          "a",
-          "b",
-          "c"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Azure AI Vision multimodal embeddings skill: Generates vector embeddings for text or image input, enabling semantic search across both modalities.\n\nMicrosoft Foundry acts as the central control plane "
-      },
-      {
-        "qid": "q-0130",
-        "stem": "Which Azure AI model is recommended for the business need of generating product descriptions?",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "b",
-          "c"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Model-to-Need Matching Table (Exam Critical)\n| Business Need                       | Recommended Model/Service                            | Why                                      |\n|----------------"
-      },
-      {
-        "qid": "q-0143",
-        "stem": "Which of the following are components that a Responsible AI framework ensures AI systems are designed, developed, and de",
-        "stored": [
-          "a",
-          "b",
-          "d"
-        ],
-        "derived": [
-          "a",
-          "b"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Responsible AI: A framework of principles, practices, and governance mechanisms that ensure AI systems are designed, developed, and deployed in ways that are ethical, trustworthy, and beneficial to in"
-      },
-      {
-        "qid": "q-0147",
-        "stem": "Which actions are key components of establishing clear accountability for AI decisions?",
-        "stored": [
-          "a",
-          "b"
-        ],
-        "derived": [
-          "a",
-          "b",
-          "e"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Establish clear accountability for AI decisions across business and technical teams\nEstablish a formal process to review AI initiatives for responsible AI alignment"
-      },
-      {
-        "qid": "q-0150",
-        "stem": "If an organization is implementing AI governance, what is a potential pitfall to avoid regarding governance ownership?",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "b",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Establish clear accountability for AI decisions across business and technical teams\nEstablish a formal process to review AI initiatives for responsible AI alignment\nAllow each department to tailor gov"
-      },
-      {
-        "qid": "q-0160",
-        "stem": "Which of the following is identified as a common barrier to AI adoption?",
-        "stored": [
-          "b",
-          "d"
-        ],
-        "derived": [
-          "a",
-          "b",
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Common Barriers to AI Adoption (Exam Critical)\n\n| Barrier                                                    | Description                                                                              "
-      },
-      {
-        "qid": "q-0162",
-        "stem": "The text suggests that AI cannot produce accurate, grounded outputs due to data limitations.",
-        "stored": [
-          "a"
-        ],
-        "derived": [
-          "b"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Core Principle: The quality of AI output is fundamentally limited by the quality of data used for training, grounding, or fine-tuning-\"garbage in, garbage out\"."
-      },
-      {
-        "qid": "q-0169",
-        "stem": "Which of the following is one of the four critical domains organizations must assess and prepare for when planning AI ad",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "b",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "When planning AI adoption, organizations must assess and prepare for impacts across these four domains:\n| Impact Area                                                    | Key Considerations           "
-      },
-      {
-        "qid": "q-0174",
-        "stem": "Which of the following is one of the three primary ways Microsoft offers to license Copilot capabilities?",
-        "stored": [
-          "b"
-        ],
-        "derived": [
-          "a",
-          "b"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Microsoft offers three primary ways to license Copilot capabilities:\n\n| License Type                             | Best For                                          | Key Advantage                    "
-      }
-    ]
+    "disputes": [],
+    "published_at": "2026-06-25T16:35:58.197868+00:00"
   },
   "owner_email": "logus2k@gmail.com",
   "held_at": "2026-06-24T21:51:42.219801+00:00"

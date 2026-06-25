@@ -6,6 +6,13 @@
       "file": "ai-901-core.json",
       "description": "This package covers fundamental AI concepts, including fairness, safety, privacy, and explainability, along with matching AI tasks to relevant Azure AI models.",
       "questions": 135
+    },
+    {
+      "id": "microsoft-ai-transformation-leader-ab-731",
+      "title": "Microsoft AI Transformation Leader (AB-731)",
+      "file": "microsoft-ai-transformation-leader-ab-731.json",
+      "description": "This package covers the business value, capabilities, adoption strategies, and core concepts of Generative AI solutions within the Microsoft Azure ecosystem.",
+      "questions": 171
     }
   ]
 }
