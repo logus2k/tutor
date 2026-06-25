@@ -67,6 +67,13 @@ def _question_concepts(package_id: str, question_id: str) -> list:
     return [(cid, titles.get(cid)) for cid in (q.get("concept_ids") or [])]
 
 def _slug(s): return re.sub(r"[^a-z0-9]+", "-", os.path.splitext(s)[0].lower()).strip("-") or "package"
+def _pretty_title(fn):
+    """A human title from a filename when the uploader didn't give one:
+    'Microsoft-AI-Transformation-Leader-AB-731.pdf' → 'Microsoft AI Transformation Leader AB 731'."""
+    base = os.path.splitext(os.path.basename(fn or ""))[0]
+    base = re.sub(r"[-_]+", " ", base)
+    base = re.sub(r"\s+", " ", base).strip()
+    return base or "Untitled package"
 def _now(): return datetime.datetime.now(datetime.timezone.utc).isoformat()
 def _job_file(jid): return os.path.join(JOBS_DIR, jid + ".json")
 def _save(job): json.dump(job, open(_job_file(job["jobId"]), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
@@ -117,7 +124,7 @@ def run_job(jid, pdf_path, md, js, pkg_id, title, src_uri, max_concepts, qpc, ow
         out = os.path.join(PKG_DIR, pkg_id + ".json")
         env = {**os.environ, "ETL_MD": md, "ETL_DOC": js, "ETL_OUT": out, "ETL_PKG_ID": pkg_id,
                "ETL_JOB_ID": jid, "ETL_MAX_CONCEPTS": str(max_concepts), "ETL_QPC": str(qpc),
-               "ETL_SRC_TITLE": title, "ETL_SRC_URI": src_uri}
+               "ETL_SRC_TITLE": title, "ETL_SRC_URI": src_uri, "ETL_SRC_ID": f"src-{pkg_id}"}
         proc = subprocess.Popen([PYTHON, "etl/orchestrator.py"], cwd=ROOT, env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
         for line in proc.stdout:
@@ -182,10 +189,11 @@ async def create_job(request: Request, files: list[UploadFile] = File(default=[]
         with open(pdf_path, "wb") as out:
             out.write(await f.read())
         src_uri = f"documents/{safe}"
-        catalog.upsert_document({"id": _slug(safe), "title": d.get("title") or safe,
+        pretty = d.get("title") or _pretty_title(f.filename or safe)   # blank → clean name from filename
+        catalog.upsert_document({"id": _slug(safe), "title": pretty,
                                  "file": safe, "kind": "pdf", "uploaded_at": _now()})
         pkg_id = d.get("packageId") or _slug(safe)
-        title = d.get("title") or safe
+        title = pretty
     elif src_md and src_json:                            # re-build from extraction
         pkg_id = d.get("packageId") or "package"
         title = d.get("title") or pkg_id

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "id": "microsoft-ai-transformation-leader-ab-731",
-  "title": "Azure AI Fundamentals (AI-901) Master Cheat Sheet",
+  "title": "Microsoft AI Transformation Leader (AB-731)",
   "description": "This package covers the business value, capabilities, adoption strategies, and core concepts of Generative AI solutions within the Microsoft Azure ecosystem.",
   "generated_by": "tutor orchestrator.py (gemma-4-e2b)",
   "generated_at": "2026-06-24T21:51:41.169403+00:00",
@@ -9491,21 +9491,6 @@
       }
     ],
     "disputes": [
-      {
-        "qid": "q-0015",
-        "stem": "Which of the following statements accurately describe the difference between pretrained and fine-tuned models?",
-        "stored": [
-          "b",
-          "c",
-          "d"
-        ],
-        "derived": [
-          "c",
-          "d"
-        ],
-        "reason": "answer-blind solve disagrees with stored key",
-        "evidence": "Pretrained Models\n\nDefinition: Foundation models already trained on massive, general-purpose datasets that can perform a wide range of tasks without additional training .\n\nCharacteristics:\n\n- Trained "
-      },
       {
         "qid": "q-0020",
         "stem": "Which of the following are identified as factors that dramatically impact total cost?",

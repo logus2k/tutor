@@ -26,8 +26,11 @@ SRC_URI = os.environ.get("ETL_SRC_URI", "materials/AI-901.pdf")
 PKG_ID = os.environ.get("ETL_PKG_ID", "ai-901-core")
 API  = os.environ.get("ETL_API", "http://localhost:7701/v1/chat/completions")
 
-MAX_CONCEPTS = int(os.environ.get("ETL_MAX_CONCEPTS", sys.argv[1] if len(sys.argv) > 1 else 999))
-QPC          = int(os.environ.get("ETL_QPC", sys.argv[2] if len(sys.argv) > 2 else 5))
+# argv fallbacks only apply when run as a script with NUMERIC args; importing this
+# module (e.g. from the service for re-validation) must not choke on argv.
+_argv_n = lambda i, d: int(sys.argv[i]) if (len(sys.argv) > i and str(sys.argv[i]).isdigit()) else d
+MAX_CONCEPTS = int(os.environ.get("ETL_MAX_CONCEPTS") or _argv_n(1, 999))
+QPC          = int(os.environ.get("ETL_QPC") or _argv_n(2, 5))
 MIN_WORDS    = 25
 # Set in main(); kept module-level so emit() can reference them. Computing JOB_ID
 # reads MD, so it (and the run) live in main() — importing this module has no side effects.
@@ -556,14 +559,16 @@ def main():
         d["weight"] = round(w / tot_w, 3) if (w and tot_w) else round(1 / n_dom, 3)
     try:
         cur = agent_json("package_curator", json.dumps({
-            "document_title": "Microsoft Certified: Azure AI Fundamentals (AI-901) Master Cheat Sheet",
+            "document_title": SRC_TITLE,
             "domains": [{"id": d["id"], "title": d["title"]} for d in domains_list],
             "concepts_sample": [{"title": c["title"], "domain": c["domain"]} for c in pkg_concepts[:8]]}))
-        title = cur.get("title") or "Azure AI Fundamentals (AI-901)"
-        description = cur.get("description", "") or "Question bank generated from the AI-901 extraction."
+        # Title is the DOCUMENT'S title (deterministic), not a model guess; the
+        # curator only contributes the description.
+        title = SRC_TITLE or cur.get("title") or "Untitled package"
+        description = cur.get("description", "") or f"Question bank generated from {SRC_TITLE}."
     except Exception as e:
         warnings.append(f"curator failed ({e})")
-        title, description = "Azure AI Fundamentals (AI-901)", "Question bank generated from the AI-901 extraction."
+        title, description = (SRC_TITLE or "Untitled package"), f"Question bank generated from {SRC_TITLE}."
 
     package = {
         "schema_version": "1.0", "id": PKG_ID, "title": title, "description": description,
