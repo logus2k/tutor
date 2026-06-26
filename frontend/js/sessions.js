@@ -18,10 +18,11 @@ export class SessionsPanel {
    * @param {(session|null) => void} opts.onActivate  called when the active session changes.
    * @param {() => string|null}      opts.activeId    returns the currently-active session id.
    */
-  constructor(root, { onActivate, activeId } = {}) {
+  constructor(root, { onActivate, activeId, onOpenPackage } = {}) {
     this.root = root;
     this.onActivate = onActivate || (() => {});
     this.activeId = activeId || (() => null);
+    this.onOpenPackage = onOpenPackage || (() => {});
     this.me = { authenticated: false, email: '' };
     this._build();
     this.refresh();
@@ -136,7 +137,14 @@ export class SessionsPanel {
       for (const pid of ids) {
         const row = el('div', 'session-pkg-row');
         const known = titleById[pid] != null;
-        row.append(el('span', 'session-pkg-name' + (known ? '' : ' is-orphan'), known ? titleById[pid] : `${pid} (no longer in Catalog)`));
+        const name = el('button', 'session-pkg-name' + (known ? '' : ' is-orphan'),
+          known ? titleById[pid] : `${pid} (no longer in Catalog)`);
+        name.type = 'button';
+        if (known) {
+          name.title = 'Open this package’s questions';
+          name.addEventListener('click', (ev) => { ev.stopPropagation(); this.onActivate(s); this.onOpenPackage(pid, titleById[pid]); });
+        } else { name.disabled = true; }   // orphan: not openable
+        row.append(name);
         const rm = iconBtn('✕', 'Remove from this session (keeps it in the Catalog)');
         rm.addEventListener('click', async (ev) => {
           ev.stopPropagation();

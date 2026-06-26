@@ -303,18 +303,22 @@ div.brand-text { margin-left: 5px; }
 .sessions-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .sessions-head .leftview-title { margin: 0; }
 .sessions-who { font-size: 12.5px; color: var(--text-mute); margin: 10px 0 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-.session-card { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 0; overflow: hidden;
+.session-card { position: relative; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 0; overflow: hidden;
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
   background-color: #f4fffa; border: 0.5px solid #cecece; }
 .session-pkgs { flex-basis: 100%; width: 100%; border-top: 1px solid var(--border);
   padding: 8px 14px 10px; background: rgba(0,0,0,.02); }
 .session-pkg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px;
   padding: 4px 0; font-size: 13px; color: var(--text); }
-.session-pkg-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.session-pkg-name.is-orphan { color: var(--text-mute); font-style: italic; }
+.session-pkg-name { flex: 1 1 auto; min-width: 0; text-align: left; background: none; border: none;
+  font: inherit; cursor: pointer; color: var(--accent); padding: 2px 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.session-pkg-name:hover { text-decoration: underline; }
+.session-pkg-name.is-orphan, .session-pkg-name:disabled { color: var(--text-mute); font-style: italic; cursor: default; text-decoration: none; }
 .session-card.is-active { border-color: var(--accent); box-shadow: var(--shadow); }
-.session-open { flex: 1 1 auto; text-align: left; background: none; border: none; cursor: pointer; font: inherit; padding: 14px 16px; }
-.session-actions { display: flex; gap: 4px; padding: 8px 10px 0 0; flex: 0 0 auto; align-self: flex-start; }
+.session-open { flex: 1 1 auto; text-align: left; background: none; border: none; cursor: pointer; font: inherit; padding: 14px 96px 14px 16px; }
+/* Pinned to the top-right corner of the card (consistent regardless of card height). */
+.session-actions { position: absolute; top: 6px; right: 8px; display: flex; gap: 4px; }
 .session-icon { background: none; border: none; cursor: pointer; font-size: 14px; padding: 6px 8px; border-radius: 8px; opacity: .6; }
 .session-icon:hover { opacity: 1; background: var(--bg); }
 .session-icon.is-static { opacity: .5; cursor: default; }

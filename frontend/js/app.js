@@ -103,6 +103,7 @@ async function main() {
   sessionsPanel = new SessionsPanel($('sessions-panel'), {
     onActivate: setActiveSession,
     activeId: () => (activeSession ? activeSession.id : null),
+    onOpenPackage: (id, title) => openPackage({ id, title }),   // study a package from a session
   });
   restoreActiveSession();   // re-activate last session (if still signed in)
   renderIdentity();         // top-right: Anonymous / signed-in user
@@ -292,14 +293,15 @@ async function buildCatalog() {
 
   for (const p of packages) {
     const card = el('div', 'card session-card');
-    const open = el('button', 'session-open');
-    open.type = 'button';
+    // Catalog cards are display + management only (visibility, sessions, rename).
+    // Studying happens by opening a package from inside a Session, not here.
+    const open = el('div', 'session-open');
+    open.style.cursor = 'default';
     open.append(
       el('div', 'card-title', p.title || p.id),
       el('div', 'card-desc', p.description || ''),
       el('div', 'card-meta', `${p.questions != null ? p.questions + ' questions · ' : ''}${p.id}`),
     );
-    open.addEventListener('click', () => openPackage(p));
     card.append(open);
 
     const actions = el('div', 'session-actions');
