@@ -303,13 +303,30 @@ div.brand-text { margin-left: 5px; }
 .sessions-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .sessions-head .leftview-title { margin: 0; }
 .sessions-who { font-size: 12.5px; color: var(--text-mute); margin: 10px 0 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-.session-card { display: flex; align-items: center; gap: 8px; padding: 0; overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; }
+.session-card { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 0; overflow: hidden;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  background-color: #f4fffa; border: 0.5px solid #cecece; }
+.session-pkgs { flex-basis: 100%; width: 100%; border-top: 1px solid var(--border);
+  padding: 8px 14px 10px; background: rgba(0,0,0,.02); }
+.session-pkg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 4px 0; font-size: 13px; color: var(--text); }
+.session-pkg-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.session-pkg-name.is-orphan { color: var(--text-mute); font-style: italic; }
 .session-card.is-active { border-color: var(--accent); box-shadow: var(--shadow); }
 .session-open { flex: 1 1 auto; text-align: left; background: none; border: none; cursor: pointer; font: inherit; padding: 14px 16px; }
-.session-actions { display: flex; gap: 4px; padding-right: 10px; flex: 0 0 auto; }
+.session-actions { display: flex; gap: 4px; padding: 8px 10px 0 0; flex: 0 0 auto; align-self: flex-start; }
 .session-icon { background: none; border: none; cursor: pointer; font-size: 14px; padding: 6px 8px; border-radius: 8px; opacity: .6; }
 .session-icon:hover { opacity: 1; background: var(--bg); }
+.session-icon.is-static { opacity: .5; cursor: default; }
+/* Package visibility / session-membership popup. */
+.pkg-menu { position: fixed; z-index: 50; width: 240px; max-height: 320px; overflow-y: auto;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: var(--shadow); padding: 8px; }
+.pkg-menu-head { font-size: 12px; font-weight: 600; color: var(--text-mute); padding: 2px 6px 8px; }
+.pkg-menu-row { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 7px;
+  cursor: pointer; font-size: 13.5px; color: var(--text); }
+.pkg-menu-row:hover { background: var(--bg); }
+.pkg-menu-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* wall of fame */
 .fame-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
@@ -543,7 +560,9 @@ div.brand-text { margin-left: 5px; }
 .chat-bubble {
   max-width: 86%;
   padding: 10px 14px; border-radius: 14px;
+  border: 0.5px solid #cecece !important;
   font-size: 14.5px; word-wrap: break-word; overflow-wrap: anywhere;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
 .chat-user .chat-bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 4px; white-space: pre-wrap; }
 /* live dictation preview (ghost bubble updated as you speak, removed on send) */

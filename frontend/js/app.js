@@ -29,9 +29,9 @@ const DEFAULTS = {
   // path; the SDK builds `${baseUrl}/v1/...` → `/llm/v1/...`. Fixed by deploy.
   baseUrl: '/llm',
   agent: 'instructor',
-  // Document-relative (page served at /tutor/ → /tutor/data/...).
-  packagesIndex: 'data/packages/index.json',
-  packagesDir: 'data/packages/',
+  // Catalog + package content go through the AUTHENTICATED API (privacy-filtered);
+  // static /data/packages is blocked in nginx. Documents index stays static.
+  packagesIndex: 'etl/catalog',
   documentsIndex: 'data/documents/index.json',
 };
 
@@ -82,11 +82,8 @@ async function main() {
   groundingPanel = new GroundingPanel($('grounding'), context);
   wireRightTabs();
 
-  // Chat shown by default on desktop; hidden by default on mobile (questions
-  // first). A saved preference always wins.
-  const chatPref = localStorage.getItem('tutor.chatHidden');
-  const mobile = window.matchMedia('(max-width: 760px)').matches;
-  setChatVisible(chatPref == null ? !mobile : chatPref !== 'true');
+  // The Assistant panel starts COLLAPSED on every load; the user opens it from the rail.
+  setChatVisible(false);
 
   initSplitter($('split'), $('left'), $('splitter'), $('right'));
   wireRail();
@@ -180,8 +177,8 @@ function setActiveSession(session) {
   if (activeSession) localStorage.setItem(LS_ACTIVE, activeSession.id);
   else localStorage.removeItem(LS_ACTIVE);
   setSessionStatus(activeSession ? activeSession.name : null);
-  // Guide the flow: once a session is active, go pick a package to study.
-  if (activeSession) showView('catalog');
+  // Selecting a session just activates it (stays on the Sessions view; the card
+  // re-highlights). The user navigates to the Catalog themselves when ready.
 }
 
 async function restoreActiveSession() {
@@ -285,14 +282,14 @@ async function buildCatalog() {
   }
   const packages = manifest.packages || [];
   packageIndex = packages;
-  if (!packages.length) { listEl.innerHTML = '<p class="muted">No packages yet.</p>'; return; }
 
-  // Admins get a rename ✎ on each card (the backend also allows the owner).
-  let canRename = false;
-  try { canRename = !!(await fetchJson('etl/me')).is_admin; } catch { /* anon */ }
+  let me = { is_admin: false, authenticated: false };
+  try { me = await fetchJson('etl/me'); } catch { /* anon */ }
 
   listEl.innerHTML = '';
   listEl.append(el('h2', 'leftview-title', 'Catalog'));
+  if (!packages.length) { listEl.append(el('p', 'muted', 'No packages yet.')); return; }
+
   for (const p of packages) {
     const card = el('div', 'card session-card');
     const open = el('button', 'session-open');
@@ -304,16 +301,91 @@ async function buildCatalog() {
     );
     open.addEventListener('click', () => openPackage(p));
     card.append(open);
-    if (canRename) {
-      const actions = el('div', 'session-actions');
+
+    const actions = el('div', 'session-actions');
+    // Visibility — owner/admin can toggle private/shared; others see a static badge.
+    if (p.owned) {
+      const vis = el('button', 'session-icon', visLabel(p.visibility));
+      vis.type = 'button'; vis.title = 'Toggle private / shared';
+      vis.addEventListener('click', (e) => { e.stopPropagation(); togglePackageVisibility(p, vis); });
+      actions.append(vis);
+    } else {
+      const badge = el('span', 'session-icon is-static', '🌐'); badge.title = 'Shared';
+      actions.append(badge);
+    }
+    // Session membership — pick which of YOUR sessions include this package (signed in).
+    if (me.authenticated) {
+      const sb = el('button', 'session-icon', '📂');
+      sb.type = 'button'; sb.title = 'Add to / remove from your study sessions';
+      sb.addEventListener('click', (e) => { e.stopPropagation(); openSessionChooser(p, sb); });
+      actions.append(sb);
+    }
+    if (me.is_admin || p.owned) {
       const ren = el('button', 'session-icon', '✎');
       ren.type = 'button'; ren.title = 'Rename';
       ren.addEventListener('click', (e) => { e.stopPropagation(); renamePackage(p); });
       actions.append(ren);
-      card.append(actions);
     }
+    card.append(actions);
     listEl.appendChild(card);
   }
+}
+
+const visLabel = (v) => (v === 'private' ? '🔒' : '🌐');
+
+/** Toggle a package private/shared (owner/admin). */
+async function togglePackageVisibility(p, btn) {
+  const next = p.visibility === 'private' ? 'shared' : 'private';
+  btn.disabled = true;
+  try {
+    const r = await fetch(`etl/packages/${encodeURIComponent(p.id)}/visibility`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visibility: next }),
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    p.visibility = next; btn.textContent = visLabel(next);
+  } catch (e) { alert(`Could not change visibility: ${e.message}`); }
+  finally { btn.disabled = false; }
+}
+
+function closePkgMenu() { document.querySelectorAll('.pkg-menu').forEach((m) => m.remove()); }
+
+/** Popup to add/remove a package from the user's study sessions (editable anytime). */
+async function openSessionChooser(p, anchor) {
+  closePkgMenu();
+  const menu = el('div', 'pkg-menu');
+  menu.append(el('div', 'pkg-menu-head', `Sessions with “${p.title || p.id}”`));
+  const body = el('div', 'pkg-menu-body'); body.append(el('div', 'muted', 'Loading…'));
+  menu.append(body);
+  document.body.appendChild(menu);
+  const r = anchor.getBoundingClientRect();
+  menu.style.left = `${Math.max(8, r.right - 240)}px`;
+  menu.style.top = `${r.bottom + 6}px`;
+  const onDoc = (ev) => { if (!menu.contains(ev.target)) { closePkgMenu(); document.removeEventListener('click', onDoc); } };
+  setTimeout(() => document.addEventListener('click', onDoc), 0);
+  try {
+    const sessions = (await fetchJson('etl/sessions')).sessions || [];
+    const inSet = new Set((await fetchJson(`etl/packages/${encodeURIComponent(p.id)}/sessions`)).sessions || []);
+    body.innerHTML = '';
+    if (!sessions.length) { body.append(el('div', 'muted', 'No sessions yet — create one in the Sessions tab.')); return; }
+    for (const s of sessions) {
+      const row = el('label', 'pkg-menu-row');
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = inSet.has(s.id);
+      cb.addEventListener('change', async () => {
+        cb.disabled = true;
+        try {
+          if (cb.checked) {
+            await fetch(`etl/sessions/${encodeURIComponent(s.id)}/packages`, {
+              method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ package_id: p.id }) });
+          } else {
+            await fetch(`etl/sessions/${encodeURIComponent(s.id)}/packages/${encodeURIComponent(p.id)}`, { method: 'DELETE' });
+          }
+        } catch (e) { cb.checked = !cb.checked; alert(`Failed: ${e.message}`); }
+        finally { cb.disabled = false; }
+      });
+      row.append(cb, el('span', 'pkg-menu-name', s.name || s.id));
+      body.append(row);
+    }
+  } catch (e) { body.innerHTML = ''; body.append(el('div', 'muted', 'Could not load sessions.')); }
 }
 
 /** Rename a published package's catalog title (admin/owner; id unchanged). */
@@ -335,9 +407,8 @@ async function openPackage(entry) {
   showView('questions');
 
   try {
-    const pkg = await loadPackage(DEFAULTS.packagesDir + entry.file);
+    const pkg = await loadPackage(`etl/packages/${encodeURIComponent(entry.id)}/content`);
     $('pkg-title').textContent = pkg.title;
-    $('pkg-sub').textContent = `${pkg.questionCount} questions · ${pkg.id}`;
     document.title = `Tutor — ${pkg.title}`;
     setPackageStatus(pkg.title);
     context.setPackage(pkg);
@@ -358,13 +429,10 @@ async function openPackage(entry) {
       onToggleGrounding: () => setGroundingActive(!groundingOn),
     });
 
-    // Restore saved answers for this package within the active session.
+    // Restore saved answers IF this package is part of the active session. Membership
+    // is now manual (add via the Catalog 📂 chooser), so opening no longer auto-adds.
     if (activeSession) {
       try {
-        await fetch(`etl/sessions/${activeSession.id}/packages`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ package_id: pkg.id }),
-        });
         const { answers } = await fetchJson(`etl/sessions/${activeSession.id}/answers?package_id=${encodeURIComponent(pkg.id)}`);
         if (answers && answers.length) questionPanel.applySaved(answers);
       } catch { /* non-fatal — free play continues */ }
@@ -534,6 +602,9 @@ function setAgentStatus(name) {
   const el = $('sb-agent');
   el.textContent = r ? `${r.icon} ${r.label}` : `🤖 ${name}`;
   ROLES.forEach((x) => el.classList.toggle(`sb-role-${x.id}`, x.id === name));
+  // The right-pane chat tab shows the SELECTED assistant's name (not generic "Assistant").
+  const tab = document.querySelector('.rtab[data-rtab="chat"]');
+  if (tab) tab.textContent = r ? r.label : 'Assistant';
 }
 
 /** Switch the active role (agent). Keeps the pill, the chat, and Settings in sync. */
@@ -569,7 +640,7 @@ function wireRolePicker() {
   document.addEventListener('click', () => roleMenu && roleMenu.classList.add('hidden'));
 }
 function setPackageStatus(title) { $('sb-package').textContent = title ? `📦 ${title}` : '📦 No package'; }
-function setSessionStatus(name) { const el = $('sb-session'); if (el) el.textContent = name ? `🎯 ${name}` : ''; }
+function setSessionStatus(name) { const el = $('sb-session'); if (el) el.textContent = name ? `🎯 ${name}` : '🎯 No session'; }
 /** Assistant connection status → the colored pill in the bottom-right corner. */
 function setChatStatus(text, state = 'ready') {
   const pill = $('sb-status'); if (!pill) return;

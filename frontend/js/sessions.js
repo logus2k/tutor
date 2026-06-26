@@ -82,12 +82,15 @@ export class SessionsPanel {
       open.addEventListener('click', () => this._activate(s));
 
       const actions = el('div', 'session-actions');
+      const pk = iconBtn('📂', 'Packages in this session'); pk.addEventListener('click', (e) => { e.stopPropagation(); this._togglePackages(s, card); });
       const ren = iconBtn('✎', 'Rename'); ren.addEventListener('click', (e) => { e.stopPropagation(); this._rename(s); });
       const del = iconBtn('🗑', 'Delete'); del.addEventListener('click', (e) => { e.stopPropagation(); this._delete(s); });
-      actions.append(ren, del);
+      actions.append(pk, ren, del);
 
       card.append(open, actions);
       this.listEl.appendChild(card);
+      // The active session auto-expands its package list (clear feedback on select).
+      if (s.id === active) this._togglePackages(s, card);
     }
   }
 
@@ -115,6 +118,38 @@ export class SessionsPanel {
       if (this.activeId() === s.id) this._activate(null);
       await this._renderList();
     } catch (e) { alert(`Could not delete: ${e.message}`); }
+  }
+
+  /** Expand a session card to list its packages, each removable from the session
+   *  ONLY (the package stays in the Catalog — this deletes just the membership). */
+  async _togglePackages(s, card) {
+    const existing = card.querySelector('.session-pkgs');
+    if (existing) { existing.remove(); return; }
+    const box = el('div', 'session-pkgs'); box.append(el('div', 'muted', 'Loading…'));
+    card.append(box);
+    try {
+      const ids = (await fetchJson(`${API}/sessions/${s.id}/packages`)).packages || [];
+      let titleById = {};
+      try { titleById = Object.fromEntries(((await fetchJson(`${API}/catalog`)).packages || []).map((p) => [p.id, p.title])); } catch { /* anon */ }
+      box.innerHTML = '';
+      if (!ids.length) { box.append(el('div', 'muted', 'No packages in this session.')); return; }
+      for (const pid of ids) {
+        const row = el('div', 'session-pkg-row');
+        const known = titleById[pid] != null;
+        row.append(el('span', 'session-pkg-name' + (known ? '' : ' is-orphan'), known ? titleById[pid] : `${pid} (no longer in Catalog)`));
+        const rm = iconBtn('✕', 'Remove from this session (keeps it in the Catalog)');
+        rm.addEventListener('click', async (ev) => {
+          ev.stopPropagation();
+          try {
+            const r = await fetch(`${API}/sessions/${s.id}/packages/${encodeURIComponent(pid)}`, { method: 'DELETE' });
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            row.remove();
+          } catch (e) { alert(`Could not remove: ${e.message}`); }
+        });
+        row.append(rm);
+        box.append(row);
+      }
+    } catch (e) { box.innerHTML = ''; box.append(el('div', 'muted', 'Could not load packages.')); }
   }
 
   _activate(session) {

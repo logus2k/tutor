@@ -142,6 +142,8 @@ def publish_held(pkg_id: str) -> dict | None:
     q = pkg.setdefault("quality", {})
     q["publishable"] = True
     q["published_at"] = _now()
+    # Newly published packages default to PRIVATE (owner-only) unless already set.
+    pkg["visibility"] = pkg.get("visibility") or "private"
     os.makedirs(catalog.PKG_DIR, exist_ok=True)
     with open(os.path.join(catalog.PKG_DIR, pid + ".json"), "w", encoding="utf-8") as f:
         json.dump(pkg, f, indent=2, ensure_ascii=False)

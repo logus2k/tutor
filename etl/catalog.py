@@ -29,6 +29,10 @@ def rebuild_package_index(pkg_dir=PKG_DIR):
             "file": os.path.basename(f),
             "description": p.get("description", ""),
             "questions": len(p.get("questions", [])),
+            "owner": p.get("owner_email"),
+            # Anything without an explicit visibility field is a legacy package → shared,
+            # so existing packages stay visible to everyone. New publishes set "private".
+            "visibility": p.get("visibility") or "shared",
         })
     os.makedirs(pkg_dir, exist_ok=True)
     json.dump({"packages": pkgs}, open(os.path.join(pkg_dir, "index.json"), "w", encoding="utf-8"),

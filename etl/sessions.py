@@ -222,6 +222,25 @@ def add_package(email: str, sid: str, package_id: str) -> bool:
     return True
 
 
+def remove_package(email: str, sid: str, package_id: str) -> bool:
+    with _conn() as cx:
+        if not _owned(cx, email, sid):
+            return False
+        cx.execute("DELETE FROM session_packages WHERE session_id=? AND package_id=?",
+                   (sid, package_id))
+        _touch(cx, sid)
+    return True
+
+
+def sessions_with_package(email: str, package_id: str) -> list[str]:
+    """Session ids owned by `email` that currently contain `package_id`."""
+    with _conn() as cx:
+        return [r["session_id"] for r in cx.execute(
+            "SELECT sp.session_id FROM session_packages sp "
+            "JOIN sessions s ON s.id = sp.session_id "
+            "WHERE s.student_email=? AND sp.package_id=?", (email, package_id))]
+
+
 # ---- answers -----------------------------------------------------------------
 
 def save_answer(email: str, sid: str, package_id: str, question_id: str,

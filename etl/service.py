@@ -801,3 +801,98 @@ async def package_rename(pkg_id: str, request: Request):
     _pkg_cache.pop(safe, None)
     catalog.rebuild_package_index()
     return {"ok": True, "title": pkg["title"]}
+
+
+# ---- package visibility (private/shared) + viewer-filtered catalog -----------
+def _visible_to(pkg_owner, visibility, viewer: str) -> bool:
+    """Visible if shared (or legacy/no-visibility) OR the viewer owns it OR is admin."""
+    if (visibility or "shared").strip().lower() != "private":
+        return True
+    owner = (pkg_owner or "").strip().lower()
+    return bool(viewer) and (viewer == owner or _is_admin(viewer))
+
+
+@app.get("/etl/catalog")
+def catalog_list(request: Request):
+    """The Catalog the viewer may see: shared/legacy packages for everyone, private
+    packages only for their owner (or an admin)."""
+    e = _email(request)
+    try:
+        entries = json.load(open(os.path.join(PKG_DIR, "index.json"), encoding="utf-8")).get("packages", [])
+    except Exception:
+        entries = []
+    out = []
+    for p in entries:
+        if not _visible_to(p.get("owner"), p.get("visibility"), e):
+            continue
+        owner = (p.get("owner") or "").strip().lower()
+        out.append({**p, "owned": bool(e) and (e == owner or _is_admin(e))})
+    return {"packages": out}
+
+
+@app.get("/etl/packages/{pkg_id}/content")
+def package_content(pkg_id: str, request: Request):
+    """Serve a package's JSON only if the viewer may see it (privacy is enforced here
+    because /data/packages is no longer served statically)."""
+    e = _email(request)
+    safe = review._safe_id(pkg_id)
+    path = os.path.join(PKG_DIR, safe + ".json") if safe else ""
+    if not safe or not os.path.exists(path):
+        raise HTTPException(404, "package not found")
+    try:
+        pkg = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        raise HTTPException(500, "cannot read package")
+    if not _visible_to(pkg.get("owner_email"), pkg.get("visibility"), e):
+        raise HTTPException(403, "this package is private")
+    return pkg
+
+
+@app.post("/etl/packages/{pkg_id}/visibility")
+async def package_visibility(pkg_id: str, request: Request):
+    """Set a published package private/shared (owner or admin only)."""
+    e = _require_email(request)
+    safe = review._safe_id(pkg_id)
+    path = os.path.join(PKG_DIR, safe + ".json") if safe else ""
+    if not safe or not os.path.exists(path):
+        raise HTTPException(404, "package not found")
+    pkg = json.load(open(path, encoding="utf-8"))
+    owner = (pkg.get("owner_email") or "").strip().lower()
+    if not (_is_admin(e) or (owner and owner == e)):
+        raise HTTPException(403, "not allowed")
+    vis = ((await request.json()).get("visibility") or "").strip().lower()
+    if vis not in ("private", "shared"):
+        raise HTTPException(400, "visibility must be 'private' or 'shared'")
+    pkg["visibility"] = vis
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(pkg, f, indent=2, ensure_ascii=False)
+    _pkg_cache.pop(safe, None)
+    catalog.rebuild_package_index()
+    return {"ok": True, "visibility": vis}
+
+
+# ---- session membership management ------------------------------------------
+@app.get("/etl/sessions/{sid}/packages")
+def sessions_list_packages(sid: str, request: Request):
+    e = _require_email(request)
+    s = sess.get_session(e, sid)
+    if s is None:
+        raise HTTPException(404, "session not found")
+    return {"packages": s.get("packages", [])}
+
+
+@app.delete("/etl/sessions/{sid}/packages/{pkg_id}")
+def sessions_remove_package(sid: str, pkg_id: str, request: Request):
+    e = _require_email(request)
+    if not sess.remove_package(e, sid, pkg_id):
+        raise HTTPException(404, "session not found")
+    return {"ok": True}
+
+
+@app.get("/etl/packages/{pkg_id}/sessions")
+def package_sessions(pkg_id: str, request: Request):
+    """Which of the viewer's sessions currently contain this package (for the chooser)."""
+    e = _email(request)
+    if not e:
+        return {"sessions": []}
+    return {"sessions": sess.sessions_with_package(e, pkg_id)}

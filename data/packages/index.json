@@ -5,21 +5,27 @@
       "title": "Microsoft Azure AI Fundamentals (AZ-901)",
       "file": "ai-901-core.json",
       "description": "This package covers fundamental AI concepts, including fairness, safety, privacy, and explainability, along with matching AI tasks to relevant Azure AI models.",
-      "questions": 135
+      "questions": 135,
+      "owner": null,
+      "visibility": "shared"
     },
     {
       "id": "microsoft-ai-transformation-leader-ab-731",
       "title": "Microsoft AI Transformation Leader (AB-731)",
       "file": "microsoft-ai-transformation-leader-ab-731.json",
       "description": "This package covers the core concepts for the Microsoft Certified AI Transformation Leader certification, focusing on AI governance, security, and value realization.",
-      "questions": 863
+      "questions": 863,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
     },
     {
       "id": "text-mining-ii",
       "title": "Text Mining I",
       "file": "text-mining-ii.json",
       "description": "A collection of sample questions mirroring the structure and content of the 2024 Exam TM.",
-      "questions": 932
+      "questions": 932,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
     }
   ]
 }
