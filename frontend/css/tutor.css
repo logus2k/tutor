@@ -107,7 +107,7 @@ div.brand-text { margin-left: 5px; }
   display: flex; align-items: center;
   height: 24px;
   background: #ceeed0; border-top: 1px solid var(--border);
-  color: var(--text-mute); font-size: 12px;
+  color: var(--text-mute); font-size: 11px;
 }
 .sb-item { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; padding: 0 12px; }
 .sb-spacer { flex: 1 1 auto; }
@@ -162,7 +162,15 @@ div.brand-text { margin-left: 5px; }
 
 /* Notifications: bell badge + pop-up panel (opens upward from the status bar). */
 .statusbar { position: relative; }
-#sb-notifications { position: relative; }
+/* Notifications bell as its own small white status-bar segment. */
+#sb-notifications { position: relative; z-index: 1; background: #fff; color: var(--text);
+  padding: 0 24px 0 20px; margin-right: -10px;
+  /* '>' point (10px, matching the status pill's 10px left notch) overlaps INTO the next
+     section so the white tip exactly fills the pill's notch — they interlock. */
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+#sb-notifications:hover { background: var(--bg); color: var(--text); }
+/* Duotone like the rail icons: pastel fill + muted stroke. */
+#sb-notifications svg { fill: #ffe39e; fill-opacity: .85; stroke: var(--text-mute); }
 .sb-badge { position: absolute; top: 2px; right: 5px; min-width: 14px; height: 14px; padding: 0 3px;
   border-radius: 7px; background: var(--bad); color: #fff; font-size: 9px; font-weight: 700;
   line-height: 14px; text-align: center; }
@@ -295,7 +303,8 @@ div.brand-text { margin-left: 5px; }
 .sessions-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .sessions-head .leftview-title { margin: 0; }
 .sessions-who { font-size: 12.5px; color: var(--text-mute); margin: 10px 0 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-.session-card { display: flex; align-items: center; gap: 8px; padding: 0; overflow: hidden; }
+.session-card { display: flex; align-items: center; gap: 8px; padding: 0; overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; }
 .session-card.is-active { border-color: var(--accent); box-shadow: var(--shadow); }
 .session-open { flex: 1 1 auto; text-align: left; background: none; border: none; cursor: pointer; font: inherit; padding: 14px 16px; }
 .session-actions { display: flex; gap: 4px; padding-right: 10px; flex: 0 0 auto; }
