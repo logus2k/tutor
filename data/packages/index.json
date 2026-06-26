@@ -11,22 +11,15 @@
       "id": "microsoft-ai-transformation-leader-ab-731",
       "title": "Microsoft AI Transformation Leader (AB-731)",
       "file": "microsoft-ai-transformation-leader-ab-731.json",
-      "description": "This package covers the business value, capabilities, adoption strategies, and core concepts of Generative AI solutions within the Microsoft Azure ecosystem.",
-      "questions": 171
+      "description": "This package covers the core concepts for the Microsoft Certified AI Transformation Leader certification, focusing on AI governance, security, and value realization.",
+      "questions": 863
     },
     {
       "id": "text-mining-ii",
-      "title": "Text Mining II",
+      "title": "Text Mining I",
       "file": "text-mining-ii.json",
       "description": "A collection of sample questions mirroring the structure and content of the 2024 Exam TM.",
       "questions": 932
-    },
-    {
-      "id": "text-mining",
-      "title": "Text Mining I",
-      "file": "text-mining.json",
-      "description": "This package contains sample questions covering topics such as ambiguity in natural language, the self-attention mechanism, lemmatization, and NLP pipeline steps using Transformers.",
-      "questions": 77
     }
   ]
 }

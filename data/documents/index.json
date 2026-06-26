@@ -1,13 +1,6 @@
 {
   "documents": [
     {
-      "id": "microsoft-ai-transformation-leader-ab-731",
-      "title": "Microsoft-AI-Transformation-Leader-AB-731.pdf",
-      "file": "Microsoft-AI-Transformation-Leader-AB-731.pdf",
-      "kind": "pdf",
-      "uploaded_at": "2026-06-24T21:25:42.015505+00:00"
-    },
-    {
       "id": "2024-exam-tm-sample-questions",
       "title": "2024 EXAM TM SAMPLE QUESTIONS",
       "file": "2024_EXAM_TM_SAMPLE_QUESTIONS.pdf",
@@ -90,6 +83,20 @@
       "file": "TM_Course_Presentation_-_2025-26.pdf",
       "kind": "pdf",
       "uploaded_at": "2026-06-25T22:21:01.631044+00:00"
+    },
+    {
+      "id": "microsoft-certified-ai-transformation-leader-ab-731",
+      "title": "Microsoft Certified AI Transformation Leader AB 731",
+      "file": "Microsoft_Certified_AI_Transformation_Leader_AB-731.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-26T01:47:19.647259+00:00"
+    },
+    {
+      "id": "microsoft-ai-transformation-leader-ab-731",
+      "title": "Microsoft AI Transformation Leader AB 731",
+      "file": "Microsoft-AI-Transformation-Leader-AB-731.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-26T01:47:19.652049+00:00"
     }
   ]
 }

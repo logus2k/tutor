@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "id": "text-mining-ii",
-  "title": "Text Mining II",
+  "title": "Text Mining I",
   "description": "A collection of sample questions mirroring the structure and content of the 2024 Exam TM.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
   "generated_at": "2026-06-25T22:21:11.747188+00:00",
