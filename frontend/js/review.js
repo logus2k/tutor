@@ -122,10 +122,14 @@ export class ReviewPanel {
     });
     addBtn.addEventListener('click', () => fileIn.click());
 
+    this.discardFlaggedBtn = el('button', 'tq-btn tq-btn-ghost', '🗑 Discard flagged');
+    this.discardFlaggedBtn.type = 'button';
+    this.discardFlaggedBtn.title = 'Remove only the flagged (disputed) questions and keep the rest — makes the package publishable';
+    this.discardFlaggedBtn.addEventListener('click', () => this.discardFlagged());
     const del = el('button', 'tq-btn tq-btn-ghost', '🗑 Discard package');
     del.type = 'button';
     del.addEventListener('click', () => this.discardPackage());
-    this.actionsEl.append(this.publishBtn, ren, addBtn, del, fileIn);
+    this.actionsEl.append(this.publishBtn, this.discardFlaggedBtn, ren, addBtn, del, fileIn);
     this.root.append(this.actionsEl);
 
     this.hasSource = data.has_source;
@@ -141,6 +145,10 @@ export class ReviewPanel {
     this.metaEl.textContent = `${this.disputes.length} unresolved dispute(s) · ${this.qTotal} questions · score ${this.score ?? '?'}`;
     this.publishBtn.disabled = this.disputes.length > 0;
     this.publishBtn.title = this.disputes.length ? 'Resolve all disputes first' : '';
+    if (this.discardFlaggedBtn) {
+      this.discardFlaggedBtn.textContent = this.disputes.length ? `🗑 Discard flagged (${this.disputes.length})` : '🗑 Discard flagged';
+      this.discardFlaggedBtn.disabled = this.disputes.length === 0;
+    }
 
     this.listEl.innerHTML = '';
     this.selectedQid = null;
@@ -302,6 +310,22 @@ export class ReviewPanel {
     } catch (e) {
       alert(`Publish failed: ${e.message}`);
       this.publishBtn.disabled = false;
+    }
+  }
+
+  async discardFlagged() {
+    const n = this.disputes.length;
+    if (!n) return;
+    if (!confirm(`Discard the ${n} flagged question(s) and keep the rest? The package will then be publishable. This cannot be undone.`)) return;
+    this.discardFlaggedBtn.disabled = true; this.discardFlaggedBtn.textContent = 'Discarding…';
+    try {
+      const r = await fetchJson(`${API}/review/${encodeURIComponent(this.current)}/discard-flagged`, { method: 'POST' });
+      this.disputes = [];
+      if (r.remaining_questions != null) this.qTotal = r.remaining_questions;
+      this.renderDisputes();
+    } catch (e) {
+      alert(`Could not discard flagged: ${e.message}`);
+      this.renderDisputes();
     }
   }
 

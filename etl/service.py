@@ -657,6 +657,22 @@ async def review_resolve(pkg_id: str, request: Request):
     remaining = len(review.disputes_of(pkg))
     return {"ok": True, "disputes_remaining": remaining, "publishable": remaining == 0}
 
+@app.post("/etl/review/{pkg_id}/discard-flagged")
+async def review_discard_flagged(pkg_id: str, request: Request):
+    """Discard EVERY currently-flagged (disputed) question and clear all disputes,
+    leaving the rest of the package publishable. Keeps the package non-empty."""
+    _e, pkg = _load_reviewable(request, pkg_id)
+    flagged = {d.get("qid") for d in review.disputes_of(pkg) if d.get("qid")}
+    before = len(pkg.get("questions", []))
+    kept = [x for x in pkg.get("questions", []) if x.get("id") not in flagged]
+    if not kept:
+        raise HTTPException(409, "discarding the flagged questions would leave the package empty")
+    pkg["questions"] = kept
+    pkg.setdefault("quality", {})["disputes"] = []
+    review.write_held(pkg)
+    return {"ok": True, "removed": before - len(kept),
+            "remaining_questions": len(kept), "disputes_remaining": 0, "publishable": True}
+
 @app.post("/etl/review/{pkg_id}/revalidate")
 async def review_revalidate(pkg_id: str, request: Request):
     _e, pkg = _load_reviewable(request, pkg_id)

@@ -315,6 +315,32 @@ def dedup_questions(qs, threshold=0.82):
             kept.append(q); toksets.append(ts)
     return kept, dropped
 
+# Stems that reference source material the student never sees → the question can't stand alone.
+_SRC_REF_RE = re.compile(
+    r"\bbased on\b|\baccording to\b|\bmentioned in the\b"
+    r"|\bas (shown|described|stated|listed|mentioned|illustrated|depicted) (in|above|below)\b"
+    r"|\b(shown|illustrated|depicted|presented) (above|below)\b"
+    r"|\bthe (example|figure|table|diagram|chart|graph|image|passage|formula|equation)\b"
+    r"|\bin (the|this) [\w'\-]+ example\b"
+    r"|\b(text|document|doc|vector) ?[12]\b|\bd[12]\b|\bv[12]\b|\bcount for\b",
+    re.I)
+def authored_quality_ok(q):
+    """Reject AUTHORED questions that cannot stand alone: stems that reference source
+    material the student never sees ('based on the example', 'the figure above',
+    'mentioned in the text') or that give away their own answer (circular/self-answering).
+    Returns (ok, reason)."""
+    stem = q.get("stem") or ""
+    if _SRC_REF_RE.search(stem):
+        return False, "references unseeable source material"
+    sl = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", stem.lower())).strip()
+    for o in q.get("options", []):
+        if not o.get("correct"):
+            continue
+        ot = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", (o.get("text") or "").lower())).strip()
+        if len(ot.split()) >= 3 and ot and ot in sl:
+            return False, "circular: the answer is contained in the stem"
+    return True, ""
+
 def agent_json(name, user, **kw): return extract_json(agent(name, user, **kw))
 
 # ---------------------------------------------------------------- provenance (DoclingDocument)
@@ -595,7 +621,34 @@ def main():
         pkg_concepts.append(concept)
         return concept
 
-    for ci, chunk in enumerate(chunks):
+    # IMPORT ready-made Q&A at the DOCUMENT level, from the CLEAN markdown (full_source),
+    # which preserves the "stem / a./b. / Answer:" line structure so stems are correct.
+    # parse_qa only fires on that real structure, so it never invents. A document that has
+    # such structure is a Q&A document → import verbatim and author NOTHING from it; a prose
+    # document (no such structure) imports nothing and is authored densely. (General rule —
+    # parse_qa is generic MCQ detection, not tied to any one document.)
+    doc_imports = parse_qa(full_source())
+    is_qa_doc = bool(doc_imports)
+    if is_qa_doc:
+        _p = (chunks[0].get("pages") if chunks else []) or []
+        iloc = (f"p.{_p[0]}-{_p[-1]}" if len(_p) > 1 else (f"p.{_p[0]}" if _p else "document"))
+        ic = get_concept((SRC_TITLE or "Imported questions")[:80], full_source()[:1500], iloc, SRC_TITLE)
+        for raw in doc_imports:
+            qnum += 1; qid = f"q-{qnum:04d}"
+            q = {"id": qid, "concept_ids": [ic["id"]], "type": raw["type"],
+                 "render": "checkbox" if raw["type"] == "mcq_multi" else "radio",
+                 "difficulty": int(raw.get("difficulty", 2)), "bloom": "recall",
+                 "stem": raw["stem"], "options": raw["options"], "explanation": "", "hints": [],
+                 "source_refs": [{"source_id": SRC_ID, "locator": iloc}], "tags": ["imported"]}
+            sq = sanitize_question(q)
+            if sq:
+                sq["tags"] = sorted(set((sq.get("tags") or []) + ["imported"]))
+                pkg_questions.append(sq)
+                emit("question.imported", qid=qid, accepted=True)
+        emit("document.imported", count=len(doc_imports))
+
+    author_concept_ids = set()   # concepts eligible for authoring (only when NOT a Q&A document)
+    for ci, chunk in enumerate([] if is_qa_doc else chunks):
         ctext = chunk["text"]; cpages = chunk.get("pages") or []; cheads = chunk.get("headings") or []
         loc = (f"p.{cpages[0]}" if len(cpages) == 1 else f"p.{cpages[0]}-{cpages[-1]}") if cpages else f"chunk {ci+1}"
         citation = " > ".join(cheads)
@@ -609,46 +662,15 @@ def main():
             warnings.append(f"chunk {ci+1}: document_author failed ({e})")
             emit("chunk.failed", index=ci + 1, error=str(e)[:200]); continue
 
-        # register any concepts the model named (summaries enrich existing ones)
-        for rc in (res.get("concepts") or []):
-            c = get_concept(rc.get("title"), ctext, loc, citation)
-            if rc.get("summary") and not c["summary"]:
-                c["summary"] = str(rc["summary"])[:600]
-
-        # IMPORT ready-made Q&A from this chunk (verbatim, source-keyed). Authoring is
-        # NOT done here — the small model satisfices at a few questions per call, so we
-        # author densely PER CONCEPT after all chunks (see below).
-        imp_n = 0
-        for raw in (res.get("questions") or []):
-            if not raw.get("imported"):
-                continue
-            c = get_concept(raw.get("concept_title") or raw.get("concept"), ctext, loc, citation)
-            opts = raw.get("options", []) or []
-            for k, o in enumerate(opts): o["id"] = opt_id(k); o.setdefault("rationale", "")
-            qnum += 1; qid = f"q-{qnum:04d}"
-            q = {"id": qid, "concept_ids": [c["id"]], "type": raw.get("type", "mcq_single"),
-                 "render": raw.get("render", "radio"), "difficulty": int(raw.get("difficulty", 2) or 2),
-                 "bloom": raw.get("bloom", "recall"), "stem": raw.get("stem", ""),
-                 "options": [{"id": o["id"], "text": o.get("text", ""), "correct": bool(o.get("correct")),
-                              "rationale": o.get("rationale", "")} for o in opts],
-                 "explanation": raw.get("explanation", ""), "hints": raw.get("hints", []) or [],
-                 "source_refs": [{"source_id": SRC_ID, "locator": loc}], "tags": ["imported"]}
-            key = resolve_key(raw.get("source_answer"), q["options"])
-            if key:
-                for o in q["options"]:
-                    o["correct"] = o["id"] in key
-            elif raw.get("source_answer"):
-                warnings.append(f"{qid}: source_answer '{str(raw.get('source_answer'))[:30]}' unresolved — kept model flags")
-            else:
-                warnings.append(f"{qid}: imported with no source_answer — kept model flags")
-            sq = sanitize_question(q)
-            if sq:
-                sq["tags"] = sorted(set((sq.get("tags") or []) + ["imported"]))
-                pkg_questions.append(sq); imp_n += 1
-                emit("question.imported", qid=qid, accepted=True)
-            else:
-                warnings.append(f"{qid}: imported question unsalvageable — skipped")
-        emit("chunk.done", index=ci + 1, total=len(chunks), imported=imp_n)
+        # Concepts to author come from the document_author. A Q&A document is import-only
+        # (handled above); only PROSE documents are authored.
+        if not is_qa_doc:
+            for rc in (res.get("concepts") or []):
+                c = get_concept(rc.get("title"), ctext, loc, citation)
+                if rc.get("summary") and not c["summary"]:
+                    c["summary"] = str(rc["summary"])[:600]
+                author_concept_ids.add(c["id"])
+        emit("chunk.done", index=ci + 1, total=len(chunks), authored_concepts=len(author_concept_ids))
         emit("transform.progress", concepts_done=len(pkg_concepts), questions_accepted=len(pkg_questions))
 
     # ---------------------------------------------------------------- DENSE authoring per concept
@@ -657,6 +679,8 @@ def main():
     # actually yields ~QPC questions per concept (matching the old pipeline's density).
     emit("stage.started", stage="author")
     for c in list(pkg_concepts):
+        if c["id"] not in author_concept_ids:   # Q&A-chunk concepts are import-only
+            continue
         grounding = c["grounding"]
         loc = (grounding[0].get("locator") if grounding else "") or "document"
         cdir = {"concept": {"title": c["title"], "objective": c.get("objective", ""),
@@ -680,6 +704,10 @@ def main():
                  "explanation": raw.get("explanation", ""), "hints": raw.get("hints", []) or [],
                  "source_refs": [{"source_id": SRC_ID, "locator": loc}], "tags": raw.get("tags", []) or []}
             scrub_meta(q)
+            ok_q, why = authored_quality_ok(q)
+            if not ok_q:
+                warnings.append(f"{qid}: dropped — {why}")
+                emit("question.judged", qid=qid, accepted=False); continue
             accepted = False
             for attempt in range(2):
                 v = robust_judge(q, grounding)
@@ -726,7 +754,7 @@ def main():
     pkg_questions = _clean
 
     # dedup near-duplicate stems across the whole package
-    pkg_questions, _ndup = dedup_questions(pkg_questions)
+    pkg_questions, _ndup = dedup_questions(pkg_questions, threshold=0.72)
     if _ndup: warnings.append(f"dedup: removed {_ndup} near-duplicate question(s)")
     emit("dedup.done", removed=_ndup, remaining=len(pkg_questions))
 
@@ -765,7 +793,7 @@ def main():
                      "kind": "pdf", "extractor": "docling+enrich", "uri": s.get("uri")} for s in _src_in]
     package = {
         "schema_version": "1.0", "id": PKG_ID, "title": title, "description": description,
-        "generated_by": "tutor orchestrator.py (gemma-4-e2b)",
+        "generated_by": "tutor orchestrator.py (agent_server active chat model)",
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "sources": sources_full,
         "source_ids": [s["id"] for s in sources_full], "taxonomy": {"domains": domains_list},
