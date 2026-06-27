@@ -315,6 +315,56 @@ def dedup_questions(qs, threshold=0.82):
             kept.append(q); toksets.append(ts)
     return kept, dropped
 
+def semantic_dedup(questions, emit=lambda *a, **k: None):
+    """LLM near-duplicate removal: scans the bank in overlapping batches and drops
+    questions that re-test an EARLIER one (the token dedup misses reworded dupes —
+    e.g. several 'different sentences, same meaning' variants across concepts)."""
+    n = len(questions)
+    if n < 2:
+        return questions
+    keep = [True] * n
+    BATCH, STEP = 16, 11          # ~5-question overlap catches dupes across batch seams
+    def _line(k, q):
+        opts = "; ".join(("✓" if o.get("correct") else "·") + (o.get("text") or "")[:48]
+                         for o in (q.get("options") or []))
+        return f"{k}. {(q.get('stem') or '')[:160]}  [{opts}]"
+    start = 0
+    while start < n:
+        idxs = [i for i in range(start, min(start + BATCH, n)) if keep[i]]
+        if len(idxs) > 1:
+            listing = "\n".join(_line(k, questions[i]) for k, i in enumerate(idxs))
+            try:
+                res = agent_json("dedup_judge", listing)
+                for k in (res.get("drop") or []):
+                    if isinstance(k, int) and 0 <= k < len(idxs):
+                        keep[idxs[k]] = False
+            except Exception:
+                pass
+        start += STEP
+    kept = [q for q, k in zip(questions, keep) if k]
+    emit("dedup.semantic", removed=n - len(kept), remaining=len(kept))
+    return kept
+
+def interleave_by_concept(questions):
+    """Round-robin questions across concepts so same-concept / same-theme questions
+    are not presented consecutively."""
+    groups, order = {}, []
+    for q in questions:
+        c = (q.get("concept_ids") or ["_"])[0]
+        if c not in groups:
+            groups[c] = []; order.append(c)
+        groups[c].append(q)
+    out = []
+    while any(groups[c] for c in order):
+        for c in order:
+            if groups[c]:
+                out.append(groups[c].pop(0))
+    return out
+
+def dedup_and_order(questions, emit=lambda *a, **k: None):
+    """Remove near-duplicate questions (LLM semantic dedup) then spread by concept."""
+    return interleave_by_concept(semantic_dedup(questions, emit))
+
 # Stems that reference source material the student never sees → the question can't stand alone.
 _SRC_REF_RE = re.compile(
     r"\bbased on\b|\baccording to\b|\bmentioned in the\b"

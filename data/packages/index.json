@@ -19,6 +19,15 @@
       "visibility": "shared"
     },
     {
+      "id": "mlops",
+      "title": "MLOps",
+      "file": "mlops.json",
+      "description": "This package covers essential MLOps concepts, focusing on business expectations, feature stores, and the data assessment layers (Bronze, Silver, Gold) used in ML development.",
+      "questions": 593,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
       "id": "text-mining-ii",
       "title": "Text Mining I",
       "file": "text-mining-ii.json",

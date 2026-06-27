@@ -218,6 +218,18 @@ def _finalize_draft(jid, draft, pkg_id, title, owner, src_parts, stopped_at=None
     if draft is None:
         return
     try:
+        # Quality pass on the FULL merged bank: LLM semantic dedup (keeps the best of
+        # each near-duplicate group) + interleave by concept so similar Qs aren't adjacent.
+        try:
+            from etl import orchestrator as _orch
+            draft["questions"] = _orch.dedup_and_order(
+                draft.get("questions", []), emit=lambda e, **k: emit(jid, e, k))
+            _surv = {q["id"] for q in draft["questions"]}
+            _q = draft.get("quality") or {}
+            _q["disputes"] = [d for d in (_q.get("disputes") or []) if d.get("qid") in _surv]
+            draft["quality"] = _q
+        except Exception as ex:  # noqa: BLE001
+            emit(jid, "warn", {"message": f"dedup/order skipped ({ex})"})
         review.save_held(draft, owner, "\n\n".join(src_parts) if src_parts else None)
         catalog.rebuild_package_index()
         c = merge.counts(draft)

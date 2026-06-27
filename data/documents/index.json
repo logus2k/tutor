@@ -97,6 +97,83 @@
       "file": "Microsoft-AI-Transformation-Leader-AB-731.pdf",
       "kind": "pdf",
       "uploaded_at": "2026-06-26T01:47:19.652049+00:00"
+    },
+    {
+      "id": "01-mlops-development-2nd-week",
+      "title": "01 MLOps Development 2nd week",
+      "file": "01_MLOps_Development_2nd_week.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.794755+00:00"
+    },
+    {
+      "id": "01-mlops-model-development-week1",
+      "title": "01 MLOps Model Development week1",
+      "file": "01_MLOps_Model_Development_week1.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.797844+00:00"
+    },
+    {
+      "id": "02-mlops-production-deployment-3rd-week",
+      "title": "02 MLOps Production Deployment 3rd week",
+      "file": "02_MLOps_Production_Deployment_3rd_week.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.799588+00:00"
+    },
+    {
+      "id": "03-mlops-deployment-requirements-4th-week",
+      "title": "03 MLOps Deployment Requirements 4th week",
+      "file": "03_MLOps_Deployment_Requirements_4th_week.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.801199+00:00"
+    },
+    {
+      "id": "03-mlops-deployment-serving-5th-week",
+      "title": "03 MLOps Deployment Serving 5th week",
+      "file": "03_MLOps_Deployment_Serving_5th_week.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.802389+00:00"
+    },
+    {
+      "id": "04-mlops-monitoring-6th-week",
+      "title": "04 MLOps monitoring 6th week",
+      "file": "04_MLOps_monitoring_6th_week.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.803686+00:00"
+    },
+    {
+      "id": "05-mlops-governance-7th-week",
+      "title": "05 MLOps Governance 7th week",
+      "file": "05_MLOps_Governance_7th_week.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.804551+00:00"
+    },
+    {
+      "id": "course-overview-2026",
+      "title": "course overview 2026",
+      "file": "course_overview_2026.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.804903+00:00"
+    },
+    {
+      "id": "exam-mlops-example-corrected",
+      "title": "Exam MLOps example corrected",
+      "file": "Exam_MLOps_example_corrected.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.805464+00:00"
+    },
+    {
+      "id": "mlops-2025-1st-a-solutions",
+      "title": "MLOps 2025 1st A solutions",
+      "file": "MLOps_2025_1st_A_solutions.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.805835+00:00"
+    },
+    {
+      "id": "mlops-agenda",
+      "title": "mlops agenda",
+      "file": "mlops_agenda.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-06-27T16:16:41.806042+00:00"
     }
   ]
 }
