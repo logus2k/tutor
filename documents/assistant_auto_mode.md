@@ -219,18 +219,41 @@ thresholds reason uniformly. Raw UI churn is collapsed before publishing.
 
 ---
 
-## 7. Bus architecture (Redis Streams + socket.io)
+## 7. Bus & scheduling — REUSE existing services (not new infra)
 
-- **Redis Streams** for the event log: persistence, replay, fan-out.
-- **One consumer group per role** (each group with its own cursor) so **every role
-  sees every event**. *Not* one shared group — a shared group load-balances events
-  *across* consumers (work splitting), the opposite of what's wanted here.
-- **Agent utterances are events too.** Role contributions and the final consolidated
-  message are published back onto the bus, so roles are mutually aware (anti-repetition,
-  deference) and the UI consumes them via **socket.io** (already in the stack for
-  STT/TTS).
-- Fits the existing stack: `agent_server` (presets + hot-reload admin API), MCP
-  (client/server tools), socket.io push.
+Two services already exist on `logus2k_network` (sharing one `valkey-bus`); we build
+**on** them. See `agent_bus/documents/` and `agent_scheduler/documents/`.
+
+**`agent_bus`** — Valkey Streams **choreography** bus (gateway Socket.IO on `:6815`).
+Autonomous **actors** subscribe to event *types* and emit downstream consequences; there
+is **no central orchestrator**. The model we must adopt:
+- Routing is per **initiator stream** `stream:<initiator_id>`; concurrent **workflows**
+  are told apart by `cid`, steps by monotonic `sid` (`INCR sid:<cid>`). A triggering
+  Tutor event opens a workflow (`cid`); the whole reaction chain (role contributions →
+  consolidation → utterance) carries that `cid`.
+- **One consumer group per actor *type*** (`cg:instructor`, `cg:coach`, `cg:mentor`,
+  `cg:synthesizer`, …) — each actor independently sees every event. *(This is
+  agent_bus's actual mechanism; it supersedes the earlier "one group per role" sketch —
+  same effect.)*
+- Delivery is **at-least-once**; handlers dedupe on `(cid, sid)`. AOF persistence,
+  crash-recovery reaper (`XAUTOCLAIM`), DLQ, and an optional runaway backstop are already
+  provided. No auto-cap; outlier governance is a future **Monitor** actor.
+- **The LLM brain is `agent_server`**, called by actors over **REST A1** behind the actor
+  seam (agent_bus architecture §8). The **two Socket.IO layers** — gateway (browser ↔
+  bus) vs agent_server `Chat` (actor ↔ brain) — are already a first-class distinction
+  there.
+- **Agent utterances are events too**: role contributions and the consolidated message
+  are published back onto the stream, giving roles mutual awareness (anti-repetition,
+  deference) and feeding the `unanswered_offers` correlation (§5.4).
+
+**`agent_scheduler`** — APScheduler + Valkey job store (admin API/UI on `:6816`). A pure
+trigger actor: interval/cron/date jobs emit an `EventEnvelope` (`schedule.fired` by
+default, or a custom `event_type` to a chosen target stream) when they fire. This is our
+source of **server-side periodic events** (Time aggregates, `review_due`,
+`unanswered_offers` correlation ticks) — no custom cron to build.
+
+The earlier "Redis Streams + a new socket.io layer" is replaced by these two; the
+envelope, the `cid`/`sid` model, and the gateway contract are fixed by agent_bus.
 
 ---
 

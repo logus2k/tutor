@@ -191,22 +191,39 @@ correlation). Agent utterances are themselves published so the bus is self-obser
 
 ## Part 3 — Derived: agent roles & system prompts
 
-- **Three role *reaction* prompts** — Instructor / Coach / Mentor. The current prompts
-  assume a *chat turn*; we need a **reaction variant** (or an added section) for the
-  event loop: input = `{event, session_context, my_recent_utterances}`, output =
-  **structured** `{speak: bool, priority, contribution, topic}`. The role must be able to
-  return `speak:false`. Contributions are short (raw material). *Modify* the existing
-  three prompts (add a "Reaction mode" section) rather than fork them.
-- **Synthesizer prompt** *(new)* — input = the surviving contributions + context +
-  recent Tutor utterances; output = one **context-weighted** message (editor, not judge).
-  Must handle 0 (silent), 1 (light edit), many (weave). See auto_mode §6.
-- **No prompt for the gate or the governor** — those are deterministic code (Part 4).
-- Per-role **params**: low `max_tokens` for reaction passes (short), higher for the
-  synthesizer; `temperature` modest; reuse the agent_server hot-reload admin API.
+> Grounded in `agent_server/documents/how_to.md`. An agent = a system prompt + a small
+> sampling/`memory_policy` JSON, all on the **one active model**. Create/update **via the
+> admin API** (`POST`/`PUT /admin/api/agents`, `system_prompt` = the text) — hot-reload,
+> no restart (the same path used for `dedup_judge`).
 
-Net new/changed prompt files (in `agent_server/data/prompts/`): modify
-`instructor`/`coach`/`mentor` (+ reaction section); add `auto_synthesizer`. Matching
-`.agent.json` presets for the reaction params + the synthesizer.
+- **Three role *reaction* presets** — `instructor_react` / `coach_react` /
+  `mentor_react` *(new, recommended)*. The existing `instructor`/`coach`/`mentor` prompts
+  assume a freeform **chat turn** and stay as-is for manual single-role chat. The
+  event loop needs a different contract: input = `{event, session_context,
+  my_recent_utterances}`, output = **structured JSON** `{speak: bool, priority,
+  contribution, topic}` (the role must be able to return `speak:false`; contributions are
+  short raw material). Keeping these as separate `*_react` presets avoids a dual-mode
+  prompt that returns prose *and* JSON — at the cost of duplicating each role's short
+  personality preamble (watch for drift; the preamble is the single source of character).
+- **Synthesizer preset** `auto_synthesizer` *(new)* — input = the surviving contributions
+  + context + recent Tutor utterances; output = one **context-weighted** message (editor,
+  not judge). Handles 0 (silent), 1 (light edit), many (weave). See auto_mode §6. If the
+  voice path is wanted, have it emit JSON and set **`tts_field`** so only the spoken part
+  is sent to TTS.
+- **No prompt for the gate or the governor** — those are deterministic code (Part 4).
+- **Invocation**: workers call each preset via **REST A1** — `POST
+  http://agent_server:7701/v1/chat/completions` with `model` = the agent name, user
+  message = the JSON envelope; parse the JSON reply (like `etl/orchestrator.py`
+  `agent_json`). **Stateless** (`memory_policy:"none"`) — context is passed explicitly,
+  not remembered. Do **not** use agent_server's Socket.IO `Chat` for this (that's the
+  interactive surface; see Part 4.1).
+- **Params** (`params_override`): low `max_tokens` for reaction passes (short), higher for
+  the synthesizer; modest `temperature`; `chat_template_kwargs:{enable_thinking:false}`
+  (Gemma) as elsewhere in the ETL agents.
+
+Net new presets (admin API): `instructor_react`, `coach_react`, `mentor_react`,
+`auto_synthesizer`. Existing chat presets unchanged. `agent_config.json` is **not**
+touched (no model/restart change) — these all run on the active model.
 
 ---
 
@@ -215,12 +232,25 @@ Net new/changed prompt files (in `agent_server/data/prompts/`): modify
 Organized by layer. Each workflow's "active" state is just a **toggle row** the gate
 checks — adding a workflow later = data + a prompt tweak, not new plumbing.
 
-### 4.1 Agent Bus (new)
-- Redis Streams wiring: a `tutor.events` stream; **one consumer group per role** + one
-  for the synthesizer/governor; publish helper + typed event envelope
-  `{id, type, name, ts, student, session, payload}`.
-- socket.io bridge: browser ⇄ server for (a) inbound browser events, (b) outbound
-  consolidated utterances. Reuse the existing socket.io layer (STT/TTS stack).
+### 4.1 Agent Bus & scheduler — REUSE (already built; do NOT rebuild)
+See auto_mode §7. Build on:
+- **`agent_bus`** (Valkey Streams, gateway `:6815`) — event backbone + actor seam. Tutor
+  events ride its envelope `{header:{stream_id,cid,sid,timestamp,sender,event_type},
+  payload:{data,context},metadata}`; our `event_type`s are the §5 taxonomy
+  (`answer_submitted`, `stalled`, `unanswered_offers`, …). Our components are **actors**
+  (one consumer group per actor type) — see 4.3. Reuse the **JS SDK** (`agent_bus/sdk/
+  javascript`) for the browser and the **Python SDK** for backends.
+- **`agent_scheduler`** (jobs API `:6816`) — create interval/cron jobs for server-side
+  periodic events (Time aggregates, `review_due`, offer-correlation ticks). Reuse its SDK
+  (`createInterval` / `createCron`). A Tutor **temporal actor** reacts to the
+  `schedule.fired` tick and computes per-student derived events.
+- **Event ingress decision (OPEN)** — the agent_bus gateway today accepts only the
+  `request` command from browsers, but the Tutor needs to inject many `event_type`s. Two
+  options: **(a) tutor backend as initiator [recommended]** — the browser posts events to
+  the tutor backend (existing oauth2 auth path), which publishes EventEnvelopes to its
+  stream via the bus client (exactly as `agent_scheduler` does) and observes the
+  consolidated utterance to push back; keeps auth/privacy server-side. **(b)** extend the
+  gateway with a generic emit command (looser auth story). See open questions.
 
 ### 4.2 Frontend (`frontend/js/`)
 - **Event emitters**: hook existing points in `app.js` / `question-renderer.js`
@@ -234,24 +264,34 @@ checks — adding a workflow later = data + a prompt tweak, not new plumbing.
   intensity slider + a master "proactive assistance" switch + Auto/role mode; persists
   to the backend; the gate reads it. Surfaced via a rail/settings entry.
 
-### 4.3 Backend (`etl/` + a new worker)
-- **Producers (server-side)**: extend the `PUT /etl/sessions/{sid}/answers` path
-  (already computes mastery) to publish `mastery_updated`/`milestone`/`streak` and the
+### 4.3 Backend — Tutor actors (subclass agent_bus `BaseActor`) + producers
+Each actor subclasses `agent_bus.actor.BaseActor`: set `subscribes_to` (its trigger
+event types), implement `handle(env) -> AsyncIterator[OutEvent]` (yield 0..N events).
+The base class already does consume → guard → handle → emit → ack, `(cid,sid)` dedupe,
+and termination. **There is no central pre-gate** — in choreography each actor
+self-suppresses (that's the cost control).
+- **Producers (server-side)**: extend the `PUT /etl/sessions/{sid}/answers` path (already
+  computes mastery) to publish `mastery_updated`/`milestone`/`streak` and the
   student-Repetition events (`concept_struggle`, `repeated_wrong_option`,
-  `recurring_mistake`).
-- **Tick/scheduler** (new): periodic job for `session_duration`, `return_after`,
-  `time_of_day`, `review_due` (spaced-repetition from mastery), and the
-  `unanswered_offers` correlation.
-- **Pre-gate** (new, deterministic): per (student, workflow) check **toggle on +
-  threshold + cooldown + governor state**; decides which roles wake. The single most
-  important cost control.
-- **Role reaction workers** (new): for each woken role, call its reaction prompt
-  (agent_server) → structured `{speak,…}`; publish contributions as `offer_emitted`.
-- **Synthesizer worker** (new): collect contributions for an event window → call
-  `auto_synthesizer` (Auto) or pass through (single-role mode) → publish the consolidated
-  utterance.
-- **Offer/response correlator** (new): join `offer_emitted` against subsequent user
-  events to produce `unanswered_offers` (feeds W11).
+  `recurring_mistake`) onto the student's stream via the bus client.
+- **Temporal actor** (new): reacts to `agent_scheduler` `schedule.fired` ticks; computes
+  `session_duration`, `return_after`, `time_of_day`, `review_due` (spaced repetition from
+  mastery), and runs the `unanswered_offers` correlation. (Replaces the "build a cron"
+  item — the scheduling is `agent_scheduler`'s job.)
+- **Role actors** `InstructorActor` / `CoachActor` / `MentorActor` (new): `subscribes_to`
+  their trigger profiles (Part 1); `handle()` applies the **per-actor guard** (toggle on?
+  cooldown? governor-suppressed? from `workflow_settings`), and if firing calls its
+  `*_react` preset via **REST A1** (`agent_server:7701/v1/chat/completions`, `model`=agent
+  name), parses `{speak,…}`, and yields a `role.contribution` OutEvent (or nothing).
+- **Synthesizer actor** (new): `subscribes_to {role.contribution}`; windows contributions
+  per `cid` (short timer), calls `auto_synthesizer` via REST A1 (Auto) or passes through
+  (single-role mode), yields `assistant.utterance` (voice via `tts_field`).
+- **Offer/response correlator**: emits `unanswered_offers` by joining published
+  `role.contribution`/offer events against subsequent user events (can live in the
+  temporal actor or a dedicated actor; feeds W11's suppression).
+- **Deployment**: actors run mono-process like agent_bus's echo actors (asyncio tasks),
+  in a Tutor actor process — a new small service, or alongside the tutor backend. See
+  open questions for placement.
 
 ### 4.4 Persistence (SQLite `data/tutor.db`)
 - `workflow_settings(student_email, workflow_id, enabled, params)` — the toggles + W11
@@ -283,9 +323,17 @@ checks — adding a workflow later = data + a prompt tweak, not new plumbing.
 
 ## Open questions for this layer
 
-1. Do toggles live per-student globally, or per-session/per-package?
-2. Should the synthesizer run in single-role mode at all, or only in Auto?
-3. Anonymous users: which workflows degrade vs. disable (most Repetition/Progress need
-   sign-in)?
-4. Where do the workers run — inside `agent_server`, inside the tutor container, or a new
-   small service?
+1. **Event ingress** — tutor backend as bus initiator (recommended, keeps auth) vs.
+   extending the agent_bus gateway with a generic emit command (4.1).
+2. **Workflow ↔ `cid` granularity** — one `cid` per triggering event (fan to roles →
+   synth → terminate), or a longer-lived `cid` per study "moment"? Affects windowing in
+   the synthesizer actor and `sid` growth.
+3. **Actor placement** — a new Tutor-actors service (like agent_bus's mono-process), or
+   asyncio tasks inside the tutor backend? (Both reach `valkey-bus` + `agent_server` on
+   `logus2k_network`.)
+4. Do toggles live per-student globally, or per-session/per-package?
+5. Should the synthesizer run in single-role mode at all, or only in Auto?
+6. Anonymous users: which workflows degrade vs. disable (most Repetition/Progress need
+   sign-in)? Note anonymous users have no persisted stream/mastery.
+7. Synthesizer windowing under at-least-once delivery — how long to wait for role
+   contributions on a `cid` before consolidating, and how to dedupe on `(cid, sid)`.
