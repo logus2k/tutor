@@ -104,6 +104,7 @@ async function main() {
     onActivate: setActiveSession,
     activeId: () => (activeSession ? activeSession.id : null),
     onOpenPackage: (id, title) => openPackage({ id, title }),   // study a package from a session
+    onPackageShuffleChanged: onPackageShuffleChanged,           // re-apply shuffle live
   });
   restoreActiveSession();   // re-activate last session (if still signed in)
   renderIdentity();         // top-right: Anonymous / signed-in user
@@ -190,6 +191,59 @@ async function restoreActiveSession() {
     activeSession = { id: s.id, name: s.name };
     setSessionStatus(s.name);
   } catch { localStorage.removeItem(LS_ACTIVE); }
+}
+
+/** A package's shuffle toggles changed (per session+package); if it's the
+ *  active session's currently-open package, reload it so the new order applies. */
+function onPackageShuffleChanged(sid, pkgId) {
+  if (activeSession && activeSession.id === sid && currentPackageId === pkgId) {
+    openPackage({ id: pkgId });
+  }
+}
+
+// ---- per-package shuffle (deterministic, seeded by session + package) ----
+// Stable across reloads so progress/order stay consistent; answers persist by
+// option id, so reordering never affects grading or restore. Already-answered
+// questions are kept FIRST (original order); only the rest are shuffled.
+function _seededRandom(str) {
+  let h = 1779033703 ^ str.length;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+    h = (h << 13) | (h >>> 19);
+  }
+  return () => {
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    return ((h ^= h >>> 16) >>> 0) / 4294967296;
+  };
+}
+
+function _shuffleInPlace(arr, rnd) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/** Reorder a loaded package's questions and/or each question's options.
+ *  `answeredIds` (a Set) are pinned first, in original order; the rest shuffle. */
+function shufflePackage(pkg, { questions, options, seed, answeredIds }) {
+  if (questions) {
+    const answered = [], rest = [];
+    for (const q of pkg.questions) {
+      (answeredIds && answeredIds.has(q.id) ? answered : rest).push(q);
+    }
+    _shuffleInPlace(rest, _seededRandom(`${seed}:q`));
+    pkg.questions = [...answered, ...rest];
+  }
+  if (options) {
+    for (const q of pkg.questions) {
+      if (Array.isArray(q.options) && q.options.length > 1) {
+        _shuffleInPlace(q.options, _seededRandom(`${seed}:o:${q.id}`));
+      }
+    }
+  }
 }
 
 /** Persist a graded answer to the active session (no-op when anonymous). */
@@ -410,6 +464,26 @@ async function openPackage(entry) {
 
   try {
     const pkg = await loadPackage(`etl/packages/${encodeURIComponent(entry.id)}/content`);
+
+    // Fetch saved answers + this package's per-session shuffle options BEFORE rendering,
+    // so answered questions can be pinned first and the right shuffle applied.
+    let saved = [];
+    let pkgOpts = null;
+    if (activeSession) {
+      try {
+        const r = await fetchJson(`etl/sessions/${activeSession.id}/answers?package_id=${encodeURIComponent(pkg.id)}`);
+        saved = r.answers || [];
+        pkgOpts = r.options || null;   // null when the package isn't a member of the session
+      } catch { /* non-fatal — free play continues */ }
+    }
+    if (pkgOpts && (pkgOpts.shuffle_questions || pkgOpts.shuffle_options)) {
+      shufflePackage(pkg, {
+        questions: !!pkgOpts.shuffle_questions,
+        options: !!pkgOpts.shuffle_options,
+        seed: `${activeSession.id}:${pkg.id}`,
+        answeredIds: new Set(saved.map((a) => a.question_id)),
+      });
+    }
     $('pkg-title').textContent = pkg.title;
     document.title = `Tutor — ${pkg.title}`;
     setPackageStatus(pkg.title);
@@ -417,7 +491,11 @@ async function openPackage(entry) {
     currentPackageId = pkg.id;
     mount.innerHTML = '';
     questionPanel = new QuestionPanel(mount, pkg, {
-      onAskTutor: (q, p, state) => chat.prefill(buildPrompt(q, p, state)),
+      onAskTutor: (q, p, state) => {
+        setChatVisible(true);            // reveal the Assistant pane (it may be collapsed)
+        setActiveTab('chat');
+        chat.ask(buildPrompt(q, p, state));   // submit straight to the chat (don't just prefill)
+      },
       // Keep the assistant aware of the question the student is on + its state.
       onQuestionChange: (info) => context.setQuestion(
         info.question,
@@ -431,14 +509,8 @@ async function openPackage(entry) {
       onToggleGrounding: () => setGroundingActive(!groundingOn),
     });
 
-    // Restore saved answers IF this package is part of the active session. Membership
-    // is now manual (add via the Catalog 📂 chooser), so opening no longer auto-adds.
-    if (activeSession) {
-      try {
-        const { answers } = await fetchJson(`etl/sessions/${activeSession.id}/answers?package_id=${encodeURIComponent(pkg.id)}`);
-        if (answers && answers.length) questionPanel.applySaved(answers);
-      } catch { /* non-fatal — free play continues */ }
-    }
+    // Restore saved answers (already fetched above, before shuffling).
+    if (saved.length) questionPanel.applySaved(saved);
   } catch (e) {
     const msg = e instanceof PackageError ? e.message : `Unexpected error: ${e.message}`;
     mount.innerHTML = errBox('Could not load this package.', { message: msg });

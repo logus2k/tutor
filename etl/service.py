@@ -471,7 +471,10 @@ async def sessions_add_package(sid: str, request: Request):
 @app.get("/etl/sessions/{sid}/answers")
 def sessions_get_answers(sid: str, request: Request, package_id: str | None = None):
     e = _require_email(request)
-    return {"answers": sess.get_answers(e, sid, package_id)}
+    out = {"answers": sess.get_answers(e, sid, package_id)}
+    if package_id:   # also return this package's per-session shuffle options (None if not a member)
+        out["options"] = sess.get_package_options(e, sid, package_id)
+    return out
 
 @app.put("/etl/sessions/{sid}/answers")
 async def sessions_save_answer(sid: str, request: Request):
@@ -887,10 +890,25 @@ async def package_visibility(pkg_id: str, request: Request):
 @app.get("/etl/sessions/{sid}/packages")
 def sessions_list_packages(sid: str, request: Request):
     e = _require_email(request)
-    s = sess.get_session(e, sid)
-    if s is None:
+    if sess.get_session(e, sid) is None:
         raise HTTPException(404, "session not found")
-    return {"packages": s.get("packages", [])}
+    return {"packages": sess.list_session_packages(e, sid)}
+
+@app.patch("/etl/sessions/{sid}/packages/{pkg_id}")
+async def sessions_set_package_options(sid: str, pkg_id: str, request: Request):
+    """Set per (session, package) shuffle options."""
+    e = _require_email(request)
+    body = await request.json()
+    opts = {}
+    if "shuffle_questions" in body:
+        opts["shuffle_questions"] = bool(body.get("shuffle_questions"))
+    if "shuffle_options" in body:
+        opts["shuffle_options"] = bool(body.get("shuffle_options"))
+    if not opts:
+        raise HTTPException(400, "nothing to update")
+    if not sess.set_package_options(e, sid, pkg_id, **opts):
+        raise HTTPException(404, "session not found")
+    return {"ok": True, **opts}
 
 
 @app.delete("/etl/sessions/{sid}/packages/{pkg_id}")

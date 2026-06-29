@@ -310,7 +310,7 @@ export class QuestionPanel {
     submit.addEventListener('click', () => this._grade());
     this._submitBtn = submit;
 
-    const ask = el('button', 'tq-btn tq-btn-ghost', '🎓 Ask the tutor');
+    const ask = el('button', 'tq-btn tq-btn-ghost', '🎓 Ask the Assistant');
     ask.type = 'button';
     ask.addEventListener('click', () => {
       if (this.cb.onAskTutor) {

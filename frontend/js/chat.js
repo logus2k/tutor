@@ -127,7 +127,7 @@ export class ChatPanel {
 
   _greet() {
     this._addBubble('assistant',
-      "Hi! I'm your tutor. Ask me to explain any concept, or hit **🎓 Ask the tutor** on a question and I'll help you reason it through. I won't give away answers you haven't tried yet.");
+      "Hi! I'm your tutor. Ask me to explain any concept, or hit **🎓 Ask the Assistant** on a question and I'll help you reason it through. I won't give away answers you haven't tried yet.");
   }
 
   // ---- voice (TTS) -------------------------------------------------------
@@ -194,6 +194,14 @@ export class ChatPanel {
     if (!text || this.streaming) return;
     this.input.value = '';
     this._autosize();
+    this._submit(text);
+  }
+
+  /** Submit `text` programmatically as a user turn (e.g. "Ask the tutor"),
+   *  without routing it through the composer input. */
+  ask(text) {
+    text = (text || '').trim();
+    if (!text || this.streaming) return;
     this._submit(text);
   }
 

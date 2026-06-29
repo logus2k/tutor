@@ -18,11 +18,12 @@ export class SessionsPanel {
    * @param {(session|null) => void} opts.onActivate  called when the active session changes.
    * @param {() => string|null}      opts.activeId    returns the currently-active session id.
    */
-  constructor(root, { onActivate, activeId, onOpenPackage } = {}) {
+  constructor(root, { onActivate, activeId, onOpenPackage, onPackageShuffleChanged } = {}) {
     this.root = root;
     this.onActivate = onActivate || (() => {});
     this.activeId = activeId || (() => null);
     this.onOpenPackage = onOpenPackage || (() => {});
+    this.onPackageShuffleChanged = onPackageShuffleChanged || (() => {});
     this.me = { authenticated: false, email: '' };
     this._build();
     this.refresh();
@@ -95,6 +96,37 @@ export class SessionsPanel {
     }
   }
 
+  /** Two independent shuffle toggles for ONE package within a session
+   *  (none / one / both, default both). Persists immediately to that
+   *  (session, package) and re-applies live if the package is open. */
+  _shuffleRow(s, pkg) {
+    const row = el('div', 'session-shuffle');
+    row.append(el('span', 'session-shuffle-lbl', '🔀 Shuffle'));
+    const mk = (key, label) => {
+      const lab = el('label', 'session-shuffle-opt');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!pkg[key];
+      cb.addEventListener('click', (e) => e.stopPropagation());
+      cb.addEventListener('change', async () => {
+        const prev = !!pkg[key];
+        pkg[key] = cb.checked;
+        try {
+          await fetchJson(`${API}/sessions/${s.id}/packages/${encodeURIComponent(pkg.package_id)}`,
+            { method: 'PATCH', body: { [key]: cb.checked } });
+          this.onPackageShuffleChanged(s.id, pkg.package_id);
+        } catch (e) {
+          pkg[key] = prev; cb.checked = prev;
+          alert(`Could not update shuffle: ${e.message}`);
+        }
+      });
+      lab.append(cb, el('span', null, label));
+      return lab;
+    };
+    row.append(mk('shuffle_questions', 'Questions'), mk('shuffle_options', 'Options'));
+    return row;
+  }
+
   async _create() {
     const name = (prompt('Name this study session:', '') || '').trim();
     if (!name) return;
@@ -129,13 +161,15 @@ export class SessionsPanel {
     const box = el('div', 'session-pkgs'); box.append(el('div', 'muted', 'Loading…'));
     card.append(box);
     try {
-      const ids = (await fetchJson(`${API}/sessions/${s.id}/packages`)).packages || [];
+      const pkgs = (await fetchJson(`${API}/sessions/${s.id}/packages`)).packages || [];
       let titleById = {};
       try { titleById = Object.fromEntries(((await fetchJson(`${API}/catalog`)).packages || []).map((p) => [p.id, p.title])); } catch { /* anon */ }
       box.innerHTML = '';
-      if (!ids.length) { box.append(el('div', 'muted', 'No packages in this session.')); return; }
-      for (const pid of ids) {
+      if (!pkgs.length) { box.append(el('div', 'muted', 'No packages in this session.')); return; }
+      for (const pkg of pkgs) {
+        const pid = pkg.package_id;
         const row = el('div', 'session-pkg-row');
+        const top = el('div', 'session-pkg-top');
         const known = titleById[pid] != null;
         const name = el('button', 'session-pkg-name' + (known ? '' : ' is-orphan'),
           known ? titleById[pid] : `${pid} (no longer in Catalog)`);
@@ -144,7 +178,7 @@ export class SessionsPanel {
           name.title = 'Open this package’s questions';
           name.addEventListener('click', (ev) => { ev.stopPropagation(); this.onActivate(s); this.onOpenPackage(pid, titleById[pid]); });
         } else { name.disabled = true; }   // orphan: not openable
-        row.append(name);
+        top.append(name);
         const rm = iconBtn('✕', 'Remove from this session (keeps it in the Catalog)');
         rm.addEventListener('click', async (ev) => {
           ev.stopPropagation();
@@ -154,7 +188,9 @@ export class SessionsPanel {
             row.remove();
           } catch (e) { alert(`Could not remove: ${e.message}`); }
         });
-        row.append(rm);
+        top.append(rm);
+        row.append(top);
+        if (known) row.append(this._shuffleRow(s, pkg));   // per-package shuffle toggles
         box.append(row);
       }
     } catch (e) { box.innerHTML = ''; box.append(el('div', 'muted', 'Could not load packages.')); }

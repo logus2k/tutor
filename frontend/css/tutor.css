@@ -171,9 +171,9 @@ div.brand-text { margin-left: 5px; }
 #sb-notifications:hover { background: var(--bg); color: var(--text); }
 /* Duotone like the rail icons: pastel fill + muted stroke. */
 #sb-notifications svg { fill: #ffe39e; fill-opacity: .85; stroke: var(--text-mute); }
-.sb-badge { position: absolute; top: 2px; right: 5px; min-width: 14px; height: 14px; padding: 0 3px;
-  border-radius: 7px; background: var(--bad); color: #fff; font-size: 9px; font-weight: 700;
-  line-height: 14px; text-align: center; }
+.sb-badge { position: absolute; top: 2px; right: 13px; min-width: 12px; height: 12px; padding: 0 3px;
+  border-radius: 7px; background: var(--bad); color: #fff; font-size: 7px; font-weight: 700;
+  line-height: 12px; text-align: center; }
 .sb-badge.hidden { display: none; }
 .notif-menu { position: absolute; bottom: 34px; right: 6px; z-index: 30; width: 300px; max-height: 340px;
   overflow: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
@@ -308,8 +308,8 @@ div.brand-text { margin-left: 5px; }
   background-color: #f4fffa; border: 0.5px solid #cecece; }
 .session-pkgs { flex-basis: 100%; width: 100%; border-top: 1px solid var(--border);
   padding: 8px 14px 10px; background: rgba(0,0,0,.02); }
-.session-pkg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 4px 0; font-size: 13px; color: var(--text); }
+.session-pkg-row { display: flex; flex-direction: column; gap: 3px; padding: 5px 0; font-size: 13px; color: var(--text); }
+.session-pkg-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .session-pkg-name { flex: 1 1 auto; min-width: 0; text-align: left; background: none; border: none;
   font: inherit; cursor: pointer; color: var(--accent); padding: 2px 0;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -322,6 +322,13 @@ div.brand-text { margin-left: 5px; }
 .session-icon { background: none; border: none; cursor: pointer; font-size: 14px; padding: 6px 8px; border-radius: 8px; opacity: .6; }
 .session-icon:hover { opacity: 1; background: var(--bg); }
 .session-icon.is-static { opacity: .5; cursor: default; }
+/* Per-package shuffle toggles (questions / options) — a compact row under each
+   package name inside an expanded session. */
+.session-shuffle { display: flex; align-items: center; gap: 12px; padding-left: 2px;
+  font-size: 11px; color: var(--text-mute); }
+.session-shuffle-lbl { font-weight: 600; }
+.session-shuffle-opt { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text); }
+.session-shuffle-opt input { cursor: pointer; margin: 0; }
 /* Package visibility / session-membership popup. */
 .pkg-menu { position: fixed; z-index: 50; width: 240px; max-height: 320px; overflow-y: auto;
   background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;

@@ -61,9 +61,11 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 CREATE INDEX IF NOT EXISTS idx_sessions_student ON sessions(student_email);
 CREATE TABLE IF NOT EXISTS session_packages (
-    session_id TEXT NOT NULL,
-    package_id TEXT NOT NULL,
-    added_at   TEXT NOT NULL,
+    session_id        TEXT NOT NULL,
+    package_id        TEXT NOT NULL,
+    added_at          TEXT NOT NULL,
+    shuffle_questions INTEGER NOT NULL DEFAULT 1,   -- per (session,package): shuffle question order
+    shuffle_options   INTEGER NOT NULL DEFAULT 1,   -- per (session,package): shuffle option order
     PRIMARY KEY (session_id, package_id),
     FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
 );
@@ -112,6 +114,21 @@ def init_db() -> None:
         cols = [r["name"] for r in cx.execute("PRAGMA table_info(answers)")]
         if "attempts" not in cols:
             cx.execute("ALTER TABLE answers ADD COLUMN attempts INTEGER NOT NULL DEFAULT 1")
+        # Per (session, package) shuffle settings live on session_packages; default BOTH on.
+        pcols = [r["name"] for r in cx.execute("PRAGMA table_info(session_packages)")]
+        if "shuffle_questions" not in pcols:
+            cx.execute("ALTER TABLE session_packages ADD COLUMN shuffle_questions INTEGER NOT NULL DEFAULT 1")
+        if "shuffle_options" not in pcols:
+            cx.execute("ALTER TABLE session_packages ADD COLUMN shuffle_options INTEGER NOT NULL DEFAULT 1")
+        # Drop the earlier session-level shuffle columns (superseded by per-package). DROP
+        # COLUMN needs SQLite ≥3.35; if unsupported the columns stay inert (never read).
+        scols = [r["name"] for r in cx.execute("PRAGMA table_info(sessions)")]
+        for c in ("shuffle_questions", "shuffle_options"):
+            if c in scols:
+                try:
+                    cx.execute(f"ALTER TABLE sessions DROP COLUMN {c}")
+                except Exception:  # noqa: BLE001 - old SQLite; leave the column unused
+                    pass
 
 
 # ---- students ----------------------------------------------------------------
@@ -239,6 +256,58 @@ def sessions_with_package(email: str, package_id: str) -> list[str]:
             "SELECT sp.session_id FROM session_packages sp "
             "JOIN sessions s ON s.id = sp.session_id "
             "WHERE s.student_email=? AND sp.package_id=?", (email, package_id))]
+
+
+def list_session_packages(email: str, sid: str) -> list[dict]:
+    """Packages in a session WITH their per-package shuffle options."""
+    with _conn() as cx:
+        if not _owned(cx, email, sid):
+            return []
+        rows = cx.execute(
+            "SELECT package_id, shuffle_questions, shuffle_options FROM session_packages "
+            "WHERE session_id=? ORDER BY added_at", (sid,)).fetchall()
+    return [{"package_id": r["package_id"],
+             "shuffle_questions": bool(r["shuffle_questions"]),
+             "shuffle_options": bool(r["shuffle_options"])} for r in rows]
+
+
+def get_package_options(email: str, sid: str, package_id: str) -> dict | None:
+    """Per (session, package) shuffle options, or None when not a member."""
+    with _conn() as cx:
+        if not _owned(cx, email, sid):
+            return None
+        r = cx.execute(
+            "SELECT shuffle_questions, shuffle_options FROM session_packages "
+            "WHERE session_id=? AND package_id=?", (sid, package_id)).fetchone()
+    if r is None:
+        return None
+    return {"shuffle_questions": bool(r["shuffle_questions"]),
+            "shuffle_options": bool(r["shuffle_options"])}
+
+
+def set_package_options(email: str, sid: str, package_id: str, *,
+                        shuffle_questions: bool | None = None,
+                        shuffle_options: bool | None = None) -> bool:
+    """Update per (session, package) shuffle options (only the fields provided).
+    Creates the membership row (defaults both on) if it doesn't exist yet."""
+    sets, args = [], []
+    if shuffle_questions is not None:
+        sets.append("shuffle_questions=?"); args.append(1 if shuffle_questions else 0)
+    if shuffle_options is not None:
+        sets.append("shuffle_options=?"); args.append(1 if shuffle_options else 0)
+    if not sets:
+        return False
+    with _conn() as cx:
+        if not _owned(cx, email, sid):
+            return False
+        cx.execute(
+            "INSERT OR IGNORE INTO session_packages(session_id, package_id, added_at) VALUES(?,?,?)",
+            (sid, package_id, _now()))
+        cx.execute(
+            f"UPDATE session_packages SET {', '.join(sets)} WHERE session_id=? AND package_id=?",
+            (*args, sid, package_id))
+        _touch(cx, sid)
+    return True
 
 
 # ---- answers -----------------------------------------------------------------
