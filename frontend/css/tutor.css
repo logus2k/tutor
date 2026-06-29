@@ -69,6 +69,12 @@ body.is-resizing { cursor: col-resize; user-select: none; }
 .brand-mark { font-size: 28px; }
 div.brand-text { margin-left: 5px; }
 .brand-title { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+/* Hamburger (mobile only) — toggles the rail drawer; hidden on desktop. */
+.rail-toggle { display: none; flex: 0 0 auto; background: none; border: none; cursor: pointer;
+  color: var(--text-soft); padding: 6px; margin-right: 2px; border-radius: 8px; }
+.rail-toggle:hover { background: rgba(0, 0, 0, .05); }
+.rail-toggle svg { width: 24px; height: 24px; display: block; }
+.rail-backdrop { display: none; }
 .brand-sub { font-size: 12.5px; color: var(--text-mute); }
 
 /* top-right identity (Anonymous / signed-in user) + click-to-open menu */
@@ -490,7 +496,11 @@ div.brand-text { margin-left: 5px; }
 }
 
 /* actions */
-.tq-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.tq-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+/* Hint + Ask sit on the left; Submit is pushed to the right (desktop + mobile). */
+.tq-actions .tq-btn-primary { margin-left: auto; }
+/* Responsive button labels: full on desktop, short on mobile. */
+.lbl-short { display: none; }
 .tq-btn {
   padding: 9px 16px; border-radius: 9px; font: inherit; font-weight: 600; font-size: 14px;
   cursor: pointer; border: 1.5px solid transparent; transition: background .12s ease, border-color .12s ease;
@@ -517,8 +527,8 @@ div.brand-text { margin-left: 5px; }
   font-size: 14.5px; color: var(--text-soft);
 }
 
-/* footer */
-.tq-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+/* footer — holds the single centered navigation control pill */
+.tq-foot { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
 .tq-cite { font-size: 12px; color: var(--text-mute); text-align: center; flex: 1 1 auto; }
 /* Grounding toggle between the nav buttons (replaces the old source text). */
 .tq-toggle { flex: 0 0 auto; font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
@@ -526,6 +536,23 @@ div.brand-text { margin-left: 5px; }
   background: #fff; color: var(--text-mute); transition: background .12s ease, color .12s ease, border-color .12s ease; }
 .tq-toggle:hover { color: var(--text-soft); border-color: #cbd5e1; }
 .tq-toggle.is-on { background: var(--accent-soft); color: var(--accent-deep); border-color: #cffafe; }
+
+/* "Music-player" navigation control box: first · prev · [#]/N · next · last · unanswered. */
+.tq-nav { display: inline-flex; align-items: center; gap: 4px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 999px; padding: 4px 8px; }
+.tq-nav-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;
+  border: none; background: transparent; border-radius: 50%; cursor: pointer; color: var(--text-soft);
+  font-size: 14px; line-height: 1; transition: background .12s ease, color .12s ease; }
+.tq-nav-btn:hover:not(:disabled) { background: var(--bg-card); color: var(--accent); }
+.tq-nav-btn:disabled { opacity: .35; cursor: default; }
+.tq-nav-unans { color: var(--accent); }
+.tq-nav-jump { display: inline-flex; align-items: center; gap: 4px; padding: 0 2px; }
+.tq-nav-input { width: 46px; text-align: center; border: 1px solid var(--border); border-radius: 8px;
+  padding: 4px; font: inherit; font-size: 13px; -moz-appearance: textfield; appearance: textfield; }
+.tq-nav-input::-webkit-outer-spin-button, .tq-nav-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.tq-nav-total { font-size: 12px; color: var(--text-mute); white-space: nowrap; }
+.tq-nav-ground { margin-left: 2px; }
+.tq-nav-ground.is-on { color: var(--accent-deep); background: var(--accent-soft); }
 
 .tq-error {
   background: var(--bad-soft); border: 1px solid #fecaca; color: #991b1b;
@@ -641,11 +668,24 @@ div.brand-text { margin-left: 5px; }
   }
   .split.chat-collapsed .pane-right { display: none; }
 
-  /* Compact rail (icons only). */
-  .rail { flex-basis: 54px; padding: 8px 0; }
-  .rail-label { display: none; }
-  .rail-btn { width: 44px; padding: 8px 0; }
-  .rail-btn svg { width: 21px; height: 21px; }
+  /* Rail becomes a slide-in DRAWER (floating labelled panel) behind a hamburger. */
+  .rail-toggle { display: inline-flex; align-items: center; }
+  .rail {
+    position: fixed; top: 0; left: 0; bottom: 0; width: 252px; max-width: 82vw;
+    z-index: 60; flex-basis: auto; align-items: stretch; gap: 4px; padding: 14px 10px;
+    overflow-y: auto; box-shadow: 0 0 30px rgba(15, 23, 42, .28);
+    transform: translateX(-100%); transition: transform .22s ease;
+  }
+  body.rail-open .rail { transform: translateX(0); }
+  .rail-backdrop {
+    display: block; position: fixed; inset: 0; z-index: 55; background: rgba(15, 23, 42, .45);
+    opacity: 0; pointer-events: none; transition: opacity .22s ease;
+  }
+  body.rail-open .rail-backdrop { opacity: 1; pointer-events: auto; }
+  .rail-spacer { flex: 1 1 auto; }
+  .rail-label { display: block; font-size: 13.5px; }
+  .rail-btn { flex-direction: row; width: 100%; justify-content: flex-start; gap: 14px; padding: 12px 14px; }
+  .rail-btn svg { width: 22px; height: 22px; }
 
   /* Topbar: drop the long sub-line; keep brand + identity tidy. */
   .topbar { padding: 8px 12px; }
@@ -656,16 +696,28 @@ div.brand-text { margin-left: 5px; }
   #sb-package { max-width: 46vw; overflow: hidden; text-overflow: ellipsis; }
   #sb-session { display: none; }
 
-  /* Questions: readable text + big, easy-to-tap controls & nav buttons. */
+  /* Questions: very compact so stem + options + the control box fit a phone
+     screen together (study on transit / in a queue). */
   .leftview, .questions { max-width: 100%; }
-  .tq-stem { font-size: 19px; }
-  .tq-option { padding: 14px 14px; }
-  .tq-option input { width: 20px; height: 20px; }
-  .tq-btn { padding: 12px 16px; font-size: 15px; }
-  .tq-actions, .tq-foot { gap: 8px; flex-wrap: wrap; }
-  .tq-foot { flex-direction: column; align-items: stretch; }
-  .tq-btn-nav { width: 100%; }
-  .tq-toggle { order: -1; }   /* show the Grounding toggle above the nav buttons on mobile */
+  .pane-left { padding: 8px 12px 10px; }
+  .tq-head { gap: 4px; margin-bottom: 5px; }
+  .tq-counter { font-size: 11px; }
+  .tq-chip { font-size: 9.5px; padding: 2px 6px; }
+  .tq-stem { font-size: 15.5px; line-height: 1.3; margin: 0 0 7px; }
+  .tq-options { gap: 5px; margin: 0 0 8px; }
+  .tq-option { padding: 7px 10px; font-size: 14px; }
+  .tq-option input { width: 17px; height: 17px; }
+  .tq-btn { padding: 8px 12px; font-size: 13.5px; }
+  /* Keep Submit · Hint · Ask on ONE line using the short labels. */
+  .tq-actions { gap: 6px; margin-bottom: 4px; flex-wrap: nowrap; }
+  .lbl-full { display: none; }
+  .lbl-short { display: inline; }
+  /* Footer: a single compact control-box row (Grounding folded in). */
+  .tq-foot { flex-direction: row; justify-content: center; align-items: center; gap: 0; margin-top: 6px; padding-top: 6px; }
+  .tq-nav { gap: 1px; padding: 4px; }
+  .tq-nav-btn { width: 30px; height: 30px; font-size: 13px; }
+  .tq-nav-input { width: 38px; }
+  .tq-nav-total { font-size: 11px; }
 
   /* Chat composer: comfortable tap targets. */
   .chat-send { padding: 12px 18px; }

@@ -283,20 +283,13 @@ export class QuestionPanel {
     }
   }
 
+  // Only the revealed hint TEXTS live here; the reveal button moved into the
+  // action row (see _actions) so the controls read as tidy clusters.
   _hints(q, st) {
     const wrap = el('div', 'tq-hints');
     const hints = q.hints || [];
-    if (!hints.length) return wrap;
-    const shown = el('div', 'tq-hints-shown');
-    for (let i = 0; i < st.hintsShown; i++) {
-      shown.appendChild(el('div', 'tq-hint', `💡 ${hints[i]}`));
-    }
-    wrap.appendChild(shown);
-    if (st.hintsShown < hints.length && !st.answered) {
-      const btn = el('button', 'tq-link', st.hintsShown ? 'Another hint' : 'Need a hint?');
-      btn.type = 'button';
-      btn.addEventListener('click', () => { st.hintsShown++; this._render(); });
-      wrap.appendChild(btn);
+    for (let i = 0; i < st.hintsShown && i < hints.length; i++) {
+      wrap.appendChild(el('div', 'tq-hint', `💡 ${hints[i]}`));
     }
     return wrap;
   }
@@ -304,21 +297,33 @@ export class QuestionPanel {
   _actions(q, st) {
     const bar = el('div', 'tq-actions');
 
-    const submit = el('button', 'tq-btn tq-btn-primary', st.answered ? 'Answered' : 'Submit answer');
+    const submit = el('button', 'tq-btn tq-btn-primary');
     submit.type = 'button';
+    if (st.answered) submit.textContent = 'Answered';
+    else submit.append(respLabel('Submit answer', 'Submit'));
     submit.disabled = st.answered || st.selected.size === 0;
     submit.addEventListener('click', () => this._grade());
     this._submitBtn = submit;
 
-    const ask = el('button', 'tq-btn tq-btn-ghost', '🎓 Ask the Assistant');
+    const ask = el('button', 'tq-btn tq-btn-ghost');
     ask.type = 'button';
+    ask.append(document.createTextNode('🎓 '), respLabel('Ask the Assistant', 'Ask'));
     ask.addEventListener('click', () => {
       if (this.cb.onAskTutor) {
         this.cb.onAskTutor(q, this.pkg, { selected: [...st.selected], answered: st.answered, correct: st.correct });
       }
     });
 
-    bar.append(submit);
+    // LEFT group: Hint, Ask (+ Try again when answered). Hint text appears above (via _hints).
+    const hints = q.hints || [];
+    if (hints.length && !st.answered && st.hintsShown < hints.length) {
+      const hint = el('button', 'tq-btn tq-btn-ghost');
+      hint.type = 'button';
+      hint.append(respLabel(st.hintsShown ? '💡 Another hint' : '💡 Hint', '💡 Hint'));
+      hint.addEventListener('click', () => { st.hintsShown++; this._render(); });
+      bar.append(hint);
+    }
+    bar.append(ask);
     // Once answered, allow another attempt — re-enables the controls. The next
     // submit counts as a fresh attempt (tracked for scoring); selections stay so
     // the student can adjust rather than start over.
@@ -328,34 +333,72 @@ export class QuestionPanel {
       retry.addEventListener('click', () => { st.answered = false; st.correct = null; this._render(); });
       bar.append(retry);
     }
-    bar.append(ask);
+    // RIGHT: Submit — appended last and pushed right via CSS (margin-left:auto).
+    bar.append(submit);
     return bar;
+  }
+
+  /** Index of the first UNANSWERED question (in display order), or null if all done. */
+  firstUnansweredIndex() {
+    for (let i = 0; i < this.pkg.questions.length; i++) {
+      const st = this.state.get(this.pkg.questions[i].id);
+      if (!st || !st.answered) return i;
+    }
+    return null;
   }
 
   _footer(q) {
     const foot = el('div', 'tq-foot');
-    const prev = el('button', 'tq-btn tq-btn-nav', '← Previous');
-    prev.type = 'button';
-    prev.disabled = this.index === 0;
-    prev.addEventListener('click', () => this.go(-1));
+    const N = this.pkg.questionCount;
+    const cur = this.index;
 
-    const next = el('button', 'tq-btn tq-btn-nav', 'Next →');
-    next.type = 'button';
-    next.disabled = this.index >= this.pkg.questionCount - 1;
-    next.addEventListener('click', () => this.go(1));
+    // Compact "music-player" control box: first · prev · [#]/N · next · last · first-unanswered.
+    const nav = el('div', 'tq-nav');
+    const navBtn = (glyph, title, disabled, fn, extraCls) => {
+      const b = el('button', 'tq-nav-btn' + (extraCls ? ` ${extraCls}` : ''), glyph);
+      b.type = 'button'; b.title = title; b.setAttribute('aria-label', title);
+      b.disabled = !!disabled;
+      if (fn) b.addEventListener('click', fn);
+      return b;
+    };
 
-    // Grounding toggle (between the nav buttons) — replaces the old "Source:"
-    // text; the source is shown in the status bar and at the foot of the
-    // Grounding tab itself.
+    const first = navBtn('⏮', 'First question', cur === 0, () => this.goTo(0));
+    const prev = navBtn('◀', 'Previous', cur === 0, () => this.go(-1));
+    const next = navBtn('▶', 'Next', cur >= N - 1, () => this.go(1));
+    const last = navBtn('⏭', 'Last question', cur >= N - 1, () => this.goTo(N - 1));
+
+    // Jump-to-number box.
+    const jump = el('span', 'tq-nav-jump');
+    const input = el('input', 'tq-nav-input');
+    input.type = 'number'; input.min = '1'; input.max = String(N); input.value = String(cur + 1);
+    input.setAttribute('aria-label', 'Go to question number');
+    const goJump = () => {
+      const n = parseInt(input.value, 10);
+      if (Number.isFinite(n) && n >= 1 && n <= N) this.goTo(n - 1);
+      else input.value = String(this.index + 1);
+    };
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); goJump(); } });
+    input.addEventListener('change', goJump);
+    jump.append(input, el('span', 'tq-nav-total', `/ ${N}`));
+
+    // Jump to the first unanswered question (disabled when everything is answered).
+    const ui = this.firstUnansweredIndex();
+    const unans = navBtn('◖◗', 'First unanswered question', ui === null,
+      () => { if (ui !== null) this.goTo(ui); }, 'tq-nav-unans');
+    unans.textContent = '◎';
+
+    // Grounding toggle, folded INTO the control box as an icon (saves a row on mobile).
     const on = this.cb.isGroundingOn ? this.cb.isGroundingOn() : false;
-    const gtoggle = el('button', 'tq-toggle' + (on ? ' is-on' : ''), '📄 Grounding');
+    const gtoggle = el('button', 'tq-nav-btn tq-nav-ground' + (on ? ' is-on' : ''), '📄');
     gtoggle.type = 'button';
+    gtoggle.title = 'Grounding — show the source this question was written from';
+    gtoggle.setAttribute('aria-label', 'Toggle grounding');
     gtoggle.setAttribute('aria-pressed', String(on));
-    gtoggle.title = 'Show the source this question was written from';
     gtoggle.addEventListener('click', () => { if (this.cb.onToggleGrounding) this.cb.onToggleGrounding(); });
     this._groundingBtn = gtoggle;
 
-    foot.append(prev, gtoggle, next);
+    nav.append(first, prev, jump, next, last, unans, gtoggle);
+    foot.append(nav);
     return foot;
   }
 
@@ -416,6 +459,13 @@ function el(tag, className, text) {
 
 function chip(text, cls) {
   return el('span', `tq-chip ${cls || ''}`.trim(), text);
+}
+
+// A label with a full (desktop) and short (mobile) variant; CSS shows one.
+function respLabel(full, short) {
+  const wrap = document.createElement('span');
+  wrap.append(el('span', 'lbl-full', full), el('span', 'lbl-short', short));
+  return wrap;
 }
 
 function typeLabel(q) {

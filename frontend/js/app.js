@@ -265,10 +265,21 @@ function showView(name) {
 }
 
 function wireRail() {
+  // Mobile: the rail is a slide-in drawer toggled by the topbar hamburger.
+  const toggle = $('rail-toggle');
+  const backdrop = $('rail-backdrop');
+  const setRailOpen = (open) => {
+    document.body.classList.toggle('rail-open', open);
+    if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  };
+  if (toggle) toggle.addEventListener('click', (e) => { e.stopPropagation(); setRailOpen(!document.body.classList.contains('rail-open')); });
+  if (backdrop) backdrop.addEventListener('click', () => setRailOpen(false));
+
   document.querySelectorAll('.rail-btn[data-view]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const v = btn.dataset.view;
       showView(v);
+      setRailOpen(false);   // selecting a section closes the drawer (mobile)
       // The Wall of Fame reflects live scores — reload it each time it's opened.
       if (v === 'fame' && famePanel) famePanel.refresh();
       if (v === 'review' && reviewPanel) reviewPanel.refresh();
@@ -276,7 +287,7 @@ function wireRail() {
     });
   });
   // Robot button: toggle the chat pane (not a view).
-  $('rail-chat').addEventListener('click', () => setChatVisible($('split').classList.contains('chat-collapsed')));
+  $('rail-chat').addEventListener('click', () => { setChatVisible($('split').classList.contains('chat-collapsed')); setRailOpen(false); });
 }
 
 /** Show/hide the chat (right) pane; collapsing gives the left pane full width. */

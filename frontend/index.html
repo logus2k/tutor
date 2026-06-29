@@ -11,6 +11,9 @@
 </head>
 <body>
   <header class="topbar">
+    <button id="rail-toggle" class="rail-toggle" type="button" title="Menu" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="brand">
       <span class="brand-mark">🎓</span>
       <div class="brand-text">
@@ -21,7 +24,10 @@
   </header>
 
   <div class="workspace">
-    <!-- Activity rail: Catalog + Documents on top, Settings at the bottom. -->
+    <!-- Backdrop behind the rail drawer on mobile (tap to close). -->
+    <div id="rail-backdrop" class="rail-backdrop"></div>
+    <!-- Activity rail: Catalog + Documents on top, Settings at the bottom.
+         On mobile this becomes a slide-in drawer toggled by the topbar hamburger. -->
     <nav class="rail" aria-label="Sections">
       <button class="rail-btn active" data-view="sessions" type="button" title="Study Sessions" aria-label="Study Sessions">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
