@@ -116,7 +116,9 @@ div.brand-text { margin-left: 5px; }
   color: var(--text-mute); font-size: 11px;
 }
 .sb-item { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; padding: 0 12px; }
-.sb-spacer { flex: 1 1 auto; }
+/* Package pill fills the remaining width, with a left→right colour wash. */
+#sb-package { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap;
+  background: linear-gradient(to right, #ceeed0, #92c9a8); height: 23px; }
 
 /* Left-corner pill chain (job2cool effect): agent then package, package chevroned. */
 .sb-pill {
@@ -170,7 +172,7 @@ div.brand-text { margin-left: 5px; }
 .statusbar { position: relative; }
 /* Notifications bell as its own small white status-bar segment. */
 #sb-notifications { position: relative; z-index: 1; background: #fff; color: var(--text);
-  padding: 0 24px 0 20px; margin-right: -10px;
+  padding: 0 20px 0 12px; margin-right: -10px;
   /* '>' point (10px, matching the status pill's 10px left notch) overlaps INTO the next
      section so the white tip exactly fills the pill's notch — they interlock. */
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
@@ -693,7 +695,7 @@ div.brand-text { margin-left: 5px; }
   .identity-user { max-width: 34vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* Status bar: let the package pill truncate instead of overflowing. */
-  #sb-package { max-width: 46vw; overflow: hidden; text-overflow: ellipsis; }
+  #sb-package { overflow: hidden; }   /* fills remaining width (flex:1); clips long titles */
   #sb-session { display: none; }
 
   /* Questions: very compact so stem + options + the control box fit a phone
