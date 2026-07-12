@@ -150,7 +150,7 @@ div.brand-text { margin-left: 5px; }
 
 /* Right-corner status pill (LED + label) — mirrors the left-corner pills. */
 .sb-pill-status {
-  background: #e2ffd2; color: #1f1f1f; gap: 7px; padding-left: 22px;
+  background: #ffffff; color: #1f1f1f; gap: 7px; padding-left: 22px;
   /* '>' chevron notch on the left edge (mirrors the package pill's chevron). */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10px 50%);
 }
@@ -171,7 +171,7 @@ div.brand-text { margin-left: 5px; }
 /* Notifications: bell badge + pop-up panel (opens upward from the status bar). */
 .statusbar { position: relative; }
 /* Notifications bell as its own small white status-bar segment. */
-#sb-notifications { position: relative; z-index: 1; background: #adf6b1; color: var(--text);
+#sb-notifications { position: relative; z-index: 1; background: #ffe39e; color: var(--text);
   padding: 0 20px 0 12px; margin-right: -10px;
   /* '>' point (10px, matching the status pill's 10px left notch) overlaps INTO the next
      section so the white tip exactly fills the pill's notch — they interlock. */
