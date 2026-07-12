@@ -174,6 +174,223 @@
       "file": "mlops_agenda.md",
       "kind": "pdf",
       "uploaded_at": "2026-06-27T16:16:41.806042+00:00"
+    },
+    {
+      "id": "claude-certified-associate-foundations-exam-guide",
+      "title": "Claude Certified Associate Foundations Exam Guide",
+      "file": "Claude_Certified_Associate_Foundations_Exam_Guide.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.671492+00:00"
+    },
+    {
+      "id": "d01-t01",
+      "title": "d01 t01",
+      "file": "d01_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.672372+00:00"
+    },
+    {
+      "id": "d01-t02",
+      "title": "d01 t02",
+      "file": "d01_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.672632+00:00"
+    },
+    {
+      "id": "d01-t03",
+      "title": "d01 t03",
+      "file": "d01_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.672904+00:00"
+    },
+    {
+      "id": "d01-t04",
+      "title": "d01 t04",
+      "file": "d01_t04.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.673126+00:00"
+    },
+    {
+      "id": "d02-t01",
+      "title": "d02 t01",
+      "file": "d02_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.673328+00:00"
+    },
+    {
+      "id": "d02-t02",
+      "title": "d02 t02",
+      "file": "d02_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.673667+00:00"
+    },
+    {
+      "id": "d02-t03",
+      "title": "d02 t03",
+      "file": "d02_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.673927+00:00"
+    },
+    {
+      "id": "d02-t04",
+      "title": "d02 t04",
+      "file": "d02_t04.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.674216+00:00"
+    },
+    {
+      "id": "d02-t05",
+      "title": "d02 t05",
+      "file": "d02_t05.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.674546+00:00"
+    },
+    {
+      "id": "d02-t06",
+      "title": "d02 t06",
+      "file": "d02_t06.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.674775+00:00"
+    },
+    {
+      "id": "d03-t01",
+      "title": "d03 t01",
+      "file": "d03_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.674988+00:00"
+    },
+    {
+      "id": "d03-t02",
+      "title": "d03 t02",
+      "file": "d03_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.675193+00:00"
+    },
+    {
+      "id": "d03-t03",
+      "title": "d03 t03",
+      "file": "d03_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.675398+00:00"
+    },
+    {
+      "id": "d03-t04",
+      "title": "d03 t04",
+      "file": "d03_t04.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.675600+00:00"
+    },
+    {
+      "id": "d04-t01",
+      "title": "d04 t01",
+      "file": "d04_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.675880+00:00"
+    },
+    {
+      "id": "d04-t02",
+      "title": "d04 t02",
+      "file": "d04_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.676194+00:00"
+    },
+    {
+      "id": "d04-t03",
+      "title": "d04 t03",
+      "file": "d04_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.676450+00:00"
+    },
+    {
+      "id": "d04-t04",
+      "title": "d04 t04",
+      "file": "d04_t04.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.676673+00:00"
+    },
+    {
+      "id": "d04-t05",
+      "title": "d04 t05",
+      "file": "d04_t05.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.676893+00:00"
+    },
+    {
+      "id": "d05-t01",
+      "title": "d05 t01",
+      "file": "d05_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.677300+00:00"
+    },
+    {
+      "id": "d05-t02",
+      "title": "d05 t02",
+      "file": "d05_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.677608+00:00"
+    },
+    {
+      "id": "d05-t03",
+      "title": "d05 t03",
+      "file": "d05_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.677879+00:00"
+    },
+    {
+      "id": "d05-t04",
+      "title": "d05 t04",
+      "file": "d05_t04.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.678190+00:00"
+    },
+    {
+      "id": "d06-t01",
+      "title": "d06 t01",
+      "file": "d06_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.678492+00:00"
+    },
+    {
+      "id": "d06-t02",
+      "title": "d06 t02",
+      "file": "d06_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.678794+00:00"
+    },
+    {
+      "id": "d06-t03",
+      "title": "d06 t03",
+      "file": "d06_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.679070+00:00"
+    },
+    {
+      "id": "d06-t04",
+      "title": "d06 t04",
+      "file": "d06_t04.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.679345+00:00"
+    },
+    {
+      "id": "d07-t01",
+      "title": "d07 t01",
+      "file": "d07_t01.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.679609+00:00"
+    },
+    {
+      "id": "d07-t02",
+      "title": "d07 t02",
+      "file": "d07_t02.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.679878+00:00"
+    },
+    {
+      "id": "d07-t03",
+      "title": "d07 t03",
+      "file": "d07_t03.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-07-11T15:28:01.680186+00:00"
     }
   ]
 }

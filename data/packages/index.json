@@ -10,6 +10,15 @@
       "visibility": "shared"
     },
     {
+      "id": "anthropic",
+      "title": "Anthropic",
+      "file": "anthropic.json",
+      "description": "This package provides a comprehensive guide to the Claude Certified Associate Foundations Exam, detailing the scope, intended audience, and required candidate profiles.",
+      "questions": 561,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
       "id": "microsoft-ai-transformation-leader-ab-731",
       "title": "Microsoft AI Transformation Leader (AB-731)",
       "file": "microsoft-ai-transformation-leader-ab-731.json",

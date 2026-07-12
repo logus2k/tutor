@@ -171,7 +171,7 @@ div.brand-text { margin-left: 5px; }
 /* Notifications: bell badge + pop-up panel (opens upward from the status bar). */
 .statusbar { position: relative; }
 /* Notifications bell as its own small white status-bar segment. */
-#sb-notifications { position: relative; z-index: 1; background: #fff; color: var(--text);
+#sb-notifications { position: relative; z-index: 1; background: #b8f9a5; color: var(--text);
   padding: 0 20px 0 12px; margin-right: -10px;
   /* '>' point (10px, matching the status pill's 10px left notch) overlaps INTO the next
      section so the white tip exactly fills the pill's notch — they interlock. */
