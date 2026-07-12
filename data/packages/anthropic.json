@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "id": "anthropic",
-  "title": "Anthropic",
+  "title": "Claude Certified Associate Foundations",
   "description": "This package provides a comprehensive guide to the Claude Certified Associate Foundations Exam, detailing the scope, intended audience, and required candidate profiles.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
   "generated_at": "2026-07-11T15:35:45.356410+00:00",
