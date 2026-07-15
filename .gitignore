@@ -1,2 +1,4 @@
 .venv_tutor/
 __pycache__/
+
+data/models/

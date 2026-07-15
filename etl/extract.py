@@ -10,7 +10,7 @@ the markdown cleanup. Returns (md_path, json_path).
 import subprocess, os
 from etl.clean_markdown import clean_file
 
-MODE = os.environ.get("ETL_DOCLING_MODE", "exec")
+MODE = os.environ.get("ETL_DOCLING_MODE", "local")
 CONTAINER = os.environ.get("DOCLING_CONTAINER", "noted-graph")
 MODELS = os.environ.get("DOCLING_MODELS", "/data/models/docling/models")
 DEVICE = os.environ.get("ETL_DOCLING_DEVICE", "auto")

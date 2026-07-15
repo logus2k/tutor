@@ -15,8 +15,8 @@ services:
       # Runtime content (packages/documents/jobs) — read-WRITE so the ETL backend
       # can publish packages and update the indexes without an image rebuild.
       - ./data:/app/data
-      # docling models, shared with noted-graph (read-only).
-      - /home/logus/env/assets/noted/data/models:/data/models:ro
+      # docling models — tutor's OWN copy under data/ (was shared from noted).
+      - ./data/models:/data/models:ro
     environment:
       - ETL_API=http://host.docker.internal:7701/v1/chat/completions
       - ETL_DOCLING_MODE=local
