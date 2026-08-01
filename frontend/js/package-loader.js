@@ -44,9 +44,11 @@ export class TutorPackage {
       throw new PackageError(`Package schema_version ${raw.schema_version} is newer than this Tutor supports (≤ ${SUPPORTED_MAJOR}.x).`);
     }
 
-    if (!Array.isArray(raw.questions) || raw.questions.length === 0) {
+    if (!Array.isArray(raw.questions)) {
       throw new PackageError('Package has no questions[].');
     }
+    // An empty questions[] is allowed (e.g. a package emptied for re-feeding) — the
+    // question panel renders a friendly empty state instead of erroring.
 
     this.raw = raw;
     this.id = raw.id || 'unknown';

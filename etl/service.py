@@ -122,15 +122,19 @@ def emit(jid, event, payload):
 # state — the job is only done after ALL docs + finalize.
 _PART_SKIP = {"job.published", "job.held", "job.failed", "catalog.updated", "catalog.skipped"}
 
-def _author_part(jid, md, js, doc, out, max_concepts, qpc, idx):
+def _author_part(jid, md, js, doc, out, max_concepts, qpc, idx, granularity="medium", plan_only=False):
     """Run the orchestrator for ONE document → a standalone 'part' package at
-    `out`. Returns (ok, error). Per-doc terminal events are filtered out."""
+    `out` (or, when plan_only, a tiny forecast artifact). Returns (ok, error).
+    Per-doc terminal events are filtered out."""
     env = {**os.environ, "ETL_MD": md, "ETL_DOC": js or "", "ETL_OUT": out,
            "ETL_PKG_ID": f"part{idx}", "ETL_JOB_ID": jid,
            "ETL_MAX_CONCEPTS": str(max_concepts), "ETL_QPC": str(qpc),
+           "ETL_GRANULARITY": granularity or "medium",
            "ETL_SRC_TITLE": doc["title"],
            "ETL_SOURCES": json.dumps([{"id": doc["id"], "title": doc["title"], "uri": doc["uri"]}]),
            "ETL_SRC_URI": doc["uri"], "ETL_SRC_ID": doc["id"]}
+    if plan_only:
+        env["ETL_PLAN_ONLY"] = "1"
     proc = subprocess.Popen([PYTHON, "etl/orchestrator.py"], cwd=ROOT, env=env,
                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
     JOB_PROCS[jid] = proc            # so a cancel can kill it immediately
@@ -160,13 +164,14 @@ def _author_part(jid, md, js, doc, out, max_concepts, qpc, idx):
     return (err is None and os.path.exists(out)), err
 
 def run_job(jid, docs, md, js, pkg_id, title, max_concepts, qpc, owner=None,
-            base_pkg=None, start_index=0):
+            base_pkg=None, start_index=0, granularity="medium", plan_only=False):
     try:
         emit(jid, "job.queued", {"documents": [d["title"] for d in docs] or [title]})
         workroot = f"/tmp/etl_jobs/{jid}"
         total = len(docs)
         draft = base_pkg                    # existing package when ADDING; else None
         src_parts = []
+        plan = []                           # per-doc forecasts (plan_only mode)
         for n, doc in enumerate(docs):
             if jid in JOB_CANCEL:
                 emit(jid, "job.cancelled", {"packageId": pkg_id}); return
@@ -186,15 +191,26 @@ def run_job(jid, docs, md, js, pkg_id, title, max_concepts, qpc, owner=None,
             emit(jid, "extract.file.done", {"index": n + 1, "total": total, "title": doc["title"]})
             if jid in JOB_CANCEL:
                 emit(jid, "job.cancelled", {"packageId": pkg_id}); return
-            # ---- author this document into a part package (FAIL-STOP) ----
+            # ---- author (or, plan_only, just list concepts + forecast) ----
             part_out = os.path.join(workroot, f"part-{idx}.json")
-            ok, err = _author_part(jid, md_i, js_i, doc, part_out, max_concepts, qpc, idx)
+            ok, err = _author_part(jid, md_i, js_i, doc, part_out, max_concepts, qpc, idx,
+                                   granularity=granularity, plan_only=plan_only)
             if jid in JOB_CANCEL:
                 emit(jid, "job.cancelled", {"packageId": pkg_id}); return
             if not ok:
                 emit(jid, "job.failed", {"stage": "author", "document": doc["title"], "error": (err or "no package")[:400]})
-                _finalize_draft(jid, draft, pkg_id, title, owner, src_parts, stopped_at=doc["title"])
+                if not plan_only:
+                    _finalize_draft(jid, draft, pkg_id, title, owner, src_parts, stopped_at=doc["title"])
                 return
+            if plan_only:
+                # A tiny forecast artifact was written; collect it (no authoring/merge).
+                try:
+                    p = json.load(open(part_out, encoding="utf-8"))
+                    plan.append({"title": doc["title"], "concepts": p.get("concepts", 0),
+                                 "questions": p.get("questions", 0)})
+                except Exception:
+                    plan.append({"title": doc["title"], "concepts": 0, "questions": 0})
+                continue
             # ---- merge into the draft, persist (committed/visible per doc) ----
             part = json.load(open(part_out, encoding="utf-8"))
             draft = merge.merge_part(draft, part, idx, pkg_id, title)
@@ -206,6 +222,14 @@ def run_job(jid, docs, md, js, pkg_id, title, max_concepts, qpc, owner=None,
 
         if jid in JOB_CANCEL:
             emit(jid, "job.cancelled", {"packageId": pkg_id}); return
+        if plan_only:
+            tot_c = sum(p["concepts"] for p in plan)
+            tot_q = sum(p["questions"] for p in plan)
+            j = JOBS.get(jid)
+            if j: j["state"] = "planned"; _save(j)
+            emit(jid, "job.planned", {"documents": plan, "concepts": tot_c, "questions": tot_q,
+                                      "qpc": qpc, "granularity": granularity})
+            return
         if draft is None:
             emit(jid, "job.failed", {"stage": "job", "error": "no documents produced content"})
             return
@@ -277,15 +301,51 @@ async def create_job(request: Request, files: list[UploadFile] = File(default=[]
     else:
         raise HTTPException(400, "provide files[] or directive.sourceMd+sourceJson")
 
+    qpc = int(d.get("questionsPerConcept", 3))
+    granularity = str(d.get("granularity", "medium")).lower()
+    plan_only = bool(d.get("planOnly"))
     job = {"jobId": jid, "state": "queued", "packageId": pkg_id, "title": title,
            "documents": documents, "events": [], "created_at": _now(),
            "owner": owner, "mode": "new",
+           "qpc": qpc, "granularity": granularity,
+           "docs": docs,                                # kept so a planned job can be authored later
+           "srcMd": src_md, "srcJson": src_json,
            "files": [os.path.basename(dd["uri"]) for dd in docs if dd.get("path")]}
     JOBS[jid] = job; _save(job)
     threading.Thread(target=run_job, daemon=True, args=(
-        jid, docs, src_md, src_json, pkg_id, title,
-        int(d.get("maxConcepts", 999)), int(d.get("questionsPerConcept", 5)), owner)).start()
-    return {"jobId": jid, "state": "queued", "packageId": pkg_id}
+        jid, docs, src_md, src_json, pkg_id, title, int(d.get("maxConcepts", 999)), qpc, owner),
+        kwargs={"granularity": granularity, "plan_only": plan_only}).start()
+    return {"jobId": jid, "state": "queued", "packageId": pkg_id, "planOnly": plan_only}
+
+@app.post("/etl/jobs/{jid}/author")
+async def author_planned_job(jid: str, request: Request):
+    """Author a previously PLANNED job (forecast confirmed). Optional body:
+    {questionsPerConcept, granularity} to override the planned settings."""
+    e = _require_email(request)
+    job = JOBS.get(jid)
+    if job is None and os.path.exists(_job_file(jid)):
+        job = json.load(open(_job_file(jid), encoding="utf-8"))
+    if not job:
+        raise HTTPException(404, "unknown job")
+    owner = (job.get("owner") or "").strip().lower()
+    if not (_is_admin(e) or (owner and owner == e)):
+        raise HTTPException(403, "not allowed")
+    docs = job.get("docs")
+    if not docs and not (job.get("srcMd") and job.get("srcJson")):
+        raise HTTPException(400, "job has no documents to author")
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    qpc = int(body.get("questionsPerConcept", job.get("qpc", 3)))
+    granularity = str(body.get("granularity", job.get("granularity", "medium"))).lower()
+    job["state"] = "queued"; job["events"] = []; job["qpc"] = qpc; job["granularity"] = granularity
+    JOBS[jid] = job; _save(job)
+    threading.Thread(target=run_job, daemon=True, args=(
+        jid, docs or [], job.get("srcMd"), job.get("srcJson"),
+        job["packageId"], job["title"], 999, qpc, owner),
+        kwargs={"granularity": granularity, "plan_only": False}).start()
+    return {"jobId": jid, "state": "queued", "qpc": qpc, "granularity": granularity}
 
 @app.post("/etl/jobs/{jid}/cancel")
 def cancel_job(jid: str, request: Request):
@@ -730,7 +790,8 @@ def review_delete(pkg_id: str, request: Request):
     return {"deleted": True}
 
 @app.post("/etl/review/{pkg_id}/documents")
-async def review_add_documents(pkg_id: str, request: Request, files: list[UploadFile] = File(default=[])):
+async def review_add_documents(pkg_id: str, request: Request, files: list[UploadFile] = File(default=[]),
+                               directive: str = Form(default="{}")):
     """Add one or more documents to an EXISTING package (held draft or published).
     Each new doc is processed per-document and merged in; the result lands in the
     held draft (Review) for the owner/admin to resolve + (re)publish."""
@@ -775,8 +836,12 @@ async def review_add_documents(pkg_id: str, request: Request, files: list[Upload
            "owner": e, "mode": "add",
            "files": [os.path.basename(dd["uri"]) for dd in docs if dd.get("path")]}
     JOBS[jid] = job; _save(job)
+    d = json.loads(directive or "{}")
+    qpc = int(d.get("questionsPerConcept", 3))
+    granularity = str(d.get("granularity", "medium")).lower()
     threading.Thread(target=run_job, daemon=True, args=(
-        jid, docs, None, None, safe, title, 999, 5, e, pkg, start_index)).start()
+        jid, docs, None, None, safe, title, 999, qpc, e, pkg, start_index),
+        kwargs={"granularity": granularity}).start()
     return {"jobId": jid, "state": "queued", "packageId": safe}
 
 @app.post("/etl/review/{pkg_id}/rename")
@@ -884,6 +949,81 @@ async def package_visibility(pkg_id: str, request: Request):
     _pkg_cache.pop(safe, None)
     catalog.rebuild_package_index()
     return {"ok": True, "visibility": vis}
+
+def _load_pkg_owner_only(pkg_id: str, e: str):
+    """Load a published package and enforce OWNER-ONLY editing (owner deletes its
+    own content). Ownerless legacy packages fall back to admin. Returns (safe, path, pkg)."""
+    safe = review._safe_id(pkg_id)
+    path = os.path.join(PKG_DIR, safe + ".json") if safe else ""
+    if not safe or not os.path.exists(path):
+        raise HTTPException(404, "package not found")
+    pkg = json.load(open(path, encoding="utf-8"))
+    owner = (pkg.get("owner_email") or "").strip().lower()
+    if not ((owner and owner == e) or (not owner and _is_admin(e))):
+        raise HTTPException(403, "only the package owner can modify it")
+    return safe, path, pkg
+
+@app.delete("/etl/packages/{pkg_id}/sources/{source_id}")
+def delete_package_source(pkg_id: str, source_id: str, request: Request):
+    """Remove ONE document (source) from a published package: drops its questions
+    and any concepts left with no questions. Plain delete (no re-dedup). OWNER only."""
+    e = _require_email(request)
+    safe, path, pkg = _load_pkg_owner_only(pkg_id, e)
+    sources = pkg.get("sources", [])
+    if not any(s.get("id") == source_id for s in sources):
+        raise HTTPException(404, "document not in this package")
+
+    pkg["sources"] = [s for s in sources if s.get("id") != source_id]
+    before_q = len(pkg.get("questions", []))
+    pkg["questions"] = [q for q in pkg.get("questions", [])
+                        if not any((r.get("source_id") == source_id) for r in (q.get("source_refs") or []))]
+    removed_q = before_q - len(pkg["questions"])
+    # Prune concepts that no longer back any surviving question.
+    used = set()
+    for q in pkg["questions"]:
+        for cid in (q.get("concept_ids") or []):
+            used.add(cid)
+    pkg["concepts"] = [c for c in pkg.get("concepts", []) if c.get("id") in used]
+    # Prune disputes that referenced removed questions.
+    surv = {q["id"] for q in pkg["questions"]}
+    ql = pkg.get("quality")
+    if isinstance(ql, dict) and ql.get("disputes"):
+        ql["disputes"] = [d for d in ql["disputes"] if d.get("qid") in surv]
+        pkg["quality"] = ql
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(pkg, f, indent=2, ensure_ascii=False)
+    _pkg_cache.pop(safe, None)
+    catalog.rebuild_package_index()
+    return {"ok": True, "removed_questions": removed_q,
+            "sources": len(pkg["sources"]), "questions": len(pkg["questions"]),
+            "concepts": len(pkg["concepts"])}
+
+@app.post("/etl/packages/{pkg_id}/empty")
+def empty_package(pkg_id: str, request: Request):
+    """Empty a package IN PLACE: remove all documents, questions and concepts but keep
+    the shell (id, title, owner, visibility) so it can be re-fed with updated docs. OWNER only."""
+    e = _require_email(request)
+    safe, path, pkg = _load_pkg_owner_only(pkg_id, e)
+    pkg["sources"] = []; pkg["questions"] = []; pkg["concepts"] = []
+    ql = pkg.get("quality")
+    if isinstance(ql, dict):
+        ql["disputes"] = []; pkg["quality"] = ql
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(pkg, f, indent=2, ensure_ascii=False)
+    _pkg_cache.pop(safe, None)
+    catalog.rebuild_package_index()
+    return {"ok": True, "sources": 0, "questions": 0, "concepts": 0}
+
+@app.delete("/etl/packages/{pkg_id}")
+def delete_package(pkg_id: str, request: Request):
+    """Delete a whole published package (file + Catalog entry). OWNER only."""
+    e = _require_email(request)
+    safe, path, _pkg = _load_pkg_owner_only(pkg_id, e)
+    os.remove(path)
+    _pkg_cache.pop(safe, None)
+    catalog.rebuild_package_index()
+    return {"ok": True, "deleted": safe}
 
 
 # ---- session membership management ------------------------------------------

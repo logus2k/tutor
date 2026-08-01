@@ -167,6 +167,12 @@ export class QuestionPanel {
   // ---- rendering --------------------------------------------------------
 
   _render() {
+    if (!this.pkg.questionCount) {          // emptied package → friendly state, no crash
+      this.container.innerHTML = '';
+      this.container.appendChild(el('div', 'tq-empty',
+        'This package is empty — it has no questions yet. Add documents to it from the Documents view.'));
+      return;
+    }
     const q = this.question;
     const st = this._stateFor(q);
     this.container.innerHTML = '';

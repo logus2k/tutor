@@ -33,7 +33,11 @@ API  = os.environ.get("ETL_API", "http://localhost:7701/v1/chat/completions")
 # module (e.g. from the service for re-validation) must not choke on argv.
 _argv_n = lambda i, d: int(sys.argv[i]) if (len(sys.argv) > i and str(sys.argv[i]).isdigit()) else d
 MAX_CONCEPTS = int(os.environ.get("ETL_MAX_CONCEPTS") or _argv_n(1, 999))
-QPC          = int(os.environ.get("ETL_QPC") or _argv_n(2, 5))
+QPC          = int(os.environ.get("ETL_QPC") or _argv_n(2, 3))
+# Concept density knob passed to document_author (coarse | medium | fine).
+GRANULARITY  = (os.environ.get("ETL_GRANULARITY") or "medium").strip().lower()
+# Plan-only run: list concepts + emit a forecast, then STOP before authoring.
+PLAN_ONLY    = os.environ.get("ETL_PLAN_ONLY") == "1"
 MIN_WORDS    = 25
 # Set in main(); kept module-level so emit() can reference them. Computing JOB_ID
 # reads MD, so it (and the run) live in main() — importing this module has no side effects.
@@ -704,7 +708,8 @@ def main():
         citation = " > ".join(cheads)
         emit("chunk.started", index=ci + 1, total=len(chunks), pages=cpages)
         directive = {"document_title": SRC_TITLE, "chunk_index": ci + 1, "chunk_total": len(chunks),
-                     "questions_per_concept": QPC, "types": ["mcq_single", "mcq_multi", "true_false"],
+                     "questions_per_concept": QPC, "granularity": GRANULARITY,
+                     "types": ["mcq_single", "mcq_multi", "true_false"],
                      "chunk": ctext}
         try:
             res = agent_json("document_author", json.dumps(directive))
@@ -723,11 +728,23 @@ def main():
         emit("chunk.done", index=ci + 1, total=len(chunks), authored_concepts=len(author_concept_ids))
         emit("transform.progress", concepts_done=len(pkg_concepts), questions_accepted=len(pkg_questions))
 
+    # PLAN-ONLY: we now know how many concepts this document yields → forecast the
+    # question count (concepts × QPC) and STOP before the expensive authoring stage.
+    if PLAN_ONLY:
+        n_concepts = len(author_concept_ids)
+        forecast = n_concepts * QPC
+        emit("job.forecast", concepts=n_concepts, qpc=QPC, granularity=GRANULARITY,
+             questions=forecast, title=SRC_TITLE)
+        with open(OUT, "w", encoding="utf-8") as f:      # tiny plan artifact (part reader expects a file)
+            json.dump({"plan": True, "title": SRC_TITLE, "concepts": n_concepts,
+                       "qpc": QPC, "granularity": GRANULARITY, "questions": forecast}, f)
+        return
+
     # ---------------------------------------------------------------- DENSE authoring per concept
     # The local model writes only a few questions per call regardless of the prompt, so author ONE
     # CONCEPT AT A TIME with a forced target-difficulty list of length QPC — the mechanism that
     # actually yields ~QPC questions per concept (matching the old pipeline's density).
-    emit("stage.started", stage="author")
+    emit("stage.started", stage="author", total=len(author_concept_ids))
     for c in list(pkg_concepts):
         if c["id"] not in author_concept_ids:   # Q&A-chunk concepts are import-only
             continue

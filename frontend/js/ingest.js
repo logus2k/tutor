@@ -19,6 +19,8 @@
 
 const BASE = location.pathname.replace(/[^/]*$/, '');   // '/tutor/' or '/'
 const ETL_JOBS = BASE + 'etl/jobs';
+const ETL_CATALOG = BASE + 'etl/catalog';
+const ETL_ME = BASE + 'etl/me';
 const ETL_SIO_PATH = BASE + 'etl/socket.io';
 const LS_ACTIVE_JOB = 'tutor.activeJob';
 const POLL_MS = 2500;
@@ -34,10 +36,11 @@ const el = (tag, cls, text) => {
 };
 
 export class IngestPanel {
-  constructor(mount, { onPublished, onUploaded } = {}) {
+  constructor(mount, { onPublished, onUploaded, getIngestSettings } = {}) {
     this.mount = mount;
     this.onPublished = onPublished || (() => {});
     this.onUploaded = onUploaded || (() => {});
+    this.getIngestSettings = getIngestSettings || (() => ({}));
     this.socket = null;
     this.poll = null;
     this.ticker = null;
@@ -60,24 +63,52 @@ export class IngestPanel {
     file.required = true;
     file.className = 'ingest-file';
 
+    // Target: "New package…" (default, first) OR an existing package you own → MERGE.
+    // This replaces the old free-text title that silently overwrote same-named packages.
+    const pkgSel = el('select', 'ingest-pkg');
+    pkgSel.appendChild(new Option('➕ New package…', ''));
     const title = el('input');
     title.type = 'text';
-    title.placeholder = 'Package title (optional)';
+    title.placeholder = 'New package name (optional)';
     title.className = 'ingest-title';
+    const hint = el('div', 'ingest-hint');
+    const syncMode = () => {
+      const isNew = pkgSel.value === '';
+      title.style.display = isNew ? '' : 'none';
+      hint.textContent = isNew ? '' : 'These document(s) will be added to this package and merged, then de-duplicated.';
+    };
+    pkgSel.addEventListener('change', syncMode);
 
     const btn = el('button', 'ingest-btn', 'Ingest document');
     btn.type = 'submit';
 
     form.append(
-      el('label', 'ingest-label', 'Add source document(s) — select several to combine into one package'),
-      file, title, btn,
+      el('label', 'ingest-label', 'Add source document(s) — select several to combine'),
+      file,
+      el('label', 'ingest-sublabel', 'Add to'),
+      pkgSel, title, hint, btn,
     );
-    form.addEventListener('submit', (e) => { e.preventDefault(); this.submit(file, title, btn); });
+    form.addEventListener('submit', (e) => { e.preventDefault(); this.submit(); });
 
     this.form = form;
-    this.fileInput = file; this.titleInput = title; this.btn = btn;
+    this.fileInput = file; this.pkgSel = pkgSel; this.titleInput = title; this.btn = btn;
     this.job = el('div', 'ingest-job hidden');
     this.mount.append(form, this.job);
+    syncMode();
+    this._loadPackages();
+  }
+
+  /** Populate the dropdown with the packages this user can add to (owner/admin). */
+  async _loadPackages() {
+    try {
+      const [me, cat] = await Promise.all([
+        fetch(ETL_ME, { headers: { Accept: 'application/json' } }).then((r) => r.json()).catch(() => ({})),
+        fetch(ETL_CATALOG, { headers: { Accept: 'application/json' } }).then((r) => r.json()).catch(() => ({ packages: [] })),
+      ]);
+      const email = (me.email || '').toLowerCase(), admin = !!me.is_admin;
+      const mine = (cat.packages || []).filter((p) => admin || ((p.owner || '').toLowerCase() === email && email));
+      for (const p of mine) this.pkgSel.appendChild(new Option(p.title || p.id, p.id));
+    } catch { /* leave just "New package…" */ }
   }
 
   buildJobPanel(headline) {
@@ -105,21 +136,30 @@ export class IngestPanel {
     this.job.append(this.statusEl, this.barWrap, this.countsEl, this.logEl, this.bannerEl);
   }
 
-  async submit(fileInput, titleInput, btn) {
-    const files = [...fileInput.files];
+  async submit() {
+    const files = [...this.fileInput.files];
     if (!files.length) return;
-    btn.disabled = true; fileInput.disabled = true; titleInput.disabled = true;
+    const targetId = this.pkgSel.value;            // '' → new package; else an existing id → MERGE
+    const isNew = targetId === '';
+    this.btn.disabled = true; this.fileInput.disabled = true;
+    this.pkgSel.disabled = true; this.titleInput.disabled = true;
 
-    this.buildJobPanel(files.length === 1 ? `Uploading “${files[0].name}”…`
-                                          : `Uploading ${files.length} documents → one package…`);
+    const targetTitle = isNew ? '' : this.pkgSel.options[this.pkgSel.selectedIndex].text;
+    this.buildJobPanel(isNew
+      ? (files.length === 1 ? `Uploading “${files[0].name}”…` : `Uploading ${files.length} documents → new package…`)
+      : `Adding ${files.length} document(s) to “${targetTitle}”…`);
 
+    const cfg = this.getIngestSettings() || {};
     const fd = new FormData();
-    for (const f of files) fd.append('files', f, f.name);   // all files → one job → one package
-    fd.append('directive', JSON.stringify({ title: titleInput.value.trim() || undefined }));
+    for (const f of files) fd.append('files', f, f.name);
+    const directive = { questionsPerConcept: cfg.questionsPerConcept, granularity: cfg.granularity };
+    if (isNew) { directive.title = this.titleInput.value.trim() || undefined; directive.planOnly = cfg.planOnly; }
+    fd.append('directive', JSON.stringify(directive));
 
+    const url = isNew ? ETL_JOBS : `${BASE}etl/review/${encodeURIComponent(targetId)}/documents`;
     let jid;
     try {
-      const resp = await fetch(ETL_JOBS, { method: 'POST', body: fd });
+      const resp = await fetch(url, { method: 'POST', body: fd });
       if (!resp.ok) throw new Error(`upload failed (${resp.status})`);
       jid = (await resp.json()).jobId;
     } catch (e) {
@@ -152,6 +192,7 @@ export class IngestPanel {
     if (this.btn) { this.btn.disabled = false; }
     if (this.fileInput) { this.fileInput.disabled = false; this.fileInput.value = ''; }
     if (this.titleInput) { this.titleInput.disabled = false; }
+    if (this.pkgSel) { this.pkgSel.disabled = false; }
   }
 
   track(jid) {
@@ -197,26 +238,45 @@ export class IngestPanel {
   // ---- idempotent rendering (derive everything from the event list) ----
 
   derive() {
-    // Per-document model: documents are the top-level unit. Cumulative counts
-    // come from doc.done (merge totals); the bar tracks documents done / total.
+    // Documents are the top-level unit, but we ALSO track progress WITHIN the current
+    // document (concepts found → questions authored) so the bar + counts advance live.
     let fileTotal = 0, fileIdx = 0, filesDone = 0, curFile = '';
-    let concepts = 0, questions = 0, disputes = 0;
+    let completedConcepts = 0, completedQ = 0, disputes = 0;
+    let curConcepts = 0, curQuestions = 0;                 // current document (reset each doc)
+    let inAuthor = false, transformStarted = false, authorTotal = 0, authorDone = 0;
     let sub = 'Queued…';
-    let terminal = null, published = null;
+    let terminal = null, published = null, plan = null;
     const logs = [];
     for (const e of this.events) {
       switch (e.event) {
         case 'job.queued': sub = 'Queued…'; break;
-        case 'extract.file': fileTotal = e.total || fileTotal; fileIdx = e.index || fileIdx; curFile = e.title || curFile; sub = 'extracting (docling)…'; break;
+        case 'extract.file':
+          fileTotal = e.total || fileTotal; fileIdx = e.index || fileIdx; curFile = e.title || curFile;
+          sub = 'extracting…';
+          inAuthor = false; transformStarted = false; authorTotal = 0; authorDone = 0; curConcepts = 0; curQuestions = 0;
+          break;
         case 'extract.file.done': filesDone = Math.max(filesDone, (e.index || 1) - 1); break;
-        case 'extract.progress': if (!fileTotal && e.detail) sub = `docling: ${e.detail}`; break;
-        case 'stage.started': sub = ({ segment: 'segmenting…', transform: 'generating questions…', load: 'validating…' }[e.stage] || e.stage); break;
+        case 'extract.progress': if (e.detail) sub = e.detail; break;
+        case 'stage.started':
+          if (e.stage === 'author') { inAuthor = true; authorTotal = e.total || 0; authorDone = 0; sub = 'writing questions…'; }
+          else if (e.stage === 'transform') { transformStarted = true; inAuthor = false; sub = 'finding concepts…'; }
+          else sub = ({ chunk: 'segmenting…', segment: 'segmenting…', load: 'validating…' }[e.stage] || e.stage);
+          break;
+        case 'transform.progress':
+          curConcepts = e.concepts_done ?? curConcepts; curQuestions = e.questions_accepted ?? curQuestions; break;
+        case 'concept.authored': if (inAuthor) authorDone++; break;
         case 'doc.done':
           filesDone = Math.max(filesDone, e.index || 0);
-          concepts = e.concepts ?? concepts; questions = e.questions ?? questions; disputes = e.disputes ?? disputes;
+          completedConcepts = e.concepts ?? completedConcepts; completedQ = e.questions ?? completedQ; disputes = e.disputes ?? disputes;
+          curConcepts = 0; curQuestions = 0; inAuthor = false; transformStarted = false;
           logs.push(`✓ ${e.index}/${e.total}: ${e.title || ''} — ${e.questions} Q so far`.trim());
           break;
+        case 'job.planned':
+          plan = { documents: e.documents || [], concepts: e.concepts || 0, questions: e.questions || 0,
+                   qpc: e.qpc, granularity: e.granularity };
+          break;
         case 'dedup.done': if (e.removed) logs.push(`removed ${e.removed} duplicate(s)`); break;
+        case 'dedup.semantic': if (e.removed) logs.push(`dedup: removed ${e.removed}, kept ${e.remaining}`); break;
         case 'job.review_ready':
           terminal = { kind: (e.disputes ? 'warn' : 'ok'),
             message: (e.stoppedAt ? `Stopped at “${e.stoppedAt}”. ` : '') +
@@ -230,19 +290,25 @@ export class IngestPanel {
               `Documents processed before it are kept — fix that file and add it to the package from Review.` };
           break;
         case 'job.cancelled': terminal = { kind: 'cancelled', message: 'Import cancelled — its draft and uploaded files were removed.' }; break;
-        // legacy single-package flow (kept for compatibility)
         case 'job.published': published = e; terminal = { kind: 'ok', message: `Published “${e.packageId}”.` }; break;
         case 'job.held': terminal = { kind: 'warn', message: `Held for review.` }; break;
         default: break;
       }
     }
 
+    const concepts = completedConcepts + curConcepts;       // live cumulative
+    const questions = completedQ + curQuestions;
     let status, pct = null;
-    if (!terminal) {
+    if (!terminal && !plan) {
       status = fileTotal ? `Document ${fileIdx}/${fileTotal}${curFile ? `: ${curFile}` : ''} — ${sub}` : sub;
-      if (fileTotal) pct = filesDone / fileTotal;
+      if (fileTotal) {
+        // Fraction WITHIN the current document: authoring is the long tail.
+        const docFrac = inAuthor ? (authorTotal ? 0.15 + 0.85 * Math.min(1, authorDone / authorTotal) : 0.5)
+                                 : (transformStarted ? 0.1 : 0);
+        pct = Math.min(0.99, (filesDone + docFrac) / fileTotal);
+      }
     }
-    return { status, fileTotal, fileIdx, filesDone, concepts, questions, disputes, pct, logs, terminal, published };
+    return { status, fileTotal, fileIdx, filesDone, concepts, questions, disputes, pct, logs, terminal, published, plan };
   }
 
   repaint() {
@@ -254,6 +320,11 @@ export class IngestPanel {
       if (s.published && !this.published) { this.published = true; this.onPublished(); }
       this.stopTracking();
       localStorage.removeItem(LS_ACTIVE_JOB);
+    } else if (s.plan) {
+      this.renderPlan(s.plan);
+      this.stopTracking();
+      localStorage.removeItem(LS_ACTIVE_JOB);   // don't reattach a finished plan on reload
+      return;
     } else {
       this.setStatus(s.status);
     }
@@ -308,6 +379,46 @@ export class IngestPanel {
     this.bannerEl.className = `ingest-banner ingest-${kind}`;
     this.bannerEl.textContent = message;
     this.reset();
+  }
+
+  /** Forecast ready (plan-only run): show the projected question count + an Author button. */
+  renderPlan(plan) {
+    this.terminalShown = true;
+    this.statusEl.classList.remove('is-working');
+    this.statusLabel.textContent = 'Forecast ready';
+    this.statusElapsed.textContent = '';
+    if (this.cancelBtn) this.cancelBtn.style.display = 'none';
+    if (this.barWrap) this.barWrap.style.display = 'none';
+    this.countsEl.textContent = `≈ ${plan.questions} questions · ${plan.concepts} concepts · ${plan.qpc}/concept · ${plan.granularity} granularity`;
+    this.bannerEl.className = 'ingest-banner ingest-warn';
+    this.bannerEl.innerHTML = '';
+    this.bannerEl.append(el('div', null,
+      `Forecast: about ${plan.questions} questions from ${plan.concepts} concepts. Adjust “Questions per concept” or “Concept granularity” in Settings and re-upload to re-forecast, or author now.`));
+    const go = el('button', 'ingest-btn', `Author now (~${plan.questions} questions)`);
+    go.type = 'button';
+    go.addEventListener('click', () => this.authorPlanned(go));
+    this.bannerEl.append(go);
+  }
+
+  /** Confirm a forecast → author the planned job on the server (reuses uploaded files). */
+  async authorPlanned(btn) {
+    if (!this.jid) return;
+    if (btn) { btn.disabled = true; btn.textContent = 'Starting…'; }
+    const cfg = this.getIngestSettings() || {};
+    try {
+      const r = await fetch(`${ETL_JOBS}/${encodeURIComponent(this.jid)}/author`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionsPerConcept: cfg.questionsPerConcept, granularity: cfg.granularity }),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    } catch (e) {
+      alert(`Could not start authoring: ${e.message}`);
+      if (btn) { btn.disabled = false; btn.textContent = 'Author now'; }
+      return;
+    }
+    this.buildJobPanel('Authoring…');
+    localStorage.setItem(LS_ACTIVE_JOB, this.jid);
+    this.track(this.jid);
   }
 
   /** Cancel the running import and clean up its mess (server stops + removes draft/files). */

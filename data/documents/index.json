@@ -391,6 +391,139 @@
       "file": "d07_t03.md",
       "kind": "pdf",
       "uploaded_at": "2026-07-11T15:28:01.680186+00:00"
+    },
+    {
+      "id": "claude-code-files-study-guide",
+      "title": "claude code files study guide",
+      "file": "claude-code-files-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T16:42:36.128479+00:00"
+    },
+    {
+      "id": "claude-code-agents-study-guide",
+      "title": "claude code agents study guide",
+      "file": "claude-code-agents-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T17:02:13.107022+00:00"
+    },
+    {
+      "id": "claude-code-mcp-study-guide",
+      "title": "claude code mcp study guide",
+      "file": "claude-code-mcp-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T17:02:13.107493+00:00"
+    },
+    {
+      "id": "claude-code-skills-study-guide",
+      "title": "claude code skills study guide",
+      "file": "claude-code-skills-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:21:33.667925+00:00"
+    },
+    {
+      "id": "claude-code-personalization-study-guide",
+      "title": "claude code personalization study guide",
+      "file": "claude-code-personalization-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.250548+00:00"
+    },
+    {
+      "id": "claude-code-integrations-study-guide",
+      "title": "claude code integrations study guide",
+      "file": "claude-code-integrations-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.250982+00:00"
+    },
+    {
+      "id": "claude-code-headless-sdk-study-guide",
+      "title": "claude code headless sdk study guide",
+      "file": "claude-code-headless-sdk-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.251624+00:00"
+    },
+    {
+      "id": "claude-code-monitoring-study-guide",
+      "title": "claude code monitoring study guide",
+      "file": "claude-code-monitoring-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.252158+00:00"
+    },
+    {
+      "id": "claude-code-models-effort-study-guide",
+      "title": "claude code models effort study guide",
+      "file": "claude-code-models-effort-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.252629+00:00"
+    },
+    {
+      "id": "claude-code-plugins-study-guide",
+      "title": "claude code plugins study guide",
+      "file": "claude-code-plugins-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.253163+00:00"
+    },
+    {
+      "id": "claude-code-worktrees-study-guide",
+      "title": "claude code worktrees study guide",
+      "file": "claude-code-worktrees-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.253485+00:00"
+    },
+    {
+      "id": "claude-code-sessions-study-guide",
+      "title": "claude code sessions study guide",
+      "file": "claude-code-sessions-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.253795+00:00"
+    },
+    {
+      "id": "claude-code-tools-study-guide",
+      "title": "claude code tools study guide",
+      "file": "claude-code-tools-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.254321+00:00"
+    },
+    {
+      "id": "claude-code-context-window-study-guide",
+      "title": "claude code context window study guide",
+      "file": "claude-code-context-window-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.254651+00:00"
+    },
+    {
+      "id": "claude-code-memory-study-guide",
+      "title": "claude code memory study guide",
+      "file": "claude-code-memory-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.254974+00:00"
+    },
+    {
+      "id": "claude-code-sandboxing-security-study-guide",
+      "title": "claude code sandboxing security study guide",
+      "file": "claude-code-sandboxing-security-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.255520+00:00"
+    },
+    {
+      "id": "claude-code-hooks-study-guide",
+      "title": "claude code hooks study guide",
+      "file": "claude-code-hooks-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.256067+00:00"
+    },
+    {
+      "id": "claude-code-permissions-study-guide",
+      "title": "claude code permissions study guide",
+      "file": "claude-code-permissions-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.256457+00:00"
+    },
+    {
+      "id": "claude-code-cli-study-guide",
+      "title": "claude code cli study guide",
+      "file": "claude-code-cli-study-guide.md",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-01T21:37:38.256991+00:00"
     }
   ]
 }

@@ -1,0 +1,2096 @@
+{
+  "jobId": "job-20260801213738",
+  "state": "queued",
+  "packageId": "claude-code",
+  "title": "Claude Code",
+  "documents": [
+    "claude code personalization study guide",
+    "claude code integrations study guide",
+    "claude code headless sdk study guide",
+    "claude code monitoring study guide",
+    "claude code models effort study guide",
+    "claude code plugins study guide",
+    "claude code worktrees study guide",
+    "claude code sessions study guide",
+    "claude code tools study guide",
+    "claude code context window study guide",
+    "claude code memory study guide",
+    "claude code sandboxing security study guide",
+    "claude code hooks study guide",
+    "claude code permissions study guide",
+    "claude code cli study guide"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260801213738",
+      "event": "job.queued",
+      "documents": [
+        "claude code personalization study guide",
+        "claude code integrations study guide",
+        "claude code headless sdk study guide",
+        "claude code monitoring study guide",
+        "claude code models effort study guide",
+        "claude code plugins study guide",
+        "claude code worktrees study guide",
+        "claude code sessions study guide",
+        "claude code tools study guide",
+        "claude code context window study guide",
+        "claude code memory study guide",
+        "claude code sandboxing security study guide",
+        "claude code hooks study guide",
+        "claude code permissions study guide",
+        "claude code cli study guide"
+      ]
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.file",
+      "index": 1,
+      "total": 15,
+      "title": "claude code personalization study guide"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.progress",
+      "detail": "text/markdown — skipping docling"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.progress",
+      "detail": "extract complete"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.file.done",
+      "index": 1,
+      "total": 15,
+      "title": "claude code personalization study guide"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "warn",
+      "message": "docling chunker unavailable ([Errno 21] Is a directory: '.'); markdown fallback"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 5
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 5,
+      "authored_concepts": 4
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 4,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 5,
+      "authored_concepts": 9
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 9,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 3,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 3,
+      "total": 5,
+      "authored_concepts": 13
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 13,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 4,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 4,
+      "total": 5,
+      "authored_concepts": 17
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 17,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 5,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 5,
+      "total": 5,
+      "authored_concepts": 19
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "author",
+      "total": 19
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-1",
+      "title": "Claude Code Configuration Layers",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-2",
+      "title": "Terminal Setup Requirements",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 6
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0008",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-3",
+      "title": "Input and Keybinding Behavior",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 9
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0010",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0011",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0012",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0012",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-4",
+      "title": "macOS Option Key Configuration",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 12
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0013",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0013",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0014",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0014",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0015",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0015",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-5",
+      "title": "Claude Code Notifications",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 15
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0016",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0016",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0017",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0017",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0018",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0018",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-6",
+      "title": "Notification Handling in Terminals",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 18
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0019",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0019",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0020",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0020",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0021",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0021",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-7",
+      "title": "Notification Hooks",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 21
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0022",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0022",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0023",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0023",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0024",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0024",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-8",
+      "title": "Tmux Configuration",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 24
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0025",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0025",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0026",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0026",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0027",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0027",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-9",
+      "title": "Claude Code Themes",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 27
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0028",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0028",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0029",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0029",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0030",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0030",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-10",
+      "title": "Token Groups",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 30
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0031",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0031",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0032",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0032",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0033",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0033",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-11",
+      "title": "Themed Variants",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 33
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0034",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0034",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0035",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0035",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0036",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0036",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-12",
+      "title": "Rendering Modes",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 36
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0037",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0037",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0038",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0038",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0039",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0039",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-13",
+      "title": "Pasting Behavior",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 39
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0040",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0040",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0041",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0041",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0042",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-14",
+      "title": "Vim Mode Configuration",
+      "questions": 2
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 41
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0043",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0043",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0044",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0044",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0045",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-15",
+      "title": "Claude Code Keybindings and Configuration",
+      "questions": 2
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 43
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0046",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0046",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0047",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0047",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0048",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-16",
+      "title": "Status Line and Output Styles",
+      "questions": 2
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 45
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0049",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0049",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0050",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0050",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0051",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0051",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-17",
+      "title": "Personalization File Locations",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 48
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0052",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0052",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0053",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0053",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0054",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0054",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-18",
+      "title": "Terminal and Environment Configuration Gotchas",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 51
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0055",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0055",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0056",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0056",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0057",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0057",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-19",
+      "title": "Claude Code Specific Behaviors",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 19,
+      "questions_accepted": 54
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "dedup.done",
+      "removed": 1,
+      "remaining": 51
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 19,
+      "questions": 51
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "package.judged",
+      "score": 95,
+      "publishable": false,
+      "errors": 0,
+      "disputes": 5
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "doc.done",
+      "index": 1,
+      "total": 15,
+      "title": "claude code personalization study guide",
+      "concepts": 306,
+      "questions": 536,
+      "disputes": 5,
+      "sources": 5
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.file",
+      "index": 2,
+      "total": 15,
+      "title": "claude code integrations study guide"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.progress",
+      "detail": "text/markdown — skipping docling"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.progress",
+      "detail": "extract complete"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "extract.file.done",
+      "index": 2,
+      "total": 15,
+      "title": "claude code integrations study guide"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "warn",
+      "message": "docling chunker unavailable ([Errno 21] Is a directory: '.'); markdown fallback"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 5
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 1,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 1,
+      "total": 5,
+      "authored_concepts": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 3,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 2,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 2,
+      "total": 5,
+      "authored_concepts": 7
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 7,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 3,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 3,
+      "total": 5,
+      "authored_concepts": 12
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 12,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 4,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 4,
+      "total": 5,
+      "authored_concepts": 16
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 16,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.started",
+      "index": 5,
+      "total": 5,
+      "pages": []
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "chunk.done",
+      "index": 5,
+      "total": 5,
+      "authored_concepts": 24
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 0
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "stage.started",
+      "stage": "author",
+      "total": 24
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0001",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0002",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0003",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-1",
+      "title": "Claude Code Integration Surfaces",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0004",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0005",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0006",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-2",
+      "title": "Execution Environments Comparison",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 6
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0007",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0008",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0009",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-3",
+      "title": "GitHub Actions Setup and Configuration",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 9
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0010",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0011",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0012",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-4",
+      "title": "Invoking Skills",
+      "questions": 2
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 11
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0013",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0014",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0015",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0015",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-5",
+      "title": "Claude Code Action v1.0 Upgrades",
+      "questions": 1
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 12
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0016",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0016",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0017",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0017",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0018",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0018",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-6",
+      "title": "Cloud Provider Integration (Bedrock & GCP)",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 15
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0019",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0019",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0020",
+      "accepted": false
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0021",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0021",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-7",
+      "title": "Workload Identity Federation (WIF)",
+      "questions": 2
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 17
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0022",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0022",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0023",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0023",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0024",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0024",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-8",
+      "title": "Claude Code Actions: Base vs. Full",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 20
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0025",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0025",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0026",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0026",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0027",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0027",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-9",
+      "title": "Operational Costs and Mitigation",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 23
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0028",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0028",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0029",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0029",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0030",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0030",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-10",
+      "title": "Troubleshooting and Security Best Practices",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 26
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0031",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0031",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0032",
+      "status": "dispute"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0032",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0033",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0033",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-11",
+      "title": "GitLab CI/CD Integration",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 29
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0034",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0034",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0035",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0035",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0036",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0036",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-12",
+      "title": "Claude Code on the Web Sessions",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 32
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0037",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0037",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0038",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0038",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0039",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0039",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-13",
+      "title": "Remote Control Functionality",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 35
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0040",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0040",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0041",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0041",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0042",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0042",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-14",
+      "title": "Client Surfaces and Integrations",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 38
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0043",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0043",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0044",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0044",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0045",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0045",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-15",
+      "title": "Scheduled and Triggered Workflows",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 41
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0046",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0046",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0047",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0047",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0048",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0048",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "concept.authored",
+      "concept": "c-16",
+      "title": "Choosing the Right Execution Surface",
+      "questions": 3
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "transform.progress",
+      "concepts_done": 24,
+      "questions_accepted": 44
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.validated",
+      "qid": "q-0049",
+      "status": "agree"
+    },
+    {
+      "jobId": "job-20260801213738",
+      "event": "question.judged",
+      "qid": "q-0049",
+      "accepted": true
+    }
+  ],
+  "created_at": "2026-08-01T21:37:38.283527+00:00",
+  "owner": "logus2k@gmail.com",
+  "mode": "add",
+  "files": [
+    "claude-code-personalization-study-guide.md",
+    "claude-code-integrations-study-guide.md",
+    "claude-code-headless-sdk-study-guide.md",
+    "claude-code-monitoring-study-guide.md",
+    "claude-code-models-effort-study-guide.md",
+    "claude-code-plugins-study-guide.md",
+    "claude-code-worktrees-study-guide.md",
+    "claude-code-sessions-study-guide.md",
+    "claude-code-tools-study-guide.md",
+    "claude-code-context-window-study-guide.md",
+    "claude-code-memory-study-guide.md",
+    "claude-code-sandboxing-security-study-guide.md",
+    "claude-code-hooks-study-guide.md",
+    "claude-code-permissions-study-guide.md",
+    "claude-code-cli-study-guide.md"
+  ]
+}

@@ -86,7 +86,7 @@
         <div id="view-documents" class="leftview hidden">
           <h2 class="leftview-title">Documents</h2>
           <div id="ingest" class="ingest"></div>
-          <h3 class="ingest-subhead">Uploaded</h3>
+          <h3 class="ingest-subhead">Browse packages</h3>
           <div id="documents-list" class="catalog"></div>
         </div>
 
@@ -119,6 +119,28 @@
             <label class="setting-check">
               <input type="checkbox" id="set-show" />
               <span><b>Show reasoning</b><small>Display the reasoning panel in chat replies.</small></span>
+            </label>
+
+            <h3 class="settings-subhead">Question generation (imports)</h3>
+            <div class="setting-row">
+              <label for="set-qpc">Questions per concept</label>
+              <select id="set-qpc">
+                <option value="3">3 — lean</option>
+                <option value="4">4 — balanced</option>
+                <option value="5">5 — dense</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <label for="set-granularity">Concept granularity</label>
+              <select id="set-granularity">
+                <option value="coarse">Coarse — main concepts only</option>
+                <option value="medium">Medium — balanced</option>
+                <option value="fine">Fine — every distinct concept</option>
+              </select>
+            </div>
+            <label class="setting-check">
+              <input type="checkbox" id="set-preview" />
+              <span><b>Preview forecast before authoring</b><small>Estimate the question count first, then confirm before generating.</small></span>
             </label>
           </div>
         </div>

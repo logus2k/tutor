@@ -306,6 +306,27 @@ div.brand-text { margin-left: 5px; }
 .card-title { font-size: 16px; font-weight: 700; color: var(--text); }
 .card-desc { font-size: 13.5px; color: var(--text-soft); margin-top: 4px; }
 .card-meta { font-size: 12px; color: var(--text-mute); margin-top: 8px; }
+/* Documents view: a package card that expands to its documents (sources). */
+.card-doc { padding: 0; overflow: hidden; }
+.doc-pkg-head { display: block; width: 100%; text-align: left; background: none; border: none;
+  cursor: pointer; font: inherit; padding: 14px 18px; }
+.doc-pkg-head:hover .card-title { color: var(--accent-deep); }
+.doc-sources { border-top: 1px solid var(--border); padding: 8px 18px 12px; background: rgba(0,0,0,.02); }
+.doc-source-row { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 5px 0; font-size: 13px; color: var(--text); }
+.doc-source-title { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.doc-source-meta { color: var(--text-mute); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; max-width: 40%; }
+.doc-source-del { flex: 0 0 auto; background: none; border: none; cursor: pointer; color: var(--text-mute);
+  font-size: 13px; padding: 2px 6px; border-radius: 6px; }
+.doc-source-del:hover { background: var(--bad-soft); color: var(--bad); }
+.doc-pkg-actions { display: flex; gap: 8px; padding: 0 18px 12px; }
+.doc-pkg-act { font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; padding: 5px 10px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text-soft); }
+.doc-pkg-act:hover { border-color: #cbd5e1; }
+.doc-pkg-del { color: var(--bad); }
+.doc-pkg-del:hover { background: var(--bad-soft); border-color: #fecaca; }
+.tq-empty { color: var(--text-mute); font-size: 14px; line-height: 1.6; padding: 24px 4px; }
 
 /* study sessions */
 .sessions-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -406,6 +427,8 @@ div.brand-text { margin-left: 5px; }
 
 /* settings */
 .settings { display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
+.settings-subhead { font-size: 13px; font-weight: 700; color: var(--text-soft); text-transform: uppercase;
+  letter-spacing: .04em; margin: 8px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
 .setting-row { display: flex; flex-direction: column; gap: 6px; }
 .setting-row label { font-size: 13px; font-weight: 600; color: var(--text-soft); }
 #set-agent {
@@ -740,6 +763,11 @@ div.brand-text { margin-left: 5px; }
   border-radius: 8px; background: var(--bg); color: var(--text); width: 100%;
 }
 .ingest-title:focus, .ingest-file:focus { outline: none; border-color: var(--accent); }
+.ingest-sublabel { font-size: 12.5px; font-weight: 600; color: var(--text-mute); margin-top: 2px; }
+.ingest-pkg { font: inherit; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text); width: 100%; cursor: pointer; }
+.ingest-pkg:focus { outline: none; border-color: var(--accent); }
+.ingest-hint { font-size: 12px; color: var(--text-mute); }
 .ingest-btn {
   align-self: flex-start; font: inherit; font-weight: 600; cursor: pointer;
   padding: 8px 16px; border: none; border-radius: 8px;

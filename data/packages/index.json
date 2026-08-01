@@ -6,7 +6,7 @@
       "file": "ai-901-core.json",
       "description": "This package covers fundamental AI concepts, including fairness, safety, privacy, and explainability, along with matching AI tasks to relevant Azure AI models.",
       "questions": 135,
-      "owner": null,
+      "owner": "logus2k@gmail.com",
       "visibility": "shared"
     },
     {

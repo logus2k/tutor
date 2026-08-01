@@ -23,7 +23,19 @@ const LS = {
   agent: 'tutor.agent',
   thinking: 'tutor.thinking',
   showReasoning: 'tutor.showReasoning',
+  qpc: 'tutor.qpc',
+  granularity: 'tutor.granularity',
+  previewForecast: 'tutor.previewForecast',
 };
+
+/** Import/generation settings (Settings area) applied to each ingestion. */
+function ingestSettings() {
+  return {
+    questionsPerConcept: parseInt(localStorage.getItem(LS.qpc) || '3', 10) || 3,
+    granularity: localStorage.getItem(LS.granularity) || 'medium',
+    planOnly: boolPref(LS.previewForecast, true),
+  };
+}
 const DEFAULTS = {
   // agent_server is reached same-origin through the domain proxy's public /llm/
   // path; the SDK builds `${baseUrl}/v1/...` → `/llm/v1/...`. Fixed by deploy.
@@ -62,6 +74,9 @@ async function main() {
     agent: ROLES.some((r) => r.id === savedAgent) ? savedAgent : DEFAULTS.agent,
     thinking: boolPref(LS.thinking, true),
     showReasoning: boolPref(LS.showReasoning, false),
+    qpc: localStorage.getItem(LS.qpc) || '3',
+    granularity: localStorage.getItem(LS.granularity) || 'medium',
+    previewForecast: boolPref(LS.previewForecast, true),
   };
 
   // Chat (right pane) — created once, always available. clientTools are the
@@ -97,6 +112,7 @@ async function main() {
   new IngestPanel($('ingest'), {
     onUploaded: () => buildDocuments(),                 // show new files in "Uploaded" right away
     onPublished: () => { buildCatalog(); buildDocuments(); },
+    getIngestSettings: ingestSettings,                  // QPC / granularity / preview from Settings
   });
 
   // Study Sessions (per-student, server-persisted). Optional login.
@@ -584,24 +600,113 @@ function buildClientTools() {
 
 async function buildDocuments() {
   const listEl = $('documents-list');
-  let manifest;
+  let cat;
   try {
-    manifest = await fetchJson(DEFAULTS.documentsIndex);
+    cat = await fetchJson('etl/catalog');
   } catch (e) {
-    listEl.innerHTML = errBox('Could not load documents.', e);
+    listEl.innerHTML = errBox('Could not load packages.', e);
     return;
   }
-  const docs = manifest.documents || [];
-  if (!docs.length) { listEl.innerHTML = '<p class="muted">No documents uploaded yet.</p>'; return; }
+  const pkgs = cat.packages || [];
+  if (!pkgs.length) { listEl.innerHTML = '<p class="muted">No packages yet. Ingest a document to create one.</p>'; return; }
+
+  let me = {};
+  try { me = await fetchJson('etl/me'); } catch { /* anonymous */ }
+  const email = (me.email || '').toLowerCase(), admin = !!me.is_admin;
 
   listEl.innerHTML = '';
-  for (const d of docs) {
+  for (const p of pkgs) {
+    // Owner-only editing (ownerless legacy packages fall back to admin).
+    const canEdit = (!!email && (p.owner || '').toLowerCase() === email) || (admin && !p.owner);
     const card = el('div', 'card card-doc');
-    card.append(
-      el('div', 'card-title', `📄 ${d.title || d.id}`),
-      el('div', 'card-meta', [d.kind, d.extractor, d.uri].filter(Boolean).join(' · ')),
+    const head = el('button', 'doc-pkg-head');
+    head.type = 'button';
+    head.append(
+      el('div', 'card-title', `📦 ${p.title || p.id}`),
+      el('div', 'card-meta', [p.owner || '(no owner)', p.visibility, `${p.questions ?? 0} questions`].filter(Boolean).join(' · ')),
     );
+    head.addEventListener('click', () => toggleDocsForPackage(p, card, canEdit));
+    card.appendChild(head);
+    if (canEdit) {
+      const acts = el('div', 'doc-pkg-actions');
+      const emptyBtn = el('button', 'doc-pkg-act', '🧹 Empty');
+      emptyBtn.type = 'button'; emptyBtn.title = 'Remove all documents & questions (keep the package to re-feed)';
+      emptyBtn.addEventListener('click', (e) => { e.stopPropagation(); emptyPackage(p); });
+      const delBtn = el('button', 'doc-pkg-act doc-pkg-del', '🗑 Delete');
+      delBtn.type = 'button'; delBtn.title = 'Delete this package entirely';
+      delBtn.addEventListener('click', (e) => { e.stopPropagation(); deletePackage(p); });
+      acts.append(emptyBtn, delBtn);
+      card.appendChild(acts);
+    }
     listEl.appendChild(card);
+  }
+}
+
+/** Empty a package in place (owner) — remove all documents/questions, keep the shell. */
+async function emptyPackage(p) {
+  if (!confirm(`Empty “${p.title || p.id}”?\n\nAll its documents and questions will be removed (the package stays, so you can re-feed it with updated documents). This can't be undone.`)) return;
+  try {
+    const r = await fetch(`etl/packages/${encodeURIComponent(p.id)}/empty`, { method: 'POST' });
+    if (!r.ok) { const t = await r.json().catch(() => ({})); throw new Error(t.detail || `HTTP ${r.status}`); }
+    buildDocuments(); buildCatalog();
+  } catch (e) { alert(`Could not empty: ${e.message}`); }
+}
+
+/** Delete a whole package (owner). */
+async function deletePackage(p) {
+  if (!confirm(`Delete the package “${p.title || p.id}” entirely?\n\nThis removes it from the Catalog for everyone. This can't be undone.`)) return;
+  try {
+    const r = await fetch(`etl/packages/${encodeURIComponent(p.id)}`, { method: 'DELETE' });
+    if (!r.ok) { const t = await r.json().catch(() => ({})); throw new Error(t.detail || `HTTP ${r.status}`); }
+    buildDocuments(); buildCatalog();
+  } catch (e) { alert(`Could not delete: ${e.message}`); }
+}
+
+/** Expand a package card to list the documents (sources) it contains. Owners/admins
+ *  get a ✕ per document to remove it (and its questions) from the package. */
+async function toggleDocsForPackage(p, card, canEdit) {
+  const existing = card.querySelector('.doc-sources');
+  if (existing) { existing.remove(); return; }
+  const box = el('div', 'doc-sources');
+  box.append(el('div', 'muted', 'Loading…'));
+  card.append(box);
+  try {
+    const pkg = await fetchJson(`etl/packages/${encodeURIComponent(p.id)}/content`);
+    const sources = pkg.sources || [];
+    box.innerHTML = '';
+    if (!sources.length) { box.append(el('div', 'muted', 'Empty — no documents. Add updated documents to it from the ingest form above.')); return; }
+    for (const s of sources) {
+      const row = el('div', 'doc-source-row');
+      const left = el('span', 'doc-source-title', `📄 ${s.title || s.id}`);
+      row.append(left);
+      if (s.uri) row.append(el('span', 'doc-source-meta', s.uri));
+      if (canEdit) {
+        const rm = el('button', 'doc-source-del', '✕');
+        rm.type = 'button';
+        rm.title = 'Remove this document (and its questions) from the package';
+        rm.addEventListener('click', (ev) => { ev.stopPropagation(); deleteSource(p, s, row); });
+        row.append(rm);
+      }
+      box.append(row);
+    }
+  } catch (e) {
+    box.innerHTML = '';
+    box.append(el('div', 'muted', 'Could not load this package’s documents.'));
+  }
+}
+
+/** Delete a document (source) from a published package after confirmation. */
+async function deleteSource(p, s, row) {
+  if (!confirm(`Remove “${s.title || s.id}” from “${p.title || p.id}”?\n\nIts questions will be deleted from this package. This can't be undone.`)) return;
+  try {
+    const r = await fetch(`etl/packages/${encodeURIComponent(p.id)}/sources/${encodeURIComponent(s.id)}`, { method: 'DELETE' });
+    if (!r.ok) { const t = await r.json().catch(() => ({})); throw new Error(t.detail || `HTTP ${r.status}`); }
+    const res = await r.json();
+    row.remove();
+    buildCatalog();   // Catalog question counts changed
+    alert(`Removed “${s.title || s.id}” — ${res.removed_questions} questions deleted. ${res.questions} remain.`);
+  } catch (e) {
+    alert(`Could not remove: ${e.message}`);
   }
 }
 
@@ -626,6 +731,23 @@ function wireSettings(settings) {
     localStorage.setItem(LS.showReasoning, String(showCb.checked));
     chat.setShowReasoning(showCb.checked);
   });
+
+  // Import / question-generation settings.
+  const qpcSel = $('set-qpc');
+  const granSel = $('set-granularity');
+  const previewCb = $('set-preview');
+  if (qpcSel) {
+    if ([...qpcSel.options].some((o) => o.value === settings.qpc)) qpcSel.value = settings.qpc;
+    qpcSel.addEventListener('change', () => localStorage.setItem(LS.qpc, qpcSel.value));
+  }
+  if (granSel) {
+    if ([...granSel.options].some((o) => o.value === settings.granularity)) granSel.value = settings.granularity;
+    granSel.addEventListener('change', () => localStorage.setItem(LS.granularity, granSel.value));
+  }
+  if (previewCb) {
+    previewCb.checked = settings.previewForecast;
+    previewCb.addEventListener('change', () => localStorage.setItem(LS.previewForecast, String(previewCb.checked)));
+  }
 }
 
 // ---- notifications (status-bar bell) ------------------------------------
