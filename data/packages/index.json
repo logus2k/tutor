@@ -19,6 +19,15 @@
       "visibility": "shared"
     },
     {
+      "id": "claude-code",
+      "title": "Claude Code",
+      "file": "claude-code.json",
+      "description": "This guide covers essential concepts related to configuration management within Claude code files, including settings precedence, file locations, and project scope definitions.",
+      "questions": 1069,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
       "id": "microsoft-ai-transformation-leader-ab-731",
       "title": "Microsoft AI Transformation Leader (AB-731)",
       "file": "microsoft-ai-transformation-leader-ab-731.json",
