@@ -871,12 +871,19 @@ async function fetchJson(url) {
  * this is just a short, natural opener the student can edit.
  */
 function buildPrompt(q, pkg, state) {
+  // Embed the CONCRETE current question so the request is unambiguous even after
+  // navigating (a generic "the current question" lets the model anchor on an
+  // earlier one still in the chat history).
+  const num = state.index != null ? ` (question ${state.index + 1})` : '';
+  const letter = (i) => String.fromCharCode(65 + i);
+  const opts = (q.options || []).map((o, i) => `${letter(i)}. ${o.text}`).join('\n');
+  const ref = `The question I'm looking at right now${num}:\n"${q.stem}"` + (opts ? `\nOptions:\n${opts}` : '');
   if (state.answered) {
     return state.correct
-      ? 'Can you reinforce why my answer to this question is right, and what I should take away?'
-      : 'I got this question wrong — can you explain the concept so I understand my mistake?';
+      ? `${ref}\n\nCan you reinforce why my answer is right, and what I should take away?`
+      : `${ref}\n\nI got this one wrong — can you explain the concept so I understand my mistake?`;
   }
-  return 'Can you help me understand the current question and reason toward the answer, without telling me the answer?';
+  return `${ref}\n\nHelp me understand this question and reason toward the answer, without telling me the answer.`;
 }
 
 function el(tag, className, text) {

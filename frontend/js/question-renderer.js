@@ -316,7 +316,7 @@ export class QuestionPanel {
     ask.append(document.createTextNode('🎓 '), respLabel('Ask the Assistant', 'Ask'));
     ask.addEventListener('click', () => {
       if (this.cb.onAskTutor) {
-        this.cb.onAskTutor(q, this.pkg, { selected: [...st.selected], answered: st.answered, correct: st.correct });
+        this.cb.onAskTutor(q, this.pkg, { selected: [...st.selected], answered: st.answered, correct: st.correct, index: this.index });
       }
     });
 
