@@ -19,6 +19,24 @@
       "visibility": "shared"
     },
     {
+      "id": "ccar-f-mock",
+      "title": "Claude Certified Architect – Foundations — Mock Exam",
+      "file": "ccar-f-mock.json",
+      "description": "Direct import of the community CCAR-F mock exam (nanp.github.io) — 60 questions with correct answers and explanations, filed by blueprint domain.",
+      "questions": 60,
+      "owner": null,
+      "visibility": "shared"
+    },
+    {
+      "id": "ccar-f-practice",
+      "title": "Claude Certified Architect – Foundations — Practice Set",
+      "file": "ccar-f-practice.json",
+      "description": "Direct import of the CCAR-F practice question set (Matthew Purcell) — 60 scenario-based questions at exam-level difficulty, with rationales, filed by blueprint domain.",
+      "questions": 60,
+      "owner": null,
+      "visibility": "shared"
+    },
+    {
       "id": "claude-code",
       "title": "Claude Code",
       "file": "claude-code.json",
