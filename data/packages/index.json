@@ -19,6 +19,51 @@
       "visibility": "shared"
     },
     {
+      "id": "cca-workshop-01",
+      "title": "CCA Workshop 01 — Agentic Architecture & Orchestration",
+      "file": "cca-workshop-01.json",
+      "description": "This package contains questions specifically related to the CCA Workshop 01 material.",
+      "questions": 90,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
+      "id": "cca-workshop-02",
+      "title": "CCA Workshop 02 — Tool Design & MCP Integration",
+      "file": "cca-workshop-02.json",
+      "description": "This package contains questions specifically related to the CCA Workshop 02 content.",
+      "questions": 90,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
+      "id": "cca-workshop-03",
+      "title": "CCA Workshop 03 — Claude Code Configuration & Workflows",
+      "file": "cca-workshop-03.json",
+      "description": "This package contains questions related to the CCA Workshop 03 material.",
+      "questions": 90,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
+      "id": "cca-workshop-04",
+      "title": "CCA Workshop 04 — Prompt Engineering & Structured Output",
+      "file": "cca-workshop-04.json",
+      "description": "This package contains questions specifically related to the CCA Workshop 04 material.",
+      "questions": 90,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
+      "id": "cca-workshop-05",
+      "title": "CCA Workshop 05 — Context Management & Reliability",
+      "file": "cca-workshop-05.json",
+      "description": "This package contains questions specifically from CCA Workshop 05, designed to test knowledge related to the workshop's content.",
+      "questions": 90,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
       "id": "ccar-f-mock",
       "title": "Claude Certified Architect – Foundations — Mock Exam",
       "file": "ccar-f-mock.json",

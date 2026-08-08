@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "id": "cca-workshop-03",
   "title": "CCA Workshop 03 — Claude Code Configuration & Workflows",
-  "description": "This package contains questions specifically related to the CCA Workshop 03 material.",
+  "description": "This package contains questions related to the CCA Workshop 03 material.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
-  "generated_at": "2026-08-08T17:22:27.952933+00:00",
+  "generated_at": "2026-08-08T17:55:40.978169+00:00",
   "sources": [
     {
       "id": "src-cca-workshop-03-questions",
@@ -1493,8 +1493,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A junior developer joins the team and reports that Claude Code isn't following the TypeScript naming conventions everyone else follows. Other team members have no issues. What is the most likely cause?",
       "options": [
         {
@@ -1541,8 +1541,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your .claude/rules/terraform.md should apply whenever editing any Terraform file anywhere in the project (not just in a specific directory). How should the frontmatter be written?",
       "options": [
         {
@@ -1589,8 +1589,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You want a CLAUDE.md for testing conventions that applies to test files in src/__tests__/, components/**/*.test.tsx, and e2e/. What is the correct path pattern?",
       "options": [
         {
@@ -1637,8 +1637,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A Claude Code skill produces 15,000 tokens of codebase analysis output. What frontmatter setting prevents this from polluting the main session?",
       "options": [
         {
@@ -1685,8 +1685,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your team wants a /security-audit slash command available to all developers. A senior developer also wants a personal variant with stricter rules. How is this implemented without affecting the team version?",
       "options": [
         {
@@ -1733,8 +1733,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When including prior code review findings in a new review run, what instruction should you give Claude Code to avoid duplicate PR comments?",
       "options": [
         {
@@ -1781,8 +1781,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How does Claude Code use CLAUDE.md in a CI/CD pipeline where it's invoked with -p?",
       "options": [
         {
@@ -1829,8 +1829,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are using the iterative refinement technique with concrete examples. When should you provide 2-3 input/output examples vs. detailed prose instructions?",
       "options": [
         {
@@ -1877,8 +1877,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the best approach for addressing multiple issues found in a code review when some issues interact with each other?",
       "options": [
         {
@@ -1925,8 +1925,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A developer wants to use Claude Code to explore a legacy codebase before making changes, but doesn't want the exploration to use up context for the implementation phase. What is the correct workflow?",
       "options": [
         {
@@ -1973,8 +1973,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What information should CLAUDE.md include about your test suite to improve CI test generation?",
       "options": [
         {
@@ -2021,8 +2021,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When should you use a directory-level CLAUDE.md vs. path-scoped rules in .claude/rules/?",
       "options": [
         {
@@ -2069,8 +2069,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How does Claude Code know what existing tests cover when generating new tests in CI?",
       "options": [
         {
@@ -2117,8 +2117,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A team has CLAUDE.md files at three levels: root, src/, and src/payments/. Which rules apply when Claude Code is editing src/payments/refund.py?",
       "options": [
         {
@@ -2165,8 +2165,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to prevent a CI review from commenting on the same issue twice across multiple PR updates. What is the architectural solution?",
       "options": [
         {
@@ -2213,8 +2213,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Why should test generation use the same Claude Code session that wrote the code vs. an independent session?",
       "options": [
         {
@@ -2261,8 +2261,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you handle a Claude Code task that spans a large refactor (45+ files) without context window exhaustion?",
       "options": [
         {
@@ -2309,8 +2309,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the most effective CLAUDE.md content for reducing Claude Code's false positives on a codebase that uses unconventional patterns intentionally?",
       "options": [
         {
@@ -2357,8 +2357,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should CI test generation handle a PR that modifies a function that is already covered by 15 existing tests?",
       "options": [
         {
@@ -2405,8 +2405,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You want a skill that creates a standardized PR description. The skill should ask for the PR title if not provided, and should only use Read and Glob tools. Write the correct frontmatter.",
       "options": [
         {
@@ -2453,8 +2453,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When is it appropriate to use 'plan mode' in Claude Code before making changes?",
       "options": [
         {
@@ -2501,8 +2501,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need Claude Code to generate documentation that always follows your team's specific doc template. How do you ensure this without manual review?",
       "options": [
         {
@@ -2549,8 +2549,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should CLAUDE.md handle information that changes frequently (like API endpoint URLs or version numbers)?",
       "options": [
         {
@@ -2597,8 +2597,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the correct interpretation of Claude Code running in 'non-interactive mode' with -p?",
       "options": [
         {
@@ -2645,8 +2645,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What does the --json-schema flag in Claude Code CI invocations do?",
       "options": [
         {
@@ -2693,8 +2693,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are writing a CLAUDE.md for a codebase that uses a monorepo pattern where shared utilities live in /packages/shared and are imported by both frontend and backend. What should CLAUDE.md emphasize?",
       "options": [
         {
@@ -2741,8 +2741,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How does Claude Code's iterative refinement cycle work when a test fails after implementation?",
       "options": [
         {
@@ -2789,8 +2789,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your CLAUDE.md references specific file paths for examples (e.g., 'See src/auth/middleware.ts for the authentication pattern'). What maintenance concern does this create?",
       "options": [
         {
@@ -2837,8 +2837,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A security-sensitive codebase needs Claude Code to always run static analysis before any code submission. How do you enforce this beyond a system prompt instruction?",
       "options": [
         {
@@ -2885,8 +2885,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the 'test-then-implement' workflow in Claude Code and when is it most valuable?",
       "options": [
         {
@@ -2933,8 +2933,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a Claude Code configuration for a monorepo with 5 packages: web (React/TS), api (Node/TS), ml-service (Python), infra (Terraform), mobile (React Native). What is the optimal CLAUDE.md architecture?",
       "options": [
         {
@@ -2981,8 +2981,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A security audit finds that developers are using Claude Code to generate code that bypasses your security controls. The code passes automated tests but violates policy. How do you prevent this at the CLAUDE.md level?",
       "options": [
         {
@@ -3029,8 +3029,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "Your CI pipeline runs 3 parallel Claude Code review jobs (security, performance, correctness) on every PR. Sometimes they produce conflicting recommendations. How do you resolve conflicts architecturally?",
       "options": [
         {
@@ -3077,8 +3077,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need Claude Code to consistently use a specific internal logging library instead of console.log/print across all languages (TypeScript, Python, Go). How do you configure this most effectively?",
       "options": [
         {
@@ -3125,8 +3125,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A senior architect wants to use Claude Code to explore three competing architectural approaches for a major system redesign before committing. The codebase is 500K lines. What is the optimal workflow?",
       "options": [
         {
@@ -3173,8 +3173,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "Your team's CLAUDE.md has grown to 8,000 tokens and developers report Claude Code sometimes ignoring conventions in the middle of the file. How do you fix this?",
       "options": [
         {
@@ -3221,8 +3221,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should you design a Claude Code CI workflow for a repository with both application code and infrastructure-as-code (Terraform)?",
       "options": [
         {
@@ -3269,8 +3269,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A developer reports that a skill they created for codebase analysis is making the main session context unavailable for follow-up questions after the skill runs. What is the likely configuration error and fix?",
       "options": [
         {
@@ -3317,8 +3317,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a Claude Code review system that learns from developer feedback. Developers can mark findings as 'false positive' or 'valid'. How do you incorporate this feedback into future reviews?",
       "options": [
         {
@@ -3365,8 +3365,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A large enterprise wants to standardize Claude Code configuration across 50 repositories. Updates to standards must propagate to all repos. What architecture achieves this?",
       "options": [
         {
@@ -3413,8 +3413,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A CLAUDE.md has grown organically to 12,000 tokens over 18 months. Claude Code is inconsistently applying rules. What is the refactoring approach?",
       "options": [
         {
@@ -3461,8 +3461,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A team uses both Terraform and Pulumi in the same repository for different infrastructure components. How do you configure CLAUDE.md to handle both?",
       "options": [
         {
@@ -3509,8 +3509,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are deploying Claude Code as a service where multiple engineers can submit tasks via a web interface. Tasks run asynchronously. What architectural considerations apply?",
       "options": [
         {
@@ -3557,8 +3557,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement 'drift detection' for CLAUDE.md - detecting when the actual codebase has evolved away from documented conventions?",
       "options": [
         {
@@ -3605,8 +3605,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A large enterprise wants Claude Code configuration to be centrally managed with department-level overrides and project-level customizations. What is the most scalable architecture?",
       "options": [
         {
@@ -3653,8 +3653,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement Claude Code workflows that span multiple repositories - for example, updating an API in one repo and its corresponding clients in three other repos?",
       "options": [
         {
@@ -3701,8 +3701,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "Your team wants to use Claude Code for code generation but is concerned about intellectual property - specifically, generated code that might be derived from training data that includes open-source code with incompatible licenses. How do you address this?",
       "options": [
         {
@@ -3749,8 +3749,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need Claude Code to work with a proprietary internal framework that post-dates its training data. The framework has 300 files of documentation. How do you make Claude Code effective with this framework?",
       "options": [
         {
@@ -3797,8 +3797,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a Claude Code workflow that handles merge conflicts when two Claude Code sessions have independently modified the same files?",
       "options": [
         {
@@ -3845,8 +3845,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A security audit reveals that Claude Code occasionally uses deprecated npm packages with known vulnerabilities in its generated code. How do you prevent this systematically?",
       "options": [
         {
@@ -3893,8 +3893,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a Claude Code-powered pair programming tool for a coding education platform. Students learn best by making mistakes. How do you configure Claude Code to teach rather than solve?",
       "options": [
         {
@@ -3941,8 +3941,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement 'reproducible Claude Code runs' - ensuring that re-running the same task produces comparable results for testing and validation?",
       "options": [
         {
@@ -3989,8 +3989,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should CLAUDE.md evolve as a project grows from a startup (10 files) to an enterprise product (10,000 files)?",
       "options": [
         {
@@ -4037,8 +4037,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a Claude Code workflow for data migration - extracting data from a legacy database, transforming it, and loading into a new schema. The migration affects 50 million records. What safeguards must the workflow include?",
       "options": [
         {
@@ -4085,8 +4085,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A DevOps team wants to use Claude Code for infrastructure provisioning with Terraform. How should the CLAUDE.md and skills be configured for this use case?",
       "options": [
         {
@@ -4133,8 +4133,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a Claude Code-based code archaeology system that answers questions like 'why was this architectural decision made?' using git history and code comments?",
       "options": [
         {
@@ -4181,8 +4181,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should you handle the case where Claude Code produces code that passes all tests but violates an implicit architectural constraint not documented in CLAUDE.md (such as circular dependency introduction)?",
       "options": [
         {
@@ -4229,8 +4229,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are implementing a Claude Code workflow for a financial services company where code must be reviewed by compliance before deployment. How do you integrate compliance review into the Claude Code workflow?",
       "options": [
         {
@@ -4277,8 +4277,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement 'skill composition' in Claude Code - where one complex skill invokes simpler component skills?",
       "options": [
         {
@@ -4325,8 +4325,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A team wants Claude Code to automatically update their API documentation (OpenAPI spec) whenever it modifies API endpoint handlers. How do you implement this as a persistent workflow?",
       "options": [
         {
@@ -4368,27 +4368,19 @@
     }
   ],
   "quality": {
-    "score": 60,
-    "publishable": false,
+    "score": 100,
+    "publishable": true,
     "findings": [
       {
-        "severity": "error",
+        "severity": "info",
         "area": "balance",
-        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
-      },
-      {
-        "severity": "error",
-        "area": "balance",
-        "detail": "Bloom distribution is extremely skewed (100% Recall)."
-      },
-      {
-        "severity": "warn",
-        "area": "coverage",
-        "detail": "Only one domain (d1) and one concept are present, which is very narrow coverage."
+        "detail": "Difficulty distribution is heavily skewed towards levels 2, 3, and 4, with no questions at levels 1 or 5. This is acceptable given the sample, but worth noting for future packages."
       }
     ],
-    "disputes": []
+    "disputes": [],
+    "published_at": "2026-08-08T17:59:40.077706+00:00"
   },
   "owner_email": "logus2k@gmail.com",
-  "held_at": "2026-08-08T17:22:29.115708+00:00"
+  "held_at": "2026-08-08T17:55:41.837839+00:00",
+  "visibility": "shared"
 }

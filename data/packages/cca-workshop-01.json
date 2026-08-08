@@ -4,7 +4,7 @@
   "title": "CCA Workshop 01 — Agentic Architecture & Orchestration",
   "description": "This package contains questions specifically related to the CCA Workshop 01 material.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
-  "generated_at": "2026-08-08T17:17:26.357465+00:00",
+  "generated_at": "2026-08-08T17:54:57.056296+00:00",
   "sources": [
     {
       "id": "src-cca-workshop-01-questions",
@@ -1493,8 +1493,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A coordinator receives results from three parallel subagents and notices one returned an error while two succeeded. What is the best coordinator behavior?",
       "options": [
         {
@@ -1541,8 +1541,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is 'iterative refinement' in multi-agent research systems?",
       "options": [
         {
@@ -1589,8 +1589,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Why does giving subagents access to too many tools degrade performance?",
       "options": [
         {
@@ -1637,8 +1637,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When should you use prompt chaining (sequential fixed pipeline) vs dynamic adaptive decomposition?",
       "options": [
         {
@@ -1685,8 +1685,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You have a coordinator with a broad research task. How should you decompose it across subagents to minimize duplicate work?",
       "options": [
         {
@@ -1733,8 +1733,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A PostToolUse hook needs to handle results from 3 different MCP tools that each return timestamps in different formats: Unix epoch, ISO 8601, and US date strings. What is the hook's responsibility?",
       "options": [
         {
@@ -1781,8 +1781,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What should a coordinator's system prompt specify about research quality criteria?",
       "options": [
         {
@@ -1829,8 +1829,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to handle a customer request that involves 3 separate issues: a billing dispute, a missing shipment, and an account upgrade request. How should the agent handle this?",
       "options": [
         {
@@ -1877,8 +1877,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What structured data format should you use when passing context between agents to preserve attribution (which sources contributed which facts)?",
       "options": [
         {
@@ -1925,8 +1925,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When is it appropriate to start a fresh session with an injected summary vs. resuming a prior session?",
       "options": [
         {
@@ -1973,8 +1973,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A customer support agent escalates to a human. The human has never seen the conversation. What information MUST the handoff summary include?",
       "options": [
         {
@@ -2021,8 +2021,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are designing a code review multi-pass system. Why should the integration review pass run separately from per-file reviews?",
       "options": [
         {
@@ -2069,8 +2069,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How does the Explore subagent help manage context in multi-phase tasks?",
       "options": [
         {
@@ -2117,8 +2117,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the risk of 'overly narrow task decomposition' by a coordinator?",
       "options": [
         {
@@ -2165,8 +2165,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You resume a named session with --resume, but several files it analyzed have changed. What is the correct approach?",
       "options": [
         {
@@ -2213,8 +2213,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the relationship between allowedTools and the Task tool in the Agent SDK?",
       "options": [
         {
@@ -2261,8 +2261,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A refund subagent encounters a transient API timeout when calling the payment system. Should it retry locally or propagate to the coordinator?",
       "options": [
         {
@@ -2309,8 +2309,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When designing a coordinator for a multi-agent system, what distinguishes a good coordinator prompt from a poor one?",
       "options": [
         {
@@ -2357,8 +2357,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is session forking most useful for in an agentic development workflow?",
       "options": [
         {
@@ -2405,8 +2405,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A coordinator needs to assign distinct research domains to three subagents for a market research report. What information should each subagent's task prompt include?",
       "options": [
         {
@@ -2453,8 +2453,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Why should a research coordinator spawn subagents with goal-oriented system prompts rather than step-by-step procedural instructions?",
       "options": [
         {
@@ -2501,8 +2501,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "An agentic system is tasked with migrating a database schema. Which action requires mandatory human approval before execution?",
       "options": [
         {
@@ -2549,8 +2549,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What does it mean for a coordinator to 'manage communication topology' in a multi-agent system?",
       "options": [
         {
@@ -2597,8 +2597,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the recommended strategy when two parallel subagents both need the same expensive external API data?",
       "options": [
         {
@@ -2645,8 +2645,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When a subagent successfully completes its task but identifies a related issue outside its scope, what should it do?",
       "options": [
         {
@@ -2693,8 +2693,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A coordinator has dispatched 5 subagents in parallel. Two return quickly; three are slow. What is the optimal strategy for the coordinator's wait behavior?",
       "options": [
         {
@@ -2741,8 +2741,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to build an agentic system that maintains a 'task graph' - tracking which subtasks are complete, in-progress, blocked, or failed. Where should this state live?",
       "options": [
         {
@@ -2789,8 +2789,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the correct behavior when a coordinator subagent delegation produces output that is too long to fit in the coordinator's next API call?",
       "options": [
         {
@@ -2837,8 +2837,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are designing a system where multiple Claude agents must maintain consistency about a shared 'world state' (e.g., inventory levels in a warehouse). How do you prevent agents from making conflicting decisions?",
       "options": [
         {
@@ -2885,8 +2885,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A multi-agent pipeline has 3 stages: Research fi Analysis fi Report. The Analysis stage always fails when Research produces more than 5 findings. What is the correct fix?",
       "options": [
         {
@@ -2933,8 +2933,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a financial services multi-agent system. Identity verification MUST precede any account modification. The team has added this to the system prompt and sees 2% of requests bypass verification. What is the root cause and correct fix?",
       "options": [
         {
@@ -2981,8 +2981,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a multi-agent system where a research coordinator spawns subagents dynamically based on what it discovers - not a fixed pipeline. What architecture pattern best supports this?",
       "options": [
         {
@@ -3029,8 +3029,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A PostToolUse hook receives results from a tool that sometimes returns successfully with empty results (valid empty query) and sometimes fails with an access error. How should the hook differentiate these?",
       "options": [
         {
@@ -3077,8 +3077,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building an enterprise document analysis system where the coordinator must handle documents ranging from 1-page memos to 500-page reports. How should context passing between agents be designed?",
       "options": [
         {
@@ -3125,8 +3125,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A complex agentic workflow has been running for 45 minutes and has accumulated 175,000 tokens of context including tool results. The task is 70% complete. What is the optimal strategy?",
       "options": [
         {
@@ -3173,8 +3173,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should a multi-agent system handle a scenario where two subagents return contradictory findings about the same fact?",
       "options": [
         {
@@ -3221,8 +3221,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need maximum hook reliability for a PreToolUse hook that blocks a high-value financial operation. What implementation guarantees the hook cannot be bypassed?",
       "options": [
         {
@@ -3269,8 +3269,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a session resumption strategy for a long-running code investigation. The previous session analyzed 200 files. Today, 15 files have been modified. What is the optimal resumption approach?",
       "options": [
         {
@@ -3317,8 +3317,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A production multi-agent system has an intermittent bug where the synthesis subagent occasionally produces reports missing data from the analysis subagent. All context passing looks correct. What is the most likely root cause?",
       "options": [
         {
@@ -3365,8 +3365,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a compliance audit trail for an agentic system processing financial transactions. What information must be logged for each agent action?",
       "options": [
         {
@@ -3413,8 +3413,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is 'prompt injection' in the context of agentic systems and why is it dangerous?",
       "options": [
         {
@@ -3461,8 +3461,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A coordinator agent must handle a scenario where a subagent reports it successfully completed a task but returns empty results. What should the coordinator do?",
       "options": [
         {
@@ -3509,8 +3509,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A long-running agent discovers at turn 25 that it has been solving the wrong problem - the user's intent was different from what the agent assumed. What is the correct recovery?",
       "options": [
         {
@@ -3557,8 +3557,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A compliance requirement states every agent action must be auditable. What does this require architecturally?",
       "options": [
         {
@@ -3605,8 +3605,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building an autonomous agent that manages cloud infrastructure. It has access to tools that can create, modify, and delete AWS resources. What safety architecture is non-negotiable?",
       "options": [
         {
@@ -3653,8 +3653,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A multi-agent system for legal document review must ensure EVERY claim in the output is supported by cited source material. How do you architect this guarantee?",
       "options": [
         {
@@ -3701,8 +3701,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to build a multi-agent system that processes 1,000 customer cases per hour with SLA requirements of < 5 minutes per case. Some cases require specialist subagents. How do you scale this?",
       "options": [
         {
@@ -3749,8 +3749,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "An agentic system is supposed to research a topic and generate a report. In production, it starts generating the report before completing research, producing reports with gaps. What is the architectural cause and fix?",
       "options": [
         {
@@ -3797,8 +3797,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a human-AI collaboration workflow where human experts and Claude agents work together on complex research. When should the agent act autonomously vs. request human input?",
       "options": [
         {
@@ -3845,8 +3845,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A coordinator is running a 2-hour research task. At the 90-minute mark, it discovers that a key assumption made at the 30-minute mark was wrong. What recovery strategy minimizes wasted work?",
       "options": [
         {
@@ -3893,8 +3893,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you prevent 'goal misgeneralization' in an autonomous agent - where it achieves the stated goal but in a way that violates unstated expectations?",
       "options": [
         {
@@ -3941,8 +3941,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A multi-agent system for trading needs to coordinate between market analysis, risk assessment, and order execution agents. Order execution is irreversible. What workflow pattern is required?",
       "options": [
         {
@@ -3989,8 +3989,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You discover that your multi-agent research system consistently produces better results on topics the agents were trained on and worse results on novel emerging topics. How do you address this systematically?",
       "options": [
         {
@@ -4037,8 +4037,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should a production multi-agent system handle the case where the coordinator exhausts its context window in the middle of a critical task?",
       "options": [
         {
@@ -4085,8 +4085,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a multi-agent content moderation system. Moderator agents must apply consistent policy even for borderline content. How do you ensure consistency?",
       "options": [
         {
@@ -4133,8 +4133,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A complex multi-agent pipeline has 8 stages. Stage 6 fails 10% of the time due to intermittent external API issues. Restarting from stage 1 wastes 5 stages of work. What resilience architecture prevents this?",
       "options": [
         {
@@ -4181,8 +4181,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "Your agentic system must handle tasks in a regulated industry where every agent decision must be explainable to auditors. How do you implement decision explainability?",
       "options": [
         {
@@ -4229,8 +4229,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a 'supervisor' pattern where one Claude instance reviews and approves all other agents' proposed actions before execution. What makes this effective vs. a rubber stamp?",
       "options": [
         {
@@ -4277,8 +4277,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What architectural pattern prevents an agent from making conflicting edits to the same file when multiple agents have write access?",
       "options": [
         {
@@ -4325,8 +4325,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A production multi-agent system is exhibiting 'cascade failure' - one slow subagent causes the coordinator to timeout, which causes upstream services to retry, creating more load and more timeouts. How do you break this cycle?",
       "options": [
         {
@@ -4368,27 +4368,19 @@
     }
   ],
   "quality": {
-    "score": 75,
-    "publishable": false,
+    "score": 100,
+    "publishable": true,
     "findings": [
       {
-        "severity": "error",
-        "area": "balance",
-        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
-      },
-      {
-        "severity": "warn",
-        "area": "balance",
-        "detail": "Bloom distribution is extremely skewed (100% Recall)."
-      },
-      {
         "severity": "info",
-        "area": "coverage",
-        "detail": "Only one domain (d1) and one concept are present, which is acceptable if the scope is narrow, but limits overall utility."
+        "area": "balance",
+        "detail": "Difficulty distribution is heavily skewed towards levels 2, 3, and 4, with no questions at levels 1 or 5. This is acceptable given the small sample size, but worth monitoring."
       }
     ],
-    "disputes": []
+    "disputes": [],
+    "published_at": "2026-08-08T17:59:43.968439+00:00"
   },
   "owner_email": "logus2k@gmail.com",
-  "held_at": "2026-08-08T17:17:27.429187+00:00"
+  "held_at": "2026-08-08T17:54:57.944103+00:00",
+  "visibility": "shared"
 }

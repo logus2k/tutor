@@ -4,7 +4,7 @@
   "title": "CCA Workshop 04 — Prompt Engineering & Structured Output",
   "description": "This package contains questions specifically related to the CCA Workshop 04 material.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
-  "generated_at": "2026-08-08T17:18:37.152426+00:00",
+  "generated_at": "2026-08-08T17:55:59.008588+00:00",
   "sources": [
     {
       "id": "src-cca-workshop-04-questions",
@@ -1493,8 +1493,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are building a multi-document extraction pipeline. Documents have varied formats: some have inline citations, others have bibliographies, some embed methodology in footnotes. How do you handle this in few-shot examples?",
       "options": [
         {
@@ -1541,8 +1541,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A structured extraction validates that line items sum to the stated total. The validation fails. How do you determine if the issue is extraction error or source document error?",
       "options": [
         {
@@ -1589,8 +1589,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the optimal few-shot example count for a code review task?",
       "options": [
         {
@@ -1637,8 +1637,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are designing a batch invoice processing pipeline. Invoices range from 1-50 pages. Some exceed the context limit. How do you handle the Batch API's lack of multi-turn tool calling?",
       "options": [
         {
@@ -1685,8 +1685,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your code review system currently reports 45% false positives for 'style issues'. Developers are ignoring all reviews. What is the prioritized fix sequence?",
       "options": [
         {
@@ -1733,8 +1733,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to extract financial data from documents written in English, Spanish, and German, each with different number formatting (1,000.00 vs 1.000,00). How does the prompt handle this?",
       "options": [
         {
@@ -1781,8 +1781,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When building a validation loop, how many retries are typically appropriate before escalating to human review?",
       "options": [
         {
@@ -1829,8 +1829,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are building a batch pipeline and want to refine the prompt before processing 10,000 documents. What is the optimal approach?",
       "options": [
         {
@@ -1877,8 +1877,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A PR review tool reports 60 issues. Developers say most are false positives. You want to identify which categories are causing the problem. What schema field helps most?",
       "options": [
         {
@@ -1925,8 +1925,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you structure few-shot examples for a task that requires distinguishing between acceptable code patterns (project convention) and genuine bugs?",
       "options": [
         {
@@ -1973,8 +1973,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the correct approach for calculating the optimal batch submission frequency given: document SLA = 48 hours, batch processing max = 24 hours?",
       "options": [
         {
@@ -2021,8 +2021,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You have a code review prompt where false positives occur specifically when Claude encounters 'async/await in a loop'. How do you fix this?",
       "options": [
         {
@@ -2069,8 +2069,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A batch job runs nightly with 1,000 documents. Some nights 50 documents fail with 'context length exceeded'. What is the efficient handling strategy?",
       "options": [
         {
@@ -2117,8 +2117,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the 'Best of N' pattern in prompt engineering for structured output?",
       "options": [
         {
@@ -2165,8 +2165,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you handle a JSON schema field that could validly be any of three types: a date string, a boolean, or a number?",
       "options": [
         {
@@ -2213,8 +2213,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to validate that an extracted address is a real location without making API calls. What prompt engineering technique provides the best validation?",
       "options": [
         {
@@ -2261,8 +2261,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your batch pipeline processes insurance claims. Some claims have no payout amount because they were denied. Your current schema requires payout_amount. How should you fix the schema?",
       "options": [
         {
@@ -2309,8 +2309,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is prompt chaining and when does it outperform a single complex prompt?",
       "options": [
         {
@@ -2357,8 +2357,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are refining a code review prompt and notice false positives specifically when Claude sees 'for..of loops with await inside'. How do you add the fix?",
       "options": [
         {
@@ -2405,8 +2405,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you design a system that uses the Batch API for primary processing but needs to handle urgent requests that arrive mid-batch?",
       "options": [
         {
@@ -2453,8 +2453,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are building a prompt for a customer sentiment classification system. The current prompt produces 25% 'neutral' classifications for what developers believe are clearly positive or negative. What is the most likely issue?",
       "options": [
         {
@@ -2501,8 +2501,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A document extraction system must handle tables with varying structures. Some tables have headers, some don't. Some have merged cells, some have hierarchical headers. How do you handle this in few-shot examples?",
       "options": [
         {
@@ -2549,8 +2549,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You want to add a 'self-review' step to your extraction pipeline where Claude checks its own output for consistency before returning it. What is the most effective implementation?",
       "options": [
         {
@@ -2597,8 +2597,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your code review system needs to evaluate 'is this a security vulnerability?' for each finding. What few-shot example design produces the most reliable security classification?",
       "options": [
         {
@@ -2645,8 +2645,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are designing a batch pipeline that extracts data from PDFs in multiple languages. Extraction quality is inconsistent for Japanese documents. What improvement strategy is most effective?",
       "options": [
         {
@@ -2693,8 +2693,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you structure a code review prompt to ensure coverage of both security and performance issues without trading one off for the other?",
       "options": [
         {
@@ -2741,8 +2741,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are designing a prompt for extracting medical dosage information from clinical notes. Dosages appear in many formats: '10mg', '10 milligrams', 'ten mg', '0.01g'. How do you handle normalization most reliably?",
       "options": [
         {
@@ -2789,8 +2789,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you prompt Claude to produce a structured output that includes both extracted data AND a confidence assessment for the entire extraction?",
       "options": [
         {
@@ -2837,8 +2837,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are building an invoice extraction system and notice that Claude extracts correct values on 95% of invoices but fails on those with non-standard layouts (tabular data in headers, multi-column line items). How do you address this?",
       "options": [
         {
@@ -2885,8 +2885,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you design a prompt for summarization that produces consistent length across inputs of varying length (100-word memos to 50-page reports)?",
       "options": [
         {
@@ -2933,8 +2933,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a high-accuracy medical document extraction system. What combination of techniques maximizes reliability?",
       "options": [
         {
@@ -2981,8 +2981,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to extract data from 50,000 legal contracts with three extraction schemas (depending on contract type: NDA, SLA, Purchase Agreement). What is the optimal prompt engineering architecture?",
       "options": [
         {
@@ -3029,8 +3029,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A production extraction system has 2% unexplained failures where validation fails for no apparent reason. Debugging reveals the issue occurs only with documents that contain tables with merged cells. How do you address this?",
       "options": [
         {
@@ -3077,8 +3077,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a prompt optimization feedback loop. Developer dismissals of review findings are logged with the finding context. After 3 months, you have 50,000 dismissal records. How do you use this data most effectively?",
       "options": [
         {
@@ -3125,8 +3125,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a structured extraction system for financial filings that must achieve 99.9% accuracy on the primary fields. What quality assurance architecture achieves this?",
       "options": [
         {
@@ -3173,8 +3173,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a system where the Batch API handles primary processing but some batch failures should be retried synchronously with richer context?",
       "options": [
         {
@@ -3221,8 +3221,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to build a self-improving extraction system. When human reviewers correct extraction errors, how should these corrections be incorporated?",
       "options": [
         {
@@ -3269,8 +3269,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A complex extraction task requires understanding document structure, entity resolution, cross-reference validation, and output generation. Single-prompt performance is inconsistent. What architecture solves this?",
       "options": [
         {
@@ -3317,8 +3317,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a code review system where the same PR should receive different review criteria based on which team owns the changed files (payment team fi PCI compliance, auth team fi security hardening, data team fi privacy). How do you implement this?",
       "options": [
         {
@@ -3365,8 +3365,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "Your extraction pipeline processes documents in real-time for a user-facing feature and in batch overnight for analytics. The same extraction logic must be used in both modes. How do you architect this?",
       "options": [
         {
@@ -3413,8 +3413,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "When designing a prompt for extracting information from handwritten forms (OCR'd to text), what additional few-shot techniques improve accuracy?",
       "options": [
         {
@@ -3461,8 +3461,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to batch-process 10,000 invoices. After testing, 500 invoices reliably exceed the context limit. What is the cost-optimal resubmission strategy?",
       "options": [
         {
@@ -3509,8 +3509,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A prompt produces correct output 95% of the time but fails unpredictably on the remaining 5%. You've collected 50 failure examples. What is the systematic improvement process?",
       "options": [
         {
@@ -3557,8 +3557,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is the most reliable way to ensure that required fields in a JSON extraction schema are only marked as required when you are certain the source documents always contain them?",
       "options": [
         {
@@ -3605,8 +3605,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a knowledge extraction pipeline for a legal firm. Contracts contain complex clause structures: main clauses, sub-clauses, and exceptions to sub-clauses. Standard extraction produces incorrect nesting 30% of the time. How do you solve this systematically?",
       "options": [
         {
@@ -3653,8 +3653,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a prompt engineering strategy for a task where ground truth is difficult to establish (e.g., 'tone analysis' of marketing copy)?",
       "options": [
         {
@@ -3701,8 +3701,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a medical coding system that maps clinical text to ICD-10 codes. Accuracy is critical. What prompt engineering and validation architecture maximizes accuracy?",
       "options": [
         {
@@ -3749,8 +3749,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a prompt that must work reliably for inputs in 30 languages including right-to-left scripts (Arabic, Hebrew) and ideographic scripts (Japanese, Chinese). What prompt engineering considerations apply?",
       "options": [
         {
@@ -3797,8 +3797,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you build a self-improving prompt pipeline where the prompt automatically evolves based on extraction errors?",
       "options": [
         {
@@ -3845,8 +3845,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A legal contract extraction system must extract obligations (what each party must do) with temporal references (when obligations trigger or expire). Temporal references are complex ('within 30 days of material breach, unless previously waived'). How do you design the extraction schema and prompts?",
       "options": [
         {
@@ -3893,8 +3893,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a content moderation system that must handle cultural nuance content acceptable in one cultural context may be inappropriate in another. How do you implement culturally-aware classification?",
       "options": [
         {
@@ -3941,8 +3941,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement 'extraction conflict resolution' when multiple sources in a document provide contradictory values for the same field?",
       "options": [
         {
@@ -3989,8 +3989,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to extract information from handwritten forms that have been OCR-processed. OCR errors are common (l/1, O/0, rn/m, missing spaces). How do you design prompts that are resilient to OCR noise?",
       "options": [
         {
@@ -4037,8 +4037,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a Batch API workflow that handles documents arriving continuously throughout the day with varying urgency levels?",
       "options": [
         {
@@ -4085,8 +4085,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a system that extracts financial metrics from earnings call transcripts. Some metrics are stated directly ('revenue grew 12%') and others require calculation from stated numbers ('gross margin = (revenue - COGS) / revenue'). How do you design extraction + calculation in a single pass?",
       "options": [
         {
@@ -4133,8 +4133,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you ensure that your Batch API pipeline for document processing maintains FIFO ordering for documents that must be processed in sequence?",
       "options": [
         {
@@ -4181,8 +4181,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A document extraction system must handle both dense technical documents (50,000 tokens) and short forms (500 tokens) using the same extraction prompt and schema. How do you optimize for both?",
       "options": [
         {
@@ -4229,8 +4229,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to design a prompt for extracting relationships between entities in text (e.g., 'Company A acquired Company B for $X'). Relationships can span multiple sentences. How do you handle cross-sentence relationship extraction?",
       "options": [
         {
@@ -4277,8 +4277,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you evaluate prompt quality for a structured extraction task at scale when manual evaluation of 10,000 results is infeasible?",
       "options": [
         {
@@ -4325,8 +4325,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a prompt that handles 'nested optional structures' in extraction where a document may have 0, 1, or many instances of a section, each with its own sub-structure?",
       "options": [
         {
@@ -4368,32 +4368,19 @@
     }
   ],
   "quality": {
-    "score": 75,
-    "publishable": false,
+    "score": 100,
+    "publishable": true,
     "findings": [
       {
-        "severity": "error",
-        "area": "balance",
-        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2). This suggests a lack of cognitive challenge across the package."
-      },
-      {
-        "severity": "error",
-        "area": "balance",
-        "detail": "Bloom distribution is entirely focused on 'recall' (100%). The package lacks higher-order thinking questions (e.g., Apply, Analyze, Evaluate)."
-      },
-      {
-        "severity": "warn",
-        "area": "coverage",
-        "detail": "Only one domain (d1) and one concept are present, indicating very narrow coverage."
-      },
-      {
         "severity": "info",
-        "area": "redundancy",
-        "detail": "The sample shows several questions addressing similar concepts (e.g., few-shot examples, prompt constraints), warranting a check for high near-duplicate clusters."
+        "area": "balance",
+        "detail": "Difficulty distribution is heavily skewed towards levels 2 and 3, with no questions at the highest (5) or lowest (1) levels. This is acceptable given the small sample size and single domain."
       }
     ],
-    "disputes": []
+    "disputes": [],
+    "published_at": "2026-08-08T17:59:37.771283+00:00"
   },
   "owner_email": "logus2k@gmail.com",
-  "held_at": "2026-08-08T17:18:38.603563+00:00"
+  "held_at": "2026-08-08T17:55:59.926419+00:00",
+  "visibility": "shared"
 }

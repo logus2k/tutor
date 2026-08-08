@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "id": "cca-workshop-02",
   "title": "CCA Workshop 02 — Tool Design & MCP Integration",
-  "description": "This package contains questions specifically related to the CCA Workshop 02 material.",
+  "description": "This package contains questions specifically related to the CCA Workshop 02 content.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
-  "generated_at": "2026-08-08T17:34:15.602470+00:00",
+  "generated_at": "2026-08-08T17:55:16.300625+00:00",
   "sources": [
     {
       "id": "src-cca-workshop-02-questions",
@@ -1493,8 +1493,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You have two tools with similar functionality: search_knowledge_base (searches internal docs) and search_web (searches live internet). The agent consistently calls the wrong one. What is the best fix?",
       "options": [
         {
@@ -1541,8 +1541,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to enforce that extract_metadata is always called before any enrichment tools. Which approach is most reliable?",
       "options": [
         {
@@ -1589,8 +1589,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A tool returns an empty array [] because no records matched the query. How should the tool response be structured?",
       "options": [
         {
@@ -1637,8 +1637,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your synthesis agent needs occasional fact-verification capability (cross-role tool). How should this be implemented without giving the synthesis agent full search access?",
       "options": [
         {
@@ -1685,8 +1685,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are configuring a team's development environment where junior developers' MCP servers should have read-only access while senior developers have full access. How do you implement this with the MCP configuration system?",
       "options": [
         {
@@ -1733,8 +1733,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When should a subagent handle an error locally vs. propagate it to the coordinator?",
       "options": [
         {
@@ -1781,8 +1781,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A developer asks why their MCP server configuration in .mcp.json requires GITHUB_TOKEN to be set on every developer's machine. What is the correct explanation?",
       "options": [
         {
@@ -1829,8 +1829,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the impact of adding a keyword like 'analyze' to a system prompt instruction when you also have a tool named 'analyze_document'?",
       "options": [
         {
@@ -1877,8 +1877,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are designing tool interfaces for a financial data pipeline with 8 tools. Which grouping best follows the principle of scoped tool access?",
       "options": [
         {
@@ -1925,8 +1925,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should a tool return a partial success when it completes 7 of 10 requested operations before hitting a rate limit?",
       "options": [
         {
@@ -1973,8 +1973,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When MCP tools are added to a Claude Code session, when are they discovered and made available?",
       "options": [
         {
@@ -2021,8 +2021,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your agent has a tool that fetches customer data and occasionally returns PII. You want to ensure PII never appears in Claude's context. What is the correct approach?",
       "options": [
         {
@@ -2069,8 +2069,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the recommended strategy for building codebase understanding incrementally using built-in tools?",
       "options": [
         {
@@ -2117,8 +2117,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You notice that Claude is using a built-in Grep tool instead of your MCP-based semantic code search tool, even though the MCP tool produces much better results. What is the likely cause and fix?",
       "options": [
         {
@@ -2165,8 +2165,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A tool that deletes records must require confirmation before executing in production. How should this be implemented architecturally?",
       "options": [
         {
@@ -2213,8 +2213,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you structure MCP tool error responses for a permission denied error?",
       "options": [
         {
@@ -2261,8 +2261,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the purpose of the allowedTools restriction in subagent configuration?",
       "options": [
         {
@@ -2309,8 +2309,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "Your team has both a Jira MCP server (community) and a custom internal ticket system MCP server. How should these be configured?",
       "options": [
         {
@@ -2357,8 +2357,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the correct approach when the Edit tool fails to find a unique match in a file?",
       "options": [
         {
@@ -2405,8 +2405,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "An MCP tool result contains a list of 500 items that exceeds practical context limits. What is the best tool design response?",
       "options": [
         {
@@ -2453,8 +2453,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A tool receives an input that passes schema validation but will cause the underlying system to fail (e.g., a customer_id that doesn't exist in the database). How should this be handled?",
       "options": [
         {
@@ -2501,8 +2501,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the benefit of exposing MCP resources (like a list of available reports) versus requiring tool calls to discover available data?",
       "options": [
         {
@@ -2549,8 +2549,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You have a tool that returns a deeply nested JSON object (8 levels deep) with 200 fields. Claude frequently references the wrong fields. How do you fix this?",
       "options": [
         {
@@ -2597,8 +2597,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A tool call to an external payment API hangs for 30 seconds before timing out. How should the tool handle and communicate this?",
       "options": [
         {
@@ -2645,8 +2645,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to design a tool that processes images for a Claude agent. What is the correct way to return image analysis results?",
       "options": [
         {
@@ -2693,8 +2693,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the relationship between tool input_schema and the quality of Claude's tool calls?",
       "options": [
         {
@@ -2741,8 +2741,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You discover that Claude sometimes calls your search tool with natural language queries when the tool expects keyword-based queries. How do you fix this?",
       "options": [
         {
@@ -2789,8 +2789,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You have a tool that queries a database and sometimes returns sensitive customer PII. Not all callers of the tool should receive PII. How do you design this?",
       "options": [
         {
@@ -2837,8 +2837,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you version MCP tool APIs when changes are breaking (parameter renaming, schema changes) to avoid breaking deployed agents?",
       "options": [
         {
@@ -2885,8 +2885,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A tool that wraps a third-party API needs to handle the case where the API returns rate limit errors (429). What is the correct tool behavior?",
       "options": [
         {
@@ -2933,8 +2933,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing tool interfaces for a healthcare data system. Which approach best balances Claude's tool selection reliability with security requirements?",
       "options": [
         {
@@ -2981,8 +2981,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You discover that a malformed input to one of your MCP tools causes it to expose internal system paths in error messages. How should you fix this?",
       "options": [
         {
@@ -3029,8 +3029,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a tool that calls an external API with rate limits of 100 requests per minute. Your agentic system can generate up to 500 tool calls per minute. What is the correct architectural approach?",
       "options": [
         {
@@ -3077,8 +3077,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A multi-tenant system has customers A and B whose data must never mix. Both use the same agent system with the same tools. How do you implement data isolation?",
       "options": [
         {
@@ -3125,8 +3125,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to design a tool ecosystem for an agent that processes legal documents. The tools include: extract_entities, verify_citations, check_jurisdiction, calculate_deadlines, file_document, send_notification, archive_document, update_case. How should these be distributed across agents?",
       "options": [
         {
@@ -3173,8 +3173,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a tool that executes code snippets. What security controls must be implemented at the tool layer regardless of Claude's instructions?",
       "options": [
         {
@@ -3221,8 +3221,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "Your MCP server needs to expose a large corporate knowledge base (10,000 documents) to Claude agents. How should you design the interface for maximum efficiency?",
       "options": [
         {
@@ -3269,8 +3269,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A PostToolUse hook must handle results from tools that can return up to 50MB of data. Some agents need full data; others need summaries. How should the hook be designed?",
       "options": [
         {
@@ -3317,8 +3317,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing the tool interface for an agent that needs to interact with a database. The database has 50 tables. What is the most reliable tool design?",
       "options": [
         {
@@ -3365,8 +3365,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is the most robust way to ensure tool call ordering when you have three tools that must execute in sequence: authenticate fi fetch_data fi transform_data?",
       "options": [
         {
@@ -3413,8 +3413,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "When multiple agents share the same MCP server but need different levels of access, what is the correct pattern?",
       "options": [
         {
@@ -3461,8 +3461,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A tool that writes files accepts a path parameter. What validation should the tool perform to prevent path traversal attacks?",
       "options": [
         {
@@ -3509,8 +3509,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing MCP tooling for an enterprise with strict data residency requirements (EU data must never leave EU infrastructure). How do you enforce this at the MCP layer?",
       "options": [
         {
@@ -3557,8 +3557,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to build an MCP server that provides AI agents access to a large graph database. Queries can explore complex relationship networks. What tool design pattern is optimal?",
       "options": [
         {
@@ -3605,8 +3605,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A financial services firm needs MCP tools that interact with multiple core banking systems, each requiring different authentication mechanisms (OAuth2, API key, certificate). How do you design a unified tool interface?",
       "options": [
         {
@@ -3653,8 +3653,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need MCP tools for an agent that orchestrates complex multi-system workflows where each step may create resources that must be cleaned up if a subsequent step fails. What pattern enables reliable cleanup?",
       "options": [
         {
@@ -3701,8 +3701,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing MCP tooling for an agent that needs to interact with a regulatory compliance database with complex access rules: some users can see all data, others only their jurisdiction, others only non-confidential records. How do you implement this efficiently?",
       "options": [
         {
@@ -3749,8 +3749,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "An MCP tool that calls an external API starts returning different response schemas after the API provider's version upgrade. This breaks downstream agents. How do you design resilience against API schema changes?",
       "options": [
         {
@@ -3797,8 +3797,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to expose a machine learning model's predictions as an MCP tool. The model produces confidence scores and feature importances. How do you design the output to maximize agent usefulness?",
       "options": [
         {
@@ -3845,8 +3845,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design MCP tool observability for diagnosing why an agent is making unexpected tool selections in production?",
       "options": [
         {
@@ -3893,8 +3893,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A compliance team requires that every MCP tool call be approved by a policy engine before execution. The policy engine has 200ms average latency. How do you implement this without making the agent unbearably slow?",
       "options": [
         {
@@ -3941,8 +3941,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building an MCP tool ecosystem for an agent that performs security penetration testing. The same tools could be used for legitimate testing or malicious activity. How do you design appropriate safeguards?",
       "options": [
         {
@@ -3989,8 +3989,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design MCP tools for an agent operating in a hybrid cloud environment where some operations must be processed on-premises (for data compliance) and others can use cloud APIs?",
       "options": [
         {
@@ -4037,8 +4037,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "An MCP server wrapping a document database needs to handle the case where an agent's search returns 10,000 matching documents. What is the correct design?",
       "options": [
         {
@@ -4085,8 +4085,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to design an MCP tool for an agent that performs code refactoring. The refactoring involves reading source code and writing modified versions. What safety mechanisms must be built into the tool design?",
       "options": [
         {
@@ -4133,8 +4133,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should you design MCP tools for an agent working with real-time streaming data (stock prices, sensor readings, event streams)?",
       "options": [
         {
@@ -4181,8 +4181,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building MCP tooling for agents that need to interact with a legacy SOAP/XML API. How do you expose this cleanly to Claude agents?",
       "options": [
         {
@@ -4229,8 +4229,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design MCP tools that need to handle the 'fan-out read' pattern - where one logical request requires reading from 5 different systems and merging results?",
       "options": [
         {
@@ -4277,8 +4277,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need MCP tools for an agent that processes financial transactions where some must complete within 100ms (trading) and others have 5-second SLAs (settlement). How do you design for mixed latency requirements?",
       "options": [
         {
@@ -4325,8 +4325,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is the correct pattern for implementing 'tool result caching' in an MCP server to reduce redundant external API calls without serving stale data?",
       "options": [
         {
@@ -4368,27 +4368,19 @@
     }
   ],
   "quality": {
-    "score": 75,
-    "publishable": false,
+    "score": 100,
+    "publishable": true,
     "findings": [
       {
-        "severity": "error",
+        "severity": "info",
         "area": "balance",
-        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
-      },
-      {
-        "severity": "warn",
-        "area": "coverage",
-        "detail": "Only one domain (d1) and one concept are present, which is very narrow coverage."
-      },
-      {
-        "severity": "warn",
-        "area": "balance",
-        "detail": "Bloom distribution is entirely focused on 'recall' (100%)."
+        "detail": "Difficulty distribution is heavily skewed towards levels 2 and 3, with no questions at the highest (5) or lowest (1) levels. This is acceptable given the small sample size and single concept focus."
       }
     ],
-    "disputes": []
+    "disputes": [],
+    "published_at": "2026-08-08T17:59:42.135899+00:00"
   },
   "owner_email": "logus2k@gmail.com",
-  "held_at": "2026-08-08T17:34:17.449716+00:00"
+  "held_at": "2026-08-08T17:55:17.227697+00:00",
+  "visibility": "shared"
 }

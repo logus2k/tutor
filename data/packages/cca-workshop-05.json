@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "id": "cca-workshop-05",
   "title": "CCA Workshop 05 — Context Management & Reliability",
-  "description": "This package contains questions specifically related to the CCA Workshop 05 material.",
+  "description": "This package contains questions specifically from CCA Workshop 05, designed to test knowledge related to the workshop's content.",
   "generated_by": "tutor orchestrator.py (agent_server active chat model)",
-  "generated_at": "2026-08-08T17:18:58.601036+00:00",
+  "generated_at": "2026-08-08T17:56:21.488436+00:00",
   "sources": [
     {
       "id": "src-cca-workshop-05-questions",
@@ -1493,8 +1493,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are building a multi-agent research system. The synthesis agent receives combined output from 3 subagents totaling 45,000 tokens. Important findings are distributed throughout. How do you ensure the synthesis agent processes all findings?",
       "options": [
         {
@@ -1541,8 +1541,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A production agentic system is processing a user task and has accumulated 170,000 tokens. The task will require at least 50 more tool calls. What should happen?",
       "options": [
         {
@@ -1589,8 +1589,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should you implement a HITL workflow where a human approves a specific tool call before execution?",
       "options": [
         {
@@ -1637,8 +1637,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A complex task requires Claude to analyze a 150-page document and then generate a 30-page report. What context management strategy handles both phases?",
       "options": [
         {
@@ -1685,8 +1685,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A long-running agent session discovers at turn 40 that a key assumption it made at turn 3 was incorrect. How should this be handled?",
       "options": [
         {
@@ -1733,8 +1733,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to implement a multi-agent system where findings must be verified across multiple sources before inclusion in the final report. What reliability pattern applies?",
       "options": [
         {
@@ -1781,8 +1781,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the recommended context window management for a customer service agent handling a conversation that has lasted 2 hours with 180 messages?",
       "options": [
         {
@@ -1829,8 +1829,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A document processing pipeline must handle documents that arrive out of order. Context dependencies exist: document A must be processed before document B (B references A). How do you manage this?",
       "options": [
         {
@@ -1877,8 +1877,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What self-evaluation technique helps an agent assess whether its research findings are comprehensive enough to support a detailed report?",
       "options": [
         {
@@ -1925,8 +1925,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should an agent handle a tool call that could be irreversible (like sending an email)?",
       "options": [
         {
@@ -1973,8 +1973,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "An agentic system makes 15 tool calls in a row. Context is now at 160K tokens. Tool results account for 120K of those tokens. What is the most effective context reduction strategy?",
       "options": [
         {
@@ -2021,8 +2021,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When should a customer service agent proactively offer a human escalation without the customer asking?",
       "options": [
         {
@@ -2069,8 +2069,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A complex investigation session needs to be handed off from one engineer to another. The session has 45 turns. What information must the handoff include?",
       "options": [
         {
@@ -2117,8 +2117,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You need to implement a multi-agent system where a quality control agent reviews all other agents' outputs before they reach the user. How does this affect reliability?",
       "options": [
         {
@@ -2165,8 +2165,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What is the 'lost in the middle' problem and how do you mitigate it in long prompts?",
       "options": [
         {
@@ -2213,8 +2213,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "An agentic system for data analysis must handle both 'I need a quick summary' (2-3 tool calls) and 'perform comprehensive analysis' (30+ tool calls) requests. How do you design context management for both?",
       "options": [
         {
@@ -2261,8 +2261,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you implement graceful degradation when the primary tool fails in a multi-agent research system?",
       "options": [
         {
@@ -2309,8 +2309,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "What should an agent do when it detects that the user's request is ambiguous and could reasonably be interpreted two very different ways?",
       "options": [
         {
@@ -2357,8 +2357,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A multi-agent system produces a final synthesis report. How do you ensure subagent findings that contradict each other are handled correctly?",
       "options": [
         {
@@ -2405,8 +2405,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "When is it appropriate for an agent to start a sub-task in an independent context (fork) vs. continuing in the main context?",
       "options": [
         {
@@ -2453,8 +2453,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A customer service agent has successfully resolved an issue. Before ending the conversation, what reliability check should it perform?",
       "options": [
         {
@@ -2501,8 +2501,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How should an agent handle a user request that requires accessing systems the agent is not authorized to access?",
       "options": [
         {
@@ -2549,8 +2549,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You are managing a conversation where Claude is helping a user with a technical problem. After 40 turns, the user introduces a new, unrelated problem. How do you handle context management optimally?",
       "options": [
         {
@@ -2597,8 +2597,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you implement a 'context budget allocation' strategy for a multi-phase agent task (research fi analysis fi report) with a 200K token limit?",
       "options": [
         {
@@ -2645,8 +2645,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A long-running agent discovers mid-task that it needs a piece of information it retrieved at the beginning of the session (now likely compressed or dropped). What is the best recovery strategy?",
       "options": [
         {
@@ -2693,8 +2693,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you design a multi-agent system that can explain its reasoning process to a non-technical user after completing a complex task?",
       "options": [
         {
@@ -2741,8 +2741,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "You have a multi-agent system where a slow subagent is causing the coordinator to idle, wasting its context budget. How do you address this?",
       "options": [
         {
@@ -2789,8 +2789,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you manage context for a system where Claude must maintain awareness of a large (200-item) task checklist throughout a long workflow?",
       "options": [
         {
@@ -2837,8 +2837,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "How do you implement cross-session learning where an agent applies lessons from previous runs to improve future performance?",
       "options": [
         {
@@ -2885,8 +2885,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 3,
+      "bloom": "apply",
       "stem": "A long-running agent task requires writing intermediate outputs to files periodically. What context management benefit does this provide?",
       "options": [
         {
@@ -2933,8 +2933,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a long-running autonomous agent that processes tasks over multiple days. Each day the agent continues from where it left off. What is the complete state management architecture?",
       "options": [
         {
@@ -2981,8 +2981,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A real-time customer service agent is processing 1,000 concurrent conversations. Each conversation can last up to 2 hours. What context management architecture handles this at scale?",
       "options": [
         {
@@ -3029,8 +3029,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a reliability architecture for a medical AI assistant. What combination of reliability patterns is necessary?",
       "options": [
         {
@@ -3077,8 +3077,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A production agentic system experiences occasional hallucinations where it confidently asserts incorrect facts sourced from tool results it misread. How do you systematically reduce this?",
       "options": [
         {
@@ -3125,8 +3125,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to design a context-aware summarization strategy for a multi-agent system where different types of content have different retention requirements: legal citations (must preserve verbatim), numerical data (must be exact), and prose analysis (can be compressed).",
       "options": [
         {
@@ -3173,8 +3173,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A financial services multi-agent system must produce a complete audit trail for regulatory compliance. What information must be captured for every agent decision?",
       "options": [
         {
@@ -3221,8 +3221,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement a system where an agent can delegate to different expert agents based on discovered context - it doesn't know which experts it will need until mid-task. How do you manage context across dynamic agent spawning?",
       "options": [
         {
@@ -3269,8 +3269,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "An agent is investigating a complex production incident. After 30 turns, it has strong evidence for root cause A but is exploring whether root cause B also applies. Context is at 140K tokens. What is the optimal strategy?",
       "options": [
         {
@@ -3317,8 +3317,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A large-scale document processing system needs to process 100,000 documents over a weekend. Some documents may reference each other. How do you design the context management for cross-document references?",
       "options": [
         {
@@ -3365,8 +3365,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a quality assurance system where multiple Claude instances evaluate each other's work. What architecture prevents echo chambers where all instances agree on incorrect outputs?",
       "options": [
         {
@@ -3413,8 +3413,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A production multi-agent system experiences a cascade failure where one subagent's incorrect output causes downstream subagents to produce compounding errors. What architectural pattern prevents this?",
       "options": [
         {
@@ -3461,8 +3461,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is 'context poisoning' and how do you prevent it in multi-turn conversations?",
       "options": [
         {
@@ -3509,8 +3509,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How should an agent handle a situation where it needs information that exceeds what can be included in a single subagent's context?",
       "options": [
         {
@@ -3557,8 +3557,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You need to implement graceful degradation when a subagent fails in a critical pipeline. The pipeline cannot continue without the subagent's output. What is the correct architectural response?",
       "options": [
         {
@@ -3605,8 +3605,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is the 'telephone game' problem in multi-agent systems and how do you prevent it?",
       "options": [
         {
@@ -3653,8 +3653,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A real-time agent system must handle 500 concurrent users, each potentially in multi-turn conversations. What are the key reliability engineering considerations?",
       "options": [
         {
@@ -3701,8 +3701,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "An agent is given a task with an ambiguous success criterion: 'improve the codebase quality'. How should it handle this?",
       "options": [
         {
@@ -3749,8 +3749,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "What is the most important reliability metric to track for a production multi-agent system handling financial transactions?",
       "options": [
         {
@@ -3797,8 +3797,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing a production system where multiple Claude instances process parallel workstreams that will be synthesized. What context handoff protocol minimizes synthesis errors?",
       "options": [
         {
@@ -3845,8 +3845,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "An agent system must maintain contextual continuity across 30 days of operation on a single long-running project. What architecture achieves this at scale?",
       "options": [
         {
@@ -3893,8 +3893,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a fault-tolerant multi-agent system where any single agent can fail and the system continues operating with degraded but functional capability?",
       "options": [
         {
@@ -3941,8 +3941,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are building a compliance-critical system where every piece of information used in a decision must be traceable to its source. How do you implement complete information provenance?",
       "options": [
         {
@@ -3989,8 +3989,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a system that handles 'context inheritance' correctly - where child agents should inherit some parent context but not all?",
       "options": [
         {
@@ -4037,8 +4037,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A multi-agent medical diagnosis system must provide reliable diagnoses while acknowledging uncertainty appropriately. How do you design the uncertainty quantification?",
       "options": [
         {
@@ -4085,8 +4085,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are designing an agent that monitors a production system and takes corrective actions autonomously. What principles govern when to act vs. when to alert humans?",
       "options": [
         {
@@ -4133,8 +4133,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement 'explanation-level calibration' in a multi-agent system where different stakeholders need different levels of explanation detail?",
       "options": [
         {
@@ -4181,8 +4181,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "You are deploying a multi-agent system in a zero-trust security environment. Each agent must authenticate to access resources, even when called by another agent. How do you implement this without creating authentication bottlenecks?",
       "options": [
         {
@@ -4229,8 +4229,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you design a system where an agent can detect and recover from its own reasoning errors mid-task (before they cascade)?",
       "options": [
         {
@@ -4277,8 +4277,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "A production agentic system exhibits 'reasoning drift' - after long sessions, the agent's behavior gradually deviates from the original task specification. What is the cause and architectural fix?",
       "options": [
         {
@@ -4325,8 +4325,8 @@
       ],
       "type": "mcq_single",
       "render": "radio",
-      "difficulty": 2,
-      "bloom": "recall",
+      "difficulty": 4,
+      "bloom": "analyze",
       "stem": "How do you implement 'adaptive verbosity' in agent outputs - where the agent adjusts its explanation depth based on detected uncertainty and task criticality?",
       "options": [
         {
@@ -4368,27 +4368,19 @@
     }
   ],
   "quality": {
-    "score": 75,
-    "publishable": false,
+    "score": 100,
+    "publishable": true,
     "findings": [
       {
-        "severity": "error",
+        "severity": "info",
         "area": "balance",
-        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
-      },
-      {
-        "severity": "error",
-        "area": "balance",
-        "detail": "Bloom distribution is extremely skewed (100% Recall)."
-      },
-      {
-        "severity": "warn",
-        "area": "coverage",
-        "detail": "Only one domain (d1) and one concept are present, which limits overall coverage assessment."
+        "detail": "Difficulty distribution is heavily skewed towards levels 2 and 3, with no questions at the highest (5) or lowest (1) levels. This is acceptable given the small sample size and single domain."
       }
     ],
-    "disputes": []
+    "disputes": [],
+    "published_at": "2026-08-08T17:59:34.874135+00:00"
   },
   "owner_email": "logus2k@gmail.com",
-  "held_at": "2026-08-08T17:18:59.600140+00:00"
+  "held_at": "2026-08-08T17:56:22.463277+00:00",
+  "visibility": "shared"
 }
