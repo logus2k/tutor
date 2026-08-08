@@ -75,6 +75,7 @@ export class SessionsPanel {
     const active = this.activeId();
     for (const s of sessions) {
       const card = el('div', 'card session-card' + (s.id === active ? ' is-active' : ''));
+      card.dataset.sessionId = s.id;      // lets the breadcrumb scroll straight to a session
       const open = el('button', 'session-open');
       open.type = 'button';
       open.append(
@@ -194,6 +195,19 @@ export class SessionsPanel {
         box.append(row);
       }
     } catch (e) { box.innerHTML = ''; box.append(el('div', 'muted', 'Could not load packages.')); }
+  }
+
+  /** Bring a session card into view and flash it. Used by the breadcrumb's middle rung
+   *  and the status-bar session pill: there is no per-session VIEW, so "go to the session"
+   *  means "show the list, focused on that card". */
+  focusSession(id) {
+    const card = this.listEl.querySelector(`[data-session-id="${CSS.escape(String(id))}"]`);
+    if (!card) return false;
+    card.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    card.classList.remove('is-flashed');
+    void card.offsetWidth;                       // restart the animation
+    card.classList.add('is-flashed');
+    return true;
   }
 
   _activate(session) {

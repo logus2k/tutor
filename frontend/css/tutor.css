@@ -801,3 +801,34 @@ div.brand-text { margin-left: 5px; }
 .ingest-warn { background: #fffbeb;         color: #92400e;    border: 1px solid #fde68a; }
 .ingest-failed { background: var(--bad-soft); color: var(--bad); border: 1px solid #fecaca; }
 .ingest-cancelled { background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }
+
+/* ---- questions breadcrumb -------------------------------------------------
+   view-questions has no rail button; this bar is the way back to the session
+   list and to the session the package was opened from. */
+.qcrumb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .25rem;
+  padding-bottom: 10px; font-size: .82rem; line-height: 1.3;
+}
+.qcrumb:empty { display: none; }
+.qcrumb .crumb-link {
+  background: none; border: 0; padding: .1rem .25rem; cursor: pointer;
+  color: var(--link, #6ea8fe); font: inherit; border-radius: 4px;
+}
+.qcrumb .crumb-link:hover { text-decoration: underline; background: var(--hover, rgba(255,255,255,.06)); }
+/* First crumb's own left padding would indent its text ~4px vs the question text;
+   pull it back so the breadcrumb text starts on the same left edge. */
+.qcrumb .crumb-link:first-child { margin-left: -.25rem; }
+.qcrumb .crumb-sep { opacity: .45; }
+.qcrumb .crumb-current { font-weight: 600; }
+.qcrumb .crumb-pos { opacity: .7; margin-left: .15rem; }
+
+/* status-bar pills are navigation now, not just labels */
+.sb-pill-pkg, #sb-package { cursor: pointer; }
+.sb-pill-pkg:hover, #sb-package:hover { text-decoration: underline; }
+
+/* focusSession(): brief highlight so the target card is obvious after a jump */
+.session-card.is-flashed { animation: crumb-flash 1.1s ease-out 1; }
+@keyframes crumb-flash {
+  0%   { box-shadow: 0 0 0 2px var(--accent, #6ea8fe); }
+  100% { box-shadow: 0 0 0 2px transparent; }
+}

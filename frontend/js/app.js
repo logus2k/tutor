@@ -126,6 +126,7 @@ async function main() {
   renderIdentity();         // top-right: Anonymous / signed-in user
   wireNotifications();      // status-bar bell: study reminders + job notices
   wireRolePicker();         // status-bar role pill → role select popup
+  wireStatusBarNav();       // status-bar session/package pills navigate
 
   // Wall of Fame (per-package leaderboards). Refreshed on demand when shown.
   famePanel = new FamePanel($('fame-panel'), {
@@ -271,11 +272,65 @@ function persistAnswer(packageId, q, result) {
   }).catch(() => { /* non-fatal */ });
 }
 
+// ---- questions breadcrumb ----------------------------------------------
+// view-questions has no rail button, so without this the open package is only
+// reachable by re-opening it (which resets the student to question 1).
+let crumbPos = null;                     // {number,total} kept fresh by onQuestionChange
+
+function renderCrumb() {
+  const bar = $('qcrumb');
+  if (!bar) return;
+  bar.innerHTML = '';
+  if (!currentPackageId || !questionPanel) return;
+
+  const link = (label, title, onClick) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'crumb-link'; b.textContent = label; b.title = title;
+    b.addEventListener('click', onClick);
+    return b;
+  };
+  const sep = () => el('span', 'crumb-sep', '›');
+
+  bar.append(link('Sessions', 'All study sessions', () => showView('sessions')));
+
+  if (activeSession) {
+    bar.append(sep(), link(activeSession.name, 'Show this session in the list', () => {
+      showView('sessions');
+      if (sessionsPanel && sessionsPanel.focusSession) sessionsPanel.focusSession(activeSession.id);
+    }));
+  }
+
+  bar.append(sep());
+  const cur = el('span', 'crumb-current', questionPanel.pkg.title || currentPackageId);
+  bar.append(cur);
+  if (crumbPos && crumbPos.total) {
+    bar.append(el('span', 'crumb-pos', `· Q${crumbPos.number}/${crumbPos.total}`));
+  }
+}
+
 // ---- activity rail / left-pane view switching --------------------------
 
 const VIEWS = ['sessions', 'questions', 'catalog', 'documents', 'fame', 'review', 'settings'];
 
+// Where the student was before wandering off to Settings/Catalog/etc. In memory only:
+// it lives for this browser session and dies on reload, which is deliberate — the ACTIVE
+// SESSION is restored from the server on load, the scroll position within it is not.
+let lastStudyView = null;
+
+/** Re-show the questions view WITHOUT re-opening the package.
+ *  openPackage() re-fetches and re-renders from question 1, so routing "back" through it
+ *  silently resets the student's position — the whole bug this is meant to fix. */
+function returnToQuestions() {
+  if (!currentPackageId || !questionPanel) return false;
+  showView('questions');
+  return true;
+}
+
 function showView(name) {
+  // NB: openPackage() calls showView('questions') BEFORE it assigns currentPackageId,
+  // so this must not depend on it. The guard that matters lives at the return site,
+  // which checks a package is actually open.
+  if (name === 'questions') lastStudyView = 'questions';
   document.querySelectorAll('.rail-btn[data-view]').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
   for (const v of VIEWS) $(`view-${v}`).classList.toggle('hidden', v !== name);
 }
@@ -293,7 +348,14 @@ function wireRail() {
 
   document.querySelectorAll('.rail-btn[data-view]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const v = btn.dataset.view;
+      let v = btn.dataset.view;
+      // "Sessions" means "back to my session". If the student was studying a package,
+      // that is the questions view — the breadcrumb's first rung reaches the LIST.
+      if (v === 'sessions' && lastStudyView === 'questions' && currentPackageId && questionPanel) {
+        returnToQuestions();
+        setRailOpen(false);
+        return;
+      }
       showView(v);
       setRailOpen(false);   // selecting a section closes the drawer (mobile)
       // The Wall of Fame reflects live scores — reload it each time it's opened.
@@ -524,11 +586,13 @@ async function openPackage(entry) {
         chat.ask(buildPrompt(q, p, state));   // submit straight to the chat (don't just prefill)
       },
       // Keep the assistant aware of the question the student is on + its state.
-      onQuestionChange: (info) => context.setQuestion(
+      onQuestionChange: (info) => (
+        crumbPos = { number: info.index + 1, total: info.total }, renderCrumb(),
+        context.setQuestion(
         info.question,
         { answered: info.answered, correct: info.correct, selectedIds: info.selectedIds },
         info.index, info.total,
-      ),
+      )),
       // Persist each graded answer to the active study session (if signed in).
       onAnswered: (q, result) => persistAnswer(pkg.id, q, result),
       // Grounding tab toggle (between the nav buttons).
@@ -538,6 +602,7 @@ async function openPackage(entry) {
 
     // Restore saved answers (already fetched above, before shuffling).
     if (saved.length) questionPanel.applySaved(saved);
+    renderCrumb();
   } catch (e) {
     const msg = e instanceof PackageError ? e.message : `Unexpected error: ${e.message}`;
     mount.innerHTML = errBox('Could not load this package.', { message: msg });
@@ -848,6 +913,25 @@ function wireRolePicker() {
 }
 function setPackageStatus(title) { $('sb-package').textContent = title ? `📦 ${title}` : '📦 No package'; }
 function setSessionStatus(name) { const el = $('sb-session'); if (el) el.textContent = name ? `🎯 ${name}` : '🎯 No session'; }
+
+/** The status-bar pills already NAME the current session and package; make them go there
+ *  too. Same rule as the breadcrumb: the package pill re-shows the questions view, it
+ *  never re-opens the package (that would reset the student to question 1). */
+function wireStatusBarNav() {
+  const sess = $('sb-session');
+  if (sess) {
+    sess.title = 'Go to this session';
+    sess.addEventListener('click', () => {
+      showView('sessions');
+      if (activeSession && sessionsPanel && sessionsPanel.focusSession) sessionsPanel.focusSession(activeSession.id);
+    });
+  }
+  const pkg = $('sb-package');
+  if (pkg) {
+    pkg.title = 'Back to the open package';
+    pkg.addEventListener('click', () => { if (!returnToQuestions()) showView('catalog'); });
+  }
+}
 /** Assistant connection status → the colored pill in the bottom-right corner. */
 function setChatStatus(text, state = 'ready') {
   const pill = $('sb-status'); if (!pill) return;

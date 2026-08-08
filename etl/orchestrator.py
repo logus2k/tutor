@@ -635,38 +635,35 @@ def _clean_qa_text(s):
 
 _LEVEL_BANDS = (("beginner", 2, "recall"), ("intermediate", 3, "apply"), ("advanced", 4, "analyze"))
 
-def source_level_bands(text):
-    """{(lo, hi): (difficulty, bloom)} read from the document's OWN section headings.
+def source_level_map(text):
+    """{question ordinal: (difficulty, bloom)} from the document's OWN sectioning.
 
-    The CCA workshop modules declare their ramp explicitly:
-        "BEGINNER QUESTIONS        Questions 1-30"
-        "INTERMEDIATE QUESTIONS    Questions 31-60"
-        "ADVANCED QUESTIONS        Questions 61-90"
-    Reading that beats inferring thirds: a module split 20/40/30 would be graded wrong
-    by arithmetic that happens to be right for an even split.
+    The CCA modules split their bank under headings — "##### BEGINNER QUESTIONS",
+    "##### INTERMEDIATE QUESTIONS", "##### ADVANCED QUESTIONS" — and every question
+    after a heading belongs to that level. Walking the sections is more robust than
+    parsing the declared ranges: docling keeps the headings but DROPS the right-aligned
+    "Questions 1-30" from them (the ranges survive only in the overview table), and
+    sectioning copes with an uneven split that thirds-of-the-range would grade wrong.
 
-    Requires the word "questions" AND a bare N-M range on the line, so the summary table
-    row ("Beginner  Q1-Q30  Core concepts") and prose ("For Beginner questions, aim for
-    90%+") do not register as section headings.
+    Only a heading counts: "90 PRACTICE QUESTIONS - 30 BEGINNER ..." and the table row
+    "| Beginner | Q1-Q30 | ... |" do not start with a level word once decoration is
+    stripped, so they cannot move the cursor.
     """
-    bands = {}
+    out, cur = {}, None
     for ln in (text or "").split("\n"):
         s = ln.strip().lstrip("#").strip()
         low = s.lower()
-        if "question" not in low:
-            continue
-        for name, diff, bloom in _LEVEL_BANDS:
-            if not low.startswith(name):
-                continue
-            for tok in s.replace("\u2013", "-").replace("\u2014", "-").split():
-                lo, _, hi = tok.partition("-")
-                if lo.strip().isdigit() and hi.strip().isdigit():
-                    bands[(int(lo), int(hi))] = (diff, bloom)
+        if "question" in low:
+            for name, diff, bloom in _LEVEL_BANDS:
+                if low.startswith(name):
+                    cur = (diff, bloom)
                     break
-            break
-    return bands
+        n = _q_ordinal(s)
+        if n is not None and cur:
+            out[n] = cur
+    return out
 
-def import_difficulty(ordinal, max_ordinal, bands=None):
+def import_difficulty(ordinal, max_ordinal, levels=None):
     """(difficulty, bloom) for an imported question, from its position in a numbered doc.
 
     A numbered Q&A document usually ramps. The CCA workshop modules declare it outright:
@@ -679,9 +676,8 @@ def import_difficulty(ordinal, max_ordinal, bands=None):
     """
     if not ordinal:
         return (2, "recall")
-    for (lo, hi), val in (bands or {}).items():      # the document's own declaration wins
-        if lo <= ordinal <= hi:
-            return val
+    if levels and ordinal in levels:                 # the document's own sectioning wins
+        return levels[ordinal]
     if not max_ordinal:
         return (2, "recall")
     if ordinal <= max_ordinal / 3:
@@ -859,12 +855,13 @@ def main():
         _ords = [r.get("ordinal") for r in doc_imports if r.get("ordinal")]
         _omax = max(_ords) if _ords else 0
         _srcmap = source_answer_map(full_source())      # independent key check (see below)
-        _bands = source_level_bands(full_source())      # the doc's declared difficulty ramp
-        if _bands:
-            emit("import.levels", bands={f"{a}-{b}": v[0] for (a, b), v in _bands.items()})
+        _levels = source_level_map(full_source())       # the doc's own difficulty sections
+        if _levels:
+            import collections as _c
+            emit("import.levels", counts=dict(_c.Counter(v[0] for v in _levels.values())))
         for raw in doc_imports:
             qnum += 1; qid = f"q-{qnum:04d}"
-            _d, _b = import_difficulty(raw.get("ordinal"), _omax, _bands)
+            _d, _b = import_difficulty(raw.get("ordinal"), _omax, _levels)
             q = {"id": qid, "concept_ids": [ic["id"]], "type": raw["type"],
                  "render": "checkbox" if raw["type"] == "mcq_multi" else "radio",
                  "difficulty": _d, "bloom": _b,

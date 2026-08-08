@@ -11,7 +11,7 @@ meta-reference scrub, the package judge — must not be pointed at it.
 import pytest
 
 from etl.orchestrator import (
-    source_level_bands,
+    source_level_map,
     parse_qa, _clean_qa_text, _q_ordinal, _ans_letters, source_answer_map,
     import_difficulty, sanitize_question, dedup_and_order, dedup_questions,
     _OPT_RE, _ANS_RE,
@@ -397,48 +397,43 @@ class TestRealDocuments:
             pytest.skip("no fully-imported packages to check")
 
 
-# --------------------------------------------------------------- declared difficulty bands
-class TestDeclaredLevelBands:
-    """The documents DECLARE their ramp in section headings. Reading the declaration beats
-    inferring thirds — which is right only when the split happens to be even."""
+# --------------------------------------------------------------- declared difficulty levels
+class TestDeclaredLevels:
+    """The documents SECTION their bank by level. Walking those sections beats inferring
+    thirds, and beats parsing the declared ranges — docling keeps the headings but drops
+    the "Questions 1-30" text from them."""
 
-    HEADINGS = "\n".join([
-        "CCA FOUNDATIONS WORKSHOP",
+    DOC = "\n".join([
         "90 PRACTICE QUESTIONS - 30 BEGINNER . 30 INTERMEDIATE . 30 ADVANCED",
-        "Beginner            Q1-Q30      Core concepts and terminology",
-        "Intermediate        Q31-Q60     Application scenarios",
-        "Advanced            Q61-Q90     Production architecture",
-        "Work through each level in order. For Beginner questions, aim for 90%+.",
-        "BEGINNER QUESTIONS                    Questions 1-30",
-        "INTERMEDIATE QUESTIONS                Questions 31-60",
-        "ADVANCED QUESTIONS                    Questions 61-90",
+        "| Beginner     | Q1-Q30  | Core concepts |",
+        "| Intermediate | Q31-Q60 | Scenarios     |",
+        "##### BEGINNER QUESTIONS",
+        "##### Q1. First?", "##### Q2. Second?",
+        "##### INTERMEDIATE QUESTIONS",
+        "##### Q31. Third?",
+        "##### ADVANCED QUESTIONS",
+        "##### Q61. Fourth?",
     ])
 
-    def test_reads_the_declared_ranges(self):
-        bands = source_level_bands(self.HEADINGS)
-        assert bands == {(1, 30): (2, "recall"), (31, 60): (3, "apply"), (61, 90): (4, "analyze")}
+    def test_walks_the_sections(self):
+        assert source_level_map(self.DOC) == {
+            1: (2, "recall"), 2: (2, "recall"), 31: (3, "apply"), 61: (4, "analyze")}
 
-    def test_ignores_the_summary_table_and_prose(self):
-        """Only the section headings count: the overview row ("Beginner Q1-Q30 ...") and
-        the instructions ("For Beginner questions, aim for 90%+") must not register."""
-        only_noise = "\n".join(self.HEADINGS.split("\n")[:6])
-        assert source_level_bands(only_noise) == {}
+    def test_banner_and_table_row_do_not_move_the_cursor(self):
+        """"90 PRACTICE QUESTIONS - 30 BEGINNER ..." and "| Beginner | Q1-Q30 |" precede
+        the first real heading; a question before any heading must stay unassigned."""
+        doc = "\n".join(self.DOC.split("\n")[:3] + ["##### Q1. Before any section?"])
+        assert source_level_map(doc) == {}
 
-    def test_en_dash_ranges(self):
-        md = "BEGINNER QUESTIONS   Questions 1–30"
-        assert source_level_bands(md) == {(1, 30): (2, "recall")}
-
-    def test_declaration_beats_positional_thirds(self):
-        """An UNEVEN split is where the two disagree — and where inferring is wrong."""
-        bands = {(1, 20): (2, "recall"), (21, 60): (3, "apply"), (61, 90): (4, "analyze")}
-        assert import_difficulty(25, 90, bands) == (3, "apply"), "declared: intermediate"
+    def test_sectioning_beats_positional_thirds_on_an_uneven_split(self):
+        levels = {25: (3, "apply")}                    # doc says Q25 is intermediate
+        assert import_difficulty(25, 90, levels) == (3, "apply"), "the document decides"
         assert import_difficulty(25, 90) == (2, "recall"), "thirds alone would say beginner"
 
-    def test_falls_back_to_thirds_when_undeclared(self):
+    def test_falls_back_to_thirds_when_unsectioned(self):
         assert import_difficulty(10, 90, {}) == (2, "recall")
         assert import_difficulty(45, 90, None) == (3, "apply")
         assert import_difficulty(80, 90, {}) == (4, "analyze")
 
-    def test_ordinal_outside_every_declared_band_uses_the_fallback(self):
-        bands = {(1, 30): (2, "recall")}
-        assert import_difficulty(75, 90, bands) == (4, "analyze")
+    def test_ordinal_missing_from_the_map_uses_the_fallback(self):
+        assert import_difficulty(75, 90, {1: (2, "recall")}) == (4, "analyze")
