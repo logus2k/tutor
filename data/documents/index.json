@@ -524,6 +524,41 @@
       "file": "claude-code-cli-study-guide.md",
       "kind": "pdf",
       "uploaded_at": "2026-08-01T21:37:38.256991+00:00"
+    },
+    {
+      "id": "cca-workshop-01-questions",
+      "title": "CCA Workshop 01 Questions",
+      "file": "CCA_Workshop_01_Questions.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-08T17:17:12.429105+00:00"
+    },
+    {
+      "id": "cca-workshop-04-questions",
+      "title": "CCA Workshop 04 Questions",
+      "file": "CCA_Workshop_04_Questions.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-08T17:18:23.230659+00:00"
+    },
+    {
+      "id": "cca-workshop-05-questions",
+      "title": "CCA Workshop 05 Questions",
+      "file": "CCA_Workshop_05_Questions.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-08T17:18:47.655893+00:00"
+    },
+    {
+      "id": "cca-workshop-03-questions",
+      "title": "CCA Workshop 03 Questions",
+      "file": "CCA_Workshop_03_Questions.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-08T17:22:13.579123+00:00"
+    },
+    {
+      "id": "cca-workshop-02-questions",
+      "title": "CCA Workshop 02 Questions",
+      "file": "CCA_Workshop_02_Questions.pdf",
+      "kind": "pdf",
+      "uploaded_at": "2026-08-08T17:33:59.156364+00:00"
     }
   ]
 }

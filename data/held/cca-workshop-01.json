@@ -1,0 +1,4394 @@
+{
+  "schema_version": "1.0",
+  "id": "cca-workshop-01",
+  "title": "CCA Workshop 01 — Agentic Architecture & Orchestration",
+  "description": "This package contains questions specifically related to the CCA Workshop 01 material.",
+  "generated_by": "tutor orchestrator.py (agent_server active chat model)",
+  "generated_at": "2026-08-08T17:17:26.357465+00:00",
+  "sources": [
+    {
+      "id": "src-cca-workshop-01-questions",
+      "title": "CCA Workshop 01 Questions",
+      "kind": "pdf",
+      "extractor": "docling+enrich",
+      "uri": "documents/CCA_Workshop_01_Questions.pdf"
+    }
+  ],
+  "source_ids": [
+    "src-cca-workshop-01-questions"
+  ],
+  "taxonomy": {
+    "domains": [
+      {
+        "id": "d0-d1",
+        "title": "CCA Workshop 01 Questions",
+        "weight": 1.0
+      }
+    ]
+  },
+  "concepts": [
+    {
+      "id": "d0-c-1",
+      "domain": "d0-d1",
+      "objective": "1",
+      "title": "CCA Workshop 01 Questions",
+      "summary": "",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4",
+          "text": "Domain 1 - 27%\n\n##### Agentic Architecture & Orchestration\n\nDomain 1 - 27% of the CCA exam\n\n##### IN THIS MODULE:\n\n- F Agentic loops: stop\\_reason, tool\\_use patterns\n- F Coordinator / subagent hub-and-spoke design\n- F PreToolUse and PostToolUse hooks\n- F Multi-agent parallelism and session forking\n- F Handoff protocols and HITL escalation\n\n90 PRACTICE QUESTIONS - 30 BEGINNER · 30 INTERMEDIATE · 30 ADVANCED\n\n##### QUESTION BANK OVERVIEW\n\n| Level        | Questions   | Focus                                                 |\n|--------------|-------------|-------------------------------------------------------|\n| Beginner     | Q1-Q30      | Core concepts, terminology, and foundational patterns |\n| Intermediate | Q31-Q60     | Application scenarios, design decisions, trade-offs   |\n| Advanced     | Q61-Q90     | Production architecture, edge cases, system design    |\n\n##### HOW TO USE THIS MODULE\n\nWork through each level in order. For Beginner questions, aim for 90%+ before moving to Intermediate. For Intermediate, 80%+ before Advanced. Each question includes the correct answer and a full explanation - read the explanation even for questions you answered correctly to understand the underlying principle. The exam tests judgment, not memorization.\n\n##### BEGINNER QUESTIONS\n\n##### Q1. What is an agentic loop?\n\n- A) A Claude feature that generates multiple response options for the user to choose from\n- B) A control-flow pattern where Claude is repeatedly called, tools are executed b",
+          "citation": "CCA Workshop 01 Questions"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "d0-q-0001",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is an agentic loop?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A Claude feature that generates multiple response options for the user to choose from",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "A control-flow pattern where Claude is repeatedly called, tools are executed based on its requests, and results are fed back until Claude signals completion",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A type of prompt that asks Claude to reason step-by-step",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "A method for caching repeated API calls to reduce cost",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0002",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Which stop_reason value means Claude wants to call a tool?",
+      "options": [
+        {
+          "id": "a",
+          "text": "'tool_call'",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "'function_call'",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "'tool_use'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "'action_required'",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0003",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "In a hub-and-spoke multi-agent architecture, what does the coordinator do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The coordinator executes all tools directly, bypassing subagents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The coordinator manages inter-agent communication, decomposes tasks, delegates to subagents, and aggregates results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The coordinator is a monitoring agent that only observes other agents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The coordinator stores conversation history for all subagents",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0004",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Do subagents automatically inherit the coordinator's conversation history?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Yes - all agents in a system share a common memory pool",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Yes - subagents receive the last 10 messages from the coordinator by default",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "No - subagents have isolated context; the coordinator must explicitly pass required information",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only if you enable shared_memory in the agent configuration",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0005",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the anti-pattern of using an 'arbitrary iteration cap' as the primary loop termination mechanism?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Setting max_tokens too high causes loops to run forever",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Stopping the loop after exactly N iterations regardless of whether Claude has finished - this can terminate tasks prematurely or mask logic errors",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Checking the number of tool calls to decide when Claude is done",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Using a timer to stop the loop after a fixed duration",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0006",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What information must you append to the messages array when a tool call occurs in an agentic loop?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only the tool result as a new user message string",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "First Claude's full response (with the tool_use block), then a user message containing the tool_result block(s)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only the tool_use block extracted from Claude's response",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "A summary of what the tool returned as a new assistant message",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0007",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the Task tool used for in the Claude Agent SDK?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Defining which tools Claude can use in an agentic loop",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Spawning subagents - a coordinator uses Task to invoke a subagent with a specific prompt",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Scheduling tasks to run at a specific time",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Breaking a user request into subtasks automatically",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0008",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the difference between model-driven decision making and pre-configured tool sequences?",
+      "options": [
+        {
+          "id": "a",
+          "text": "They are the same - Claude always follows a pre-configured sequence",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Model-driven: Claude reasons about which tool to call based on context. Pre-configured: tools are called in a fixed order regardless of Claude's assessment",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Pre-configured sequences are faster but model-driven is more accurate",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Pre-configured sequences use the Batch API; model-driven uses the streaming API",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0009",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should you avoid parsing natural language signals to determine loop termination?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Natural language parsing is computationally expensive",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude's text output is non-deterministic - the same intent may be expressed differently across calls, making text-based termination unreliable",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The API doesn't provide access to text content during the loop",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Natural language signals only work with claude-opus",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0010",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "In a multi-agent research system, a web search subagent finds relevant documents. How should these be passed to the synthesis subagent?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The synthesis subagent can access them via shared memory",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The coordinator stores them in a database and gives the synthesis agent a lookup key",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The coordinator explicitly includes the complete web search findings in the synthesis subagent's task prompt",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The synthesis subagent automatically sees all prior agent outputs",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0011",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does 'task decomposition' mean in the context of agentic systems?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Splitting a large language model into smaller, faster components",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Breaking a complex user request into smaller subtasks that can be assigned to specialized agents or handled sequentially",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Dividing a context window into sections for different types of content",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Distributing API calls across multiple Anthropic accounts",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0012",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is a PostToolUse hook?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A callback that runs before every tool call to decide whether to allow it",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "A function that intercepts and can transform tool results before Claude processes them",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A post-processing step that runs after the entire agentic loop completes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "A monitoring hook that logs tool calls to an external system",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0013",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is a PreToolUse hook used for?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Pre-loading tools into memory before the agentic loop starts",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Intercepting outgoing tool calls to enforce compliance rules - blocking or redirecting calls that violate policy",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Pre-validating user input before it reaches Claude",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Caching frequent tool calls for performance",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0014",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should you use fork_session in an agentic workflow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "When you need to restart an agent from the beginning",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "When you want to explore two or more different approaches from a shared analysis baseline without affecting the original session",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "When a subagent needs to share context with the coordinator",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "When the context window is nearly full",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0015",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is a structured handoff summary and when is it required?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A summary generated at the start of a session to orient the agent",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "A structured data package compiled when escalating to a human or downstream system that has no access to the conversation transcript",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A token-compressed version of the context window",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The output format of the synthesis subagent",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0016",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Which of the following is the CORRECT way to terminate an agentic loop?",
+      "options": [
+        {
+          "id": "a",
+          "text": "if response.content[0].text == 'DONE': break",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "if turn_count > 20: break",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "if response.stop_reason == 'end_turn': break",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "if response.done == True: break",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0017",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does 'isolated context' mean for subagents?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Subagents run in a separate Python process for memory isolation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Each subagent starts with only the context explicitly provided in its prompt - no automatic inheritance of parent or sibling agent context",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Subagents can only access tools marked as isolated in their configuration",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Subagent outputs are encrypted to prevent cross-contamination",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0018",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "In a customer support agent, which sequence is REQUIRED for financial operations?",
+      "options": [
+        {
+          "id": "a",
+          "text": "process_refund fi get_customer (refund first, verify second for speed)",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "get_customer fi verify_identity fi process_refund (verify before acting)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The order doesn't matter if Claude has good instructions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "process_refund fi send_confirmation fi get_customer",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0019",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the purpose of the AgentDefinition in the Agent SDK?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It defines the API key and rate limits for a Claude agent",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It specifies the agent's system prompt, allowed tools, model version, and description",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It sets the maximum number of iterations for the agentic loop",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It defines the output schema for the agent's final response",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0020",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are spawning 3 subagents in parallel. How do you emit multiple Task tool calls in a single coordinator response?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Call the API 3 times in rapid succession",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Emit multiple Task tool calls in a single coordinator response turn - Claude can request multiple tools in one turn",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use the parallel=True parameter in the Task tool definition",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Parallel subagent spawning is not supported - use sequential calls",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0021",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the significance of the tool_use block's id field?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It identifies the API session that generated the tool call",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It must be included in the tool_result's tool_use_id field to link the result back to the specific tool request - required for correct routing when multiple tools are called in one turn",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It is used for billing and rate limiting purposes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It identifies which subagent generated the tool call",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0022",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the difference between a 'worker agent' and a 'coordinator agent'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Worker agents use cheaper models; coordinator agents use expensive models",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Worker agents execute specific specialized tasks with limited tools; coordinator agents decompose tasks, delegate to workers, and synthesize results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Worker agents run in parallel; coordinator agents run sequentially",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "There is no architectural difference - the terms are interchangeable",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0023",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should tools passed to Claude have the minimum necessary set rather than all available tools?",
+      "options": [
+        {
+          "id": "a",
+          "text": "More tools increase API costs proportionally",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Fewer, focused tools improve selection accuracy; too many tools increase decision complexity and the probability Claude selects an inappropriate tool",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The API has a hard limit of 10 tools per request",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Unused tools are automatically removed by the SDK",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0024",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What must you include in the messages array when Claude requests multiple tools in a single turn?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One user message per tool result, sent in separate API calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude's full multi-tool response appended as an assistant turn, then a single user turn containing ALL tool_result blocks",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only the results for tools that succeeded; skip failed tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Each tool result in a separate assistant-role message",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0025",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the 'minimal footprint' principle in agentic system design?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Using the cheapest model possible to reduce costs",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Requesting only necessary permissions, avoiding storing sensitive data beyond immediate needs, and preferring reversible actions over irreversible ones",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Minimizing the number of API calls in a workflow",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Keeping system prompts as short as possible",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0026",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is an 'agentic loop with safety rails'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "An agentic loop that only calls safe, read-only tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "An agentic loop augmented with programmatic checks (hooks, gates, iteration limits) that prevent runaway behavior, policy violations, or irreversible mistakes",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "An agentic loop that requires human approval for every tool call",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "A loop that validates Claude's outputs using a second Claude call",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0027",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "In the Agent SDK, what happens when a subagent encounters an error it cannot resolve?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The entire pipeline terminates immediately",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The subagent should return a structured error result including what was attempted, what failed, partial results if any, and recommended recovery action for the coordinator",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The SDK automatically retries the subagent 3 times before terminating",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The error is silently swallowed and an empty result is returned",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0028",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the purpose of the 'description' field in an AgentDefinition?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It is documentation for developers - not seen by Claude",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It describes the agent's capabilities so the coordinator can make intelligent delegation decisions about when to invoke this agent",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It sets the agent's response language",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It defines the maximum number of tool calls the agent can make",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0029",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should agentic loops include a maximum iteration count as a secondary safeguard?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The primary exit condition; without it, loops run forever",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "A secondary safety net that catches runaway loops caused by bugs (stuck in tool error retries, infinite reasoning loops) - the primary exit condition remains stop_reason='end_turn'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "To control API costs by limiting the number of calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Because Claude always hits the iteration limit before reaching end_turn",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0030",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is 'context poisoning' in a multi-agent system and how does it happen?",
+      "options": [
+        {
+          "id": "a",
+          "text": "When a subagent's verbose output fills the coordinator's context window",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "When a malicious or malformed tool result contains instruction-like text that overrides the agent's intended behavior in subsequent turns",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "When too many agents share the same context simultaneously",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "When cached prompts become stale and return outdated information",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0031",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A coordinator receives results from three parallel subagents and notices one returned an error while two succeeded. What is the best coordinator behavior?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Fail the entire pipeline - all subagents must succeed",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Proceed with the two successful results; include partial failure context in the synthesis prompt; attempt targeted retry of the failed subtask",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Discard all results and re-run all three subagents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return the error to the user immediately without synthesizing partial results",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0032",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is 'iterative refinement' in multi-agent research systems?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Gradually increasing max_tokens until Claude produces a satisfactory answer",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The coordinator evaluates synthesis output for gaps and coverage, then re-delegates targeted queries to subagents until quality criteria are met",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Running the same research query multiple times and averaging results",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Iteratively compressing the context window to fit within limits",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0033",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why does giving subagents access to too many tools degrade performance?",
+      "options": [
+        {
+          "id": "a",
+          "text": "More tools increase API latency proportionally",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Too many tools increases decision complexity - Claude is more likely to select the wrong tool or use an out-of-scope tool for its role",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The Agent SDK has a hard limit of 5 tools per agent",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tool costs scale quadratically with the number of tools defined",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0034",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should you use prompt chaining (sequential fixed pipeline) vs dynamic adaptive decomposition?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always use prompt chaining - dynamic decomposition is unpredictable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use prompt chaining for predictable multi-aspect workflows (code review: security pass fi performance pass fi style pass). Use dynamic decomposition for open-ended investigation where subtasks depend on discovered findings",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use dynamic decomposition for all production systems",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Prompt chaining is only for single-model pipelines; dynamic is for multi-agent",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0035",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You have a coordinator with a broad research task. How should you decompose it across subagents to minimize duplicate work?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Assign the entire task to each subagent - they'll naturally cover different aspects",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Assign each subagent distinct subtopics or source types, explicitly partitioning scope so there is no overlap",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Let the coordinator decide dynamically which subagent to use for each query without pre-partitioning",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Run all subagents on the same topic and keep the best result",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0036",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A PostToolUse hook needs to handle results from 3 different MCP tools that each return timestamps in different formats: Unix epoch, ISO 8601, and US date strings. What is the hook's responsibility?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Reject results with non-standard timestamp formats",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Normalize all timestamp formats to a single canonical format (e.g., ISO 8601) before returning results to Claude",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Ask Claude to interpret the timestamp format in each tool result",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Pass timestamps through unchanged - Claude can handle multiple formats",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0037",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What should a coordinator's system prompt specify about research quality criteria?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Step-by-step procedural instructions for exactly how to conduct research",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Research goals, quality criteria, and coverage requirements - enabling subagents to adapt their approach while meeting defined standards",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A list of approved websites subagents are allowed to search",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The exact number of sources each subagent must find",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0038",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to handle a customer request that involves 3 separate issues: a billing dispute, a missing shipment, and an account upgrade request. How should the agent handle this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Address only the first issue - ask the customer to contact again for others",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Decompose into 3 distinct items, investigate each in parallel using shared customer context, then synthesize a unified resolution",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Escalate immediately - multi-issue requests are too complex for automation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Handle issues sequentially, completing one fully before starting the next",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0039",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What structured data format should you use when passing context between agents to preserve attribution (which sources contributed which facts)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Plain text concatenation of all findings",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "JSON with content and metadata separated: {content: ..., source: {url, page, agent, timestamp}}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Base64-encoded conversation history from the source agent",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "XML with CDATA sections for source content",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0040",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When is it appropriate to start a fresh session with an injected summary vs. resuming a prior session?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always resume - starting fresh loses all prior context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Resume when prior context is mostly valid. Start fresh with a summary when prior tool results are stale (files changed, data updated) or when context window is too large",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always start fresh - session resumption is unreliable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Resume for tasks under 10 turns; start fresh for longer tasks",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0041",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A customer support agent escalates to a human. The human has never seen the conversation. What information MUST the handoff summary include?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The full conversation transcript",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Customer ID, issue root cause, steps already taken, what failed, recommended action, and urgency level",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Just the customer's last message and the agent's assessment",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The agent's confidence score and model version",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0042",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing a code review multi-pass system. Why should the integration review pass run separately from per-file reviews?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Integration reviews require a different Claude model",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Per-file reviews dilute attention when combined with cross-file analysis; separate passes allow focused attention on local vs. architectural issues",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The API has a limit of one file per request",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Integration passes must run before per-file passes for correctness",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0043",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How does the Explore subagent help manage context in multi-phase tasks?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It compresses large files before they're added to the context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It runs verbose discovery in an isolated sub-context and returns only a concise summary to the main session, preventing context window exhaustion",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It monitors context usage and pauses the task when limits approach",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It's a specialized subagent that only reads files, never writes them",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0044",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the risk of 'overly narrow task decomposition' by a coordinator?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Narrow tasks run faster but produce lower quality output",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "When subtasks are too narrow, important cross-cutting concerns fall between the cracks - no subagent covers the boundary areas",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Narrow decomposition forces too many parallel subagent spawns",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Subagents reject tasks that are too narrowly scoped",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0045",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You resume a named session with --resume, but several files it analyzed have changed. What is the correct approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The agent automatically detects file changes - no special handling needed",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Inform the agent explicitly about which files changed and request targeted re-analysis of those files",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Start a completely fresh session - resumption is unreliable after any file changes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Re-run all discovery tools from scratch before continuing the task",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0046",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the relationship between allowedTools and the Task tool in the Agent SDK?",
+      "options": [
+        {
+          "id": "a",
+          "text": "allowedTools restricts which external APIs subagents can call",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The Task tool must be explicitly included in allowedTools for a coordinator agent to spawn subagents",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "allowedTools auto-includes Task when multiple subagents are configured",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Task is a system tool not listed in allowedTools",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0047",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A refund subagent encounters a transient API timeout when calling the payment system. Should it retry locally or propagate to the coordinator?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always propagate - subagents should never handle errors independently",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Retry locally for transient errors (timeouts, 503s) with backoff; propagate to coordinator only errors that cannot be resolved locally, along with partial results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always propagate - the coordinator has the full picture needed for recovery decisions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Terminate the entire pipeline - transient errors indicate system instability",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0048",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When designing a coordinator for a multi-agent system, what distinguishes a good coordinator prompt from a poor one?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Good prompts list every step the coordinator must take; poor prompts are vague",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Good prompts specify objectives and quality criteria and let Claude determine approach; poor prompts are rigidly procedural and brittle to unexpected scenarios",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Good prompts are shorter and more concise; poor prompts are too long",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Good prompts specify the exact subagents to invoke in order; poor prompts let Claude decide which subagents to use",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0049",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is session forking most useful for in an agentic development workflow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Creating backup copies of important sessions in case of failure",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Exploring multiple competing implementation strategies or architectural approaches from a shared codebase analysis baseline without committing to either",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Running the same task on different codebases simultaneously",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Splitting a large task across multiple sessions for parallel processing",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0050",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A coordinator needs to assign distinct research domains to three subagents for a market research report. What information should each subagent's task prompt include?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only the research question - subagents should determine their own scope",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Their specific assigned domain, quality criteria, output format, and what other subagents are covering (to avoid duplication)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The coordinator's full conversation history for maximum context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The complete research question plus instructions to cover all aspects",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0051",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should a research coordinator spawn subagents with goal-oriented system prompts rather than step-by-step procedural instructions?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Goal-oriented prompts are shorter, saving tokens",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Goals enable subagents to adapt their approach when initial strategies don't work, while procedural steps become brittle when reality doesn't match the anticipated sequence",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Procedural prompts cause the Agent SDK to raise validation errors",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Goal-oriented prompts are required by the Anthropic terms of service",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0052",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "An agentic system is tasked with migrating a database schema. Which action requires mandatory human approval before execution?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Reading the current schema",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Generating a migration script",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Executing the migration script against the production database - this is irreversible without a restore",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Validating the migration in a test environment",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0053",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does it mean for a coordinator to 'manage communication topology' in a multi-agent system?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Controlling which network ports agents use for communication",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Determining which agents can communicate with which others - in hub-and-spoke, all communication routes through the coordinator; in mesh, agents communicate peer-to-peer",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Encrypting messages between agents for security",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Limiting the number of messages each agent can send",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0054",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the recommended strategy when two parallel subagents both need the same expensive external API data?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Each subagent calls the API independently - duplication is acceptable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The coordinator pre-fetches the shared data once before spawning subagents and includes it in both subagents' task context, avoiding duplicate API calls",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Spawn a third 'data fetcher' subagent and have both subagents wait for it",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Let the first subagent fetch and share with the second via coordinator",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0055",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When a subagent successfully completes its task but identifies a related issue outside its scope, what should it do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Expand its scope and address the related issue immediately",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Complete its assigned task, include the related finding in a separate out_of_scope_observations field in its output, and let the coordinator decide whether to address it",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Ignore the out-of-scope finding - scope discipline is more important",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Spawn a new subagent to address the related issue autonomously",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0056",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A coordinator has dispatched 5 subagents in parallel. Two return quickly; three are slow. What is the optimal strategy for the coordinator's wait behavior?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Wait for all 5 before proceeding - partial results are unreliable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a timeout: proceed with available results after N seconds, include a 'pending' flag for slow agents, attempt to incorporate late results if they arrive before synthesis completion",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Cancel slow subagents after the timeout and discard their scope",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Restart slow subagents with higher priority",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0057",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to build an agentic system that maintains a 'task graph' - tracking which subtasks are complete, in-progress, blocked, or failed. Where should this state live?",
+      "options": [
+        {
+          "id": "a",
+          "text": "In the coordinator's context window as a running list",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "In an external data store (database, Redis) so it persists across session restarts, enables progress monitoring, and survives context window resets",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "In Claude's memory using the /state API",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "In the tool results of a dedicated state_tracking tool",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0058",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the correct behavior when a coordinator subagent delegation produces output that is too long to fit in the coordinator's next API call?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Truncate the output - the coordinator must process whatever fits",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The coordinator requests a summary from the subagent as a follow-up, or the subagent proactively returns both a full_result and an executive_summary - coordinator uses the summary for its context",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Increase max_tokens on the coordinator call to accommodate",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Split the coordinator call into multiple calls that each receive part of the output",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0059",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing a system where multiple Claude agents must maintain consistency about a shared 'world state' (e.g., inventory levels in a warehouse). How do you prevent agents from making conflicting decisions?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use a single shared Claude session for all agents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement optimistic locking on the world state: agents read state, make decisions, attempt to write with a version check - if version changed since read, retry with fresh state",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Route all state changes through the coordinator agent",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Freeze world state updates during agent execution",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0060",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A multi-agent pipeline has 3 stages: Research fi Analysis fi Report. The Analysis stage always fails when Research produces more than 5 findings. What is the correct fix?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Limit Research to finding at most 5 items",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Have the coordinator add a Summarize stage between Research and Analysis that condenses findings to an Analysis-compatible format, preserving key data while reducing volume",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Increase the Analysis agent's max_tokens",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Run multiple Analysis agents in parallel, each handling some findings",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0061",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing a financial services multi-agent system. Identity verification MUST precede any account modification. The team has added this to the system prompt and sees 2% of requests bypass verification. What is the root cause and correct fix?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Increase the emphasis in the system prompt - add more explicit warnings",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The 2% failure rate is acceptable for low-risk operations",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "System prompt instructions are probabilistic - implement a programmatic PreToolUse hook that blocks all account modification tools until get_customer returns a verified ID field",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use claude-opus for higher instruction-following compliance",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0062",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to implement a multi-agent system where a research coordinator spawns subagents dynamically based on what it discovers - not a fixed pipeline. What architecture pattern best supports this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Define all possible subagents upfront in a fixed pipeline with conditional execution",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a coordinator that generates a task plan based on initial findings, spawns appropriate subagents based on the plan, and iteratively refines based on results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a single agent with many tools instead of subagents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Pre-spawn all subagents and let them work in parallel from the start",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0063",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A PostToolUse hook receives results from a tool that sometimes returns successfully with empty results (valid empty query) and sometimes fails with an access error. How should the hook differentiate these?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Both empty results and errors indicate failure - treat them identically",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Empty results (isError: false, data: []) represent successful queries with no matches; access errors (isError: true) represent actual failures requiring different handling",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Check the HTTP status code returned by the hook framework",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Ask Claude to interpret whether the result represents success or failure",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0064",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building an enterprise document analysis system where the coordinator must handle documents ranging from 1-page memos to 500-page reports. How should context passing between agents be designed?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always pass complete documents to all agents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Pass metadata first; subagents request specific sections via MCP resources; large documents are chunked with coordinator managing section routing",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Split all documents into 1,000-token chunks regardless of content",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Limit analysis to documents under 50 pages",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0065",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A complex agentic workflow has been running for 45 minutes and has accumulated 175,000 tokens of context including tool results. The task is 70% complete. What is the optimal strategy?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Continue - 175K is within the 200K limit",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Immediately summarize findings to date, checkpoint key decisions and data, start a fresh session injecting the checkpoint, and continue from 70%",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Reduce max_tokens on future calls to slow context growth",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Delete all tool results from history to free context space",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0066",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should a multi-agent system handle a scenario where two subagents return contradictory findings about the same fact?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use the first subagent's finding - earlier results are more reliable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Discard both findings and re-run both subagents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The coordinator should flag the contradiction explicitly, spawn a verification subagent with both claims and their sources, and include the conflict resolution in the synthesis",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Average the two contradictory values",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0067",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need maximum hook reliability for a PreToolUse hook that blocks a high-value financial operation. What implementation guarantees the hook cannot be bypassed?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Make the hook logic very clear in comments",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement the hook at the infrastructure layer (API gateway/middleware) rather than in the LLM orchestration layer - infra-level enforcement cannot be bypassed by prompt injection",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use claude-opus which has higher compliance rates",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Add the hook logic to the system prompt as a redundant safety",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0068",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing a session resumption strategy for a long-running code investigation. The previous session analyzed 200 files. Today, 15 files have been modified. What is the optimal resumption approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Re-analyze all 200 files from scratch",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Resume the session and inform it about the 15 changed files for targeted re-analysis; trust prior findings for the 185 unchanged files",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Start fresh without resumption - any changed files invalidate all prior context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Resume without mentioning changed files - the agent will detect them automatically",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0069",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A production multi-agent system has an intermittent bug where the synthesis subagent occasionally produces reports missing data from the analysis subagent. All context passing looks correct. What is the most likely root cause?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The synthesis model (haiku) lacks capacity for large analysis outputs",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The analysis subagent's output is being passed but occasionally exceeds the synthesis subagent's effective attention window - important findings late in long outputs are missed",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The coordinator is spawning synthesis before analysis completes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tool results are being cached and serving stale analysis data",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0070",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to implement a compliance audit trail for an agentic system processing financial transactions. What information must be logged for each agent action?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only the final transaction outcome",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "For each action: agent_id, tool_called, tool_inputs, tool_outputs, timestamp, session_id, hook_decisions (blocked/allowed), and the stop_reason that led to each tool call",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The full conversation history in encrypted form",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Model version and temperature settings for each call",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0071",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is 'prompt injection' in the context of agentic systems and why is it dangerous?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Injecting additional context into the system prompt before deployment",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Malicious content in external data (web pages, documents) that attempts to hijack agent actions by embedding fake instructions",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Overloading the prompt with too many instructions, causing the model to ignore some",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Injecting tool results into the prompt instead of the messages array",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0072",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A coordinator agent must handle a scenario where a subagent reports it successfully completed a task but returns empty results. What should the coordinator do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Accept the success claim - the subagent reported success",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Validate results against expected output criteria; if results are empty but task should have produced data, treat as a failure and request retry with diagnostic information",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Immediately escalate to human - inconsistent agent behavior is unrecoverable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Re-run all subagents from scratch",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0073",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A long-running agent discovers at turn 25 that it has been solving the wrong problem - the user's intent was different from what the agent assumed. What is the correct recovery?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Complete the current task anyway - abandoning work mid-task is wasteful",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Stop immediately, clarify the actual intent with the user, summarize what was accomplished (which may still be useful), then restart with the correct understanding",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Attempt to retrofit the current work to fit the correct interpretation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Escalate to human - misunderstanding user intent is an unrecoverable error",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0074",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A compliance requirement states every agent action must be auditable. What does this require architecturally?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Recording only failed actions for forensic analysis",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "An append-only log of every tool call (inputs + outputs), agent decision (with reasoning), human approval (who + when), and outcome - stored externally from the agent session",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Storing the conversation transcript in the session object",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Using claude-opus which produces more detailed reasoning",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0075",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building an autonomous agent that manages cloud infrastructure. It has access to tools that can create, modify, and delete AWS resources. What safety architecture is non-negotiable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Strong system prompt instructions against destructive actions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Blast radius controls: (1) dry-run mode by default with human approval gate before execution, (2) PreToolUse hooks blocking delete/modify on production resources, (3) mandatory review for changes affecting > N resources, (4) complete audit trail, (5) automatic rollback plan generation before any destructive action",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Read-only access for the agent - no write permissions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Limit the agent to dev environments only",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0076",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A multi-agent system for legal document review must ensure EVERY claim in the output is supported by cited source material. How do you architect this guarantee?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'always cite sources' to the synthesis agent's system prompt",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Enforce citation at the schema level: output schema requires citations array per claim; PostToolUse hook validates that every claim_id has a corresponding source_id in the citations; uncited claims are automatically flagged for human review",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a second Claude review of the output to check citations",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Limit the system to only using content explicitly provided in context",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0077",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to build a multi-agent system that processes 1,000 customer cases per hour with SLA requirements of < 5 minutes per case. Some cases require specialist subagents. How do you scale this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One coordinator handles all 1,000 cases sequentially",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Horizontally scale coordinator instances; implement a case routing layer that assigns cases to coordinators based on load; specialist subagents are shared pools accessed by all coordinators; use async patterns throughout",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use the Batch API for all cases - 1,000/hour is within batch capacity",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Increase max_tokens for faster processing",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0078",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "An agentic system is supposed to research a topic and generate a report. In production, it starts generating the report before completing research, producing reports with gaps. What is the architectural cause and fix?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Increase max_tokens to give the agent more processing budget",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The agent is making premature synthesis decisions. Fix: implement a two-phase protocol with explicit completion criteria - research phase continues until coverage criteria are met (verified by coordinator), synthesis phase only starts after explicit 'research complete' gate",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use plan mode to force sequential thinking",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Reduce the number of research tools to prevent early divergence",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0079",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing a human-AI collaboration workflow where human experts and Claude agents work together on complex research. When should the agent act autonomously vs. request human input?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always act autonomously - human interruptions slow the workflow",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Autonomous: well-defined subtasks within established parameters, data gathering, preliminary analysis. Human input: novel scenarios outside training, ethical judgment calls, final decisions on high-stakes recommendations, when confidence is below threshold",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always request human input - autonomous action carries too much risk",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Request human input only when Claude explicitly doesn't know something",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0080",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A coordinator is running a 2-hour research task. At the 90-minute mark, it discovers that a key assumption made at the 30-minute mark was wrong. What recovery strategy minimizes wasted work?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Restart from the beginning - incorrect assumptions invalidate everything",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Perform impact analysis: identify which subtasks depended on the incorrect assumption; re-run only those subtasks with corrected assumption; tasks independent of the assumption are valid and preserved",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Continue with the incorrect assumption - changing mid-task creates inconsistency",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Immediately escalate to human - agents cannot recover from wrong assumptions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0081",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you prevent 'goal misgeneralization' in an autonomous agent - where it achieves the stated goal but in a way that violates unstated expectations?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Provide more detailed instructions about every possible scenario",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Define the goal with explicit constraints, use examples of acceptable vs. unacceptable approaches, implement PreToolUse hooks that check proposed actions against a constraint specification, and include human review for novel action patterns",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a more capable model - goal misgeneralization only affects smaller models",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Test extensively - goal misgeneralization is detectable only through testing",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0082",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A multi-agent system for trading needs to coordinate between market analysis, risk assessment, and order execution agents. Order execution is irreversible. What workflow pattern is required?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Parallel execution of all three for minimum latency",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Sequential dependency with confirmation gates: Analysis fi Risk (with full analysis context) fi Human review gate for trades above size threshold fi Execution (only after all approvals). Execution agent has no access to market data or analysis tools - it only receives approved orders.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Give all tools to one agent for atomic decision-making",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use the Batch API for analysis and risk; synchronous for execution",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0083",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You discover that your multi-agent research system consistently produces better results on topics the agents were trained on and worse results on novel emerging topics. How do you address this systematically?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only use the system for well-established topics",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a domain detection step: classify topic novelty; for novel topics, require more sources, lower confidence thresholds for autonomous synthesis, flag emerging-domain reports for human expert review, and include explicit uncertainty language in output",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use claude-opus exclusively for all topics",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Increase max_tokens for novel topic requests",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0084",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should a production multi-agent system handle the case where the coordinator exhausts its context window in the middle of a critical task?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The task fails - context overflow is unrecoverable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Proactive: checkpoint before overflow (85% threshold). Reactive (if overflow hits): task graph external state enables recovery - load last checkpoint, inject structured summary of completed work, resume from last known state",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Increase the coordinator's max_tokens budget",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Split the coordinator into two sub-coordinators",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0085",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building a multi-agent content moderation system. Moderator agents must apply consistent policy even for borderline content. How do you ensure consistency?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use the same model and temperature for all moderator agents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a policy specification layer: structured decision trees for clear cases, a dedicated borderline-case adjudication agent with explicit reasoning requirements, cross-moderator consistency sampling, and human audit of borderline decisions with feedback incorporated into policy updates",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use majority voting across 3 moderator agents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "High consistency requires human moderation - AI cannot be consistent enough",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0086",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A complex multi-agent pipeline has 8 stages. Stage 6 fails 10% of the time due to intermittent external API issues. Restarting from stage 1 wastes 5 stages of work. What resilience architecture prevents this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Increase retries at stage 6 indefinitely",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement stage-level checkpointing: persist the outputs of each completed stage; on failure, retry only the failed stage (and subsequent stages that depend on it) using persisted prior-stage outputs as inputs",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Route around stage 6 by skipping it when it fails",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Process all 8 stages in a single API call to avoid inter-stage failures",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0087",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your agentic system must handle tasks in a regulated industry where every agent decision must be explainable to auditors. How do you implement decision explainability?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Require Claude to always provide reasoning - it naturally explains decisions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement structured decision logs: for each significant decision, capture decision_type, options_considered, selected_option, reasoning, data_points_used, constraints_applied, and confidence. Store externally, linkable by audit trail.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Enable extended thinking mode for all agent calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Record the full conversation transcript - that's the explanation",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0088",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to implement a 'supervisor' pattern where one Claude instance reviews and approves all other agents' proposed actions before execution. What makes this effective vs. a rubber stamp?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use a more capable model (opus) as the supervisor",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The supervisor must receive full context: proposed action + the agent's full reasoning + the original task requirements. It must be configured to actively look for: policy violations, unintended side effects, missing prerequisite steps, and excessive scope. Approval requires explicit justification.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Run the supervisor with temperature=0 for deterministic decisions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The supervisor should only see the proposed action - context biases the review",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0089",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What architectural pattern prevents an agent from making conflicting edits to the same file when multiple agents have write access?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Give only one agent write access at a time",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "File-level locking with a lock manager: before editing a file, agent acquires a lock (with timeout); other agents that need the same file either wait or work on different files; lock released after write completes",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Have agents always append to files rather than modify",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use Git merge conflict resolution after all agents complete",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0090",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A production multi-agent system is exhibiting 'cascade failure' - one slow subagent causes the coordinator to timeout, which causes upstream services to retry, creating more load and more timeouts. How do you break this cycle?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Increase all timeout values to prevent initial timeouts",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement bulkheads: timeout budget per subagent (not cumulative), circuit breaker on failing subagents (stop calling after N failures), queue depth limits (reject new tasks when overwhelmed), and graceful degradation when non-critical subagents fail",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add more coordinator instances to handle the load",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Switch to the Batch API during high-load periods",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-01-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    }
+  ],
+  "quality": {
+    "score": 75,
+    "publishable": false,
+    "findings": [
+      {
+        "severity": "error",
+        "area": "balance",
+        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
+      },
+      {
+        "severity": "warn",
+        "area": "balance",
+        "detail": "Bloom distribution is extremely skewed (100% Recall)."
+      },
+      {
+        "severity": "info",
+        "area": "coverage",
+        "detail": "Only one domain (d1) and one concept are present, which is acceptable if the scope is narrow, but limits overall utility."
+      }
+    ],
+    "disputes": []
+  },
+  "owner_email": "logus2k@gmail.com",
+  "held_at": "2026-08-08T17:17:27.429187+00:00"
+}

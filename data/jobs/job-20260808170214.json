@@ -1,0 +1,692 @@
+{
+  "jobId": "job-20260808170214",
+  "state": "queued",
+  "packageId": "cca-workshop-01",
+  "title": "CCA Workshop 01 — Agentic Architecture & Orchestration",
+  "documents": [
+    "CCA Workshop 01 Questions"
+  ],
+  "events": [
+    {
+      "jobId": "job-20260808170214",
+      "event": "job.queued",
+      "documents": [
+        "CCA Workshop 01 Questions"
+      ]
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "extract.file",
+      "index": 1,
+      "total": 1,
+      "title": "CCA Workshop 01 Questions"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "extract.progress",
+      "detail": "docling started"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "extract.progress",
+      "detail": "docling complete"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "extract.file.done",
+      "index": 1,
+      "total": 1,
+      "title": "CCA Workshop 01 Questions"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.started",
+      "stage": "chunk"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "chunk.source",
+      "source": "docling",
+      "sections": 189
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.done",
+      "stage": "chunk",
+      "chunks": 20
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.started",
+      "stage": "transform"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0001",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0002",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0003",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0004",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0005",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0006",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0007",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0008",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0009",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0010",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0011",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0012",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0013",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0014",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0015",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0016",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0017",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0018",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0019",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0020",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0021",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0022",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0023",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0024",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0025",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0026",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0027",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0028",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0029",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0030",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0031",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0032",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0033",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0034",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0035",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0036",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0037",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0038",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0039",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0040",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0041",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0042",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0043",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0044",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0045",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0046",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0047",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0048",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0049",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0050",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0051",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0052",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0053",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0054",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0055",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0056",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0057",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0058",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0059",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0060",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0061",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0062",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0063",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0064",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0065",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0066",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0067",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0068",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0069",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0070",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0071",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0072",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0073",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0074",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0075",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0076",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0077",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0078",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0079",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0080",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0081",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0082",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0083",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0084",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0085",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0086",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0087",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0088",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0089",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "question.imported",
+      "qid": "q-0090",
+      "accepted": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "document.imported",
+      "count": 90
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.started",
+      "stage": "author",
+      "total": 0
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "dedup.done",
+      "removed": 0,
+      "remaining": 90
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.done",
+      "stage": "transform",
+      "concepts": 1,
+      "questions": 90
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.started",
+      "stage": "load"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "package.judged",
+      "score": 75,
+      "publishable": false,
+      "errors": 1,
+      "disputes": 0
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "stage.done",
+      "stage": "load",
+      "valid": true
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "doc.done",
+      "index": 1,
+      "total": 1,
+      "title": "CCA Workshop 01 Questions",
+      "concepts": 1,
+      "questions": 90,
+      "disputes": 0,
+      "sources": 1
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "dedup.skipped",
+      "kept": 90,
+      "reason": "imported verbatim"
+    },
+    {
+      "jobId": "job-20260808170214",
+      "event": "job.review_ready",
+      "packageId": "cca-workshop-01",
+      "stoppedAt": null,
+      "concepts": 1,
+      "questions": 90,
+      "disputes": 0,
+      "sources": 1
+    }
+  ],
+  "created_at": "2026-08-08T17:02:14.902409+00:00",
+  "owner": "logus2k@gmail.com",
+  "mode": "new",
+  "qpc": 3,
+  "granularity": "medium",
+  "docs": [
+    {
+      "path": "/app/data/documents/CCA_Workshop_01_Questions.pdf",
+      "title": "CCA Workshop 01 Questions",
+      "uri": "documents/CCA_Workshop_01_Questions.pdf",
+      "id": "src-cca-workshop-01-questions"
+    }
+  ],
+  "srcMd": null,
+  "srcJson": null,
+  "files": [
+    "CCA_Workshop_01_Questions.pdf"
+  ]
+}

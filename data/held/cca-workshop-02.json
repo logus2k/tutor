@@ -1,0 +1,4394 @@
+{
+  "schema_version": "1.0",
+  "id": "cca-workshop-02",
+  "title": "CCA Workshop 02 — Tool Design & MCP Integration",
+  "description": "This package contains questions specifically related to the CCA Workshop 02 material.",
+  "generated_by": "tutor orchestrator.py (agent_server active chat model)",
+  "generated_at": "2026-08-08T17:34:15.602470+00:00",
+  "sources": [
+    {
+      "id": "src-cca-workshop-02-questions",
+      "title": "CCA Workshop 02 Questions",
+      "kind": "pdf",
+      "extractor": "docling+enrich",
+      "uri": "documents/CCA_Workshop_02_Questions.pdf"
+    }
+  ],
+  "source_ids": [
+    "src-cca-workshop-02-questions"
+  ],
+  "taxonomy": {
+    "domains": [
+      {
+        "id": "d0-d1",
+        "title": "CCA Workshop 02 Questions",
+        "weight": 1.0
+      }
+    ]
+  },
+  "concepts": [
+    {
+      "id": "d0-c-1",
+      "domain": "d0-d1",
+      "objective": "1",
+      "title": "CCA Workshop 02 Questions",
+      "summary": "",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4",
+          "text": "Domain 2 - 18%\n\n##### Tool Design & MCP Integration\n\nDomain 2 - 18% of the CCA exam\n\n##### IN THIS MODULE:\n\n- F Writing effective tool descriptions\n- F Structured error responses with isError and errorCategory\n- F tool\\_choice modes: auto, any, forced selection\n- F MCP configuration: project vs user level\n- F Built-in tools: Read, Write, Edit, Grep, Glob, Bash\n\n90 PRACTICE QUESTIONS - 30 BEGINNER · 30 INTERMEDIATE · 30 ADVANCED\n\n##### QUESTION BANK OVERVIEW\n\n| Level        | Questions   | Focus                                                 |\n|--------------|-------------|-------------------------------------------------------|\n| Beginner     | Q1-Q30      | Core concepts, terminology, and foundational patterns |\n| Intermediate | Q31-Q60     | Application scenarios, design decisions, trade-offs   |\n| Advanced     | Q61-Q90     | Production architecture, edge cases, system design    |\n\n##### HOW TO USE THIS MODULE\n\nWork through each level in order. For Beginner questions, aim for 90%+ before moving to Intermediate. For Intermediate, 80%+ before Advanced. Each question includes the correct answer and a full explanation - read the explanation even for questions you answered correctly to understand the underlying principle. The exam tests judgment, not memorization.\n\n##### BEGINNER QUESTIONS\n\nQuestions 1-30\n\n##### Q1. Why are tool descriptions critical for reliable tool selection?\n\n- A) Tool descriptions are documentation for developers - Claude doesn't read them\n- B) Tool descr",
+          "citation": "CCA Workshop 02 Questions"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "d0-q-0001",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why are tool descriptions critical for reliable tool selection?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Tool descriptions are documentation for developers - Claude doesn't read them",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Tool descriptions are the primary signal Claude uses to decide which tool to call; vague descriptions cause misrouting",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Longer descriptions always produce better tool selection",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Claude selects tools based on their position in the tools array, not descriptions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0002",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What information should a well-written tool description include?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only the tool name and return type",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Purpose, expected input formats, example queries, edge cases, output format, when to use it, and when NOT to use it vs. similar tools",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The implementation details of the tool function",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only a one-sentence summary - brevity is best for tool descriptions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0003",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the isError flag pattern in MCP tool responses accomplish?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It marks tool responses as errors so Claude knows to stop the agentic loop",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It communicates structured failure information back to the agent so it can make intelligent recovery decisions",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It triggers automatic retry logic in the Agent SDK",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It logs the error to Anthropic's monitoring system",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0004",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What are the four main error categories to distinguish in MCP tool error responses?",
+      "options": [
+        {
+          "id": "a",
+          "text": "low, medium, high, critical",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "transient, validation, business_rule, permission",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "network, timeout, api, database",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "warning, error, fatal, unknown",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0005",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does tool_choice='auto' mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude must call a tool - any tool in the list",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude decides whether to call a tool or respond with plain text",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Claude selects a tool automatically based on input format",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tool selection is determined by the Agent SDK, not Claude",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0006",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the difference between project-level and user-level MCP server configuration?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Project-level supports more tools; user-level has a tool limit of 10",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Project-level (.mcp.json) is committed to version control and shared with the team; user-level (~/.claude.json) is personal and not shared",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Project-level requires admin approval; user-level is self-service",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "They are identical in behavior - the difference is only naming convention",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0007",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should you use environment variable expansion in .mcp.json instead of hardcoding tokens?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Environment variables load faster than hardcoded strings",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Hardcoding API tokens in .mcp.json commits secrets to version control - env var expansion keeps secrets in the environment, not the repo",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": ".mcp.json does not support string values - only env var references work",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Environment variables enable automatic token rotation",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0008",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the Grep built-in tool best used for?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Finding files by name or extension pattern (e.g., **/*.test.ts)",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Searching file contents for patterns like function names, error messages, or import statements",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Reading entire file contents",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Making targeted edits to specific lines in a file",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0009",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the Glob built-in tool best used for?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Searching file contents for a specific string or regex pattern",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Finding files by name or path pattern (e.g., **/*.test.tsx, src/**/index.ts)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Reading all files in a directory recursively",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Watching files for changes",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0010",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should you use the Edit tool instead of Read + Write?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always use Edit - it is faster than Read + Write",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use Edit for targeted modifications when the text to replace is unique in the file; fall back to Read + Write when Edit cannot find a unique anchor",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use Edit for new file creation; Read + Write for modifications",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Edit is for binary files; Read + Write is for text files",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0011",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does 'scoped tool access' mean in multi-agent design?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Limiting which users can invoke specific tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Giving each agent only the tools relevant to its specific role, preventing cross-specialization misuse",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Rate limiting tool calls to prevent API overuse",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Encrypting tool inputs and outputs for security",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0012",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What happens when you expose an MCP resource instead of requiring tool calls for data access?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Resources are more expensive than tool calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Resources give the agent visibility into available data catalogs without requiring exploratory tool calls - reducing unnecessary round-trips",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Resources can only contain text, not structured data",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Resources are only available in project-scoped configurations",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0013",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the recommended approach for standard integrations like Jira or GitHub in MCP?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always build custom MCP servers for full control",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use existing community MCP servers; reserve custom server development for team-specific, non-standard workflows",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Avoid MCP entirely for third-party integrations - use REST APIs directly",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Build a universal MCP server that handles all third-party integrations",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0014",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why does a generic 'Operation failed' error response prevent intelligent recovery?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude cannot parse generic strings - only JSON is readable",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Without error category, retryability flag, and context, Claude cannot distinguish between 'retry in 5 seconds' and 'this will never work - escalate instead'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Generic errors trigger the Agent SDK's automatic error handler",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The isError flag is not set in generic errors, so Claude doesn't see them as failures",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0015",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is tool_choice='any' used for?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Letting Claude choose the best tool from multiple options",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Guaranteeing that Claude calls a tool (any tool in the list) rather than responding with plain text",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Selecting all tools in parallel",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Disabling tool use for the current turn",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0016",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does providing input/output examples in tool descriptions accomplish?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Examples increase the token count unnecessarily",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Examples demonstrate expected behavior for edge cases and help Claude understand format expectations, reducing misuse",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Examples override the input_schema - only one is needed",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Examples are only useful for debugging, not production",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0017",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the tool_use_id field in a tool_result block do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It identifies which API call generated the tool request",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It links the tool result back to the specific tool_use block in Claude's response, enabling correct routing when multiple tools are called",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It is a unique identifier for audit logging purposes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It specifies which Claude model processed the tool call",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0018",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What makes a tool description 'boundary-explicit'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The description is exactly 100 words",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The description clearly states both what the tool DOES handle and what it does NOT handle, preventing misuse on out-of-scope inputs",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The description includes a JSON schema with strict validation rules",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The description is formatted with bullet points and headers",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0019",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should you enhance an MCP tool's description beyond the default?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Never - default descriptions from community servers are always sufficient",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "When the default description causes Claude to prefer built-in tools (like Grep) over the more capable MCP tool for the use case",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only when the tool is newly created",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "When the tool is used by more than 3 agents",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0020",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What problem does splitting a generic 'analyze_document' tool into 'extract_data_points', 'summarize_content', and 'verify_claim_against_source' solve?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It reduces API latency by distributing work across smaller tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It eliminates tool selection ambiguity by giving each tool a specific, unambiguous purpose with clear input/output contracts",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It allows three agents to call different tools simultaneously",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It reduces the total number of tokens in the tool definitions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0021",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should tool names use verbs that describe the action rather than nouns that describe the data?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verb-based names are shorter and save tokens in the tool definition",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Verb names communicate what the tool DOES (get_customer, update_order, delete_record) enabling immediate selection clarity; noun names (customer, order, record) don't indicate the action type",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Anthropic's API requires verb-prefixed tool names",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Verb names enable automatic tool discovery without descriptions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0022",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is MCP (Model Context Protocol)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A new Claude model version for context-heavy tasks",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "An open standard protocol that enables AI models to connect to external tools and data sources through a standardized interface",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "An API compression technique for reducing token costs",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Anthropic's internal model communication format",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0023",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the difference between an MCP tool and an MCP resource?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Tools are read-only; resources can modify data",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Tools are invocable functions that perform actions or retrieve data on demand; resources are pre-existing content (documents, data catalogs) available for browsing without a function call",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Resources are faster than tools; tools are more accurate",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tools are for internal data; resources are for external APIs",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0024",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What command starts an MCP server defined in .mcp.json?",
+      "options": [
+        {
+          "id": "a",
+          "text": ".mcp.json servers start automatically when Claude Code launches in that directory",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "claude mcp start [server-name]",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "npm run mcp",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Servers must be started manually before using Claude Code",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0025",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the 'command' field in an MCP server configuration specify?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The MCP API command to call when a tool is invoked",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The executable to run to start the MCP server process (e.g., 'npx', 'node', 'python')",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The Claude command used to authenticate with the server",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The shutdown command when Claude Code exits",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0026",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You define a tool that accepts a customer_id parameter. Claude passes '12345' (a string) but your tool expects an integer. What should the tool do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crash with an unhandled exception",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return a structured validation error: {isError: true, errorCategory: 'validation', message: 'customer_id must be an integer, received string: 12345', isRetryable: true, fix: 'Pass customer_id as an integer'}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Silently convert the string to integer and proceed",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return empty results as if no customer was found",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0027",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the 'args' field in an MCP server configuration?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The arguments that Claude passes when calling tools on the server",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The command-line arguments passed to the server's startup command",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The authentication arguments for the server's API",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The list of tools the server exposes",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0028",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does it mean when a tool returns isError: false but data: []?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The tool encountered an error but suppressed it",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The tool succeeded but found no matching records - this is a valid outcome (successful empty query), not an error",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The tool is deprecated and returning empty responses",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The response is incomplete and more data will follow",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0029",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Which built-in Claude Code tool is best for making targeted one-line edits to a file?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Bash (using sed)",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Write (overwrite the entire file)",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Edit (replace a specific unique string with new content)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Read then Write",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0030",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What happens when Claude tries to call a tool that is not in the tools array passed to the API?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The SDK automatically adds the missing tool definition",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The API returns a validation error - Claude can only call tools explicitly provided in the tools parameter",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Claude creates a placeholder tool call that returns empty results",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The call succeeds but the tool returns an access denied error",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0031",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You have two tools with similar functionality: search_knowledge_base (searches internal docs) and search_web (searches live internet). The agent consistently calls the wrong one. What is the best fix?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Remove one of the tools to eliminate ambiguity",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Rename and rewrite both descriptions to explicitly state source type: 'Searches INTERNAL knowledge base (static, no internet)' vs 'Searches LIVE web (real-time, internet)'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add a disambiguation instruction to the system prompt",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use tool_choice='any' to let Claude choose freely",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0032",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to enforce that extract_metadata is always called before any enrichment tools. Which approach is most reliable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'always call extract_metadata first' to the system prompt",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use tool_choice: {'type': 'tool', 'name': 'extract_metadata'} on the first API call, then switch to 'auto' for subsequent turns",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Remove enrichment tools from the tool list and add them back after extraction",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Create a combined extract_and_enrich tool that does both in sequence",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0033",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A tool returns an empty array [] because no records matched the query. How should the tool response be structured?",
+      "options": [
+        {
+          "id": "a",
+          "text": "{isError: true, message: 'No records found'} - empty results are an error",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "{data: [], total: 0, query: 'original query'} with isError absent/false - empty results are a successful query outcome",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return null to indicate no data",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Throw an exception so Claude knows to retry with different parameters",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0034",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your synthesis agent needs occasional fact-verification capability (cross-role tool). How should this be implemented without giving the synthesis agent full search access?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add all search tools to the synthesis agent - it will only use what it needs",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Create a constrained verify_fact tool that accepts a claim and returns a verification result, routing complex lookups through the coordinator",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Route all fact verification through a dedicated verification subagent via coordinator",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use the coordinator to perform all fact verification on the synthesis agent's behalf",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0035",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are configuring a team's development environment where junior developers' MCP servers should have read-only access while senior developers have full access. How do you implement this with the MCP configuration system?",
+      "options": [
+        {
+          "id": "a",
+          "text": "MCP doesn't support permission levels - everyone gets the same tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use separate .mcp.json configurations per role stored in different branches",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Configure role-specific tool lists in the server; each developer uses the same server URL but different auth tokens that map to different permission levels",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Create separate MCP server instances per role in the shared .mcp.json",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0036",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should a subagent handle an error locally vs. propagate it to the coordinator?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always propagate - the coordinator should handle all errors for centralized control",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Handle locally: transient errors (retry with backoff). Propagate: errors that cannot be resolved locally (permission denied, permanent failures), always including what was attempted and any partial results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always handle locally - never bother the coordinator with error details",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Propagate all errors and let the coordinator decide whether to retry",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0037",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A developer asks why their MCP server configuration in .mcp.json requires GITHUB_TOKEN to be set on every developer's machine. What is the correct explanation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "This is a bug - .mcp.json should store the actual token",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "${GITHUB_TOKEN} expands from the developer's local environment at runtime; this keeps the actual secret out of version control while sharing the configuration structure with the team",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The token is only needed on CI machines - local developers can skip it",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tokens should be stored in CLAUDE.md as comments",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0038",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the impact of adding a keyword like 'analyze' to a system prompt instruction when you also have a tool named 'analyze_document'?",
+      "options": [
+        {
+          "id": "a",
+          "text": "No impact - system prompt keywords don't influence tool selection",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Keyword-sensitive instructions in the system prompt can create unintended tool associations - the word 'analyze' may bias Claude toward calling analyze_document even when inappropriate",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "This improves tool selection by providing additional context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tool names are case-insensitive so keyword matching doesn't apply",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0039",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing tool interfaces for a financial data pipeline with 8 tools. Which grouping best follows the principle of scoped tool access?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Give all 8 tools to a single agent - simplicity over specialization",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Data ingestion agent: fetch_raw_data, validate_schema. Analysis agent: calculate_metrics, detect_anomalies. Reporting agent: format_report, send_email, archive_results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Split tools evenly: 4 tools per agent regardless of functional relationship",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Give each tool to its own dedicated agent",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0040",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should a tool return a partial success when it completes 7 of 10 requested operations before hitting a rate limit?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Return isError: true - partial completion is a failure",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return {partial_success: true, completed: [7 items], failed: [3 items with error details], retry_after: 30, message: 'Rate limited after 7 operations'}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return only the 7 successful results - the agent will retry for the rest",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return isError: true only if 0 operations completed; success if any completed",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0041",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When MCP tools are added to a Claude Code session, when are they discovered and made available?",
+      "options": [
+        {
+          "id": "a",
+          "text": "On-demand, when Claude first decides to call a tool in that category",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "At connection time when the MCP servers start - all tools from all configured servers are discovered simultaneously and available throughout the session",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "They must be explicitly enabled per session with a /tools command",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Tools are discovered lazily on first call and cached for subsequent calls",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0042",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your agent has a tool that fetches customer data and occasionally returns PII. You want to ensure PII never appears in Claude's context. What is the correct approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'never store PII in memory' to the system prompt",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a PostToolUse hook that detects and redacts PII patterns before the result reaches Claude",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a separate privacy-aware Claude model",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Instruct the tool to omit PII fields before returning",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0043",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the recommended strategy for building codebase understanding incrementally using built-in tools?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Read all files upfront to build complete context before starting analysis",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Start with Grep to find entry points and key definitions, then use Read to follow imports and trace specific execution paths - discovering depth on demand",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use Glob to find all files, then Read each one in alphabetical order",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Start with a Bash command to print the entire codebase",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0044",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You notice that Claude is using a built-in Grep tool instead of your MCP-based semantic code search tool, even though the MCP tool produces much better results. What is the likely cause and fix?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Built-in tools are always preferred over MCP tools by design",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The MCP tool's description doesn't clearly explain its advantage over Grep for code search; enhance the description to explain semantic search capabilities and when it outperforms Grep",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Increase the weight of the MCP tool in the tool configuration",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Remove the Grep built-in from allowedTools",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0045",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A tool that deletes records must require confirmation before executing in production. How should this be implemented architecturally?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'always confirm before deleting' to the tool description",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a PreToolUse hook that intercepts delete_record tool calls and requires a human_approval field to be true before allowing execution",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Create a confirm_delete tool that Claude must call before delete_record",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a two-step system prompt that asks Claude to verify before deleting",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0046",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should you structure MCP tool error responses for a permission denied error?",
+      "options": [
+        {
+          "id": "a",
+          "text": "{isError: true, message: 'Access denied'} - brief is best",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "{isError: true, errorCategory: 'permission', isRetryable: false, message: 'Agent lacks write access to this resource', requiredPermission: 'billing:write', escalationPath: 'request access via IT portal'}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Throw an exception with the error code",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return empty data with a comment field noting the permission issue",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0047",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the purpose of the allowedTools restriction in subagent configuration?",
+      "options": [
+        {
+          "id": "a",
+          "text": "To limit API costs by reducing the number of available tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "To ensure each subagent has access only to tools relevant to its specific role, preventing accidental or intentional misuse of out-of-scope tools",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "To comply with Anthropic's API terms of service",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "To prevent tool name collisions between different MCP servers",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0048",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your team has both a Jira MCP server (community) and a custom internal ticket system MCP server. How should these be configured?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use only one ticket system - two creates confusion",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Configure both in project-level .mcp.json; write clear tool descriptions that distinguish when to use each (e.g., 'use Jira for customer-facing tickets, use internal system for engineering tasks')",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Put the community Jira server in user-level config and the custom server in project-level",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Combine them into a single MCP proxy server",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0049",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the correct approach when the Edit tool fails to find a unique match in a file?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use a more specific pattern in the Edit call",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Read the full file content, apply the modification programmatically in your code, then Write the modified content back",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Skip the modification - if Edit fails, the file cannot be modified",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use Bash with sed to make the edit instead",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0050",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "An MCP tool result contains a list of 500 items that exceeds practical context limits. What is the best tool design response?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Return all 500 items - context limits are the caller's problem",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return a paginated response with a cursor: {data: [first 20], total: 500, cursor: 'abc123', has_more: true} and a corresponding fetch_next tool",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return only the top 10 items silently",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return an error indicating the result is too large",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0051",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A tool receives an input that passes schema validation but will cause the underlying system to fail (e.g., a customer_id that doesn't exist in the database). How should this be handled?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The schema should be extended to validate all business rules",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return a structured not_found error: {isError: true, errorCategory: 'not_found', message: 'Customer CUST-999 does not exist', isRetryable: false, suggestion: 'Verify the customer ID or use search_customer to find the correct ID'}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return an empty result as if the customer exists but has no data",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Throw a validation exception before attempting the database lookup",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0052",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the benefit of exposing MCP resources (like a list of available reports) versus requiring tool calls to discover available data?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Resources are faster than tool calls due to caching",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Resources give the agent a browsable catalog of what's available without consuming tool call budget or adding latency - the agent can plan efficiently before fetching",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Resources have higher API rate limits than tool calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Resources are only readable, preventing accidental writes",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0053",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You have a tool that returns a deeply nested JSON object (8 levels deep) with 200 fields. Claude frequently references the wrong fields. How do you fix this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Flatten the JSON to a single level before returning",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Add a summary field at the top level: {summary: {key_field_1, key_field_2, key_field_3}, full_data: {...nested...}} - Claude reads summary first for the most important data",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return only the most important 10 fields",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Document the structure in the tool description",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0054",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A tool call to an external payment API hangs for 30 seconds before timing out. How should the tool handle and communicate this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Wait indefinitely - never timeout tool calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a client-side timeout (e.g., 10 seconds); return {isError: true, errorCategory: 'transient', isRetryable: true, message: 'Payment API timeout after 10s', retry_after: 30, attempted_amount: amount}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Retry 3 times before returning an error",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return a success response with pending status",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0055",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to design a tool that processes images for a Claude agent. What is the correct way to return image analysis results?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Return the raw image bytes as base64 in the tool result",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return structured analysis data: {objects_detected: [...], text_extracted: '...', dimensions: {w, h}, confidence_scores: {...}} - Claude receives structured data, not raw image bytes",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return a URL where Claude can fetch the analyzed image",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return a human-readable description paragraph",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0056",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the relationship between tool input_schema and the quality of Claude's tool calls?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Schema is only for validation - it doesn't affect the quality of Claude's inputs",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Detailed input_schema with property descriptions, examples, format patterns, and constraints directly guides Claude's input construction, reducing invalid or suboptimal tool calls",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Simpler schemas produce better tool calls - complexity confuses the model",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Schema properties are developer documentation only - Claude doesn't read them",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0057",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You discover that Claude sometimes calls your search tool with natural language queries when the tool expects keyword-based queries. How do you fix this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Update the model to handle natural language",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Add explicit input guidance to the tool description and property description: 'Accepts keyword-based queries only. NOT natural language. Good: \"python async error handling\". Bad: \"How do I handle async errors in Python?\"'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Pre-process Claude's tool inputs to convert natural language to keywords",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a different tool naming convention",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0058",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You have a tool that queries a database and sometimes returns sensitive customer PII. Not all callers of the tool should receive PII. How do you design this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Create two separate tools: one with PII, one without",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The tool accepts a requesting_agent_id; a PostToolUse hook checks the agent's authorization level and redacts PII fields not permitted for that agent before returning results",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add a include_pii: boolean parameter that defaults to false",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only allow PII-authorized agents to have the tool in their allowedTools",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0059",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should you version MCP tool APIs when changes are breaking (parameter renaming, schema changes) to avoid breaking deployed agents?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Update all agents simultaneously when changing the API",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use versioned tool names (get_customer_v2) or a version parameter; deprecate old versions with a deprecation notice in the description; maintain both versions during transition; remove old version after all agents migrate",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Breaking changes require re-deploying all agents immediately",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "MCP tools cannot be versioned - design schemas carefully upfront",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0060",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A tool that wraps a third-party API needs to handle the case where the API returns rate limit errors (429). What is the correct tool behavior?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Immediately return isError: true to the calling agent",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement internal exponential backoff within the tool (1-3 retries); if all retries fail, return {isError: true, errorCategory: 'transient', isRetryable: true, retry_after: 30, message: 'Rate limited after 3 attempts'}",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Queue the request and wait indefinitely until the rate limit resets",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Switch to a backup API endpoint automatically",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0061",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing tool interfaces for a healthcare data system. Which approach best balances Claude's tool selection reliability with security requirements?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Give Claude all 25 tools and rely on the system prompt for access control",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement role-based tool sets with a maximum of 5-7 tools per agent role; enforce data access controls in PreToolUse hooks; never rely on prompt instructions for PHI access control",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a single universal tool with a permission parameter",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Separate tools for reading vs. writing are sufficient security",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0062",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You discover that a malformed input to one of your MCP tools causes it to expose internal system paths in error messages. How should you fix this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add input validation instructions to the tool description",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement input sanitization in the tool itself and ensure error messages never contain internal paths, stack traces, or system details - return generic error categories instead",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a PreToolUse hook to validate inputs before calling the tool",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Ask Claude not to pass malformed inputs in the system prompt",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0063",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to implement a tool that calls an external API with rate limits of 100 requests per minute. Your agentic system can generate up to 500 tool calls per minute. What is the correct architectural approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Let tool calls fail with rate limit errors and rely on Claude to retry",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a token bucket rate limiter in the tool wrapper; return {isError: true, errorCategory: 'transient', retry_after: seconds} when rate limited; batch multiple tool inputs where the API supports it",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add 'do not call this tool more than 100 times per minute' to the tool description",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Route tool calls through a queue with no back-pressure mechanism",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0064",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A multi-tenant system has customers A and B whose data must never mix. Both use the same agent system with the same tools. How do you implement data isolation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Separate the tool code for each customer",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Pass tenant_id in all tool calls; implement tenant isolation in the MCP server layer with row-level security or separate databases; validate tenant_id in PreToolUse hooks against the authenticated session",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use separate Claude sessions and trust that sessions are isolated",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Add 'only access data for the current customer' to the system prompt",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0065",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to design a tool ecosystem for an agent that processes legal documents. The tools include: extract_entities, verify_citations, check_jurisdiction, calculate_deadlines, file_document, send_notification, archive_document, update_case. How should these be distributed across agents?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One agent with all 8 tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Analysis agent (extract_entities, verify_citations, check_jurisdiction, calculate_deadlines); Filing agent (file_document, send_notification, archive_document, update_case) - with coordinator managing handoff and requiring human approval before filing",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "One tool per agent (8 agents)",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Read tools in one agent, write tools in another",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0066",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building a tool that executes code snippets. What security controls must be implemented at the tool layer regardless of Claude's instructions?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'only execute safe code' to the tool description",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement: sandboxed execution environment (no network access, no file system access outside designated directory), resource limits (CPU time, memory), timeout enforcement, and output sanitization before returning to Claude",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Validate code syntax before execution",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a separate Claude instance to review code before execution",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0067",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your MCP server needs to expose a large corporate knowledge base (10,000 documents) to Claude agents. How should you design the interface for maximum efficiency?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Return all 10,000 documents as a single tool response",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Expose a semantic_search tool for targeted queries, an MCP resource listing document categories/summaries, and paginated fetch tools - enabling agents to discover and retrieve only relevant content",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Create one tool per document",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Compress all documents into a single 200K-token context injection",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0068",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A PostToolUse hook must handle results from tools that can return up to 50MB of data. Some agents need full data; others need summaries. How should the hook be designed?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always return full data - let each agent decide what to use",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The hook receives the calling agent's context; for agents with 'summary_mode' configuration, apply compression/summarization before returning; for full-access agents, return complete data",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always return summaries - 50MB is too large for any context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Implement separate tool endpoints for summary vs. full access",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0069",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing the tool interface for an agent that needs to interact with a database. The database has 50 tables. What is the most reliable tool design?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One universal query_database tool that accepts raw SQL",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Role-specific semantic tools: get_customer(id), get_orders(customer_id, date_range), update_order_status(order_id, status) - named by business intent, not technical implementation",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "One tool per database table",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Two tools: read_database and write_database with SQL parameters",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0070",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the most robust way to ensure tool call ordering when you have three tools that must execute in sequence: authenticate fi fetch_data fi transform_data?",
+      "options": [
+        {
+          "id": "a",
+          "text": "List them in the correct order in the tools array",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Combine multiple enforcement layers: forced tool_choice for authenticate, a PreToolUse hook that blocks fetch_data until authentication token exists in context, and another that blocks transform_data until raw data is present",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add sequencing instructions to each tool's description",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a single combined authenticate_fetch_transform tool",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0071",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When multiple agents share the same MCP server but need different levels of access, what is the correct pattern?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configure separate MCP server instances for each access level",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use authentication tokens that map to permission levels in the MCP server; pass the appropriate token per agent context; the server enforces access control at the tool call level",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Define separate tool sets for each agent in the MCP server",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a proxy layer that filters tool calls based on agent identity",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0072",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A tool that writes files accepts a path parameter. What validation should the tool perform to prevent path traversal attacks?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add path: string to the input schema - schema validation is sufficient",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Server-side validation: normalize the path, verify it resolves within the allowed directory, reject any path containing '../', absolute paths outside allowed directories, or symlinks pointing outside",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add 'only write to the project directory' to the tool description",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a sandbox environment and allow any path",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0073",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing MCP tooling for an enterprise with strict data residency requirements (EU data must never leave EU infrastructure). How do you enforce this at the MCP layer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'respect data residency' to all tool descriptions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement geography-aware MCP routing: each data operation carries a data_residency tag; a routing layer directs tool calls to region-specific MCP server instances; PreToolUse hooks validate that the requested data source matches the authorized region for the requesting tenant",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use only EU-hosted MCP servers for all tenants",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Data residency is an infrastructure concern - not an MCP design concern",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0074",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to build an MCP server that provides AI agents access to a large graph database. Queries can explore complex relationship networks. What tool design pattern is optimal?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One raw_cypher_query tool that accepts any Cypher/SPARQL query",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Semantic traversal tools: find_connected_entities(entity_id, relationship_type, depth), get_entity_details(entity_id), find_paths(from_entity, to_entity, max_depth). Each tool encapsulates graph traversal logic behind a semantic interface.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "One tool per entity type in the graph",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Export the entire graph as JSON and pass it to the agent as context",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0075",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A financial services firm needs MCP tools that interact with multiple core banking systems, each requiring different authentication mechanisms (OAuth2, API key, certificate). How do you design a unified tool interface?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Create separate tool sets for each banking system with system-specific authentication",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Abstract authentication behind a credential manager: tools use semantic names (get_account_balance, process_transaction), a credential manager handles auth per system transparently, agents never see authentication details",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a single shared service account for all banking systems",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Require the agent to specify the authentication method per tool call",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0076",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need MCP tools for an agent that orchestrates complex multi-system workflows where each step may create resources that must be cleaned up if a subsequent step fails. What pattern enables reliable cleanup?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add cleanup instructions to the agent's system prompt",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement saga pattern: each tool operation registers a compensating transaction (rollback action); if any step fails, execute compensating transactions in reverse order; the MCP layer tracks the saga state",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use idempotent tools that can be safely re-run without side effects",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Wrap all operations in a database transaction",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0077",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing MCP tooling for an agent that needs to interact with a regulatory compliance database with complex access rules: some users can see all data, others only their jurisdiction, others only non-confidential records. How do you implement this efficiently?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Create three separate MCP servers with different data subsets",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Row-level security at the MCP server: tools accept user context with permissions; server-side query filtering applies permissions automatically; tool descriptions document what data is available at each permission level; no multiple server instances needed",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Have agents self-filter results based on their role",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return all data and rely on PostToolUse hooks to redact",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0078",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "An MCP tool that calls an external API starts returning different response schemas after the API provider's version upgrade. This breaks downstream agents. How do you design resilience against API schema changes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Pin to a specific API version permanently",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement schema normalization in the MCP server: detect response schema version from API headers or field presence; normalize to the canonical internal schema before returning; alert and log schema drift; gradually migrate when stable",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return raw API responses and update all agents simultaneously",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Block all calls until schema compatibility is restored",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0079",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to expose a machine learning model's predictions as an MCP tool. The model produces confidence scores and feature importances. How do you design the output to maximize agent usefulness?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Return only the prediction label - confidence scores add noise",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return structured output: prediction, confidence, top_features_driving_prediction, uncertainty_type (epistemic/aleatoric), and a plain_language_explanation. Include a human_review_recommended boolean when confidence < threshold.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return a probability distribution over all possible classes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return the raw model output tensor and let the agent interpret it",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0080",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you design MCP tool observability for diagnosing why an agent is making unexpected tool selections in production?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Log all tool calls with timestamps - that's sufficient",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement structured tool telemetry: per-call logging of (tool_name, input_parameters, response_summary, latency, error_if_any, calling_agent_id, session_id, correlation_id). Build a tool selection pattern dashboard. Add semantic search over tool call logs to find similar past calls.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Monitor only failed tool calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Add a reasoning field to tool inputs where Claude explains its selection",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0081",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A compliance team requires that every MCP tool call be approved by a policy engine before execution. The policy engine has 200ms average latency. How do you implement this without making the agent unbearably slow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Remove the policy engine requirement - 200ms per tool call is too slow",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement async pre-approval: for each tool call, initiate policy check asynchronously; if policy check resolves before tool execution starts, proceed/block accordingly; implement result caching for repeated identical calls; batch policy checks for predictable tool sequences",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Pre-approve all tools at session start instead of per-call",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only check policy for tools marked as sensitive",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0082",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building an MCP tool ecosystem for an agent that performs security penetration testing. The same tools could be used for legitimate testing or malicious activity. How do you design appropriate safeguards?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Don't build these tools - security testing should be done manually",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement strict authorization: all tools require a signed scope document (authorized target hosts, authorized test types, time window); PreToolUse hooks validate scope before every call; all actions logged immutably; out-of-scope actions blocked at the tool layer",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add 'only use on systems you are authorized to test' to the tool descriptions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Limit tools to read-only scanning - no active exploitation tools",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0083",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you design MCP tools for an agent operating in a hybrid cloud environment where some operations must be processed on-premises (for data compliance) and others can use cloud APIs?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Create separate on-premises and cloud tool sets and let agents choose",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement data classification tagging: each tool call carries data classification; a routing layer sends classified data to on-premises MCP servers and non-classified data to cloud MCP servers; agents use a single unified tool interface regardless of processing location",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Process all data on-premises for maximum safety",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Process all data in the cloud for maximum availability",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0084",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "An MCP server wrapping a document database needs to handle the case where an agent's search returns 10,000 matching documents. What is the correct design?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Return all 10,000 documents - the agent should filter",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Return paginated results (default page_size: 20), include result count and total_pages, provide a semantic_summary of the full result set, and a refine_query tool that helps the agent narrow results before pagination",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Return only the top 10 by relevance score",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Return an error: too many results - refine your query",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0085",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to design an MCP tool for an agent that performs code refactoring. The refactoring involves reading source code and writing modified versions. What safety mechanisms must be built into the tool design?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Trust the agent - it has good code generation capabilities",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Tool-level safety: backup creation before modification, diff generation showing exactly what changed, dry_run mode for preview, syntax validation before writing, and rollback tool for undoing changes. All actions logged with original and modified content.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only allow read operations - writes are too risky",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Require the agent to show the diff in its response before calling the write tool",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0086",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should you design MCP tools for an agent working with real-time streaming data (stock prices, sensor readings, event streams)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Snapshot tools only - streaming is not supported in MCP",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Provide both snapshot tools (get_current_price) and subscription management tools (subscribe_to_feed, poll_feed, unsubscribe_from_feed); subscriptions persist between tool calls; the agent polls for updates rather than blocking",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Stream all data via the tool result as a continuous response",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Cache streaming data and refresh every 60 seconds",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0087",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building MCP tooling for agents that need to interact with a legacy SOAP/XML API. How do you expose this cleanly to Claude agents?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Pass SOAP XML directly to agents and let them construct calls",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Build an MCP adapter layer: convert semantic tool calls (get_customer_orders(customer_id, date_range)) to SOAP XML requests transparently; parse SOAP XML responses into clean JSON objects; agents never see SOAP protocol details",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a regex tool to help Claude parse SOAP XML",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Document the SOAP schema in tool descriptions for Claude to learn",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0088",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you design MCP tools that need to handle the 'fan-out read' pattern - where one logical request requires reading from 5 different systems and merging results?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Make 5 separate tool calls and have the agent merge results",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a composite tool that performs fan-out and merge server-side: the tool accepts the logical query, queries all 5 systems in parallel, merges and deduplicates results, and returns a unified result set. Faster and uses one tool call slot.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Have the agent decide which of the 5 systems to query based on context",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Create a data warehouse that pre-merges the 5 systems' data",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0089",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need MCP tools for an agent that processes financial transactions where some must complete within 100ms (trading) and others have 5-second SLAs (settlement). How do you design for mixed latency requirements?",
+      "options": [
+        {
+          "id": "a",
+          "text": "All tools must meet the strictest (100ms) requirement",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Tool-level SLA metadata: each tool declares its expected_latency_ms and guaranteed_sla_ms in its definition; a routing layer can select appropriate backend implementations (fast-path vs. standard-path) based on SLA requirements at tool invocation time",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use the Batch API for settlement, synchronous for trading",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Create separate MCP servers for trading and settlement tools",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0090",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the correct pattern for implementing 'tool result caching' in an MCP server to reduce redundant external API calls without serving stale data?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cache all tool results permanently - external systems rarely change",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Cache with TTL matching the data's natural change frequency: stock prices (1s), exchange rates (60s), static reference data (24hrs). Include cache metadata in tool results (cache_hit, cache_age, expires_at). Support explicit cache invalidation for event-driven updates.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Never cache tool results - freshness is always required",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Cache based on result size - cache small results, skip large ones",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-02-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    }
+  ],
+  "quality": {
+    "score": 75,
+    "publishable": false,
+    "findings": [
+      {
+        "severity": "error",
+        "area": "balance",
+        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
+      },
+      {
+        "severity": "warn",
+        "area": "coverage",
+        "detail": "Only one domain (d1) and one concept are present, which is very narrow coverage."
+      },
+      {
+        "severity": "warn",
+        "area": "balance",
+        "detail": "Bloom distribution is entirely focused on 'recall' (100%)."
+      }
+    ],
+    "disputes": []
+  },
+  "owner_email": "logus2k@gmail.com",
+  "held_at": "2026-08-08T17:34:17.449716+00:00"
+}

@@ -210,10 +210,17 @@ def scrub_meta(q):
 # ---------------------------------------------------------------- sanitize (defensive guardrail)
 VALID_TYPES = {"mcq_single", "mcq_multi", "true_false"}
 VALID_BLOOM = {"recall", "understand", "apply", "analyze"}
-def sanitize_question(q):
+def sanitize_question(q, verbatim=False):
     """Coerce an LLM-authored question to a schema-valid, internally-consistent
-    shape. Returns the cleaned question, or None if it cannot be salvaged."""
-    scrub_meta(q)
+    shape. Returns the cleaned question, or None if it cannot be salvaged.
+
+    verbatim=True skips the meta-reference scrub. An IMPORTED question was written
+    by a human in the source document: it has no "according to the provided text"
+    phrasing to remove, and the scrub's "drop space before punctuation" rule
+    actively damages it — ".mcp.json" turned "expansion in .mcp.json" into
+    "expansion in.mcp.json" on three CCA workshop stems (2026-08-08)."""
+    if not verbatim:
+        scrub_meta(q)
     opts = q.get("options") or []
     if len(opts) < 2:
         return None
@@ -366,8 +373,24 @@ def interleave_by_concept(questions):
     return out
 
 def dedup_and_order(questions, emit=lambda *a, **k: None):
-    """Remove near-duplicate questions (LLM semantic dedup) then spread by concept."""
-    return interleave_by_concept(semantic_dedup(questions, emit))
+    """Remove near-duplicate questions (LLM semantic dedup) then spread by concept.
+
+    IMPORTED questions are NEVER deduped. Dedup exists to prune the redundancy the
+    local model produces when overlapping chunks yield near-identical concepts; a
+    question imported verbatim from a Q&A document was written deliberately by a
+    human author. On a curated exam bank the judge groups by TOPIC and destroys the
+    set: a CCA workshop module lost 27 of 90 questions this way (2026-08-08), among
+    them "What is an agentic loop?" and "What is a PreToolUse hook used for?" — not
+    duplicates of anything. Imported questions are identified by the absence of
+    `generated_by`, which authoring always sets.
+    """
+    imported = [q for q in questions if not q.get("generated_by")]
+    authored = [q for q in questions if q.get("generated_by")]
+    if authored:
+        authored = semantic_dedup(authored, emit)
+    if imported:
+        emit("dedup.skipped", kept=len(imported), reason="imported verbatim")
+    return interleave_by_concept(imported + authored)
 
 # Stems that reference source material the student never sees → the question can't stand alone.
 _SRC_REF_RE = re.compile(
@@ -589,9 +612,26 @@ def resolve_key(source_answer, options):
 # Tolerate docling's rendering: options come out as list items ("- a. Foo") and
 # the answer as a heading ("##### Answer: c"), so allow an optional list marker
 # before the option letter and optional heading hashes before "Answer".
+# Also tolerate a decorative bullet and the word "Correct": a glyph such as "■"
+# renders as a stray one-or-two-char token, giving "##### n Correct Answer: C"
+# (seen in the CCA workshop PDFs, 2026-08-08). Without this the whole document
+# reads as prose and gets AUTHORED instead of imported — see is_qa_doc below.
 _OPT_RE = re.compile(r"^\s*(?:[-*+]\s+)?([a-hA-H])[.)]\s+(.+?)\s*$")
-_ANS_RE = re.compile(r"^\s*#*\s*Answer\s*[:\-]\s*([A-Ha-h](?:\s*[,/&]\s*[A-Ha-h])*)\s*$", re.I)
+_ANS_RE = re.compile(
+    r"^\s*#*\s*(?:\S{1,2}\s+)?(?:correct\s+)?Answer\s*[:\-]\s*"
+    r"([A-Ha-h](?:\s*[,/&]\s*[A-Ha-h])*)\s*$", re.I)
 _PFX_RE = re.compile(r"^\(?\s*(multiple[\s-]*choice|open[^)]*|true[\s/-]*false)\s*\)?\s*[:.\-]?\s*", re.I)
+
+def _clean_qa_text(s):
+    """Strip converter scaffolding from an imported stem/option WITHOUT changing wording.
+    Docling renders a stem as a heading ("##### Q17. ...") and escapes markdown specials
+    ("stop\\_reason"). Both are artefacts of the conversion, not the author's text."""
+    s = (s or "").replace("\\_", "_").replace("\\*", "*").replace("\\#", "#")
+    s = s.lstrip("#").strip()
+    head = s.split(". ", 1)                    # a leading "Q17." question number
+    if len(head) == 2 and head[0][:1].upper() == "Q" and head[0][1:].isdigit():
+        s = head[1].strip()
+    return s
 
 def parse_qa(text):
     """Extract already-formed MCQs from a section's markdown. Returns a list of
@@ -603,16 +643,45 @@ def parse_qa(text):
         if not _OPT_RE.match(lines[i]):
             i += 1; continue
         start = i; opts = []
-        while i < n and _OPT_RE.match(lines[i]):
-            m = _OPT_RE.match(lines[i]); opts.append((m.group(1).lower(), m.group(2).strip())); i += 1
+        while i < n:
+            m = _OPT_RE.match(lines[i])
+            if m:
+                opts.append((m.group(1).lower(), m.group(2).strip())); i += 1; continue
+            # The run has stalled. Converters break an option run in three ways:
+            #   * a long option WRAPS, sometimes with a spurious list marker ("3. of
+            #     parent or sibling agent context") and sometimes across a blank line;
+            #   * a code-like option ("A) paths: ['**/*.tf']") gets wrapped in a fence,
+            #     which can strand the last option outside it.
+            # Look ahead over blanks/fences and AT MOST two stray text lines; accept
+            # them as continuation only if the option run genuinely resumes afterwards,
+            # so the answer line and the following prose are never swallowed.
+            k2, buf = i, []
+            while k2 < n:
+                s2 = lines[k2].strip()
+                if not s2 or s2.startswith("```"):
+                    k2 += 1; continue
+                if _OPT_RE.match(lines[k2]) or len(buf) >= 2:
+                    break
+                buf.append(s2); k2 += 1
+            if not (opts and k2 < n and _OPT_RE.match(lines[k2])):
+                break
+            for cont in buf:
+                head = cont.split(". ", 1)             # drop the injected list marker
+                if len(head) == 2 and head[0].isdigit():
+                    cont = head[1]
+                letter, txt = opts[-1]
+                opts[-1] = (letter, (txt + " " + cont).strip())
+            i = k2
         if len(opts) < 2:
             continue
-        j = start - 1                                  # stem = nearest non-blank line above
-        while j >= 0 and not lines[j].strip():
+        j = start - 1          # stem = nearest real line above (skip blanks AND fences:
+        while j >= 0 and (not lines[j].strip()                # a fenced option block puts
+                          or lines[j].strip().startswith("```")):  # ``` right above "A)")
             j -= 1
-        stem = _PFX_RE.sub("", lines[j].strip()) if j >= 0 else ""
-        k = i                                          # answer = next non-blank line
-        while k < n and not lines[k].strip():
+        stem = _clean_qa_text(_PFX_RE.sub("", lines[j].strip())) if j >= 0 else ""
+        k = i                     # answer = next real line (skip blanks AND a closing
+        while k < n and (not lines[k].strip()          # fence: a fenced option block
+                         or lines[k].strip().startswith("```")):   # leaves ``` here)
             k += 1
         am = _ANS_RE.match(lines[k]) if k < n else None
         if not (am and stem):
@@ -623,7 +692,7 @@ def parse_qa(text):
         for idx, (letter, txt) in enumerate(opts):
             is_c = letter in ans
             correct += is_c
-            options.append({"id": opt_id(idx), "text": txt, "correct": bool(is_c), "rationale": ""})
+            options.append({"id": opt_id(idx), "text": _clean_qa_text(txt), "correct": bool(is_c), "rationale": ""})
         if correct:
             out.append({"stem": stem, "type": ("mcq_multi" if correct > 1 else "mcq_single"),
                         "options": options, "difficulty": 2})
@@ -694,7 +763,7 @@ def main():
                  "difficulty": int(raw.get("difficulty", 2)), "bloom": "recall",
                  "stem": raw["stem"], "options": raw["options"], "explanation": "", "hints": [],
                  "source_refs": [{"source_id": SRC_ID, "locator": iloc}], "tags": ["imported"]}
-            sq = sanitize_question(q)
+            sq = sanitize_question(q, verbatim=True)   # imported: never rewrite
             if sq:
                 sq["tags"] = sorted(set((sq.get("tags") or []) + ["imported"]))
                 pkg_questions.append(sq)
@@ -814,16 +883,27 @@ def main():
     # defensive sanitize: guarantee every question is schema-valid + internally consistent
     _clean, _dropped = [], 0
     for q in pkg_questions:
-        sq = sanitize_question(q)
+        # Imported questions stay verbatim here too: this defensive pass runs over the
+        # WHOLE bank, and without the flag it re-scrubs them — that is what put
+        # "expansion in.mcp.json" into three CCA workshop stems (2026-08-08).
+        sq = sanitize_question(q, verbatim=("imported" in (q.get("tags") or [])))
         if sq: _clean.append(sq)
         else: _dropped += 1
     if _dropped: warnings.append(f"sanitize: dropped {_dropped} unsalvageable question(s)")
     pkg_questions = _clean
 
-    # dedup near-duplicate stems across the whole package
-    pkg_questions, _ndup = dedup_questions(pkg_questions, threshold=0.72)
-    if _ndup: warnings.append(f"dedup: removed {_ndup} near-duplicate question(s)")
-    emit("dedup.done", removed=_ndup, remaining=len(pkg_questions))
+    # Dedup near-duplicate stems across the package — AUTHORED questions only. Token
+    # Jaccard cannot tell "differs by one decisive word" from "says the same thing":
+    # "What is the Glob built-in tool best used for?" scores 0.818 against the Grep
+    # version of the same sentence, so a curated bank silently loses one of a matched
+    # pair that teaches the CONTRAST between them (2026-08-08). A question imported
+    # verbatim was written deliberately; only the model's own output needs pruning.
+    _imported = [q for q in pkg_questions if "imported" in (q.get("tags") or [])]
+    _authored = [q for q in pkg_questions if "imported" not in (q.get("tags") or [])]
+    _authored, _ndup = dedup_questions(_authored, threshold=0.72)
+    pkg_questions = _imported + _authored
+    if _ndup: warnings.append(f"dedup: removed {_ndup} near-duplicate authored question(s)")
+    emit("dedup.done", removed=_ndup, remaining=len(pkg_questions), imported_kept=len(_imported))
 
     # Prune disputes whose question was dropped (e.g. by dedup) so we never leave
     # an orphan dispute pointing at a non-existent question.

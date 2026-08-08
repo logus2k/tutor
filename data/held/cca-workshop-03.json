@@ -1,0 +1,4394 @@
+{
+  "schema_version": "1.0",
+  "id": "cca-workshop-03",
+  "title": "CCA Workshop 03 — Claude Code Configuration & Workflows",
+  "description": "This package contains questions specifically related to the CCA Workshop 03 material.",
+  "generated_by": "tutor orchestrator.py (agent_server active chat model)",
+  "generated_at": "2026-08-08T17:22:27.952933+00:00",
+  "sources": [
+    {
+      "id": "src-cca-workshop-03-questions",
+      "title": "CCA Workshop 03 Questions",
+      "kind": "pdf",
+      "extractor": "docling+enrich",
+      "uri": "documents/CCA_Workshop_03_Questions.pdf"
+    }
+  ],
+  "source_ids": [
+    "src-cca-workshop-03-questions"
+  ],
+  "taxonomy": {
+    "domains": [
+      {
+        "id": "d0-d1",
+        "title": "CCA Workshop 03 Questions",
+        "weight": 1.0
+      }
+    ]
+  },
+  "concepts": [
+    {
+      "id": "d0-c-1",
+      "domain": "d0-d1",
+      "objective": "1",
+      "title": "CCA Workshop 03 Questions",
+      "summary": "",
+      "prerequisites": [],
+      "tags": [],
+      "grounding": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4",
+          "text": "Domain 3 - 20%\n\n##### Claude Code Configuration & Workflows\n\nDomain 3 - 20% of the CCA exam\n\n##### IN THIS MODULE:\n\n- F CLAUDE.md hierarchy: project, directory, user levels\n- F Slash commands and skills with frontmatter\n- F context: fork for isolated sub-agents\n- F CI/CD integration with -p flag and --output-format json\n- F Iterative refinement techniques\n\n90 PRACTICE QUESTIONS - 30 BEGINNER · 30 INTERMEDIATE · 30 ADVANCED\n\n##### QUESTION BANK OVERVIEW\n\n| Level        | Questions   | Focus                                                 |\n|--------------|-------------|-------------------------------------------------------|\n| Beginner     | Q1-Q30      | Core concepts, terminology, and foundational patterns |\n| Intermediate | Q31-Q60     | Application scenarios, design decisions, trade-offs   |\n| Advanced     | Q61-Q90     | Production architecture, edge cases, system design    |\n\n##### HOW TO USE THIS MODULE\n\nWork through each level in order. For Beginner questions, aim for 90%+ before moving to Intermediate. For Intermediate, 80%+ before Advanced. Each question includes the correct answer and a full explanation - read the explanation even for questions you answered correctly to understand the underlying principle. The exam tests judgment, not memorization.\n\n##### BEGINNER QUESTIONS\n\nQuestions 1-30\n\n##### Q1. What is the purpose of CLAUDE.md files in Claude Code?\n\n- A) They store Claude Code's configuration settings like API keys and model versions\n- B) They provide project ",
+          "citation": "CCA Workshop 03 Questions"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "d0-q-0001",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the purpose of CLAUDE.md files in Claude Code?",
+      "options": [
+        {
+          "id": "a",
+          "text": "They store Claude Code's configuration settings like API keys and model versions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "They provide project context, conventions, and instructions that Claude Code loads automatically to guide its behavior on that codebase",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "They are the output files Claude Code generates after analyzing a project",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "They define the tools Claude Code can use in a project",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0002",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Which CLAUDE.md location is shared with the entire team via version control?",
+      "options": [
+        {
+          "id": "a",
+          "text": "~/.claude/CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "/tmp/CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": ".claude/CLAUDE.md (or root CLAUDE.md) in the repository",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "~/Documents/CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0003",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the @import syntax in CLAUDE.md do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It imports Python modules for Claude Code to use",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It references external files so CLAUDE.md stays modular - rules files are maintained separately and included at load time",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It imports configuration from another project's CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It loads MCP server definitions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0004",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the .claude/rules/ directory used for?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Storing Claude Code execution logs",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Organizing topic-specific rule files that can be selectively loaded based on file path patterns",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Caching Claude Code responses for faster repeated queries",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Storing tool definitions for Claude Code",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0005",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What flag do you add to run Claude Code non-interactively in a CI pipeline?",
+      "options": [
+        {
+          "id": "a",
+          "text": "--ci",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "--no-input",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "-p (or --print)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "--batch",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0006",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When is plan mode appropriate vs. direct execution?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always use plan mode - it produces better results for all tasks",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Plan mode for complex, multi-file, architectural tasks. Direct execution for well-scoped, single-file, clear-scope changes",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Direct execution is always faster; plan mode is for documentation only",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Plan mode requires senior developer approval; direct execution is self-service",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0007",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does context: fork do in a skill's frontmatter?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Creates a backup copy of the current session before running the skill",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Runs the skill in an isolated sub-agent context, preventing verbose skill output from polluting the main session's context window",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Forks the Git repository before making any changes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Enables parallel execution of multiple skills simultaneously",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0008",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the difference between a slash command and a skill in Claude Code?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Slash commands are for developers; skills are for non-technical users",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Skills have frontmatter configuration (context, allowed-tools, argument-hint) and can run in isolated contexts; slash commands are simpler prompt templates without these capabilities",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Slash commands execute code; skills only generate text",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "There is no difference - they are the same feature with different names",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0009",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Where should project-wide slash commands be stored to share them with the team?",
+      "options": [
+        {
+          "id": "a",
+          "text": "~/.claude/commands/ on each developer's machine",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": ".claude/commands/ in the project repository (committed to version control)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "In the root CLAUDE.md file as command definitions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "In a .commands file in the project root",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0010",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the allowed-tools frontmatter in a skill do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Lists which team members can use this skill",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Restricts which tools the skill can invoke during its execution, limiting scope and preventing destructive actions",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Specifies which MCP servers the skill connects to",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Defines which file types the skill can read",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0011",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the /memory command do in Claude Code?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Clears Claude Code's memory to start fresh",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Shows which CLAUDE.md and memory files are currently loaded, helping diagnose inconsistent behavior",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Exports the current session context to a file",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Imports a previous session's context into the current one",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0012",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the argument-hint frontmatter field in a skill used for?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Documenting the skill for the team wiki",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Displaying a prompt to the developer when they invoke the skill without arguments, asking them to provide required parameters",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Setting default argument values",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Restricting which argument types are valid",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0013",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the recommended approach when a task spans multiple directories with different conventions (e.g., frontend React code and backend Python code)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Put all conventions in the root CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Create directory-level CLAUDE.md files in each relevant subdirectory, or use path-scoped rules in .claude/rules/ for file-type-specific conventions",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Create separate Claude Code projects for frontend and backend",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a single shared convention file and ignore the differences",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0014",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the purpose of --output-format json in Claude Code CI integration?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Compresses the response to reduce file size",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Produces machine-parseable structured output that can be automatically processed to post inline PR comments or integrate with review tools",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Formats the output for display in the GitHub Actions log",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Enables JSON input for the review criteria",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0015",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Where do personal Claude Code customizations live that you DON'T want to share with teammates?",
+      "options": [
+        {
+          "id": "a",
+          "text": ".claude/personal/CLAUDE.md in the project",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "~/.claude/CLAUDE.md (user-level, never committed to version control)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A .gitignore'd CLAUDE.local.md in the project root",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Personal settings are not supported - all settings are team-wide",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0016",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why is using an independent Claude Code session to review a PR more effective than self-review?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Independent sessions use a more powerful model",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The session that wrote the code retains generation reasoning context, making it biased toward validating its own decisions; a fresh session has no such bias",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Independent sessions have access to more tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Self-review is not supported in Claude Code",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0017",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the Explore subagent in Claude Code and when should you use it?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A subagent specialized in web browsing and external research",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "A subagent that runs verbose discovery phases in an isolated context to prevent main session context exhaustion during multi-phase tasks",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The default subagent used for all Claude Code operations",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "A monitoring subagent that reports on Claude Code's resource usage",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0018",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What should a CLAUDE.md file include about a codebase?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only the list of approved coding tools",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Project overview and tech stack, architectural decisions and patterns, testing standards, deployment process, and what to avoid (anti-patterns, banned practices)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Employee names and contact information for escalation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only the sections relevant to whatever task Claude Code is currently working on",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0019",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the interview pattern for iterative refinement?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude Code interviews the developer about their qualifications",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Having Claude ask clarifying questions to surface design considerations before implementing especially useful in unfamiliar domains",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Running a technical interview to assess code quality",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Generating multiple solution variants and asking the developer to pick one",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0020",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should you provide test-driven feedback for iterative refinement?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only after the implementation is complete",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Write tests first describing expected behavior, run them against Claude's implementation, then share specific failures for Claude to fix - this produces better outcomes than prose feedback",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only for junior developers - senior developers use direct execution",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Test-driven feedback is not supported in Claude Code",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0021",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A developer reports that their custom slash command works in their terminal but not in the team's shared project. What is the most likely cause?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Slash commands don't work in shared projects",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The command file is in ~/.claude/commands/ (personal) instead of .claude/commands/ (project) - it's not committed to the repository",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The command syntax has an error that only manifests in certain environments",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Shared projects require admin approval for custom commands",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0022",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the primary advantage of using Claude Code for complex refactoring compared to just using the chat interface?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude Code has access to a more powerful model",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude Code can read and edit actual files on your filesystem, run tests, and iteratively fix issues operating as an engineering partner, not just a text generator",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Claude Code has a larger context window",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Claude Code is cheaper per token",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0023",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How does Claude Code know what version control system your project uses?",
+      "options": [
+        {
+          "id": "a",
+          "text": "You must specify it in CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude Code detects the version control system by examining the repository structure (.git, .hg directories) and uses appropriate Bash commands accordingly",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Claude Code only supports Git",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Version control is configured in the .claude/settings.json file",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0024",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does it mean when Claude Code says it will 'run tests' as part of a task?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It simulates test execution mentally without actually running code",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "It uses the Bash tool to execute actual test commands in your project (npm test, pytest, go test) and reads the real output to verify its changes work",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "It generates test scenarios but leaves execution to the developer",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "It only runs tests if you have a test runner configured in CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0025",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What happens when you provide feedback to Claude Code on its implementation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude Code resets and starts from scratch",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude Code treats your feedback as new context and iteratively refines the implementation, informed by all prior attempts and your specific feedback on what needs changing",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Feedback is logged but doesn't affect the current session",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Claude Code only accepts feedback in a specific feedback format",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0026",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the difference between /review-pr and /security-audit slash commands if both are defined in .claude/commands/?",
+      "options": [
+        {
+          "id": "a",
+          "text": "They are identical - command names are just labels",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Each command file defines its own prompt and scope; /review-pr might focus on correctness and test coverage while /security-audit focuses on vulnerabilities - entirely different workflows despite being invoked similarly",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only one custom command can be active at a time",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "/security-audit requires elevated permissions to run",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0027",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the best way to tell Claude Code about a project's testing philosophy (e.g., 'we prefer integration tests over unit tests')?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Mention it in every prompt you give to Claude Code",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Document it in CLAUDE.md (project-level or in a .claude/rules/testing.md file) so it's automatically loaded as persistent context every session",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Store it in a .testing-philosophy file",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Claude Code learns this automatically from your test file structure",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0028",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does 'allowlisting specific Bash commands' in Claude Code mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Approving Bash commands before they run",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Configuring Claude Code to only use a specific subset of Bash commands - restricting which commands it can execute to reduce risk",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A list of Bash commands that require elevated permissions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Commands that Claude Code is allowed to show output from",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0029",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the -p flag's purpose in Claude Code?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Enables plan mode for the session",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "'Print mode' - runs Claude Code non-interactively, processes the prompt, prints the result to stdout, and exits. Required for CI/CD pipeline integration.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Passes a custom prompt file to Claude Code",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Enables verbose debug output",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0030",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does context: fork prevent in a skill's execution?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Prevents the skill from being invoked by multiple agents simultaneously",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Prevents the skill's verbose intermediate work (file reads, analysis, brainstorming) from accumulating in the main session's context window",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Prevents the skill from modifying files outside its allowed directory",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Prevents the skill from calling external APIs",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0031",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A junior developer joins the team and reports that Claude Code isn't following the TypeScript naming conventions everyone else follows. Other team members have no issues. What is the most likely cause?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude Code needs to be updated to the latest version",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The naming conventions are defined in the developer's user-level ~/.claude/CLAUDE.md on another machine; they need to be moved to the project-level .claude/CLAUDE.md",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The conventions are correct but Claude Code is ignoring them intentionally",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The developer needs to run /reload to load the latest CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0032",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your .claude/rules/terraform.md should apply whenever editing any Terraform file anywhere in the project (not just in a specific directory). How should the frontmatter be written?",
+      "options": [
+        {
+          "id": "a",
+          "text": "paths: ['terraform/']",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "paths: ['**/*.tf', 'terraform/**/*', '**/*.tfvars']",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "paths: ['*.tf'] -- this matches all .tf files",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "No frontmatter needed - .claude/rules/ files always apply globally",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0033",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You want a CLAUDE.md for testing conventions that applies to test files in src/__tests__/, components/**/*.test.tsx, and e2e/. What is the correct path pattern?",
+      "options": [
+        {
+          "id": "a",
+          "text": "paths: ['tests/**']",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "paths: ['**/*.test.tsx', '**/*.test.ts', '**/*.spec.ts', 'e2e/**/*', 'src/__tests__/**']",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "paths: ['*.test.ts', '*.test.tsx']",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "A separate CLAUDE.md in each test directory",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0034",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A Claude Code skill produces 15,000 tokens of codebase analysis output. What frontmatter setting prevents this from polluting the main session?",
+      "options": [
+        {
+          "id": "a",
+          "text": "max-output: 1000",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "context: fork",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "output-mode: summary",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "isolated: true",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0035",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your team wants a /security-audit slash command available to all developers. A senior developer also wants a personal variant with stricter rules. How is this implemented without affecting the team version?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Edit the shared command directly with a senior_mode flag",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The senior developer creates a personal variant in ~/.claude/commands/security-audit-strict.md with a different name to avoid overriding the shared command",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The senior developer maintains their own branch with a modified command",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Personal command variants are not supported - shared commands apply to everyone",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0036",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When including prior code review findings in a new review run, what instruction should you give Claude Code to avoid duplicate PR comments?",
+      "options": [
+        {
+          "id": "a",
+          "text": "'Ignore all previous reviews - start fresh'",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "'Here are the findings from the prior review: [findings]. Report ONLY issues that are new or still unaddressed after the latest commits'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "'Output only findings with severity: critical'",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "'Do not repeat any finding that contains the same file name as a prior finding'",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0037",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How does Claude Code use CLAUDE.md in a CI/CD pipeline where it's invoked with -p?",
+      "options": [
+        {
+          "id": "a",
+          "text": "CLAUDE.md is not loaded in non-interactive mode",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "CLAUDE.md loads automatically regardless of interactive mode - CI-invoked Claude Code uses the same project context as developer sessions",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "You must pass --config CLAUDE.md explicitly in CI commands",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "CLAUDE.md is only loaded when a developer explicitly runs /memory",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0038",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are using the iterative refinement technique with concrete examples. When should you provide 2-3 input/output examples vs. detailed prose instructions?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always use prose - examples are harder to maintain",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use examples when prose descriptions are being interpreted inconsistently; examples are more effective than additional instructions for communicating ambiguous transformations",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use examples only for beginners - experienced developers use prose",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Examples and prose are equally effective - choose based on preference",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0039",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the best approach for addressing multiple issues found in a code review when some issues interact with each other?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Always fix issues one at a time in separate iterations",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Provide all interacting issues in a single detailed message so Claude Code can consider their relationships; fix independent issues sequentially",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always provide all issues at once regardless of independence",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only provide the most critical issue - Claude Code can find the others",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0040",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A developer wants to use Claude Code to explore a legacy codebase before making changes, but doesn't want the exploration to use up context for the implementation phase. What is the correct workflow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use direct execution - exploration isn't needed before implementation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use plan mode for exploration (or invoke the Explore subagent via a skill with context: fork), then start the implementation in the main session with the exploration summary",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Run two separate Claude Code instances simultaneously",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a larger max_tokens budget for exploration sessions",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0041",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What information should CLAUDE.md include about your test suite to improve CI test generation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A list of all existing test file names",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Testing standards (what makes a good test), valuable test criteria (edge cases that matter), available fixtures and test helpers, and what is already covered (to avoid duplicates)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The test framework version and configuration only",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Links to testing documentation on external websites",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0042",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When should you use a directory-level CLAUDE.md vs. path-scoped rules in .claude/rules/?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Directory-level CLAUDE.md is always better - it's simpler to manage",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use directory-level CLAUDE.md for conventions tightly coupled to a specific directory tree. Use path-scoped rules when conventions apply to files scattered across multiple directories",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Path-scoped rules always replace directory-level CLAUDE.md - never use both",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Directory-level is for large teams; path-scoped is for small teams",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0043",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How does Claude Code know what existing tests cover when generating new tests in CI?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It automatically scans and understands all existing test files",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "You must explicitly provide the relevant existing test files in the CI invocation context, instructing Claude Code not to generate scenarios already covered",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Test generation always creates completely new tests with no awareness of existing coverage",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Claude Code reads a coverage report file automatically",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0044",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A team has CLAUDE.md files at three levels: root, src/, and src/payments/. Which rules apply when Claude Code is editing src/payments/refund.py?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Only src/payments/CLAUDE.md - the most specific wins",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "All three: root CLAUDE.md + src/CLAUDE.md + src/payments/CLAUDE.md - all apply simultaneously, with more specific rules supplementing (not replacing) general ones",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only root CLAUDE.md - directory-level files are supplementary only when explicitly imported",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "The developer must specify which CLAUDE.md applies with a command flag",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0045",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to prevent a CI review from commenting on the same issue twice across multiple PR updates. What is the architectural solution?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use a lower temperature to make reviews more deterministic",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Maintain a review state store (database or PR comment API) that tracks which findings have been reported; inject prior findings into each Claude Code invocation with instructions to report only new/unresolved issues",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Delete all prior PR comments before each new review run",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a unique session ID per PR to maintain review continuity",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0046",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Why should test generation use the same Claude Code session that wrote the code vs. an independent session?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It should NOT - independent review sessions catch more gaps than self-review",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Same session is better for test generation - it understands implementation intent and can write tests for internal behavior",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Same session is always faster",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Independent sessions cannot read the implementation files",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0047",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you handle a Claude Code task that spans a large refactor (45+ files) without context window exhaustion?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Increase max_tokens to accommodate all 45 files",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use plan mode first to create a structured refactor plan, then execute file-by-file in focused implementation sessions, using checkpoints to track progress",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Process all 45 files simultaneously in a single Claude Code invocation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Limit refactors to 10 files maximum",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0048",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the most effective CLAUDE.md content for reducing Claude Code's false positives on a codebase that uses unconventional patterns intentionally?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A long list of rules Claude Code must follow",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Explicit documentation of intentional patterns with the reasoning: 'We use X pattern because Y - do not flag this as an anti-pattern'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "A list of file patterns Claude Code should not analyze",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Reduced max_tokens to limit how much Claude Code checks",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0049",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should CI test generation handle a PR that modifies a function that is already covered by 15 existing tests?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Regenerate all 15 tests to ensure they match the new implementation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Provide the 15 existing tests as context; instruct Claude Code to analyze what's already covered and generate ONLY tests for behavior introduced or changed by this PR",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Skip test generation when existing coverage is sufficient",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Delete the old tests and generate fresh ones",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0050",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You want a skill that creates a standardized PR description. The skill should ask for the PR title if not provided, and should only use Read and Glob tools. Write the correct frontmatter.",
+      "options": [
+        {
+          "id": "a",
+          "text": "tools: [Read, Glob] / prompt: 'Enter PR title'",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "allowed-tools: [Read, Glob] / argument-hint: 'Enter the PR title (or press enter to generate from branch name)'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "permissions: [Read, Glob] / input-required: 'PR title'",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "restricted-tools: [Write, Bash] / argument-hint: 'PR title'",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0051",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "When is it appropriate to use 'plan mode' in Claude Code before making changes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "For all tasks - plan mode always produces better results",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "For tasks with architectural implications, multiple file changes, or where the approach isn't immediately clear. Skip for well-scoped single-file changes where the implementation is straightforward.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only for tasks that take more than 30 minutes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Plan mode is only for team leads - individual developers use direct execution",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0052",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need Claude Code to generate documentation that always follows your team's specific doc template. How do you ensure this without manual review?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Claude Code verbally each time to use the template",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Include the template structure in CLAUDE.md with clear section descriptions and required fields; create a /generate-docs slash command that references the template explicitly; include a sample well-formatted doc as a few-shot example",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Post-process all Claude Code outputs through a formatter",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a fixed temperature setting for deterministic output",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0053",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should CLAUDE.md handle information that changes frequently (like API endpoint URLs or version numbers)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Hardcode all current values - CLAUDE.md should be complete and self-contained",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Reference external configuration files or environment variables for volatile values; CLAUDE.md should describe structure and patterns, not frequently-changing specific values",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Update CLAUDE.md daily with current values via a CI pipeline",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Omit volatile information - Claude Code will discover it from the codebase",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0054",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the correct interpretation of Claude Code running in 'non-interactive mode' with -p?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude Code runs with reduced capabilities",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Claude Code processes the prompt, executes the task, outputs results, and exits - no interactive prompts, STDIN reading, or clarifying questions. Suitable for CI/CD pipelines.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Non-interactive mode disables all file write operations for safety",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only read-only operations are available in non-interactive mode",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0055",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What does the --json-schema flag in Claude Code CI invocations do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Validates that the Claude Code configuration is valid JSON",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Specifies a schema file that Claude Code must follow when producing --output-format json output, ensuring structured machine-parseable findings",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Converts the CLAUDE.md to JSON format for CI consumption",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Enables JSON-formatted logs for the CI pipeline runner",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0056",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are writing a CLAUDE.md for a codebase that uses a monorepo pattern where shared utilities live in /packages/shared and are imported by both frontend and backend. What should CLAUDE.md emphasize?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Shared utilities should be duplicated in both frontend and backend to avoid dependencies",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "When modifying /packages/shared, always check for and update all imports in both frontend and backend; never make breaking changes to shared interfaces without a migration plan",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only senior developers should modify shared utilities",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "CLAUDE.md should list all current shared utility function signatures",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0057",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How does Claude Code's iterative refinement cycle work when a test fails after implementation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Start over with a different implementation approach",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Share the specific test failure (error message, expected vs actual, failing test code) as feedback; Claude Code uses this concrete failure information to diagnose and fix the specific issue",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Reduce the requirements and implement a simpler version that passes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Mark the test as pending and skip it",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0058",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your CLAUDE.md references specific file paths for examples (e.g., 'See src/auth/middleware.ts for the authentication pattern'). What maintenance concern does this create?",
+      "options": [
+        {
+          "id": "a",
+          "text": "None - file path references are static",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "File paths break when files are moved or renamed, causing Claude Code to look for non-existent examples. Periodically audit CLAUDE.md for stale paths, or prefer describing patterns in text with 'search for AuthMiddleware using Grep' instead.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "File path references increase CLAUDE.md loading time",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Absolute paths are not supported in CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0059",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A security-sensitive codebase needs Claude Code to always run static analysis before any code submission. How do you enforce this beyond a system prompt instruction?",
+      "options": [
+        {
+          "id": "a",
+          "text": "System prompt instructions are sufficient for this requirement",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Create a .claude/commands/submit-code.md slash command that explicitly includes the static analysis step in its workflow. This makes the step visible and explicit rather than relying on Claude Code to remember the instruction.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Add a Git pre-commit hook that runs static analysis independently",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Disable Claude Code's write tools and require all changes to go through code review",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0060",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "What is the 'test-then-implement' workflow in Claude Code and when is it most valuable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Running existing tests before making changes to verify the baseline",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Writing tests first that describe the desired behavior, then asking Claude Code to implement code that makes those tests pass - most valuable for complex business logic where specification via tests is clearer than prose",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Asking Claude Code to write tests after implementation for regression coverage",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Using Claude Code to generate test stubs that developers fill in manually",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0061",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are designing a Claude Code configuration for a monorepo with 5 packages: web (React/TS), api (Node/TS), ml-service (Python), infra (Terraform), mobile (React Native). What is the optimal CLAUDE.md architecture?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One massive root CLAUDE.md containing all conventions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Root CLAUDE.md for shared conventions; package-level CLAUDE.md in each package for language/framework specifics; .claude/rules/ files for cross-cutting concerns (security, testing) with path scoping",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "CLAUDE.md only in packages that have frequent Claude Code usage",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Separate Claude Code projects for each package",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0062",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A security audit finds that developers are using Claude Code to generate code that bypasses your security controls. The code passes automated tests but violates policy. How do you prevent this at the CLAUDE.md level?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Disable Claude Code for security-sensitive modules",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Define explicit security policies in CLAUDE.md with examples of prohibited patterns: 'Never generate code that bypasses authentication middleware - see src/middleware/auth.ts as the required pattern'",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use access controls to prevent Claude Code from reading security files",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Run all Claude Code output through a separate security review model",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0063",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your CI pipeline runs 3 parallel Claude Code review jobs (security, performance, correctness) on every PR. Sometimes they produce conflicting recommendations. How do you resolve conflicts architecturally?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Run them sequentially so each sees the prior review's output",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Design each job with explicit scope boundaries in its review criteria; add a conflict resolution step that identifies contradictions and applies a priority order (security > correctness > performance)",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use the average of conflicting recommendations",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Only run one review type per PR to avoid conflicts",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0064",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need Claude Code to consistently use a specific internal logging library instead of console.log/print across all languages (TypeScript, Python, Go). How do you configure this most effectively?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'use our logger' to the root CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Create language-specific rules in .claude/rules/ with path scoping, each providing: the banned pattern, the correct import, and a usage example showing the equivalent of console.log in that language's logger API",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Create a PreToolUse hook in Claude Code that rejects code with console.log",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "This requires a custom model fine-tuned on your codebase",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0065",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A senior architect wants to use Claude Code to explore three competing architectural approaches for a major system redesign before committing. The codebase is 500K lines. What is the optimal workflow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Run Claude Code three times sequentially on the full codebase",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use plan mode to analyze the codebase once (via Explore subagent to avoid context exhaustion); fork three sessions from the analysis result; explore each architectural approach in its own fork; compare results before committing",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Create three separate git branches and run Claude Code on each",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Provide the full codebase as context and ask Claude Code to evaluate all three approaches simultaneously",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0066",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your team's CLAUDE.md has grown to 8,000 tokens and developers report Claude Code sometimes ignoring conventions in the middle of the file. How do you fix this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Increase max_tokens to give Claude Code more capacity",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Restructure using @import to load only relevant rules, use .claude/rules/ with path scoping so conventions load contextually rather than all at once, and prioritize critical rules at the top",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Delete less important sections to reduce file size",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Split into two separate CLAUDE.md files",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0067",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should you design a Claude Code CI workflow for a repository with both application code and infrastructure-as-code (Terraform)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Run the same review job on all file types",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Separate review jobs with specialized context: application review job (loads CLAUDE.md with coding standards), IaC review job (loads .claude/rules/terraform.md with security and cost guidelines), each triggered by relevant file changes",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Review only application code - IaC review requires specialized human expertise",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Combine all reviews into one job to reduce CI cost",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0068",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A developer reports that a skill they created for codebase analysis is making the main session context unavailable for follow-up questions after the skill runs. What is the likely configuration error and fix?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The skill is too long - reduce its length",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "The skill is missing context: fork in its frontmatter; adding it will run the skill in an isolated context, preserving the main session for follow-up",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "The skill should use allowed-tools: [] to prevent context consumption",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Skills cannot run analysis - use a slash command instead",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0069",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to implement a Claude Code review system that learns from developer feedback. Developers can mark findings as 'false positive' or 'valid'. How do you incorporate this feedback into future reviews?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Manually update CLAUDE.md based on patterns of false positives",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Maintain a feedback database; before each review, inject aggregated false positive patterns as explicit 'do not flag' examples in the review context; periodically update CLAUDE.md rules based on consistent patterns",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Adjust temperature based on false positive rate",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Switch to a different model when false positive rates exceed 20%",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0070",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A large enterprise wants to standardize Claude Code configuration across 50 repositories. Updates to standards must propagate to all repos. What architecture achieves this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Manually update each repo's CLAUDE.md when standards change",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Maintain a central standards repository; use @import with URLs or git submodule references to include shared standards; repos maintain only project-specific overrides locally",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a single monorepo for all 50 projects",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Share standards via a shared npm package",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0071",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A CLAUDE.md has grown organically to 12,000 tokens over 18 months. Claude Code is inconsistently applying rules. What is the refactoring approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Delete older rules - they're probably outdated anyway",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Audit rules for current relevance; move subsystem-specific rules to appropriate directory CLAUDE.md files; convert frequently-applicable rules to .claude/rules/ with path scoping; keep only universal rules in root CLAUDE.md",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Split into two equal halves: CLAUDE.md and CLAUDE2.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Compress the content by removing examples and explanations",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0072",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A team uses both Terraform and Pulumi in the same repository for different infrastructure components. How do you configure CLAUDE.md to handle both?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Choose one and document it exclusively - two IaC tools create confusion",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Create separate .claude/rules/ files: terraform.md (paths: ['**/*.tf', 'infra/terraform/**']) and pulumi.md (paths: ['infra/pulumi/**', '**/*.ts' and only in infra/]) with each file's conventions, patterns, and gotchas",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Combine both sets of rules in a single iac.md file",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Document both tools in root CLAUDE.md with a disambiguation section",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0073",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are deploying Claude Code as a service where multiple engineers can submit tasks via a web interface. Tasks run asynchronously. What architectural considerations apply?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Claude Code is not designed for service deployment - use it only interactively",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Asynchronous task queue (each task is a Claude Code invocation with -p), job state tracking in a database, result storage and retrieval API, per-user rate limiting, task timeout enforcement, isolated working directories per task, result cleanup policies",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a single shared Claude Code instance for all users",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Claude Code tasks must be synchronous - implement a polling wait in the web interface",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0074",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you implement 'drift detection' for CLAUDE.md - detecting when the actual codebase has evolved away from documented conventions?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Trust developers to update CLAUDE.md manually",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Build automated drift detection: CI job that invokes Claude Code to compare CLAUDE.md's claims against the actual codebase (e.g., 'CLAUDE.md says we use X pattern - check if all relevant files follow it'); report discrepancies as CLAUDE.md maintenance issues",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Re-generate CLAUDE.md from scratch monthly using Claude Code",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Drift is acceptable - CLAUDE.md is aspirational documentation",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0075",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A large enterprise wants Claude Code configuration to be centrally managed with department-level overrides and project-level customizations. What is the most scalable architecture?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One shared CLAUDE.md for all teams",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Three-tier CLAUDE.md hierarchy: Enterprise-level baseline (git submodule or package in all repos), department-level overrides (@import in team repos), project-level customizations (local CLAUDE.md that @imports department config). Central governance reviews and approves enterprise and department levels.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Deploy a Claude Code configuration API that serves CLAUDE.md content dynamically",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Have each project team manage their own CLAUDE.md independently",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0076",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you implement Claude Code workflows that span multiple repositories - for example, updating an API in one repo and its corresponding clients in three other repos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cross-repo workflows are not possible with Claude Code",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Use a coordinator script that clones all affected repos into a workspace, invokes Claude Code with a task context that spans all repos, uses Bash tools for cross-repo git operations, and opens PRs in all affected repos",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Update repos sequentially - Claude Code handles one repo at a time",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Share a single CLAUDE.md across all repos via symlink",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0077",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "Your team wants to use Claude Code for code generation but is concerned about intellectual property - specifically, generated code that might be derived from training data that includes open-source code with incompatible licenses. How do you address this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "All Claude-generated code is original - no IP concerns",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a code provenance workflow: scan generated code with license-detection tools (FOSSA, SPDX), require Claude Code to explain algorithmic choices for non-trivial implementations, establish code review policies that evaluate generated code like any vendor contribution",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Only use Claude Code for boilerplate - never for algorithm implementation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Require all generated code to include a 'generated by Claude' comment",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0078",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need Claude Code to work with a proprietary internal framework that post-dates its training data. The framework has 300 files of documentation. How do you make Claude Code effective with this framework?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Provide all 300 documentation files in the CLAUDE.md via @import - more context is better",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Create a curated CLAUDE.md section for the framework: core concepts, key APIs with examples, common patterns, and gotchas. Add a MCP resource exposing the full documentation for on-demand lookup. Let Claude Code discover details as needed.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Claude Code cannot learn new frameworks - wait for a new model version",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Provide the full documentation as context in every prompt",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0079",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you design a Claude Code workflow that handles merge conflicts when two Claude Code sessions have independently modified the same files?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Configure Claude Code sessions to never modify the same files",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a conflict resolution workflow: create a merge branch, present both versions to a new Claude Code session with conflict context (why each version was created), ask it to produce a semantically correct merge that preserves both intents",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Always apply the most recent Claude Code session's changes",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Route all changes through a single serial Claude Code session",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0080",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A security audit reveals that Claude Code occasionally uses deprecated npm packages with known vulnerabilities in its generated code. How do you prevent this systematically?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add 'do not use deprecated packages' to CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "CLAUDE.md documents the approved package list with versions; a CI step after Claude Code runs npm audit on generated package.json changes; Claude Code is instructed to check CLAUDE.md's approved packages before adding new dependencies",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Disable Claude Code's ability to modify package.json",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Manually review all package.json changes before committing",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0081",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are building a Claude Code-powered pair programming tool for a coding education platform. Students learn best by making mistakes. How do you configure Claude Code to teach rather than solve?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Disable Claude Code for education - students should not use AI",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Configure CLAUDE.md with Socratic teaching mode: Claude Code asks guiding questions instead of providing solutions, points to relevant documentation rather than copying it, shows partial examples with key parts missing, provides hints at 3 levels of specificity before the full answer",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Claude Code cannot be configured for teaching - it always provides complete solutions",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use lower max_tokens to force shorter, less complete answers",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0082",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you implement 'reproducible Claude Code runs' - ensuring that re-running the same task produces comparable results for testing and validation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Reproducibility is impossible with LLMs - accept non-determinism",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Maximize determinism through: fixed model versions (not 'latest'), low temperature, structured output schemas (tool use), defined acceptance criteria in CLAUDE.md, version-controlled task definitions. Test against pass/fail criteria rather than exact output matching.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use temperature=0 for perfect reproducibility",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Record and replay API responses for deterministic testing",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0083",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should CLAUDE.md evolve as a project grows from a startup (10 files) to an enterprise product (10,000 files)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "CLAUDE.md should stay concise regardless of project size",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Evolve from: monolithic single file (startup) fi modular with @import (growth) fi layered hierarchy with path-scoped rules (enterprise). Introduce MCP resources for on-demand documentation access. Regularly audit for sections that are no longer relevant.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Create separate CLAUDE.md files for each feature as the project grows",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Enterprise projects should rely on code conventions only - not CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0084",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You need to implement a Claude Code workflow for data migration - extracting data from a legacy database, transforming it, and loading into a new schema. The migration affects 50 million records. What safeguards must the workflow include?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Run the migration directly with Claude Code on the production database",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Workflow safeguards: (1) develop and test against a data sample (1,000 records), (2) dry-run mode that validates transformation without writing, (3) incremental processing with checkpoints, (4) rollback capability via backup or reversible write, (5) record-count validation at each stage, (6) human review of transformation logic before production run",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Trust Claude Code's data migration code - it's been validated",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use only SQL migrations - Claude Code is not appropriate for data migration",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0085",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A DevOps team wants to use Claude Code for infrastructure provisioning with Terraform. How should the CLAUDE.md and skills be configured for this use case?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Infrastructure is too sensitive for Claude Code automation",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "CLAUDE.md: Terraform conventions, state backend config, tagging standards, module structure. Skills: plan-and-review skill (runs terraform plan, presents output for human review), apply-with-approval skill (requires explicit confirmation, logs all changes). Allowed tools: Bash (limited), Read, Write. Excluded: any tool that bypasses the plan/apply cycle.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Give Claude Code full AWS permissions and let it provision directly",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use Claude Code only for Terraform code review, never for execution",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0086",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you design a Claude Code-based code archaeology system that answers questions like 'why was this architectural decision made?' using git history and code comments?",
+      "options": [
+        {
+          "id": "a",
+          "text": "This is beyond Claude Code's capabilities - use a dedicated code archaeology tool",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Implement a code archaeology skill: uses Bash (git log, git blame, git show), Grep (for related comments/issues), and Read to trace decision history. Returns structured findings: decision_point, evidence (commit messages, PR references, comments), likely_rationale, confidence. Runs in isolated context (context: fork) to avoid polluting main session.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Ask developers to document all decisions in CLAUDE.md",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use semantic code search tools only - git history is too noisy",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0087",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How should you handle the case where Claude Code produces code that passes all tests but violates an implicit architectural constraint not documented in CLAUDE.md (such as circular dependency introduction)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Accept the code - tests passing is sufficient",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "(1) Run dependency graph analysis after every significant Claude Code session. (2) Add the violated constraint to CLAUDE.md immediately: 'No circular dependencies - run tsc --noEmit and madge --circular src/ to verify before committing.' (3) Create a CI check that enforces the constraint automatically.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Reject all Claude Code output that isn't manually reviewed",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Update the test suite to catch architectural violations",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0088",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "You are implementing a Claude Code workflow for a financial services company where code must be reviewed by compliance before deployment. How do you integrate compliance review into the Claude Code workflow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Compliance review happens after Claude Code finishes - it's a separate process",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Design a compliance-integrated workflow: Claude Code generates code + auto-generates a compliance questionnaire based on the changes (data types touched, regulatory categories affected). Questionnaire is submitted to compliance team. Claude Code provides supporting analysis (what regulations apply, why the implementation meets them). Human compliance sign-off gates the PR.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Configure Claude Code to only generate compliant code via system prompt",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Compliance review is unnecessary for AI-generated code",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0089",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "How do you implement 'skill composition' in Claude Code - where one complex skill invokes simpler component skills?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Skill composition is not supported - each skill runs independently",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "A high-level skill's prompt can reference and invoke lower-level skills explicitly: 'First run /analyze-dependencies, then /check-security-issues, then synthesize both results.' Claude Code chains the skills, passing outputs between them as context.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Combine all component skill logic into one large skill file",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Use a Bash script to chain skill invocations externally",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    },
+    {
+      "id": "d0-q-0090",
+      "concept_ids": [
+        "d0-c-1"
+      ],
+      "type": "mcq_single",
+      "render": "radio",
+      "difficulty": 2,
+      "bloom": "recall",
+      "stem": "A team wants Claude Code to automatically update their API documentation (OpenAPI spec) whenever it modifies API endpoint handlers. How do you implement this as a persistent workflow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Documentation updates require separate manual steps",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "b",
+          "text": "Path-scoped skill: a .claude/rules/api-endpoints.md with paths: ['src/routes/**/*.ts'] that instructs Claude Code to always update the OpenAPI spec when modifying routes. The rule specifies the spec location and the update methodology. CI validates spec-code consistency.",
+          "correct": true,
+          "rationale": ""
+        },
+        {
+          "id": "c",
+          "text": "Use a separate documentation generation tool",
+          "correct": false,
+          "rationale": ""
+        },
+        {
+          "id": "d",
+          "text": "Add 'always update OpenAPI spec' to CLAUDE.md globally",
+          "correct": false,
+          "rationale": ""
+        }
+      ],
+      "explanation": "",
+      "hints": [],
+      "source_refs": [
+        {
+          "source_id": "src-cca-workshop-03-questions",
+          "locator": "p.1-4"
+        }
+      ],
+      "tags": [
+        "imported"
+      ]
+    }
+  ],
+  "quality": {
+    "score": 60,
+    "publishable": false,
+    "findings": [
+      {
+        "severity": "error",
+        "area": "balance",
+        "detail": "Difficulty distribution is extremely skewed (100% at difficulty level 2)."
+      },
+      {
+        "severity": "error",
+        "area": "balance",
+        "detail": "Bloom distribution is extremely skewed (100% Recall)."
+      },
+      {
+        "severity": "warn",
+        "area": "coverage",
+        "detail": "Only one domain (d1) and one concept are present, which is very narrow coverage."
+      }
+    ],
+    "disputes": []
+  },
+  "owner_email": "logus2k@gmail.com",
+  "held_at": "2026-08-08T17:22:29.115708+00:00"
+}
