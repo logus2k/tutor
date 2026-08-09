@@ -10,6 +10,15 @@
       "visibility": "shared"
     },
     {
+      "id": "anthropic-caf-cheat-sheet",
+      "title": "Anthropic CAF Cheat Sheet",
+      "file": "anthropic-caf-cheat-sheet.json",
+      "description": "This package provides a cheat sheet covering core concepts for Claude Certified Architects, focusing on Multi-Agent Systems and advanced agentic design patterns.",
+      "questions": 260,
+      "owner": "logus2k@gmail.com",
+      "visibility": "shared"
+    },
+    {
       "id": "anthropic",
       "title": "Claude Certified Associate Foundations",
       "file": "anthropic.json",

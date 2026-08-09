@@ -812,7 +812,7 @@ div.brand-text { margin-left: 5px; }
 .qcrumb:empty { display: none; }
 .qcrumb .crumb-link {
   background: none; border: 0; padding: .1rem .25rem; cursor: pointer;
-  color: var(--link, #6ea8fe); font: inherit; border-radius: 4px;
+  color: var(--link, #4e9c3e); font: inherit; font-weight: 500; border-radius: 4px;
 }
 .qcrumb .crumb-link:hover { text-decoration: underline; background: var(--hover, rgba(255,255,255,.06)); }
 /* First crumb's own left padding would indent its text ~4px vs the question text;
